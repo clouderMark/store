@@ -1,0 +1,59 @@
+### Регистрация нового пользователя +
+POST /api/user/signup HTTP/1.1
+Host: localhost:2900
+Content-Type: application/json; charset=utf-8
+
+{
+    "email": "user@mail.ru",
+    "password": "123"
+}
+
+###Аунтефикация (вход) пользователя +
+POST /api/user/login HTTP/1.1
+Host: localhost:2900
+Content-Type: application/json; charset=utf-8
+
+{
+    "email": "3",
+    "password": "3"
+}
+
+###Список всх пользователей +
+GET /api/user/getall HTTP/1.1
+# Authorization: Bearer 
+Host: localhost:2900
+### "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTcsImVtYWlsIjoidXNlckBtYWlsLnJ1IiwiaWF0IjoxNjU4MzIwMTUyLCJleHAiOjE2NTg0MDY1NTJ9.Y0ZaverQDy5O7YEgniezuBqkf3dQdWkbxEls48D9VfA"
+
+###один +
+GET /api/user/getone/6 HTTP/1.1
+# Authorization: Bearer eyJpZCI6NCwiZ…0MTN9
+Host: localhost:2900
+
+### Создать нового пользователя +
+POST /api/user/create HTTP/1.1
+Host: localhost:2900
+# Authorization: Bearer 
+Content-Type: application/json; charset=utf-8
+
+{
+    "email": "admin1@mail.ru",
+    "password": "123",
+    "role": "ADMIN"
+}
+
+### Обновить пользователя +
+PUT /api/user/update/19 HTTP/1.1
+Host: localhost:2900
+# Authorization: Bearer 
+Content-Type: application/json; charset=utf-8
+
+{
+    "email": "usernew@mail.ru",
+    "password": "123new"
+}
+
+### Удалить пользователя +
+DELETE /api/user/delete/20 HTTP/1.1
+Host: localhost:2900
+Content-Type: application/json; charset=utf-8
+# Authorization: Bearer eyJpZCI6OSwiZW1haWwiOiJ1c2VyQG1haWwucnUiLCJpYXQiOjE2NTgzMTEwMjAsImV4cCI6MTY1ODM5NzQyMH0

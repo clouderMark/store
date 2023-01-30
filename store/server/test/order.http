@@ -1,0 +1,79 @@
+### Список всех заказов (для администратора) +
+GET /api/order/admin/getall HTTP/1.1
+Host: localhost:2900
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjYxOTI1NjY0LCJleHAiOjE2NjIwMTIwNjR9.v5ZwRgL8HY_62Qsn7s9GjwpqtIzV4djZhu70JKQYVBY
+
+### Получить один заказ (для админа) 
+GET /api/order/admin/getone/1 HTTP/1.1
+Host: localhost:2900
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjYxOTI1NjY0LCJleHAiOjE2NjIwMTIwNjR9.v5ZwRgL8HY_62Qsn7s9GjwpqtIzV4djZhu70JKQYVBY
+
+###Получить заказы пользователя(для админа)
+GET /api/order/admin/getall/user/1 HTTP/1.1
+Host: localhost:2900
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjYxOTI1NjY0LCJleHAiOjE2NjIwMTIwNjR9.v5ZwRgL8HY_62Qsn7s9GjwpqtIzV4djZhu70JKQYVBY
+
+###Создать новый заказ(для админа)
+POST /api/order/admin/create HTTP/1.1
+Host: localhost:2900
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQG1haWwucnUiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTY2MTgzOTcxNSwiZXhwIjoxNjYxOTI2MTE1fQ.Tir3_SLwR2TF8UctyF0_qn7sA6OPPdYv-r-S0AsuoWg
+Content-Type: application/json; charset=utf-8
+
+{
+    "name": "Иван Иваныч",
+    "email": "ivanych@mail.ru",
+    "phone": "123456789",
+    "address": "Борисов, Серебренникова",
+    "comment": "Комментарий к заказу",
+    "userId": 2,
+    "items": [
+        {"name": "Товар раз", "price": 123, "quantity": 2},
+        {"name": "Товар ldf", "price": 246, "quantity": 1}
+    ]
+}
+
+
+
+
+
+### Список всех заказов пользователя
+GET /api/order/user/getall HTTP/1.1
+Host: localhost:2900
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ1c2VyQG1haWwucnUiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTY2MTgzOTcxNSwiZXhwIjoxNjYxOTI2MTE1fQ.Tir3_SLwR2TF8UctyF0_qn7sA6OPPdYv-r-S0AsuoWg
+Cookie: s%3A14.SDrG%2Fo5bhDiS1Iv0cAym2jJtuGAJaEPW%2B8mVZsiEVFM
+
+###  получить один заказ пользователя
+GET /api/order/user/getone HTTP/1.1
+Host: localhost:2900
+Authorization: Bearer 
+Cookie: 
+
+### Создать новый заказ пользователя
+POST  /api/order/user/create HTTP/1.1
+Host: localhost:2900
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJ1c2VyQG1haWwucnUiLCJyb2xlIjoiVVNFUiIsImlhdCI6MTY2MTkyOTEyMywiZXhwIjoxNjYyMDE1NTIzfQ.r_9IZ5AI0frKCGnWnkmx8Y8xJjMjTOUwKJoZwRv7X6I
+Cookie: basketId=s%3A20.lvtPKhlPfp4D%2BBw7iv6yP8YCpyPYmHRHyOm3lrInr9o
+Content-Type: application/json; charset=utf-8
+
+{
+    "name": "Сергей Иванов",
+    "email": "ivanov@mail.ru",
+    "phone": "(999) 123-45-67",
+    "address": "Борисов, Серебренникова",
+    "comment": "Комментарий к заказау"
+}
+
+
+###Создать новый заказ посетителя
+POST  /api/order/guest/create HTTP/1.1
+Host: localhost:2900
+Cookie: baketId = s%3A20.lvtPKhlPfp4D%2BBw7iv6yP8YCpyPYmHRHyOm3lrInr9o
+Content-Type: application/json; charset=utf-8
+
+{
+    "name": "Андрей Андреич",
+    "email": "andreich@mail.ru",
+    "phone": "(999) 123-45-67",
+    "address": "ко мне",
+    "comment": "Комментарий"
+}
