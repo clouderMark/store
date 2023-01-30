@@ -3,7 +3,6 @@ import { useContext } from "react"
 import { Container, Navbar, Nav } from "react-bootstrap"
 import { NavLink } from "react-router-dom"
 import { AppContext } from "./AppContext.js"
-// import FetchBasket from "./FetchBasket.js"
 
 const NavBar = observer(() => {
     const { user, basket } = useContext(AppContext)

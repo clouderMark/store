@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap'
 import { createProperty, deleteProperty, fetchBrands, fetchCategories, fetchOneProduct, updateProduct, updateProperty } from '../http/catalogAPI'
-// import UpdateProperties from './UpdateProperties.js'
 import EditProperties from './EditProperties'
 import uuid from 'react-uuid'
 

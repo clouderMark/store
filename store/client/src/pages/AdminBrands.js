@@ -1,15 +1,12 @@
 import { deleteBrand, fetchBrands } from "../http/catalogAPI"
-// import CreateBrand from "../components/CreateBrand.js"
 import { useEffect, useState } from "react"
 import { Button, Container, Spinner, Table } from "react-bootstrap"
-// import UpdateBrand from "../components/UpdateBrand"
 import EditBrand from '../components/EditBrand.js'
 
 const AdminBrands = () => {
   const [brands, setBrands] = useState(null)//список загруженных брендов
   const [fetching, setFetching] = useState(true)//загрузка списка брендов с сервера
   const [show, setShow] = useState(false)//модальное окно создания бренда
-  // const [updateShow, setUpdateShow] = useState(false)//модальное окно редактирования
   //для обновления списка после добавления-редактирования, удаления, нужно изменить состояние
   const [change, setChange] = useState(false)
   //id бренда который буду редактировать для передачи в  EditBrand

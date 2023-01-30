@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-// import CreateProperties from './CreateProperties.js'
 import EditProperties from './EditProperties'
 import { createProduct, fetchBrands, fetchCategories } from '../http/catalogAPI'
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap'

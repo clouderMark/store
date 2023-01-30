@@ -7,7 +7,6 @@ const AdminCategories = () => {
   const [categories, setCategories] = useState(null)//список загруженных категорий
   const [fetching, setFetching] = useState(true)//загрузка категорий с сервера
   const [show, setShow] = useState(false)//модальное окно создания-редактирования категории
-  // const [updateShow, setUpdateShow] = useState(false)//модальное окно редактирования
   //для добавления списка после добавления-редактирования, нужно изменить состояние
   const [change, setChange] = useState(false)
   //id категории которую буду редактирова и передовать в EditCategory
