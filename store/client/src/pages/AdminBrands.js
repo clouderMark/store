@@ -1,59 +1,53 @@
-import { deleteBrand, fetchBrands } from "../http/catalogAPI"
-import { useEffect, useState } from "react"
-import { Button, Container, Spinner, Table } from "react-bootstrap"
-import EditBrand from '../components/EditBrand.js'
+import {useEffect, useState} from 'react';
+import {Button, Container, Spinner, Table} from 'react-bootstrap';
+import {deleteBrand, fetchBrands} from '../http/catalogAPI';
+import EditBrand from '../components/EditBrand.js';
 
 const AdminBrands = () => {
-  const [brands, setBrands] = useState(null)//список загруженных брендов
-  const [fetching, setFetching] = useState(true)//загрузка списка брендов с сервера
-  const [show, setShow] = useState(false)//модальное окно создания бренда
-  //для обновления списка после добавления-редактирования, удаления, нужно изменить состояние
-  const [change, setChange] = useState(false)
-  //id бренда который буду редактировать для передачи в  EditBrand
-  const [brandId, setBrandId] = useState(0)
+  const [brands, setBrands] = useState(null); // список загруженных брендов
+  const [fetching, setFetching] = useState(true); // загрузка списка брендов с сервера
+  const [show, setShow] = useState(false); // модальное окно создания бренда
+  // для обновления списка после добавления-редактирования, удаления, нужно изменить состояние
+  const [change, setChange] = useState(false);
+  // id бренда который буду редактировать для передачи в EditBrand
+  const [brandId, setBrandId] = useState(0);
 
   const handleCreateClick = () => {
-    setBrandId(0)
-    setShow(true)
-  }
+    setBrandId(0);
+    setShow(true);
+  };
 
   const handleUpdateClick = (id) => {
-    setBrandId(id)
-    setShow(true)
-  }
+    setBrandId(id);
+    setShow(true);
+  };
 
   const handleDeleteClick = (id) => {
     deleteBrand(id)
-      .then(
-        data => {
-          setChange(!change)
-          alert(`Бренд "${data.name}" удален`)
-        }
-      )
-      .catch(
-        error => alert(error.response.data.message)
-      )
-  }
+      .then((data) => {
+        setChange(!change);
+        // eslint-disable-next-line
+        alert(`Бренд "${data.name}" удален`);
+      })
+      // eslint-disable-next-line
+      .catch((error) => alert(error.response.data.message));
+  };
 
   useEffect(() => {
     fetchBrands()
-      .then(
-        data => setBrands(data)
-      )
-      .finally(
-        () => setFetching(false)
-      )
-  }, [change])
+      .then((data) => setBrands(data))
+      .finally(() => setFetching(false));
+  }, [change]);
 
   if (fetching) {
-    return <Spinner animation="border" />
+    return <Spinner animation="border" />;
   }
 
   return (
     <Container>
       <h1>Бренды</h1>
       <Button onClick={() => handleCreateClick()}>Создать бренд</Button>
-      <EditBrand id={brandId} show={show} setShow={setShow} setChange={setChange}/>
+      <EditBrand id={brandId} show={show} setShow={setShow} setChange={setChange} />
       {brands.length > 0 ? (
         <Table bordered hover size="sm" className="mt-3">
           <thead>
@@ -64,7 +58,7 @@ const AdminBrands = () => {
             </tr>
           </thead>
           <tbody>
-            {brands.map(item =>
+            {brands.map((item) => (
               <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>
@@ -78,14 +72,14 @@ const AdminBrands = () => {
                   </Button>
                 </td>
               </tr>
-            )}
+            ))}
           </tbody>
         </Table>
       ) : (
         <p>Список брендов пустой</p>
       )}
     </Container>
-  )
-}
+  );
+};
 
-export default AdminBrands
+export default AdminBrands;

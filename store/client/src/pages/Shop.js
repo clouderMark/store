@@ -1,127 +1,135 @@
-import { Col, Container, Row, Spinner } from "react-bootstrap"
-import CategoryBar from '../components/CategoryBar.js'
-import BrandBar from '../components/BrandBar.js'
-import ProductList from '../components/ProductList.js'
-import { useContext, useEffect, useState } from "react"
-import { AppContext } from "../components/AppContext.js"
-import { fetchAllProducts, fetchCategories, fetchBrands } from "../http/catalogAPI.js"
-import { observer } from "mobx-react-lite"
-import { useLocation, useSearchParams } from "react-router-dom"
+import {useContext, useEffect, useState} from 'react';
+import {observer} from 'mobx-react-lite';
+import {useLocation, useSearchParams} from 'react-router-dom';
+import {Col, Container, Row, Spinner} from 'react-bootstrap';
+import CategoryBar from '../components/CategoryBar.js';
+import BrandBar from '../components/BrandBar.js';
+import ProductList from '../components/ProductList.js';
+import {AppContext} from '../components/AppContext.js';
+import {fetchAllProducts, fetchCategories, fetchBrands} from '../http/catalogAPI.js';
 
 const getSearchParams = (searchParams) => {
-    let category = searchParams.get('category')
-    if (category && /[1-9][0-9]*/.test(category)) {
-        category = parseInt(category)
-    }
-    let brand = searchParams.get('brand')
-    if (brand && /[1-9][0-9]*/.test(brand)) {
-        brand = parseInt(brand)
-    }
-    let page = searchParams.get('page')
-    if (page && /[1-9][0-9]*/.test(page)) {
-        page = parseInt(page)
-    }
-    return { category, brand, page }
-}
+  let category = searchParams.get('category');
+
+  if (category && /[1-9][0-9]*/.test(category)) {
+    category = parseInt(category);
+  }
+
+  let brand = searchParams.get('brand');
+
+  if (brand && /[1-9][0-9]*/.test(brand)) {
+    brand = parseInt(brand);
+  }
+
+  let page = searchParams.get('page');
+
+  if (page && /[1-9][0-9]*/.test(page)) {
+    page = parseInt(page);
+  }
+
+  return {category, brand, page};
+};
 
 const Shop = observer(() => {
-    const { catalog } = useContext(AppContext)
+  const {catalog} = useContext(AppContext);
 
-    const [categoriesFetching, setCategoriesFetching] = useState(true)
-    const [brandsFetching, setBrandsFetching] = useState(true)
-    const [productsFetching, setProductsFetching] = useState(true)
+  const [categoriesFetching, setCategoriesFetching] = useState(true);
+  const [brandsFetching, setBrandsFetching] = useState(true);
+  const [productsFetching, setProductsFetching] = useState(true);
 
-    const location = useLocation()
-    const [searchParams] = useSearchParams()
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
 
+  useEffect(() => {
+    fetchCategories()
+      // eslint-disable-next-line
+      .then((data) => catalog.categories = data)
+      .finally(() => setCategoriesFetching(false));
+    fetchBrands()
+      // eslint-disable-next-line
+      .then((data) => catalog.brands = data)
+      .finally(() => setBrandsFetching(false));
 
-    useEffect(() => {
-        fetchCategories()
-            .then(data => catalog.categories = data)
-            .finally(() => setCategoriesFetching(false))
+    const {category, brand, page} = getSearchParams(searchParams);
 
-        fetchBrands()
-            .then(data => catalog.brands = data)
-            .finally(() => setBrandsFetching(false))
+    catalog.category = category;
+    catalog.brand = brand;
+    catalog.page = page ?? 1;
 
-        const {category, brand, page} = getSearchParams(searchParams)
-        catalog.category = category
-        catalog.brand = brand
-        catalog.page = page ?? 1
+    fetchAllProducts(catalog.category, catalog.brand, catalog.page, catalog.limit)
+      .then((data) => {
+        catalog.products = data.rows;
+        catalog.count = data.count;
+      })
+      .finally(() => setProductsFetching(false));
+  // eslint-disable-next-line
+  }, []);
 
-        fetchAllProducts(catalog.category, catalog.brand, catalog.page, catalog.limit)
-            .then(data => {
-                catalog.products = data.rows
-                catalog.count = data.count
-            })
-            .finally(() => setProductsFetching(false))
-        //eslint-disable-next-line
-    }, [])
+  useEffect(() => {
+    const {category, brand, page} = getSearchParams(searchParams);
 
-    useEffect(() => {
-        const {category, brand, page} = getSearchParams(searchParams)
+    if (catalog || brand || page) {
+      if (category !== catalog.category) {
+        catalog.category = category;
+      }
 
-        if (catalog || brand || page) {
-            if (category !== catalog.category) {
-                catalog.category = category
-            }
-            if (brand !== catalog.brand) {
-                catalog.brand = brand
-            }
-            if (page !== catalog.page) {
-                catalog.page = page ?? 1
-            }
-        } else {
-            catalog.category = null
-            catalog.brand = null
-            catalog.page = 1
-        }
-        //eslint-disable-next-line
-    }, [location.search])
+      if (brand !== catalog.brand) {
+        catalog.brand = brand;
+      }
 
+      if (page !== catalog.page) {
+        catalog.page = page ?? 1;
+      }
+    } else {
+      catalog.category = null;
+      catalog.brand = null;
+      catalog.page = 1;
+    }
+  // eslint-disable-next-line
+  }, [location.search]);
 
-    useEffect(() => {
-        setProductsFetching(true)
-        setTimeout(() => {
-        fetchAllProducts(catalog.category, catalog.brand, catalog.page, catalog.limit)
-            .then(data => {
-                catalog.products = data.rows
-                catalog.count = data.count
-            })
-            .finally(() => setProductsFetching(false))
-        }, 1000)
-        //eslint-disable-next-line
-    }, [catalog.category, catalog.brand, catalog.page])
+  useEffect(() => {
+    setProductsFetching(true);
+    setTimeout(() => {
+      fetchAllProducts(catalog.category, catalog.brand, catalog.page, catalog.limit)
+        .then((data) => {
+          catalog.products = data.rows;
+          catalog.count = data.count;
+        })
+        .finally(() => setProductsFetching(false));
+    }, 1000);
+  // eslint-disable-next-line
+  }, [catalog.category, catalog.brand, catalog.page]);
 
-    return (
-        <Container>
-            <Row className="mt-2">
-                <Col md={3}>
-                    {categoriesFetching ? (
-                        <Spinner animation="border" />
-                    ) : (
-                        <CategoryBar />
-                    )}
-                </Col>
-                <Col>
-                    <div>
-                        {brandsFetching ? (
-                            <Spinner animation="border" />
-                        ) : (
-                            <BrandBar />
-                        )}
-                    </div>
-                    <div>
-                        {productsFetching ? (
-                            <Spinner animation="border" />
-                        ) : (
-                            <ProductList />
-                        )}
-                    </div>
-                </Col>
-            </Row>
-        </Container>
-    )
-})
+  return (
+    <Container>
+      <Row className="mt-2">
+        <Col md={3}>
+          {categoriesFetching ? (
+            <Spinner animation="border" />
+          ) : (
+            <CategoryBar />
+          )}
+        </Col>
+        <Col>
+          <div>
+            {brandsFetching ? (
+              <Spinner animation="border" />
+            ) : (
+              <BrandBar />
+            )}
+          </div>
+          <div>
+            {productsFetching ? (
+              <Spinner animation="border" />
+            ) : (
+              <ProductList />
+            )}
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
+});
 
-export default Shop
+export default Shop;

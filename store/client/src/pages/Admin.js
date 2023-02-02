@@ -1,32 +1,32 @@
-import { useContext } from "react"
-import { Button, Container } from "react-bootstrap"
-import { Link, useNavigate } from "react-router-dom"
-import { AppContext } from "../components/AppContext"
-import { logout } from "../http/userAPI"
+import {useContext} from 'react';
+import {Button, Container} from 'react-bootstrap';
+import {Link, useNavigate} from 'react-router-dom';
+import {AppContext} from '../components/AppContext';
+import {logout} from '../http/userAPI';
 
 const Admin = () => {
-    const { user } = useContext(AppContext)
-    const navigate = useNavigate()
+  const {user} = useContext(AppContext);
+  const navigate = useNavigate();
+  // eslint-disable-next-line
+  const handleLogout = (event) => {
+    logout();
+    user.logout();
+    navigate('/login', {replace: true});
+  };
 
-    const handleLogout = (event) => {
-        logout()
-        user.logout()
-        navigate('/login', {replace: true})
-    }
+  return (
+    <Container>
+      <h1>Панель управления</h1>
+      <p>Это панель управления магазином для администратора</p>
+      <ul>
+        <li><Link to="/admin/orders">Заказы в магазине</Link></li>
+        <li><Link to="/admin/categories">Категории каталога</Link></li>
+        <li><Link to="/admin/brands">Бренды каталога</Link></li>
+        <li><Link to="/admin/products">Товары каталога</Link></li>
+      </ul>
+      <Button onClick={handleLogout}>Выйти</Button>
+    </Container>
+  );
+};
 
-    return (
-        <Container>
-            <h1>Панель управления</h1>
-            <p>Это панель управления магазином для администратора</p>
-            <ul>
-                <li><Link to="/admin/orders">Заказы в магазине</Link></li>
-                <li><Link to="/admin/categories">Категории каталога</Link></li>
-                <li><Link to="/admin/brands">Бренды каталога</Link></li>
-                <li><Link to="/admin/products">Товары каталога</Link></li>
-            </ul>
-            <Button onClick={handleLogout}>Выйти</Button>
-        </Container>
-    )
-}
-
-export default Admin
+export default Admin;

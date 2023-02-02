@@ -1,55 +1,53 @@
-import { Button, Form, Modal } from "react-bootstrap"
-import { createCategory, fetchCategory, updateCategory } from "../http/catalogAPI"
-import { useEffect, useState } from "react"
+import {useEffect, useState} from 'react';
+import {Button, Form, Modal} from 'react-bootstrap';
+import {createCategory, fetchCategory, updateCategory} from '../http/catalogAPI';
 
 const EditCategory = (props) => {
-  const { id, show, setShow, setChange } = props
+  const {id, show, setShow, setChange} = props;
 
-  const [name, setName] = useState('')
-  const [valid, setValid] = useState(null)
+  const [name, setName] = useState('');
+  const [valid, setValid] = useState(null);
 
   useEffect(() => {
     if (id) {
       fetchCategory(id)
-        .then(
-          data => {
-            setName(data.name)
-            setValid(data.name !== '')
-          }
-        )
-        .catch(
-          error => alert(error.response.data.message)
-        )
+        .then((data) => {
+          setName(data.name);
+          setValid(data.name !== '');
+        })// eslint-disable-next-line
+        .catch((error) => alert(error.response.data.message));
     } else {
-      setName('')
-      setValid(null)
+      setName('');
+      setValid(null);
     }
-  }, [id])
+  }, [id]);
 
   const handleChange = (event) => {
-    setName(event.target.value)
-    setValid(event.target.value.trim() !== '')
-  }
+    setName(event.target.value);
+    setValid(event.target.value.trim() !== '');
+  };
 
   const handleSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
 
-    const correct = name.trim() !== ''
-    setValid(correct)
+    const correct = name.trim() !== '';
+
+    setValid(correct);
     if (correct) {
       const data = {
-        name: name.trim()
-      }
-      const success = (data) => {
-        //закрываем модальное окно
-        setShow(false)
-        //изменяю состояние родителя, чтобы обновить список категорий
-        setChange(state => !state)
-      }
-      const error = (error) => alert(error.response.data.message)
-      id ? updateCategory(id, data).then(success).catch(error) : createCategory(data).then(success).catch(error)
+        name: name.trim(),
+      };
+      const success = () => {
+        // закрываем модальное окно
+        setShow(false);
+        // изменяю состояние родителя, чтобы обновить список категорий
+        setChange((state) => !state);
+      }; // eslint-disable-next-line
+      const error = (error) => alert(error.response.data.message);
+
+      id ? updateCategory(id, data).then(success).catch(error) : createCategory(data).then(success).catch(error);
     }
-  }
+  };
 
   return (
     <Modal show={show} onHide={() => setShow(false)}>
@@ -62,7 +60,7 @@ const EditCategory = (props) => {
           <Form.Control
             name="name"
             value={name}
-            onChange={e => handleChange(e)}
+            onChange={(e) => handleChange(e)}
             isValid={valid === true}
             isInvalid={valid === false}
             placeholder="Название категории..."
@@ -72,7 +70,7 @@ const EditCategory = (props) => {
         </Form>
       </Modal.Body>
     </Modal>
-  )
-}
+  );
+};
 
-export default EditCategory
+export default EditCategory;

@@ -1,27 +1,27 @@
-import { makeAutoObservable } from "mobx"
+import {makeAutoObservable} from 'mobx';
 
 class BasketStore {
-    _products = []
+  _products = [];
 
-    constructor() {
-        makeAutoObservable(this)
-    }
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-    get products() {
-        return this._products
-    }
+  get products() {
+    return this._products;
+  }
 
-    get count() { //Всего позиций в корзине
-        return this._products.length
-    }
+  set products(products) {
+    this._products = products;
+  }
 
-    get sum() { //стоимость всех товаров в корзине
-        return this._products.reduce((sum, item) => sum + item.price * item.quantity, 0)
-    }
+  get count() { // Всего позиций в корзине
+    return this._products.length;
+  }
 
-    set products(products) {
-        this._products = products
-    }
+  get sum() { // стоимость всех товаров в корзине
+    return this._products.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }
 }
 
-export default BasketStore
+export default BasketStore;

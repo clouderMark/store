@@ -1,88 +1,95 @@
-import { makeAutoObservable } from "mobx"
+import {makeAutoObservable} from 'mobx';
 
 class CatalogStore {
-    _categories = []
-    _brands = []
-    _products = []
-    _category = null //выбранная категория
-    _brand = null
-    _page = 1
-    _count = 0 //сколько всего товаров
-    _limit = 20 //товаров на страницу
+  _categories = [];
 
-    constructor() {
-        makeAutoObservable(this)
-    }
+  _brands = [];
 
-    get categories() {
-        return this._categories
-    }
+  _products = [];
 
-    get brands() {
-        return this._brands
-    }
+  _category = null; // выбранная категория
 
-    get products() {
-        return this._products
-    }
+  _brand = null;
 
-    get category() {
-        return this._category
-    }
+  _page = 1;
 
-    get brand() {
-        return this._brand
-    }
+  _count = 0; // сколько всего товаров
 
-    get page() {
-        return this._page
-    }
+  _limit = 20; // товаров на страницу
 
-    get count() {
-        return this._count
-    }
+  constructor() {
+    makeAutoObservable(this);
+  }
 
-    get limit() {
-        return this._limit
-    }
+  get categories() {
+    return this._categories;
+  }
 
-    get pages() {//всего страниц
-        return Math.ceil(this.count / this.limit)
-    }
+  set categories(categories) {
+    this._categories = categories;
+  }
 
-    set categories(categories) {
-        this._categories = categories
-    }
+  get brands() {
+    return this._brands;
+  }
 
-    set brands(brands) {
-        this._brands = brands
-    }
+  set brands(brands) {
+    this._brands = brands;
+  }
 
-    set products(products) {
-        this._products = products
-    }
+  get products() {
+    return this._products;
+  }
 
-    set category(id) {
-        this.page = 1
-        this._category = id
-    }
+  set products(products) {
+    this._products = products;
+  }
 
-    set brand(id) {
-        this.page = 1
-        this._brand = id
-    }
+  get category() {
+    return this._category;
+  }
 
-    set page(page) {
-        this._page = page
-    }
+  set category(id) {
+    this.page = 1;
+    this._category = id;
+  }
 
-    set count(count) {
-        this._count = count
-    }
+  get brand() {
+    return this._brand;
+  }
 
-    set limit(limit) {
-        this._limit = limit
-    }
+  set brand(id) {
+    this.page = 1;
+    this._brand = id;
+  }
+
+  get page() {
+    return this._page;
+  }
+
+  set page(page) {
+    this._page = page;
+  }
+
+  get count() {
+    return this._count;
+  }
+
+  set count(count) {
+    this._count = count;
+  }
+
+  get pages() { // всего страниц
+    return Math.ceil(this.count / this.limit);
+  }
+
+  set limit(limit) {
+    this._limit = limit;
+  }
+
+  get limit() {
+    return this._limit;
+  }
 }
 
-export default CatalogStore
+export default CatalogStore;

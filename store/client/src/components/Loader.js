@@ -1,4 +1,4 @@
-import { Spinner } from "react-bootstrap";
+import {Spinner} from 'react-bootstrap';
 
 const Loader = () => {
   const style = {
@@ -6,14 +6,14 @@ const Loader = () => {
     height: '100vh',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  };
 
   return (
     <div style={style}>
       <Spinner animation="grow" variant="primary" />
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

@@ -1,10 +1,9 @@
-import { Table } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import {Table} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 const Orders = (props) => {
-
   if (props.items.length === 0) {
-    return <p>Список заказов пустой</p>
+    return <p>Список заказов пустой</p>;
   }
 
   return (
@@ -22,7 +21,7 @@ const Orders = (props) => {
         </tr>
       </thead>
       <tbody>
-        {props.items.map(item =>
+        {props.items.map((item) => (
           <tr key={item.id}>
             <td>{item.id}</td>
             <td>{item.prettyCreatedAt}</td>
@@ -39,10 +38,10 @@ const Orders = (props) => {
               )}
             </td>
           </tr>
-        )}
+        ))}
       </tbody>
     </Table>
-  )
-}
+  );
+};
 
-export default Orders
+export default Orders;

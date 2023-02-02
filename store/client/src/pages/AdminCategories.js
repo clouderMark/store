@@ -1,52 +1,46 @@
-import { deleteCategory, fetchCategories } from '../http/catalogAPI'
-import { useEffect, useState } from 'react'
-import { Button, Container, Spinner, Table } from 'react-bootstrap'
-import EditCategory from '../components/EditCategory.js'
+import {useEffect, useState} from 'react';
+import {Button, Container, Spinner, Table} from 'react-bootstrap';
+import {deleteCategory, fetchCategories} from '../http/catalogAPI';
+import EditCategory from '../components/EditCategory.js';
 
 const AdminCategories = () => {
-  const [categories, setCategories] = useState(null)//список загруженных категорий
-  const [fetching, setFetching] = useState(true)//загрузка категорий с сервера
-  const [show, setShow] = useState(false)//модальное окно создания-редактирования категории
-  //для добавления списка после добавления-редактирования, нужно изменить состояние
-  const [change, setChange] = useState(false)
-  //id категории которую буду редактирова и передовать в EditCategory
-  const [categoryId, setCategoryId] = useState(null)
+  const [categories, setCategories] = useState(null); // список загруженных категорий
+  const [fetching, setFetching] = useState(true); // загрузка категорий с сервера
+  const [show, setShow] = useState(false); // модальное окно создания-редактирования категории
+  // для добавления списка после добавления-редактирования, нужно изменить состояние
+  const [change, setChange] = useState(false);
+  // id категории которую буду редактирова и передовать в EditCategory
+  const [categoryId, setCategoryId] = useState(null);
 
   const handleCreateClick = () => {
-    setCategoryId(0)
-    setShow(true)
-  }
+    setCategoryId(0);
+    setShow(true);
+  };
 
   const handleUpdateClick = (id) => {
-    setCategoryId(id)
-    setShow(true)
-  }
+    setCategoryId(id);
+    setShow(true);
+  };
 
   const handleDeleteClick = (id) => {
     deleteCategory(id)
-      .then(
-        data => {
-          setChange(!change)
-          alert(`Категория "${data.name}"удалена`)
-        }
-      )
-      .catch(
-        error => alert(error.response.data.message)
-      )
-  }
+      .then((data) => {
+        setChange(!change);
+        // eslint-disable-next-line
+        alert(`Категория "${data.name}"удалена`);
+      })
+      // eslint-disable-next-line
+      .catch((error) => alert(error.response.data.message));
+  };
 
   useEffect(() => {
     fetchCategories()
-      .then(
-        data => setCategories(data)
-      )
-      .finally(
-        () => setFetching(false)
-      )
-  }, [change])
+      .then((data) => setCategories(data))
+      .finally(() => setFetching(false));
+  }, [change]);
 
   if (fetching) {
-    return <Spinner animation="border" />
+    return <Spinner animation="border" />;
   }
 
   return (
@@ -64,7 +58,7 @@ const AdminCategories = () => {
             </tr>
           </thead>
           <tbody>
-            {categories.map(item =>
+            {categories.map((item) => (
               <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>
@@ -78,14 +72,14 @@ const AdminCategories = () => {
                   </Button>
                 </td>
               </tr>
-            )}
+            ))}
           </tbody>
         </Table>
       ) : (
         <p>Список категорий пустой</p>
       )}
     </Container>
-  )
-}
+  );
+};
 
-export default AdminCategories
+export default AdminCategories;
