@@ -2,8 +2,8 @@ import {useContext, useEffect, useState} from 'react';
 import {Button, Col, Container, Image, Row, Spinner, Table} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
 import {AppContext} from '../components/AppContext.js';
-import {append} from '../http/basketAPI.js';
-import {fetchOneProduct, fetchProdRating} from '../http/catalogAPI.js';
+import {append} from '../http/basketAPI';
+import {fetchOneProduct, fetchProdRating} from '../http/catalogAPI';
 
 const Product = () => {
   const {id} = useParams();

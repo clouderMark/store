@@ -6,7 +6,7 @@ import CategoryBar from '../components/CategoryBar.js';
 import BrandBar from '../components/BrandBar.js';
 import ProductList from '../components/ProductList.js';
 import {AppContext} from '../components/AppContext.js';
-import {fetchAllProducts, fetchCategories, fetchBrands} from '../http/catalogAPI.js';
+import {fetchAllProducts, fetchCategories, fetchBrands} from '../http/catalogAPI';
 
 const getSearchParams = (searchParams) => {
   let category = searchParams.get('category');
