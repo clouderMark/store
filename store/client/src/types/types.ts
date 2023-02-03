@@ -2,14 +2,14 @@ interface IId {
   id: number;
 }
 
-interface IBasketProduct extends IId {
+interface IItem extends IId {
   name: string;
   price: number;
   quantity: number;
 }
 
 export interface IBasket extends IId {
-  products: IBasketProduct[] | [];
+  products: IItem[] | [];
 }
 
 export interface ICatalogItem extends IId {
@@ -50,4 +50,27 @@ export interface IRating {
 export interface IProperty extends ICatalogItem {
   productId: number,
   value: string,
+}
+
+export interface IOrderBody {
+  address: string,
+  comment: string | null,
+  email: string,
+  name: string,
+  phone: string,
+}
+
+export interface IOrder extends IOrderBody {
+  amount: number,
+  createdAt: string,
+  id: 1,
+  prettyCreatedAt: string,
+  prettyUpdatedAt: string,
+  status: number,
+  updatedAt: string,
+  userId: null | number,
+}
+
+export interface IOrderWithItems extends IOrder {
+  items: IItem[],
 }

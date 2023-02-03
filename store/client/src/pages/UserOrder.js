@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
 import {Container, Spinner} from 'react-bootstrap';
-import {userGetOne as getOneOrder} from '../http/orderAPI.js';
+import {userGetOne as getOneOrder} from '../http/orderAPI';
 import Order from '../components/Order.js';
 
 const UserOrder = () => {

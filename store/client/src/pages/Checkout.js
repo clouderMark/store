@@ -4,7 +4,7 @@ import {Container, Form, Button, Spinner} from 'react-bootstrap';
 import {fetchBasket} from '../http/basketAPI';
 import {AppContext} from '../components/AppContext.js';
 import {check as checkAuth} from '../http/userAPI.js';
-import {guestCreate, userCreate} from '../http/orderAPI.js';
+import {guestCreate, userCreate} from '../http/orderAPI';
 
 const isValid = (input) => {
   let pattern;
