@@ -1,7 +1,7 @@
 import {Navigate} from 'react-router-dom';
 import {useContext, useEffect, useState} from 'react';
 import {Container, Form, Button, Spinner} from 'react-bootstrap';
-import {fetchBasket} from '../http/basketAPI.js';
+import {fetchBasket} from '../http/basketAPI';
 import {AppContext} from '../components/AppContext.js';
 import {check as checkAuth} from '../http/userAPI.js';
 import {guestCreate, userCreate} from '../http/orderAPI.js';

@@ -2,7 +2,7 @@ import {observer} from 'mobx-react-lite';
 import {useNavigate} from 'react-router-dom';
 import {useContext, useState} from 'react';
 import {Button, Spinner, Table} from 'react-bootstrap';
-import {decrement, increment, remove} from '../http/basketAPI.js';
+import {decrement, increment, remove} from '../http/basketAPI';
 import {AppContext} from './AppContext.js';
 import BasketItem from './BasketItem.js';
 
