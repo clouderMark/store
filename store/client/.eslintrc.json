@@ -26,6 +26,7 @@
     "@typescript-eslint/no-explicit-any": [
       "error"
     ],
+    "no-alert": "off",
     "import/no-unresolved": 0,
     "import/extensions": 0,
     "operator-linebreak": 0,
