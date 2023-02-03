@@ -1,45 +1,51 @@
+import {AxiosError} from 'axios';
 import jwtDecode from 'jwt-decode';
 import {authInstance, guestInstance} from './index.js';
+import {IRegistration} from '../types/types.js';
 
-export const signup = async (email, password) => {
+export const signup = async (email: string, password: string): Promise<IRegistration | false> => {
   try {
     const response = await guestInstance.post('user/signup', {email, password, role: 'USER'});
     const {token} = response.data;
-    const user = jwtDecode(token);
+    const user: IRegistration = jwtDecode(token);
 
     localStorage.setItem('token', token);
 
     return user;
-  } catch (e) { // eslint-disable-next-line
-    alert(e.response.data.message);
+  } catch (e) {
+    if (e instanceof AxiosError && e.response) {
+      alert(e.response.data.message);
+    }
 
     return false;
   }
 };
 
-export const login = async (email, password) => {
+export const login = async (email: string, password: string): Promise<IRegistration | false> => {
   try {
     const response = await guestInstance.post('user/login', {email, password});
     const {token} = response.data;
-    const user = jwtDecode(token);
+    const user: IRegistration = jwtDecode(token);
 
     localStorage.setItem('token', token);
 
     return user;
-  } catch (e) { // eslint-disable-next-line
-    alert(e.response.data.message);
+  } catch (e) {
+    if (e instanceof AxiosError && e.response) {
+      alert(e.response.data.message);
+    }
 
     return false;
   }
 };
 
-export const logout = () => {
+export const logout = (): void => {
   localStorage.removeItem('token');
 };
 
-export const check = async () => {
+export const check = async (): Promise<IRegistration | false> => {
   let userToken;
-  let userData;
+  let userData: IRegistration;
 
   try {
     userToken = localStorage.getItem('token');

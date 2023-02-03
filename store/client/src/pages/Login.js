@@ -3,7 +3,7 @@ import {useContext, useEffect} from 'react';
 import {Button, Card, Container, Form, Row} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
 import {AppContext} from '../components/AppContext.js';
-import {login} from '../http/userAPI.js';
+import {login} from '../http/userAPI';
 
 const Login = observer(() => {
   const {user} = useContext(AppContext);

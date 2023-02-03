@@ -74,3 +74,11 @@ export interface IOrder extends IOrderBody {
 export interface IOrderWithItems extends IOrder {
   items: IItem[],
 }
+
+export interface IRegistration {
+  email: string,
+  exp: number,
+  iat: number
+  id: number
+  role: 'USER' | 'ADMIN',
+}

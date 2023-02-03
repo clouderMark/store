@@ -7,7 +7,7 @@ import AppRouter from './components/AppRouter.js';
 import NavBar from './components/NavBar.js';
 
 import {AppContext} from './components/AppContext.js';
-import {check as checkAuth} from './http/userAPI.js';
+import {check as checkAuth} from './http/userAPI';
 import {fetchBasket} from './http/basketAPI';
 import Loader from './components/Loader';
 
