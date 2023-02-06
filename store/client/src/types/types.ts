@@ -77,8 +77,8 @@ export interface IOrderWithItems extends IOrder {
 
 export interface IRegistration {
   email: string,
-  exp: number,
-  iat: number
+  exp?: number,
+  iat?: number
   id: number
   role: 'USER' | 'ADMIN',
 }

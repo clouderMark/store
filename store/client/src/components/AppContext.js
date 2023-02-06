@@ -1,5 +1,5 @@
 import React from 'react';
-import UserStore from '../store/UserStore.js';
+import UserStore from '../store/UserStore';
 import CatalogStore from '../store/CatalogStore';
 import BasketStore from '../store/BasketStore';
 
