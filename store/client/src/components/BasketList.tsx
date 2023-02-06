@@ -4,7 +4,8 @@ import {useContext, useState} from 'react';
 import {Button, Spinner, Table} from 'react-bootstrap';
 import {decrement, increment, remove} from '../http/basketAPI';
 import {AppContext} from './AppContext.js';
-import BasketItem from './BasketItem.js';
+import BasketItem from './BasketItem';
+import {IItem} from '../types/types';
 
 const BasketList = observer(() => {
   const {basket} = useContext(AppContext);
@@ -12,24 +13,24 @@ const BasketList = observer(() => {
 
   const navigate = useNavigate();
 
-  const handleIncrement = (id) => {
+  const handleIncrement = (id: number) => {
     setFetching(true);
-    increment(id)// eslint-disable-next-line
-      .then((data) => (basket.products = data.products))
+    increment(id)
+      .then((data) => { basket.products = data.products; })
       .finally(() => setFetching(false));
   };
 
-  const handleDecrement = (id) => {
+  const handleDecrement = (id: number) => {
     setFetching(true);
-    decrement(id)// eslint-disable-next-line
-      .then((data) => (basket.products = data.products))
+    decrement(id)
+      .then((data) => { basket.products = data.products; })
       .finally(() => setFetching(false));
   };
 
-  const handleRemove = (id) => {
+  const handleRemove = (id: number) => {
     setFetching(true);
-    remove(id)// eslint-disable-next-line
-      .then((data) => (basket.products = data.products))
+    remove(id)
+      .then((data) => { basket.products = data.products; })
       .finally(() => setFetching(false));
   };
 
@@ -52,7 +53,7 @@ const BasketList = observer(() => {
               </tr>
             </thead>
             <tbody>
-              {basket.products.map((item) => (
+              {basket.products.map((item: IItem) => (
                 <BasketItem
                   key={item.id}
                   increment={handleIncrement}
@@ -62,7 +63,7 @@ const BasketList = observer(() => {
                 />
               ))}
               <tr>
-                <th colSpan="3">Итого</th>
+                <th colSpan={3}>Итого</th>
                 <th>{basket.sum}</th>
                 <th>руб.</th>
               </tr>

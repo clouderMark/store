@@ -1,5 +1,5 @@
 import {Container} from 'react-bootstrap';
-import BasketList from '../components/BasketList.js';
+import BasketList from '../components/BasketList';
 
 const Basket = () => (
   <Container>
