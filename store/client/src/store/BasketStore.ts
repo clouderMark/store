@@ -1,25 +1,26 @@
 import {makeAutoObservable} from 'mobx';
+import {IItem} from '../types/types';
 
 class BasketStore {
-  _products = [];
+  private _products: IItem[] = [];
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  get products() {
+  public get products(): IItem[] {
     return this._products;
   }
 
-  set products(products) {
+  public set products(products: IItem[]) {
     this._products = products;
   }
 
-  get count() { // Всего позиций в корзине
+  public get count(): number { // Всего позиций в корзине
     return this._products.length;
   }
 
-  get sum() { // стоимость всех товаров в корзине
+  public get sum(): number { // стоимость всех товаров в корзине
     return this._products.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 }

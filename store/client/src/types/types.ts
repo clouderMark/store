@@ -2,7 +2,7 @@ interface IId {
   id: number;
 }
 
-interface IItem extends IId {
+export interface IItem extends IId {
   name: string;
   price: number;
   quantity: number;
