@@ -1,6 +1,12 @@
 import {Table} from 'react-bootstrap';
+import {IOrderWithItems} from '../types/types';
 
-const Order = (props) => (
+interface IProps {
+  data: IOrderWithItems;
+  admin: boolean;
+}
+
+const Order = (props: IProps) => (
   <>
     <ul>
       <li>Дата заказа: {props.data.prettyCreatedAt}</li>

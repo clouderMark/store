@@ -63,7 +63,7 @@ export interface IOrderBody {
 export interface IOrder extends IOrderBody {
   amount: number,
   createdAt: string,
-  id: 1,
+  id: number,
   prettyCreatedAt: string,
   prettyUpdatedAt: string,
   status: number,
