@@ -13,7 +13,7 @@ import User from '../pages/User.js';
 import {useAppContext} from './AppContext';
 import Checkout from '../pages/Checkout.js';
 import UserOrders from '../pages/UserOrders.js';
-import UserOrder from '../pages/UserOrder.js';
+import UserOrder from '../pages/UserOrder';
 import AdminOrders from '../pages/AdminOrders.js';
 import AdminOrder from '../pages/AdminOrder';
 import AdminCategories from '../pages/AdminCategories.js';
