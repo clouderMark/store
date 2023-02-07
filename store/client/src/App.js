@@ -4,7 +4,7 @@ import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import axios from 'axios';
 import AppRouter from './components/AppRouter.js';
-import NavBar from './components/NavBar.js';
+import NavBar from './components/NavBar';
 
 import {useAppContext} from './components/AppContext';
 import {check as checkAuth} from './http/userAPI';
