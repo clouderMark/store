@@ -1,10 +1,11 @@
 import {Container, Spinner} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 import {userGetAll as getAllOrders} from '../http/orderAPI';
-import Orders from '../components/Orders.js';
+import Orders from '../components/Orders';
+import {IOrder} from '../types/types';
 
 const UserOrders = () => {
-  const [orders, setOrders] = useState(null);
+  const [orders, setOrders] = useState<IOrder[] | null>(null);
   const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ const UserOrders = () => {
   return (
     <Container>
       <h1>Ваши заказы</h1>
-      <Orders items={orders} admin={false} />
+      <Orders items={orders!} admin={false} />
     </Container>
   );
 };

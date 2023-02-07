@@ -2,9 +2,10 @@ import {Container, Spinner} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 import {adminGetAll as getAllOrders} from '../http/orderAPI';
 import Orders from '../components/Orders';
+import {IOrder} from '../types/types';
 
 const AdminOrders = () => {
-  const [orders, setOrders] = useState(null);
+  const [orders, setOrders] = useState<IOrder[] | null>(null);
   const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
@@ -20,7 +21,7 @@ const AdminOrders = () => {
   return (
     <Container>
       <h1>Все заказы</h1>
-      <Orders items={orders} admin={true} />
+      <Orders items={orders!} admin={true} />
     </Container>
   );
 };

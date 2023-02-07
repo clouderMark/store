@@ -1,7 +1,13 @@
 import {Table} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import {IOrder} from '../types/types';
 
-const Orders = (props) => {
+interface IProps {
+  items: IOrder[];
+  admin: boolean;
+}
+
+const Orders = (props: IProps) => {
   if (props.items.length === 0) {
     return <p>Список заказов пустой</p>;
   }
