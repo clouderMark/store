@@ -15,7 +15,7 @@ import Checkout from '../pages/Checkout.js';
 import UserOrders from '../pages/UserOrders.js';
 import UserOrder from '../pages/UserOrder.js';
 import AdminOrders from '../pages/AdminOrders.js';
-import AdminOrder from '../pages/AdminOrder.js';
+import AdminOrder from '../pages/AdminOrder';
 import AdminCategories from '../pages/AdminCategories.js';
 import AdminBrands from '../pages/AdminBrands.js';
 import AdminProducts from '../pages/AdminProducts.js';
