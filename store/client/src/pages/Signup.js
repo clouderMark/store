@@ -1,12 +1,12 @@
 import {observer} from 'mobx-react-lite';
-import {useContext, useEffect} from 'react';
+import {useEffect} from 'react';
 import {Button, Card, Container, Form, Row} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
-import {AppContext} from '../components/AppContext.js';
+import {useAppContext} from '../components/AppContext';
 import {signup} from '../http/userAPI';
 
 const Signup = observer(() => {
-  const {user} = useContext(AppContext);
+  const {user} = useAppContext();
   const navigate = useNavigate();
 
   useEffect(() => {

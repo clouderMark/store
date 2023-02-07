@@ -1,8 +1,8 @@
 import {Navigate} from 'react-router-dom';
-import {useContext, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Container, Form, Button, Spinner} from 'react-bootstrap';
 import {fetchBasket} from '../http/basketAPI';
-import {AppContext} from '../components/AppContext.js';
+import {useAppContext} from '../components/AppContext';
 import {check as checkAuth} from '../http/userAPI';
 import {guestCreate, userCreate} from '../http/orderAPI';
 
@@ -29,7 +29,7 @@ const isValid = (input) => {
 };
 
 const Checkout = () => {
-  const {user, basket} = useContext(AppContext);
+  const {user, basket} = useAppContext();
   const [fetching, setFetching] = useState(true);
 
   const [order, setOrder] = useState(null);

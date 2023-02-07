@@ -1,11 +1,11 @@
-import {useContext, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {useLocation, useSearchParams} from 'react-router-dom';
 import {Col, Container, Row, Spinner} from 'react-bootstrap';
 import CategoryBar from '../components/CategoryBar.js';
 import BrandBar from '../components/BrandBar.js';
 import ProductList from '../components/ProductList.js';
-import {AppContext} from '../components/AppContext.js';
+import {useAppContext} from '../components/AppContext';
 import {fetchAllProducts, fetchCategories, fetchBrands} from '../http/catalogAPI';
 
 const getSearchParams = (searchParams) => {
@@ -31,7 +31,7 @@ const getSearchParams = (searchParams) => {
 };
 
 const Shop = observer(() => {
-  const {catalog} = useContext(AppContext);
+  const {catalog} = useAppContext();
 
   const [categoriesFetching, setCategoriesFetching] = useState(true);
   const [brandsFetching, setBrandsFetching] = useState(true);

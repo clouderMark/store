@@ -1,12 +1,11 @@
 import {observer} from 'mobx-react-lite';
-import {useContext} from 'react';
 import {createSearchParams, useNavigate} from 'react-router-dom';
 import {Pagination, Row} from 'react-bootstrap';
 import ProductItem from './ProductItem.js';
-import {AppContext} from './AppContext.js';
+import {useAppContext} from './AppContext';
 
 const ProductList = observer(() => {
-  const {catalog} = useContext(AppContext);
+  const {catalog} = useAppContext();
   const navigate = useNavigate();
 
   const handleClick = (page) => {

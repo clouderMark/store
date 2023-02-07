@@ -1,11 +1,10 @@
-import {useContext} from 'react';
 import {Button, Container} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
-import {AppContext} from '../components/AppContext.js';
+import {useAppContext} from '../components/AppContext';
 import {logout} from '../http/userAPI';
 
 const User = () => {
-  const {user} = useContext(AppContext);
+  const {user} = useAppContext();
   const navigate = useNavigate();
   // eslint-disable-next-line
   const handleLogout = (event) => {

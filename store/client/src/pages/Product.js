@@ -1,13 +1,13 @@
-import {useContext, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Button, Col, Container, Image, Row, Spinner, Table} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
-import {AppContext} from '../components/AppContext.js';
+import {useAppContext} from '../components/AppContext';
 import {append} from '../http/basketAPI';
 import {fetchOneProduct, fetchProdRating} from '../http/catalogAPI';
 
 const Product = () => {
   const {id} = useParams();
-  const {basket} = useContext(AppContext);
+  const {basket} = useAppContext();
   const [product, setProduct] = useState(null);
   const [rating, setRating] = useState(null);
 

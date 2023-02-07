@@ -1,11 +1,10 @@
 import {observer} from 'mobx-react-lite';
-import {useContext} from 'react';
 import {Container, Navbar, Nav} from 'react-bootstrap';
 import {NavLink} from 'react-router-dom';
-import {AppContext} from './AppContext.js';
+import {useAppContext} from './AppContext';
 
 const NavBar = observer(() => {
-  const {user, basket} = useContext(AppContext);
+  const {user, basket} = useAppContext();
 
   return (
     <Navbar bg="dark" variant="dark">

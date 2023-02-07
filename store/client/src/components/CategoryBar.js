@@ -1,11 +1,10 @@
 import {createSearchParams, useNavigate} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
-import {useContext} from 'react';
 import {ListGroup} from 'react-bootstrap';
-import {AppContext} from './AppContext';
+import {useAppContext} from './AppContext';
 
 const CategoryBar = observer(() => {
-  const {catalog} = useContext(AppContext);
+  const {catalog} = useAppContext();
   const navigate = useNavigate();
 
   const handleClick = (id) => {

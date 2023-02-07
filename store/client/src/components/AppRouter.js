@@ -1,4 +1,3 @@
-import {useContext} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
 import Admin from '../pages/Admin.js';
@@ -11,7 +10,7 @@ import NotFound from '../pages/NotFound.js';
 import Shop from '../pages/Shop.js';
 import Signup from '../pages/Signup.js';
 import User from '../pages/User.js';
-import {AppContext} from './AppContext.js';
+import {useAppContext} from './AppContext';
 import Checkout from '../pages/Checkout.js';
 import UserOrders from '../pages/UserOrders.js';
 import UserOrder from '../pages/UserOrder.js';
@@ -49,7 +48,7 @@ const adminRoutes = [
 ];
 
 const AppRouter = observer(() => {
-  const {user} = useContext(AppContext);
+  const {user} = useAppContext();
 
   return (
     <Routes>

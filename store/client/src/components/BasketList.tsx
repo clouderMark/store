@@ -1,14 +1,14 @@
 import {observer} from 'mobx-react-lite';
 import {useNavigate} from 'react-router-dom';
-import {useContext, useState} from 'react';
+import {useState} from 'react';
 import {Button, Spinner, Table} from 'react-bootstrap';
 import {decrement, increment, remove} from '../http/basketAPI';
-import {AppContext} from './AppContext.js';
+import {useAppContext} from './AppContext';
 import BasketItem from './BasketItem';
 import {IItem} from '../types/types';
 
 const BasketList = observer(() => {
-  const {basket} = useContext(AppContext);
+  const {basket} = useAppContext();
   const [fetching, setFetching] = useState(false);
 
   const navigate = useNavigate();
