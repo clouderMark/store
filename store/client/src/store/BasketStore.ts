@@ -2,7 +2,7 @@ import {makeAutoObservable} from 'mobx';
 import {IItem} from '../types/types';
 
 class BasketStore {
-  _products: IItem[] = [];
+  private _products: IItem[] = [];
 
   constructor() {
     makeAutoObservable(this);

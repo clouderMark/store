@@ -2,21 +2,21 @@ import {makeAutoObservable} from 'mobx';
 import {ICatalogItem, IRow} from '../types/types';
 
 class CatalogStore {
-  _categories: ICatalogItem[] = [];
+  private _categories: ICatalogItem[] = [];
 
-  _brands: ICatalogItem[] = [];
+  private _brands: ICatalogItem[] = [];
 
-  _products: IRow[] = [];
+  private _products: IRow[] = [];
 
-  _category: number | null = null; // выбранная категория
+  private _category: number | null = null; // выбранная категория
 
-  _brand: number | null = null;
+  private _brand: number | null = null;
 
-  _page = 1;
+  private _page = 1;
 
-  _count = 0; // сколько всего товаров
+  private _count = 0; // сколько всего товаров
 
-  _limit = 20; // товаров на страницу
+  private _limit = 20; // товаров на страницу
 
   constructor() {
     makeAutoObservable(this);
