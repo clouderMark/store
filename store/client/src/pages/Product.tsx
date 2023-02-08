@@ -4,19 +4,20 @@ import {useParams} from 'react-router-dom';
 import {useAppContext} from '../components/AppContext';
 import {append} from '../http/basketAPI';
 import {fetchOneProduct, fetchProdRating} from '../http/catalogAPI';
+import {IRow, IRating} from '../types/types';
 
 const Product = () => {
-  const {id} = useParams();
+  const id: number = Number(useParams().id);
   const {basket} = useAppContext();
-  const [product, setProduct] = useState(null);
-  const [rating, setRating] = useState(null);
+  const [product, setProduct] = useState<IRow | null>(null);
+  const [rating, setRating] = useState<IRating | null>(null);
 
   useEffect(() => {
     fetchOneProduct(id).then((data) => setProduct(data));
     fetchProdRating(id).then((data) => setRating(data));
   }, [id]);
 
-  const handleClick = (productId) => {
+  const handleClick = (productId: number) => {
     append(productId).then((data) => {
       basket.products = data.products;
     });
@@ -48,7 +49,7 @@ const Product = () => {
               <Spinner animation="border" />
             )}
           </div>
-          <Button onClick={() => handleClick(product.id)}>Добавить в корзину</Button>
+          <Button onClick={() => handleClick(+product.id)}>Добавить в корзину</Button>
         </Col>
       </Row>
       {!!product.props.length &&

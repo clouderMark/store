@@ -2,7 +2,7 @@ import {Route, Routes} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
 import Admin from '../pages/Admin';
 import Basket from '../pages/Basket.js';
-import Product from '../pages/Product.js';
+import Product from '../pages/Product';
 import Contacts from '../pages/Contacts.js';
 import Delivery from '../pages/Delivery.js';
 import Login from '../pages/Login';

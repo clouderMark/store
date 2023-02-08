@@ -39,6 +39,7 @@ export interface IUpdatedProduct extends IProduct {
 export interface IRow extends IProduct {
   brand: ICatalogItem;
   category: ICatalogItem;
+  props: IProperty[]
 }
 
 export interface IRating {
