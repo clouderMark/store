@@ -3,9 +3,9 @@ import {useEffect} from 'react';
 import {Button, Card, Container, Form, Row} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../components/AppContext';
-import {login} from '../http/userAPI';
+import {signup} from '../http/userAPI';
 
-const Login = observer(() => {
+const Signup = observer(() => {
   const {user} = useAppContext();
   const navigate = useNavigate();
 
@@ -14,11 +14,12 @@ const Login = observer(() => {
     if (user.isAuth) navigate('/user', {replace: true});
   }, []);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const email = event.target.email.value.trim();
-    const password = event.target.password.value.trim();
-    const data = await login(email, password);
+    const target = event.currentTarget;
+    const email = target.email.value.trim();
+    const password = target.password.value.trim();
+    const data = await signup(email, password);
 
     if (data) {
       user.login(data);
@@ -30,7 +31,7 @@ const Login = observer(() => {
   return (
     <Container className="d-flex justify-content-center">
       <Card style={{width: '50%'}} className="p-2 mt-5 bg-light">
-        <h3 className="m-auto">Авторизация</h3>
+        <h3 className="m-auto">Регистрация</h3>
         <Form className="d-flex flex-column" onSubmit={handleSubmit}>
           <Form.Control
             name="email"
@@ -44,11 +45,11 @@ const Login = observer(() => {
           />
           <Row className="d-flex justify-content-between mt-2 mb-2 p-3">
             <Button type="submit">
-              Войти
+              Регистрация
             </Button>
             <p>
-              Нет аккаунта?
-              <Link to="/signup">Зарегистрируйтесь!</Link>
+              Уже есть аккаунт?
+              <Link to="/login">Войдите!</Link>
             </p>
           </Row>
         </Form>
@@ -57,4 +58,4 @@ const Login = observer(() => {
   );
 });
 
-export default Login;
+export default Signup;

@@ -1,11 +1,11 @@
 import {observer} from 'mobx-react-lite';
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {Button, Card, Container, Form, Row} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../components/AppContext';
-import {signup} from '../http/userAPI';
+import {login} from '../http/userAPI';
 
-const Signup = observer(() => {
+const Login = observer(() => {
   const {user} = useAppContext();
   const navigate = useNavigate();
 
@@ -14,11 +14,12 @@ const Signup = observer(() => {
     if (user.isAuth) navigate('/user', {replace: true});
   }, []);
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const email = event.target.email.value.trim();
-    const password = event.target.password.value.trim();
-    const data = await signup(email, password);
+    const target = event.currentTarget;
+    const email = target.email.value.trim();
+    const password = target.password.value.trim();
+    const data = await login(email, password);
 
     if (data) {
       user.login(data);
@@ -30,7 +31,7 @@ const Signup = observer(() => {
   return (
     <Container className="d-flex justify-content-center">
       <Card style={{width: '50%'}} className="p-2 mt-5 bg-light">
-        <h3 className="m-auto">Регистрация</h3>
+        <h3 className="m-auto">Авторизация</h3>
         <Form className="d-flex flex-column" onSubmit={handleSubmit}>
           <Form.Control
             name="email"
@@ -43,12 +44,10 @@ const Signup = observer(() => {
             placeholder="Введите ваш пароль..."
           />
           <Row className="d-flex justify-content-between mt-2 mb-2 p-3">
-            <Button type="submit">
-              Регистрация
-            </Button>
+            <Button type="submit">Войти</Button>
             <p>
-              Уже есть аккаунт?
-              <Link to="/login">Войдите!</Link>
+              Нет аккаунта?
+              <Link to="/signup">Зарегистрируйтесь!</Link>
             </p>
           </Row>
         </Form>
@@ -57,4 +56,4 @@ const Signup = observer(() => {
   );
 });
 
-export default Signup;
+export default Login;
