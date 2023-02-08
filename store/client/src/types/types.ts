@@ -82,3 +82,7 @@ export interface IRegistration {
   id: number
   role: 'USER' | 'ADMIN',
 }
+
+export interface IObject {
+  [key: string]: string;
+}
