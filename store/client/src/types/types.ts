@@ -86,3 +86,7 @@ export interface IRegistration {
 export interface IObject {
   [key: string]: string;
 }
+
+export interface IData<T> {
+  data: T;
+}

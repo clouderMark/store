@@ -4,7 +4,7 @@ import {useLocation, useSearchParams} from 'react-router-dom';
 import {Col, Container, Row, Spinner} from 'react-bootstrap';
 import CategoryBar from '../components/CategoryBar';
 import BrandBar from '../components/BrandBar';
-import ProductList from '../components/ProductList.js';
+import ProductList from '../components/ProductList';
 import {useAppContext} from '../components/AppContext';
 import {fetchAllProducts, fetchCategories, fetchBrands} from '../http/catalogAPI';
 

@@ -1,7 +1,8 @@
 import {useNavigate} from 'react-router-dom';
 import {Card, Col} from 'react-bootstrap';
+import {IRow, IData} from '../types/types';
 
-const ProductItem = ({data}) => {
+const ProductItem = ({data}: IData<IRow>) => {
   const navigate = useNavigate();
 
   return (
