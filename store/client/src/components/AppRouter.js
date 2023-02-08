@@ -9,7 +9,7 @@ import Login from '../pages/Login';
 import NotFound from '../pages/NotFound.js';
 import Shop from '../pages/Shop.js';
 import Signup from '../pages/Signup';
-import User from '../pages/User.js';
+import User from '../pages/User';
 import {useAppContext} from './AppContext';
 import Checkout from '../pages/Checkout.js';
 import UserOrders from '../pages/UserOrders';
