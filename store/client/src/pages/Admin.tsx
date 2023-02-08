@@ -6,8 +6,8 @@ import {logout} from '../http/userAPI';
 const Admin = () => {
   const {user} = useAppContext();
   const navigate = useNavigate();
-  // eslint-disable-next-line
-  const handleLogout = (event) => {
+
+  const handleLogout = (): void => {
     logout();
     user.logout();
     navigate('/login', {replace: true});

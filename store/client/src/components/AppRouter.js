@@ -1,6 +1,6 @@
 import {Route, Routes} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
-import Admin from '../pages/Admin.js';
+import Admin from '../pages/Admin';
 import Basket from '../pages/Basket.js';
 import Product from '../pages/Product.js';
 import Contacts from '../pages/Contacts.js';
