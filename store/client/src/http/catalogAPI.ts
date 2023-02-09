@@ -85,8 +85,8 @@ export const deleteProduct = async (id: number): Promise<IProduct> => {
 };
 
 export const fetchAllProducts = async (
-  categoryId: number,
-  brandId: number,
+  categoryId: number | null,
+  brandId: number | null,
   page: number,
   limit: number,
 ): Promise<IAllProducts> => {

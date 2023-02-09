@@ -3,19 +3,20 @@ import {Button, Container, Pagination, Spinner, Table} from 'react-bootstrap';
 import CreateProduct from '../components/CreateProduct.js';
 import UpdateProduct from '../components/UpdateProduct.js';
 import {deleteProduct, fetchAllProducts} from '../http/catalogAPI';
+import {IAllProducts, IRow, IProduct} from '../types/types.js';
 
 // количество товаров на страницу
 const ADMIN_PER_PAGE = 6;
 
 const AdminProducts = () => {
-  const [products, setProducts] = useState([]); // список загруженных товаров
+  const [products, setProducts] = useState<IRow[]>([]); // список загруженных товаров
   const [fetching, setFetching] = useState(true); // загрузка списка товаров с сервера
   const [createShow, setCreateShow] = useState(false); // модальное окно создания товаров
   const [updateShow, setUpdateShow] = useState(false); // модальное окно редактирования
   // для обновления списка после добавления, редактирования, удаления - изменяем состояние
   const [change, setChange] = useState(false);
   // id товара котоый буду редактировать
-  const [product, setProduct] = useState(null);
+  const [product, setProduct] = useState<null | number>(null);
 
   // текущая страница товаров
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,7 +24,7 @@ const AdminProducts = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   // обработчик клика по номеру страницы
-  const handlePageClick = (page) => {
+  const handlePageClick = (page: number) => {
     setCurrentPage(page);
     setFetching(true);
   };
@@ -39,17 +40,17 @@ const AdminProducts = () => {
     );
   }
 
-  const handleUpdateClick = (id) => {
+  const handleUpdateClick = (id: number) => {
     setProduct(id);
     setUpdateShow(true);
   };
 
-  const handleDeleteClick = (id) => {
+  const handleDeleteClick = (id: number) => {
     deleteProduct(id)
-      .then((data) => {
+      .then((data: IProduct) => {
         // если это последняя страница и я удаляю на ней единственно
         // оставшийся товар, то нужно перейте к предыдущей странице
-        if (totalPages > 1 && product.length === 1 && currentPage === totalPages) {
+        if (totalPages > 1 && products.length === 1 && currentPage === totalPages) {
           setCurrentPage(currentPage - 1);
         } else {
           setChange(!change);
@@ -63,7 +64,7 @@ const AdminProducts = () => {
 
   useEffect(() => {
     fetchAllProducts(null, null, currentPage, ADMIN_PER_PAGE)
-      .then((data) => {
+      .then((data: IAllProducts) => {
         setProducts(data.rows);
         setTotalPages(Math.ceil(data.count / ADMIN_PER_PAGE));
       })

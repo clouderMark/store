@@ -18,7 +18,7 @@ import AdminOrders from '../pages/AdminOrders';
 import AdminOrder from '../pages/AdminOrder';
 import AdminCategories from '../pages/AdminCategories.js';
 import AdminBrands from '../pages/AdminBrands.js';
-import AdminProducts from '../pages/AdminProducts.js';
+import AdminProducts from '../pages/AdminProducts';
 
 const publicRoutes = [
   {path: '/', Component: Shop},
