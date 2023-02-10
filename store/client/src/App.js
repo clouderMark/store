@@ -3,7 +3,7 @@ import {BrowserRouter} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import axios from 'axios';
-import AppRouter from './components/AppRouter.js';
+import AppRouter from './components/AppRouter';
 import NavBar from './components/NavBar';
 
 import {useAppContext} from './components/AppContext';
