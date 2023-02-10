@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Button, Container, Pagination, Spinner, Table} from 'react-bootstrap';
 import CreateProduct from '../components/CreateProduct';
-import UpdateProduct from '../components/UpdateProduct.js';
+import UpdateProduct from '../components/UpdateProduct';
 import {deleteProduct, fetchAllProducts} from '../http/catalogAPI';
 import {IAllProducts, IRow, IProduct} from '../types/types.js';
 
@@ -80,7 +80,7 @@ const AdminProducts = () => {
       <h1>Товары</h1>
       <Button onClick={() => setCreateShow(true)}>Создать товар</Button>
       <CreateProduct show={createShow} setShow={setCreateShow} setChange={setChange} />
-      <UpdateProduct id={product} show={updateShow} setShow={setUpdateShow} setChange={setChange} />
+      <UpdateProduct id={product!} show={updateShow} setShow={setUpdateShow} setChange={setChange} />
       {products.length > 0 ? (
         <>
           <Table bordered hover size="sm" className="mt-3">

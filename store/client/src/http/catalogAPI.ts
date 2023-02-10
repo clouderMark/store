@@ -1,5 +1,14 @@
 import {authInstance, guestInstance} from './index.js';
-import {ICatalogItem, IProduct, IUpdatedProduct, IAllProducts, IRow, IRating, IProperty} from '../types/types.js';
+import {
+  ICatalogItem,
+  IProduct,
+  IUpdatedProduct,
+  IAllProducts,
+  IRow,
+  IRating,
+  IProperty,
+  IProductProp,
+} from '../types/types.js';
 
 // Создание, обновление, удаление категории, получение списка всех категой
 
@@ -72,7 +81,7 @@ export const createProduct = async (product: FormData): Promise<IProduct> => {
   return data;
 };
 
-export const updateProduct = async (id: number, product: string): Promise<IUpdatedProduct> => {
+export const updateProduct = async (id: number, product: FormData): Promise<IUpdatedProduct> => {
   const {data} = await authInstance.put(`product/update/${id}`, product);
 
   return data;
@@ -122,13 +131,13 @@ export const fetchProdRating = async (id: number): Promise<IRating> => {
  *Создание, обновление и удаление характеристик товара
  */
 
-export const createProperty = async (productId: number, property: string): Promise<IProperty> => {
+export const createProperty = async (productId: number, property: IProductProp): Promise<IProperty> => {
   const {data} = await authInstance.post(`product/${productId}/property/create`, property);
 
   return data;
 };
 
-export const updateProperty = async (productId: number, id: number, property: string): Promise<IProperty> => {
+export const updateProperty = async (productId: number, id: number, property: IProductProp): Promise<IProperty> => {
   const {data} = await authInstance.put(`product/${productId}/property/update/${id}`, property);
 
   return data;

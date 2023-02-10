@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import {Button, Col, Form, Modal, Row} from 'react-bootstrap';
 import uuid from 'react-uuid';
 import {
@@ -11,12 +11,20 @@ import {
   updateProperty,
 } from '../http/catalogAPI';
 import EditProperties from './EditProperties';
+import {IDefaultValue, IDefaultValid, IValid, IProductProp, ICatalogItem} from '../types/types';
 
-const defaultValue = {name: '', price: '', category: '', brand: ''};
-const defaultValid = {name: null, price: null, category: null, brand: null};
+interface IProps {
+  id: number;
+  show: boolean;
+  setShow: Dispatch<SetStateAction<boolean>>;
+  setChange: Dispatch<SetStateAction<boolean>>;
+}
 
-const isValid = (value) => {
-  const result = {};
+const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: ''};
+const defaultValid: IDefaultValid = {name: null, price: null, category: null, brand: null};
+
+const isValid = (value: IDefaultValue): IValid => {
+  const result = {} as IValid;
   const pattern = /^[1-9][0-9]*$/;
 
   for (const key in value) {
@@ -31,16 +39,16 @@ const isValid = (value) => {
   return result;
 };
 
-const updateProperties = async (properties, productId) => {
+const updateProperties = async (properties: IProductProp[], productId: number) => {
   for (const prop of properties) {
     const empty = prop.name.trim() === '' || prop.value.trim() === '';
     // если характеристика пуста - удалю ее на сервере
 
     if (empty && prop.id) {
       try {
-        await deleteProperty(productId, prop);
-      } catch (error) { // eslint-disable-next-line
-        alert(error.response.data.message);
+        await deleteProperty(productId, prop.id);
+      } catch (error) {
+        console.error(error);
       }
 
       continue;
@@ -54,8 +62,8 @@ const updateProperties = async (properties, productId) => {
     if (prop.append && !empty) {
       try {
         await createProperty(productId, prop);
-      } catch (error) { // eslint-disable-next-line
-        alert(error.response.data.message);
+      } catch (error) {
+        console.error(error);
       }
 
       continue;
@@ -63,9 +71,9 @@ const updateProperties = async (properties, productId) => {
 
     if (prop.change && !prop.remove) {
       try {
-        await updateProperty(productId, prop.id, prop);
-      } catch (error) { // eslint-disable-next-line
-        alert(error.response.data.message);
+        await updateProperty(productId, prop.id!, prop);
+      } catch (error) {
+        console.error(error);
       }
 
       continue;
@@ -73,9 +81,9 @@ const updateProperties = async (properties, productId) => {
 
     if (prop.remove) {
       try {
-        await deleteProperty(productId, prop.id);
-      } catch (error) { // eslint-disable-next-line
-        alert(error.response.data.message);
+        await deleteProperty(productId, prop.id!);
+      } catch (error) {
+        console.error(error);
       }
 
       continue;
@@ -83,21 +91,21 @@ const updateProperties = async (properties, productId) => {
   }
 };
 
-const UpdateProduct = (props) => {
+const UpdateProduct = (props: IProps) => {
   const {id, show, setShow, setChange} = props;
 
   const [value, setValue] = useState(defaultValue);
-  const [valid, setValid] = useState(defaultValid);
+  const [valid, setValid] = useState<IDefaultValid | IValid>(defaultValid);
 
   // выбранное для загрузки изображение товара
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | null>(null);
 
   // список характеристик товара
-  const [properties, setProperties] = useState([]);
+  const [properties, setProperties] = useState<IProductProp[]>([]);
 
   // список категорий и список брендов для возможности выбора
-  const [categories, setCategories] = useState(null);
-  const [brands, setBrands] = useState(null);
+  const [categories, setCategories] = useState<ICatalogItem[] | null>(null);
+  const [brands, setBrands] = useState<ICatalogItem[] | null>(null);
 
   useEffect(() => {
     if (id) {
@@ -121,26 +129,28 @@ const UpdateProduct = (props) => {
               {...item, unique: uuid(), append: false, remove: false, change: false}
             )),
           );
-        }) // eslint-disable-next-line
-        .catch((error) => alert(error.response.data.message));
+        })
+        .catch((error) => console.error(error));
       // нужно получить с сервера список категорий и всех брендов
       fetchCategories().then((data) => setCategories(data));
       fetchBrands().then((data) => setBrands(data));
     }
   }, [id]);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const data = {...value, [event.target.name]: event.target.value};
 
     setValue(data);
     setValid(isValid(data));
   };
 
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.files) {
+      setImage(event.target.files[0]);
+    }
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const correct = isValid(value);
 
@@ -167,7 +177,8 @@ const UpdateProduct = (props) => {
         .then((data) => {
           // сбрасываю поле загрузки изображения, чтобы при сохранении товара,
           // когда новое изображение не выбрано, не загружать старое повторно
-          event.target.image.value = '';
+          setImage(null);
+          // event.target.image.value = '';
           // в принципе мы могли бы сбросить все поля формы на дефолтные значения,
           // но если пользователь решит отредактировать тот же товар повторно, то
           // увидит пустые поля формы - http-запрос на получение данных для редактирования
@@ -192,8 +203,8 @@ const UpdateProduct = (props) => {
           setShow(false);
           // изменяем состояние компонента списка товаров
           setChange((state) => !state);
-        }) // eslint-disable-next-line
-        .catch((error) => alert(error.response.data.message));
+        })
+        .catch((error) => console.error(error));
     }
   };
 
@@ -208,7 +219,7 @@ const UpdateProduct = (props) => {
           <Form.Control
             name="name"
             value={value.name}
-            onChange={(e) => handleInputChange(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
             isValid={valid.name === true}
             isInvalid={valid.name === false}
             placeholder="Название товара..."
@@ -255,7 +266,7 @@ const UpdateProduct = (props) => {
               <Form.Control
                 name="price"
                 value={value.price}
-                onChange={(e) => handleInputChange(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
                 isValid={valid.price === true}
                 isInvalid={valid.price === false}
                 placeholder="Цена товара..."
@@ -265,7 +276,7 @@ const UpdateProduct = (props) => {
               <Form.Control
                 name="image"
                 type="file"
-                onChange={(e) => handleImageChange(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
                 placeholder="Фото товара..."
               />
             </Col>
