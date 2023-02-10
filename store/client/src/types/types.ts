@@ -21,7 +21,7 @@ export interface ICatalogItem extends IId {
 export interface IProduct extends ICatalogItem {
   brandId: number;
   categoryId: number;
-  image: string;
+  image: string | null;
   price: number;
   rating: number;
 }
@@ -90,4 +90,34 @@ export interface IObject {
 
 export interface IData<T> {
   data: T;
+}
+
+export interface IDefaultValue {
+  name: string;
+  price: string;
+  category: string;
+  brand: string;
+}
+
+export interface IDefaultValid {
+  name: null;
+  price: null;
+  category: null;
+  brand: null;
+}
+
+export interface IValid {
+  name: boolean;
+  price: boolean;
+  category: boolean;
+  brand: boolean;
+}
+
+export interface IProductProp {
+  id: null | string | number;
+  name: string
+  value: string;
+  unique: string;
+  append: boolean;
+  change: boolean;
 }

@@ -1,13 +1,20 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState, Dispatch, SetStateAction} from 'react';
 import {Button, Col, Form, Modal, Row} from 'react-bootstrap';
 import EditProperties from './EditProperties';
 import {createProduct, fetchBrands, fetchCategories} from '../http/catalogAPI';
+import {ICatalogItem, IDefaultValue, IValid, IDefaultValid, IProductProp} from '../types/types';
 
-const defaultValue = {name: '', price: '', category: '', brand: ''};
-const defaultValid = {name: null, price: null, category: null, brand: null};
+interface IProps {
+  show: boolean;
+  setShow: Dispatch<SetStateAction<boolean>>;
+  setChange: Dispatch<SetStateAction<boolean>>;
+}
 
-const isValid = (value) => {
-  const result = {};
+const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: ''};
+const defaultValid: IDefaultValid = {name: null, price: null, category: null, brand: null};
+
+const isValid = (value: IDefaultValue): IValid => {
+  const result = {} as IValid;
   const pattern = /^[1-9][0-9]*$/;
 
   for (const key in value) {
@@ -22,21 +29,21 @@ const isValid = (value) => {
   return result;
 };
 
-const CreateProduct = (props) => {
+const CreateProduct = (props: IProps) => {
   const {show, setShow, setChange} = props;
 
   const [value, setValue] = useState(defaultValue);
-  const [valid, setValid] = useState(defaultValid);
+  const [valid, setValid] = useState<IDefaultValid | IValid>(defaultValid);
 
   // выбранное для загрузки изображение товара
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState<File | null>(null);//
 
   // список характеристик товара
-  const [properties, setProperties] = useState([]);
+  const [properties, setProperties] = useState<IProductProp[]>([]);
 
   // список категорий и список брендов для возможности выбора
-  const [categories, setCategories] = useState(null);
-  const [brands, setBrands] = useState(null);
+  const [categories, setCategories] = useState<ICatalogItem[] | null>(null);
+  const [brands, setBrands] = useState<ICatalogItem[] | null>(null);
 
   // получить с сервера список категой и брендов
   useEffect(() => {
@@ -44,18 +51,20 @@ const CreateProduct = (props) => {
     fetchBrands().then((data) => setBrands(data));
   }, []);
 
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const data = {...value, [event.target.name]: event.target.value};
 
     setValue(data);
     setValid(isValid(data));
   };
 
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
+  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => { //
+    if (event.target.files) {
+      setImage(event.target.files[0]);
+    }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const correct = isValid(value);
@@ -70,7 +79,7 @@ const CreateProduct = (props) => {
       data.append('price', value.price.trim());
       data.append('categoryId', value.category);
       data.append('brandId', value.brand);
-      if (image) data.append('image', image, image.name);
+      if (image) data.append('image', image, image.name); //
       // характеристика нового товара
       if (properties.length) {
         const props = properties.filter((prop) => prop.name.trim() !== '' && prop.value.trim() !== '');
@@ -83,7 +92,8 @@ const CreateProduct = (props) => {
       createProduct(data)
         .then(() => {
           // привожу форму в изначальное состояние
-          event.target.image.value = '';
+          setImage(null);
+          // event.target.image.value = ''; //
           setValue(defaultValue);
           setValid(defaultValid);
           setProperties([]);
@@ -91,8 +101,8 @@ const CreateProduct = (props) => {
           setShow(false);
           // изменить состояние компонента товаров, чтобы в этом списке появился и новый товар
           setChange((state) => !state);
-        }) // eslint-disable-next-line
-        .catch((error) => alert(error.response.data.message));
+        })
+        .catch((error) => alert(error));
     }
   };
 
@@ -107,7 +117,7 @@ const CreateProduct = (props) => {
           <Form.Control
             name="name"
             value={value.name}
-            onChange={(e) => handleInputChange(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
             isValid={valid.name === true}
             isInvalid={valid.name === false}
             placeholder="Название товара..."
@@ -152,17 +162,17 @@ const CreateProduct = (props) => {
               <Form.Control
                 name="price"
                 value={value.price}
-                onChange={(e) => handleInputChange(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
                 isValid={valid.price === true}
                 isInvalid={valid.price === false}
                 placeholder="Цена товара..."
               />
             </Col>
             <Col>
-              <Form.Control
+              <Form.Control //
                 name="image"
                 type="file"
-                onChange={(e) => handleImageChange(e)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
                 placeholder="Фото товара..."
               />
             </Col>

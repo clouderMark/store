@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Button, Container, Pagination, Spinner, Table} from 'react-bootstrap';
-import CreateProduct from '../components/CreateProduct.js';
+import CreateProduct from '../components/CreateProduct';
 import UpdateProduct from '../components/UpdateProduct.js';
 import {deleteProduct, fetchAllProducts} from '../http/catalogAPI';
 import {IAllProducts, IRow, IProduct} from '../types/types.js';

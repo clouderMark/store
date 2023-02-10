@@ -66,7 +66,7 @@ export const fetchBrand = async (id: number): Promise<ICatalogItem> => {
 };
 
 // Создание, обновление, удаление товара, получение списка всех товаров
-export const createProduct = async (product: string): Promise<IProduct> => {
+export const createProduct = async (product: FormData): Promise<IProduct> => {
   const {data} = await authInstance.post('product/create', product);
 
   return data;
