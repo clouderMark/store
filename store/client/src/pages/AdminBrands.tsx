@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Button, Container, Spinner, Table} from 'react-bootstrap';
 import {deleteBrand, fetchBrands} from '../http/catalogAPI';
-import EditBrand from '../components/EditBrand.js';
+import EditBrand from '../components/EditBrand';
 import {ICatalogItem} from '../types/types';
 
 const AdminBrands = () => {

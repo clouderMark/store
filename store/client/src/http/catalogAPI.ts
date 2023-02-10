@@ -44,13 +44,13 @@ export const fetchCategory = async (id: number): Promise<ICatalogItem> => {
 
 // Создание, обновление, удаление брендов, получение списка всех бредов
 
-export const createBrand = async (brand: string): Promise<ICatalogItem> => {
+export const createBrand = async (brand: {name: string}): Promise<ICatalogItem> => {
   const {data} = await authInstance.post('brand/create', brand);
 
   return data;
 };
 
-export const updateBrand = async (id: number, brand: string): Promise<ICatalogItem> => {
+export const updateBrand = async (id: number, brand: {name: string}): Promise<ICatalogItem> => {
   const {data} = await authInstance.put(`brand/update/${id}`, brand);
 
   return data;
