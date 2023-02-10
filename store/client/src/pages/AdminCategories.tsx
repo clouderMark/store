@@ -2,35 +2,34 @@ import {useEffect, useState} from 'react';
 import {Button, Container, Spinner, Table} from 'react-bootstrap';
 import {deleteCategory, fetchCategories} from '../http/catalogAPI';
 import EditCategory from '../components/EditCategory.js';
+import {ICatalogItem} from '../types/types';
 
 const AdminCategories = () => {
-  const [categories, setCategories] = useState(null); // список загруженных категорий
+  const [categories, setCategories] = useState<null | ICatalogItem[]>(null); // список загруженных категорий
   const [fetching, setFetching] = useState(true); // загрузка категорий с сервера
   const [show, setShow] = useState(false); // модальное окно создания-редактирования категории
   // для добавления списка после добавления-редактирования, нужно изменить состояние
   const [change, setChange] = useState(false);
   // id категории которую буду редактирова и передовать в EditCategory
-  const [categoryId, setCategoryId] = useState(null);
+  const [categoryId, setCategoryId] = useState<null | number>(null);
 
   const handleCreateClick = () => {
     setCategoryId(0);
     setShow(true);
   };
 
-  const handleUpdateClick = (id) => {
+  const handleUpdateClick = (id: number) => {
     setCategoryId(id);
     setShow(true);
   };
 
-  const handleDeleteClick = (id) => {
+  const handleDeleteClick = (id: number) => {
     deleteCategory(id)
       .then((data) => {
         setChange(!change);
-        // eslint-disable-next-line
         alert(`Категория "${data.name}"удалена`);
       })
-      // eslint-disable-next-line
-      .catch((error) => alert(error.response.data.message));
+      .catch((error) => console.error(error));
   };
 
   useEffect(() => {
@@ -46,9 +45,9 @@ const AdminCategories = () => {
   return (
     <Container>
       <h1>Категории</h1>
-      <Button onClick={() => handleCreateClick(true)}>Создать категорию</Button>
+      <Button onClick={() => handleCreateClick()}>Создать категорию</Button>
       <EditCategory id={categoryId} show={show} setShow={setShow} setChange={setChange} />
-      {categories.length > 0 ? (
+      {categories && categories.length > 0 ? (
         <Table bordered hover size="sm" className="mt-3">
           <thead>
             <tr>
