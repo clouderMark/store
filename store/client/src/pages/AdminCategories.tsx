@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Button, Container, Spinner, Table} from 'react-bootstrap';
 import {deleteCategory, fetchCategories} from '../http/catalogAPI';
-import EditCategory from '../components/EditCategory.js';
+import EditCategory from '../components/EditCategory';
 import {ICatalogItem} from '../types/types';
 
 const AdminCategories = () => {

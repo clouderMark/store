@@ -1,12 +1,19 @@
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState, Dispatch, SetStateAction} from 'react';
 import {Button, Form, Modal} from 'react-bootstrap';
 import {createCategory, fetchCategory, updateCategory} from '../http/catalogAPI';
 
-const EditCategory = (props) => {
+interface IProps {
+  id: number | null;
+  show: boolean;
+  setShow: Dispatch<SetStateAction<boolean>>;
+  setChange: Dispatch<SetStateAction<boolean>>;
+}
+
+const EditCategory = (props: IProps) => {
   const {id, show, setShow, setChange} = props;
 
   const [name, setName] = useState('');
-  const [valid, setValid] = useState(null);
+  const [valid, setValid] = useState<null | boolean>(null);
 
   useEffect(() => {
     if (id) {
@@ -14,20 +21,20 @@ const EditCategory = (props) => {
         .then((data) => {
           setName(data.name);
           setValid(data.name !== '');
-        })// eslint-disable-next-line
-        .catch((error) => alert(error.response.data.message));
+        })
+        .catch((error) => console.log(error));
     } else {
       setName('');
       setValid(null);
     }
   }, [id]);
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setValid(event.target.value.trim() !== '');
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const correct = name.trim() !== '';
@@ -42,10 +49,17 @@ const EditCategory = (props) => {
         setShow(false);
         // изменяю состояние родителя, чтобы обновить список категорий
         setChange((state) => !state);
-      }; // eslint-disable-next-line
-      const error = (error) => alert(error.response.data.message);
+      };
 
-      id ? updateCategory(id, data).then(success).catch(error) : createCategory(data).then(success).catch(error);
+      if (id) {
+        updateCategory(id, data)
+          .then(success)
+          .catch((error) => console.error(error));
+      } else {
+        createCategory(data)
+          .then(success)
+          .catch((error) => console.error(error));
+      }
     }
   };
 
@@ -60,7 +74,7 @@ const EditCategory = (props) => {
           <Form.Control
             name="name"
             value={name}
-            onChange={(e) => handleChange(e)}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
             isValid={valid === true}
             isInvalid={valid === false}
             placeholder="Название категории..."

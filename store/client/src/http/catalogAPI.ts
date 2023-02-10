@@ -12,13 +12,13 @@ import {
 
 // Создание, обновление, удаление категории, получение списка всех категой
 
-export const createCategory = async (category: string): Promise<ICatalogItem> => {
+export const createCategory = async (category: {name: string}): Promise<ICatalogItem> => {
   const {data} = await authInstance.post('category/create', category);
 
   return data;
 };
 
-export const updateCategory = async (id: number, category: string): Promise<ICatalogItem> => {
+export const updateCategory = async (id: number, category: {name: string}): Promise<ICatalogItem> => {
   const {data} = await authInstance.put(`category/update/${id}`, category);
 
   return data;
