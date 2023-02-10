@@ -17,7 +17,7 @@ import UserOrder from '../pages/UserOrder';
 import AdminOrders from '../pages/AdminOrders';
 import AdminOrder from '../pages/AdminOrder';
 import AdminCategories from '../pages/AdminCategories.js';
-import AdminBrands from '../pages/AdminBrands.js';
+import AdminBrands from '../pages/AdminBrands';
 import AdminProducts from '../pages/AdminProducts';
 
 const publicRoutes = [

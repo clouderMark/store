@@ -2,9 +2,10 @@ import {useEffect, useState} from 'react';
 import {Button, Container, Spinner, Table} from 'react-bootstrap';
 import {deleteBrand, fetchBrands} from '../http/catalogAPI';
 import EditBrand from '../components/EditBrand.js';
+import {ICatalogItem} from '../types/types';
 
 const AdminBrands = () => {
-  const [brands, setBrands] = useState(null); // список загруженных брендов
+  const [brands, setBrands] = useState<ICatalogItem[] | null>(null); // список загруженных брендов
   const [fetching, setFetching] = useState(true); // загрузка списка брендов с сервера
   const [show, setShow] = useState(false); // модальное окно создания бренда
   // для обновления списка после добавления-редактирования, удаления, нужно изменить состояние
@@ -17,20 +18,18 @@ const AdminBrands = () => {
     setShow(true);
   };
 
-  const handleUpdateClick = (id) => {
+  const handleUpdateClick = (id: number) => {
     setBrandId(id);
     setShow(true);
   };
 
-  const handleDeleteClick = (id) => {
+  const handleDeleteClick = (id: number) => {
     deleteBrand(id)
       .then((data) => {
         setChange(!change);
-        // eslint-disable-next-line
         alert(`Бренд "${data.name}" удален`);
       })
-      // eslint-disable-next-line
-      .catch((error) => alert(error.response.data.message));
+      .catch((error) => console.error(error));
   };
 
   useEffect(() => {
@@ -48,7 +47,7 @@ const AdminBrands = () => {
       <h1>Бренды</h1>
       <Button onClick={() => handleCreateClick()}>Создать бренд</Button>
       <EditBrand id={brandId} show={show} setShow={setShow} setChange={setChange} />
-      {brands.length > 0 ? (
+      {brands!.length > 0 ? (
         <Table bordered hover size="sm" className="mt-3">
           <thead>
             <tr>
@@ -58,11 +57,11 @@ const AdminBrands = () => {
             </tr>
           </thead>
           <tbody>
-            {brands.map((item) => (
+            {brands!.map((item) => (
               <tr key={item.id}>
                 <td>{item.name}</td>
                 <td>
-                  <Button varian="success" size="sm" onClick={() => handleUpdateClick(item.id)}>
+                  <Button variant="success" size="sm" onClick={() => handleUpdateClick(item.id)}>
                     Редактировать
                   </Button>
                 </td>
