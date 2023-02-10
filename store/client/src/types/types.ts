@@ -114,10 +114,11 @@ export interface IValid {
 }
 
 export interface IProductProp {
-  id: null | string | number;
+  id: null | number;
   name: string
   value: string;
   unique: string;
   append: boolean;
-  change: boolean;
+  change?: boolean;
+  remove?: boolean;
 }

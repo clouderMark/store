@@ -1,19 +1,26 @@
+import {Dispatch, SetStateAction} from 'react';
 import {Button, Col, Form, Row} from 'react-bootstrap';
 import uuid from 'react-uuid';
+import {IProductProp} from '../types/types';
 
-const EditProperties = (props) => {
+interface IProps {
+  properties: IProductProp[];
+  setProperties: Dispatch<SetStateAction<IProductProp[]>>;
+}
+
+const EditProperties = (props: IProps) => {
   const {properties, setProperties} = props;
 
   const append = () => {
     setProperties([...properties, {id: null, name: '', value: '', unique: uuid(), append: true}]);
   };
 
-  const remove = (unique) => {
+  const remove = (unique: string) => {
     // новую хар-ку нужно просто удалить из массива properties , а старую - оставить
     // , но изменить remove на true, чтобы потом выполнить http запрос на сервер для удаления
     const item = properties.find((elem) => elem.unique === unique);
 
-    if (item.id) {
+    if (item?.id) {
       // старая хар-ка
       setProperties(properties.map((elem) => (elem.unique === unique ? {...elem, change: false, remove: true} : elem)));
     } else {
@@ -22,7 +29,7 @@ const EditProperties = (props) => {
     }
   };
 
-  const change = (key, value, unique) => {
+  const change = (key: string, value: string, unique: string) => {
     setProperties(
       properties.map((item) => (item.unique === unique ? {...item, [key]: value, change: !item.append} : item)),
     );
