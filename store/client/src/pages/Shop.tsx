@@ -8,23 +8,29 @@ import ProductList from '../components/ProductList';
 import {useAppContext} from '../components/AppContext';
 import {fetchAllProducts, fetchCategories, fetchBrands} from '../http/catalogAPI';
 
-const getSearchParams = (searchParams) => {
-  let category = searchParams.get('category');
+const getSearchParams = (searchParams: URLSearchParams): {[key: string]: null | number} => {
+  let category: string | null | number = searchParams.get('category');
 
   if (category && /[1-9][0-9]*/.test(category)) {
     category = parseInt(category);
+  } else {
+    category = null;
   }
 
-  let brand = searchParams.get('brand');
+  let brand: string | null | number = searchParams.get('brand');
 
   if (brand && /[1-9][0-9]*/.test(brand)) {
     brand = parseInt(brand);
+  } else {
+    brand = null;
   }
 
-  let page = searchParams.get('page');
+  let page: string | null | number = searchParams.get('page');
 
   if (page && /[1-9][0-9]*/.test(page)) {
     page = parseInt(page);
+  } else {
+    page = null;
   }
 
   return {category, brand, page};
@@ -42,12 +48,10 @@ const Shop = observer(() => {
 
   useEffect(() => {
     fetchCategories()
-      // eslint-disable-next-line
-      .then((data) => catalog.categories = data)
+      .then((data) => { catalog.categories = data; })
       .finally(() => setCategoriesFetching(false));
     fetchBrands()
-      // eslint-disable-next-line
-      .then((data) => catalog.brands = data)
+      .then((data) => { catalog.brands = data; })
       .finally(() => setBrandsFetching(false));
 
     const {category, brand, page} = getSearchParams(searchParams);
@@ -62,13 +66,12 @@ const Shop = observer(() => {
         catalog.count = data.count;
       })
       .finally(() => setProductsFetching(false));
-  // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     const {category, brand, page} = getSearchParams(searchParams);
 
-    if (catalog || brand || page) {
+    if (category || brand || page) {
       if (category !== catalog.category) {
         catalog.category = category;
       }
@@ -85,7 +88,6 @@ const Shop = observer(() => {
       catalog.brand = null;
       catalog.page = 1;
     }
-  // eslint-disable-next-line
   }, [location.search]);
 
   useEffect(() => {
@@ -98,7 +100,6 @@ const Shop = observer(() => {
         })
         .finally(() => setProductsFetching(false));
     }, 1000);
-  // eslint-disable-next-line
   }, [catalog.category, catalog.brand, catalog.page]);
 
   return (

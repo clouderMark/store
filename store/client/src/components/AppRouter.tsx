@@ -7,7 +7,7 @@ import Contacts from '../pages/Contacts';
 import Delivery from '../pages/Delivery';
 import Login from '../pages/Login';
 import NotFound from '../pages/NotFound';
-import Shop from '../pages/Shop.js';
+import Shop from '../pages/Shop';
 import Signup from '../pages/Signup';
 import User from '../pages/User';
 import {useAppContext} from './AppContext';
