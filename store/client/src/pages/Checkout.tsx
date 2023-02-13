@@ -1,12 +1,13 @@
 import {Navigate} from 'react-router-dom';
-import {useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Container, Form, Button, Spinner} from 'react-bootstrap';
 import {fetchBasket} from '../http/basketAPI';
 import {useAppContext} from '../components/AppContext';
 import {check as checkAuth} from '../http/userAPI';
 import {guestCreate, userCreate} from '../http/orderAPI';
+import {IOrderWithItems} from '../types/types';
 
-const isValid = (input) => {
+const isValid = (input: HTMLInputElement): boolean => {
   let pattern;
 
   switch (input.name) {
@@ -24,24 +25,28 @@ const isValid = (input) => {
       return pattern.test(input.value.trim());
     case 'address':
       return input.value.trim() !== '';
-    default: // Do nothing
+    default: return false;
   }
 };
+
+const defaultValid = {name: null, email: null, phone: null, address: null};
+const defaultValue = {name: '', email: '', phone: '', address: ''};
+
+interface IDefaultValid {name: null | boolean, email: null | boolean, phone: null | boolean, address: null | boolean}
 
 const Checkout = () => {
   const {user, basket} = useAppContext();
   const [fetching, setFetching] = useState(true);
 
-  const [order, setOrder] = useState(null);
+  const [order, setOrder] = useState<null | IOrderWithItems>(null);
 
-  const [value, setValue] = useState({name: '', email: '', phone: '', address: ''});
-  const [valid, setValid] = useState({name: null, email: null, phone: null, address: null});
+  const [value, setValue] = useState(defaultValue);
+  const [valid, setValid] = useState<IDefaultValid>(defaultValid);
 
   useEffect(() => {
     // если корзина пуста тут делать нечего
     fetchBasket()
-      // eslint-disable-next-line
-      .then((data) => (basket.products = data.products))
+      .then((data) => { basket.products = data.products; })
       .finally(() => setFetching(false));
     checkAuth()
       .then((data) => {
@@ -49,7 +54,7 @@ const Checkout = () => {
           user.login(data);
         }
       })
-      .catch((error) => user.logout(error));
+      .catch(() => user.logout());
   }, []);
 
   if (fetching) {
@@ -67,30 +72,35 @@ const Checkout = () => {
     );
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValue({...value, [event.target.name]: event.target.value});
     setValid({...valid, [event.target.name]: isValid(event.target)});
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const name = event.currentTarget.elements.namedItem('name') as HTMLInputElement;
+    const email = event.currentTarget.elements.namedItem('email') as HTMLInputElement;
+    const phone = event.currentTarget.elements.namedItem('phone') as HTMLInputElement;
+    const address = event.currentTarget.elements.namedItem('address') as HTMLInputElement;
+
     setValue({
-      name: event.target.name.value.trim(),
-      email: event.target.name.value.trim(),
-      phone: event.target.name.value.trim(),
-      address: event.target.name.value.trim(),
+      name: name.value.trim(),
+      email: email.value.trim(),
+      phone: phone.value.trim(),
+      address: address.value.trim(),
     });
 
     setValid({
-      name: isValid(event.target.name),
-      email: isValid(event.target.email),
-      phone: isValid(event.target.phone),
-      address: isValid(event.target.address),
+      name: isValid(name),
+      email: isValid(email),
+      phone: isValid(phone),
+      address: isValid(address),
     });
 
     if (valid.name && valid.email && valid.phone && valid.address) {
-      let comment = event.target.comment.value.trim();
+      let comment: string | null = (event.currentTarget.elements.namedItem('comment') as HTMLInputElement).value.trim();
       // eslint-disable-next-line
       comment = comment ? comment : null;
       // форма заполнена правильно, можно отправлять данные
@@ -112,7 +122,7 @@ const Checkout = () => {
         <Form.Control
           name="name"
           value={value.name}
-          onChange={(e) => handleChange(e)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
           isValid={valid.name === true}
           isInvalid={valid.name === false}
           placeholder="Петров Петр"
@@ -121,7 +131,7 @@ const Checkout = () => {
         <Form.Control
           name="email"
           value={value.email}
-          onChange={(e) => handleChange(e)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
           isValid={valid.email === true}
           isInvalid={valid.email === false}
           placeholder="example@mail.by"
@@ -130,7 +140,7 @@ const Checkout = () => {
         <Form.Control
           name="phone"
           value={value.phone}
-          onChange={(e) => handleChange(e)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
           isValid={valid.phone === true}
           isInvalid={valid.phone === false}
           placeholder="+375(25) 123-45-67"
@@ -139,7 +149,7 @@ const Checkout = () => {
         <Form.Control
           name="address"
           value={value.address}
-          onChange={(e) => handleChange(e)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
           isValid={valid.address === true}
           isInvalid={valid.address === false}
           placeholder="Введите адрес доставки..."

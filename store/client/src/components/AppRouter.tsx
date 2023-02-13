@@ -11,7 +11,7 @@ import Shop from '../pages/Shop.js';
 import Signup from '../pages/Signup';
 import User from '../pages/User';
 import {useAppContext} from './AppContext';
-import Checkout from '../pages/Checkout.js';
+import Checkout from '../pages/Checkout';
 import UserOrders from '../pages/UserOrders';
 import UserOrder from '../pages/UserOrder';
 import AdminOrders from '../pages/AdminOrders';
