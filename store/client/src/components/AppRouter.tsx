@@ -6,7 +6,7 @@ import Product from '../pages/Product';
 import Contacts from '../pages/Contacts';
 import Delivery from '../pages/Delivery';
 import Login from '../pages/Login';
-import NotFound from '../pages/NotFound.js';
+import NotFound from '../pages/NotFound';
 import Shop from '../pages/Shop.js';
 import Signup from '../pages/Signup';
 import User from '../pages/User';
