@@ -19,11 +19,13 @@ const App = observer(() => {
     Promise.all([checkAuth(), fetchBasket()])
       .then(
         axios.spread((userData, basketData) => {
-          if (userData) {
+          if (userData && 'email' in userData) {
             user.login(userData);
           }
 
-          basket.products = basketData.products;
+          if (basketData && 'products' in basketData) {
+            basket.products = basketData.products;
+          }
         }),
       )
       .finally(() => setLoading(false));
