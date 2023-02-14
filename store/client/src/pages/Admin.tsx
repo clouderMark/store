@@ -42,8 +42,8 @@ const Admin = () => {
       <h1>Панель управления</h1>
       <p>Это панель управления магазином для администратора</p>
       <List>
-        {links.map((item) => (
-          <ListItem disablePadding>
+        {links.map((item, i) => (
+          <ListItem disablePadding key={i}>
             <ListItemButton component={Link} to={item.address}>
               <ListItemText primary={item.content} />
             </ListItemButton>
