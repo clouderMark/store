@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, {InternalAxiosRequestConfig} from 'axios';
 
 const guestInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -10,7 +10,7 @@ const authInstance = axios.create({
   withCredentials: true,
 });
 
-const authInterceptor = (config) => {
+const authInterceptor = (config: InternalAxiosRequestConfig) => {
   const token = localStorage.getItem('token');
 
   if (token) {

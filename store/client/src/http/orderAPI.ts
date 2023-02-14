@@ -1,4 +1,4 @@
-import {guestInstance, authInstance} from './index.js';
+import {guestInstance, authInstance} from './index';
 import {IOrderBody, IOrder, IOrderWithItems} from '../types/types.js';
 /*
  *только для администратора

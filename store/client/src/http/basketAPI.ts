@@ -1,5 +1,5 @@
-import {guestInstance} from './index.js';
-import {IBasket} from '../types/types.js';
+import {guestInstance} from './index';
+import {IBasket} from '../types/types';
 
 export const fetchBasket = async (): Promise<IBasket> => {
   const {data} = await guestInstance.get('basket/getone');

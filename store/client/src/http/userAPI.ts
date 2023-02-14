@@ -1,6 +1,6 @@
 import {AxiosError} from 'axios';
 import jwtDecode from 'jwt-decode';
-import {authInstance, guestInstance} from './index.js';
+import {authInstance, guestInstance} from './index';
 import {IRegistration} from '../types/types.js';
 
 export const signup = async (email: string, password: string): Promise<IRegistration | false> => {

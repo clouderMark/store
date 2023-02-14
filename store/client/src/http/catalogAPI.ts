@@ -1,4 +1,4 @@
-import {authInstance, guestInstance} from './index.js';
+import {authInstance, guestInstance} from './index';
 import {
   ICatalogItem,
   IProduct,
@@ -8,7 +8,7 @@ import {
   IRating,
   IProperty,
   IProductProp,
-} from '../types/types.js';
+} from '../types/types';
 
 // Создание, обновление, удаление категории, получение списка всех категой
 
