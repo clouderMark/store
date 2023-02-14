@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import {Modal, Form, Button} from 'react-bootstrap';
 import {fetchBrand, createBrand, updateBrand} from '../http/catalogAPI';
 
@@ -29,12 +29,12 @@ const EditBrand = (props: IProps) => {
     }
   }, [id]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setValid(event.target.value.trim() !== '');
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const correct = name.trim() !== '';
@@ -74,7 +74,7 @@ const EditBrand = (props: IProps) => {
           <Form.Control
             name="name"
             value={name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
             isValid={valid === true}
             isInvalid={valid === false}
             placeholder="Название бренда..."

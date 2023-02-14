@@ -1,5 +1,5 @@
 import {observer} from 'mobx-react-lite';
-import {useEffect} from 'react';
+import {useEffect, FormEvent} from 'react';
 import {Button, Card, Container, Form, Row} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../components/AppContext';
@@ -14,7 +14,7 @@ const Signup = observer(() => {
     if (user.isAuth) navigate('/user', {replace: true});
   }, []);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const target = event.currentTarget;
     const email = target.email.value.trim();

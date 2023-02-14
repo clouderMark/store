@@ -1,5 +1,5 @@
 import {Navigate} from 'react-router-dom';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import {Container, Form, Button, Spinner} from 'react-bootstrap';
 import {fetchBasket} from '../http/basketAPI';
 import {useAppContext} from '../components/AppContext';
@@ -72,12 +72,12 @@ const Checkout = () => {
     );
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue({...value, [event.target.name]: event.target.value});
     setValid({...valid, [event.target.name]: isValid(event.target)});
   };
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const name = event.currentTarget.elements.namedItem('name') as HTMLInputElement;
@@ -122,7 +122,7 @@ const Checkout = () => {
         <Form.Control
           name="name"
           value={value.name}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
           isValid={valid.name === true}
           isInvalid={valid.name === false}
           placeholder="Петров Петр"
@@ -131,7 +131,7 @@ const Checkout = () => {
         <Form.Control
           name="email"
           value={value.email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
           isValid={valid.email === true}
           isInvalid={valid.email === false}
           placeholder="example@mail.by"
@@ -140,7 +140,7 @@ const Checkout = () => {
         <Form.Control
           name="phone"
           value={value.phone}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
           isValid={valid.phone === true}
           isInvalid={valid.phone === false}
           placeholder="+375(25) 123-45-67"
@@ -149,7 +149,7 @@ const Checkout = () => {
         <Form.Control
           name="address"
           value={value.address}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
           isValid={valid.address === true}
           isInvalid={valid.address === false}
           placeholder="Введите адрес доставки..."

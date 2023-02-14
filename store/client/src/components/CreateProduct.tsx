@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Dispatch, SetStateAction} from 'react';
+import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react';
 import {Button, Col, Form, Modal, Row} from 'react-bootstrap';
 import EditProperties from './EditProperties';
 import {createProduct, fetchBrands, fetchCategories} from '../http/catalogAPI';
@@ -51,20 +51,20 @@ const CreateProduct = (props: IProps) => {
     fetchBrands().then((data) => setBrands(data));
   }, []);
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const data = {...value, [event.target.name]: event.target.value};
 
     setValue(data);
     setValid(isValid(data));
   };
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>): void => { //
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => { //
     if (event.target.files) {
       setImage(event.target.files[0]);
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const correct = isValid(value);
@@ -117,7 +117,7 @@ const CreateProduct = (props: IProps) => {
           <Form.Control
             name="name"
             value={value.name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
             isValid={valid.name === true}
             isInvalid={valid.name === false}
             placeholder="Название товара..."
@@ -162,7 +162,7 @@ const CreateProduct = (props: IProps) => {
               <Form.Control
                 name="price"
                 value={value.price}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
                 isValid={valid.price === true}
                 isInvalid={valid.price === false}
                 placeholder="Цена товара..."
@@ -172,7 +172,7 @@ const CreateProduct = (props: IProps) => {
               <Form.Control //
                 name="image"
                 type="file"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
                 placeholder="Фото товара..."
               />
             </Col>

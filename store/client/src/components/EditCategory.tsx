@@ -1,4 +1,4 @@
-import React, {useEffect, useState, Dispatch, SetStateAction} from 'react';
+import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react';
 import {Button, Form, Modal} from 'react-bootstrap';
 import {createCategory, fetchCategory, updateCategory} from '../http/catalogAPI';
 
@@ -29,12 +29,12 @@ const EditCategory = (props: IProps) => {
     }
   }, [id]);
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setValid(event.target.value.trim() !== '');
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const correct = name.trim() !== '';
@@ -74,7 +74,7 @@ const EditCategory = (props: IProps) => {
           <Form.Control
             name="name"
             value={name}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleChange(e)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
             isValid={valid === true}
             isInvalid={valid === false}
             placeholder="Название категории..."
