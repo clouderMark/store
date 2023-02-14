@@ -58,7 +58,7 @@ class Order {
     async delete(id) {
         let order = await OrderMapping.findByPk(id, {
             include: [
-                { model: OrderItemMapping, attributes: ['name', 'price', 'quantity'] },
+                { model: OrderItemMapping, as: 'items', attributes: ['name', 'price', 'quantity'] },
             ],
         })
         if (!order) {

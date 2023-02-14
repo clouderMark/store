@@ -22,7 +22,7 @@ const AdminOrders = () => {
   return (
     <Container sx={{mt: 2}}>
       <h1>Все заказы</h1>
-      <Orders items={orders!} admin={true} />
+      <Orders items={orders!} setItems={setOrders} admin={true}/>
     </Container>
   );
 };

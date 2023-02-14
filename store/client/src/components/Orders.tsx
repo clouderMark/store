@@ -1,13 +1,27 @@
-import {Table} from 'react-bootstrap';
+import {Dispatch, SetStateAction} from 'react';
+import {Table, Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
+import {adminDelete} from '../http/orderAPI';
 import {IOrder} from '../types/types';
 
 interface IProps {
   items: IOrder[];
   admin: boolean;
+  setItems?: Dispatch<SetStateAction<IOrder[] | null>>,
 }
 
 const Orders = (props: IProps) => {
+  const handleDeleteClick = (id: number) => {
+    adminDelete(id)
+      .then((data) => {
+        alert(`Заказ №${id} удален`);
+        if (props.setItems) {
+          props.setItems(props.items.filter((el) => el.id !== data.id));
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
   if (props.items.length === 0) {
     return <p>Список заказов пустой</p>;
   }
@@ -24,6 +38,9 @@ const Orders = (props: IProps) => {
           <th>Статус</th>
           <th>Сумма</th>
           <th>Подробнее</th>
+          {props.admin ? (
+            <th>Удалить</th>
+          ) : null}
         </tr>
       </thead>
       <tbody>
@@ -43,6 +60,13 @@ const Orders = (props: IProps) => {
                 <Link to={`/user/order/${item.id}`}>Подробнее</Link>
               )}
             </td>
+            {props.admin ? (
+              <td>
+                <Button variant="outline-dark" size="sm" onClick={() => handleDeleteClick(item.id)}>
+                  Удалить
+                </Button>
+              </td>
+            ) : null}
           </tr>
         ))}
       </tbody>
