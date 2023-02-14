@@ -1,12 +1,12 @@
 import {makeAutoObservable} from 'mobx';
-import {ICatalogItem, IRow} from '../types/types';
+import {ICatalogItem, IProductWithProps} from '../types/types';
 
 class CatalogStore {
   private _categories: ICatalogItem[] = [];
 
   private _brands: ICatalogItem[] = [];
 
-  private _products: IRow[] = [];
+  private _products: IProductWithProps[] = [];
 
   private _category: number | null = null; // выбранная категория
 
@@ -42,7 +42,7 @@ class CatalogStore {
     return this._products;
   }
 
-  set products(products: IRow[]) {
+  set products(products: IProductWithProps[]) {
     this._products = products;
   }
 

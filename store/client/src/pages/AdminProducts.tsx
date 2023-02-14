@@ -3,13 +3,13 @@ import {Button, Container, Pagination, Spinner, Table} from 'react-bootstrap';
 import CreateProduct from '../components/CreateProduct';
 import UpdateProduct from '../components/UpdateProduct';
 import {deleteProduct, fetchAllProducts} from '../http/catalogAPI';
-import {IAllProducts, IRow, IProduct} from '../types/types.js';
+import {IAllProducts, IProductWithProps, IProduct} from '../types/types.js';
 
 // количество товаров на страницу
 const ADMIN_PER_PAGE = 6;
 
 const AdminProducts = () => {
-  const [products, setProducts] = useState<IRow[]>([]); // список загруженных товаров
+  const [products, setProducts] = useState<IProductWithProps[]>([]); // список загруженных товаров
   const [fetching, setFetching] = useState(true); // загрузка списка товаров с сервера
   const [createShow, setCreateShow] = useState(false); // модальное окно создания товаров
   const [updateShow, setUpdateShow] = useState(false); // модальное окно редактирования

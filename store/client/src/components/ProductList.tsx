@@ -3,7 +3,7 @@ import {createSearchParams, useNavigate} from 'react-router-dom';
 import {Pagination, Row} from 'react-bootstrap';
 import ProductItem from './ProductItem';
 import {useAppContext} from './AppContext';
-import {IObject, IRow} from '../types/types.js';
+import {IObject, IProductWithProps} from '../types/types.js';
 
 const ProductList = observer(() => {
   const {catalog} = useAppContext();
@@ -37,7 +37,7 @@ const ProductList = observer(() => {
     <>
       <Row className="mb-3">
         {catalog.products.length ? (
-          catalog.products.map((item: IRow) => <ProductItem key={item.id} data={item} />)
+          catalog.products.map((item: IProductWithProps) => <ProductItem key={item.id} data={item} />)
         ) : (
           <p className="m-3">По вашему запросу ничего не найдено</p>
         )}

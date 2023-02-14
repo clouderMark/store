@@ -4,12 +4,12 @@ import {useParams} from 'react-router-dom';
 import {useAppContext} from '../components/AppContext';
 import {append} from '../http/basketAPI';
 import {fetchOneProduct, fetchProdRating} from '../http/catalogAPI';
-import {IRow, IRating} from '../types/types';
+import {IProductWithProps, IRating} from '../types/types';
 
 const Product = () => {
   const id: number = Number(useParams().id);
   const {basket} = useAppContext();
-  const [product, setProduct] = useState<IRow | null>(null);
+  const [product, setProduct] = useState<IProductWithProps | null>(null);
   const [rating, setRating] = useState<IRating | null>(null);
 
   useEffect(() => {

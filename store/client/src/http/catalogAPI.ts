@@ -4,7 +4,7 @@ import {
   IProduct,
   IUpdatedProduct,
   IAllProducts,
-  IRow,
+  IProductWithProps,
   IRating,
   IProperty,
   IProductProp,
@@ -115,7 +115,7 @@ export const fetchAllProducts = async (
   return data;
 };
 
-export const fetchOneProduct = async (id: number): Promise<IRow> => {
+export const fetchOneProduct = async (id: number): Promise<IProductWithProps> => {
   const {data} = await guestInstance.get(`product/getone/${id}`);
 
   return data;

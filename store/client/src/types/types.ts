@@ -28,7 +28,7 @@ export interface IProduct extends ICatalogItem {
 
 export interface IAllProducts {
   count: number;
-  rows: IRow[];
+  rows: IProductWithProps[];
 }
 
 export interface IUpdatedProduct extends IProduct {
@@ -36,7 +36,7 @@ export interface IUpdatedProduct extends IProduct {
   props: IProperty[];
 }
 
-export interface IRow extends IProduct {
+export interface IProductWithProps extends IProduct {
   brand: ICatalogItem;
   category: ICatalogItem;
   props: IProperty[]
