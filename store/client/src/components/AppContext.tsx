@@ -9,6 +9,10 @@ interface IContext {
   basket: BasketStore,
 }
 
+interface IProps {
+  children: React.ReactNode;
+}
+
 const AppContext = React.createContext<IContext | null>(null);
 
 const context = {
@@ -16,10 +20,6 @@ const context = {
   catalog: new CatalogStore(),
   basket: new BasketStore(),
 };
-
-interface IProps {
-  children: React.ReactNode;
-}
 
 const AppContextProvider = (props: IProps) => (
   <AppContext.Provider value={context}>

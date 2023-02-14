@@ -1,13 +1,13 @@
 import {Button} from 'react-bootstrap';
 import {IItem} from '../types/types';
 
-interface BasketItemProps extends IItem {
+interface IProps extends IItem {
   decrement: (id: number) => void;
   increment: (id: number) => void;
   remove: (id: number) => void;
 }
 
-const BasketItem = (props: BasketItemProps) => (
+const BasketItem = (props: IProps) => (
   <tr>
     <td>{props.name}</td>
     <td>
