@@ -1,4 +1,4 @@
-import {Button, Container} from 'react-bootstrap';
+import {Container, Button, List, ListItem, ListItemButton, ListItemText} from '@mui/material';
 import {Link, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../components/AppContext';
 import {logout} from '../http/userAPI';
@@ -17,13 +17,29 @@ const Admin = () => {
     <Container>
       <h1>Панель управления</h1>
       <p>Это панель управления магазином для администратора</p>
-      <ul>
-        <li><Link to="/admin/orders">Заказы в магазине</Link></li>
-        <li><Link to="/admin/categories">Категории каталога</Link></li>
-        <li><Link to="/admin/brands">Бренды каталога</Link></li>
-        <li><Link to="/admin/products">Товары каталога</Link></li>
-      </ul>
-      <Button onClick={handleLogout}>Выйти</Button>
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to='/admin/orders'>
+            <ListItemText primary='Заказы в магазине'/>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to='/admin/categories'>
+            <ListItemText primary='Категории каталога'/>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to='/admin/brands'>
+            <ListItemText primary='Бренды каталога'/>
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to='/admin/products'>
+            <ListItemText primary='Товары каталога'/>
+          </ListItemButton>
+        </ListItem>
+      </List>
+      <Button onClick={handleLogout} variant='outlined'>Выйти</Button>
     </Container>
   );
 };
