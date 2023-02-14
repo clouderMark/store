@@ -1,6 +1,7 @@
-import {Container, Spinner} from 'react-bootstrap';
+import {Container} from '@mui/material';
 import {useState, useEffect} from 'react';
 import {adminGetAll as getAllOrders} from '../http/orderAPI';
+import Progress from '../components/LinearDeterminate';
 import Orders from '../components/Orders';
 import {IOrder} from '../types/types';
 
@@ -15,11 +16,11 @@ const AdminOrders = () => {
   }, []);
 
   if (fetching) {
-    return <Spinner animation="border" />;
+    return <Progress />;
   }
 
   return (
-    <Container>
+    <Container sx={{mt: 2}}>
       <h1>Все заказы</h1>
       <Orders items={orders!} admin={true} />
     </Container>
