@@ -2,7 +2,7 @@ import {Container} from '@mui/material';
 import {useState, useEffect} from 'react';
 import {adminGetAll as getAllOrders} from '../http/orderAPI';
 import Progress from '../components/LinearDeterminate';
-import Orders from '../components/Orders';
+import Orders from '../components/Orders/Orders';
 import {IOrder} from '../types/types';
 
 const AdminOrders = () => {

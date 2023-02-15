@@ -1,7 +1,7 @@
 import {Container, Spinner} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
 import {userGetAll as getAllOrders} from '../http/orderAPI';
-import Orders from '../components/Orders';
+import Orders from '../components/Orders/Orders';
 import {IOrder} from '../types/types';
 
 const UserOrders = () => {
