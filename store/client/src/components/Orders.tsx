@@ -1,16 +1,35 @@
-import {Dispatch, SetStateAction} from 'react';
-import {Table, Button} from 'react-bootstrap';
+import React, {Dispatch, SetStateAction} from 'react';
+import {Table, Button, Form} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
-import {adminDelete} from '../http/orderAPI';
+import {adminDelete, updateProductStatus} from '../http/orderAPI';
 import {IOrder} from '../types/types';
 
 interface IProps {
   items: IOrder[];
   admin: boolean;
-  setItems?: Dispatch<SetStateAction<IOrder[] | null>>,
+  setItems?: Dispatch<SetStateAction<IOrder[] | null>>;
 }
 
 const Orders = (props: IProps) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLSelectElement>, id: number) => {
+    const data = new FormData();
+
+    data.append('status', e.target.value);
+    updateProductStatus(id, data)
+      .then((data) => {
+        if (props.setItems) {
+          props.setItems(props.items.map((el) => {
+            if (el.id === id) el.status = data.status;
+
+            return el;
+          }));
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const handleDeleteClick = (id: number) => {
     adminDelete(id)
       .then((data) => {
@@ -38,9 +57,7 @@ const Orders = (props: IProps) => {
           <th>Статус</th>
           <th>Сумма</th>
           <th>Подробнее</th>
-          {props.admin ? (
-            <th>Удалить</th>
-          ) : null}
+          {props.admin ? <th>Удалить</th> : null}
         </tr>
       </thead>
       <tbody>
@@ -51,7 +68,30 @@ const Orders = (props: IProps) => {
             <td>{item.name}</td>
             <td>{item.email}</td>
             <td>{item.phone}</td>
-            <td>{item.status}</td>
+            <td>
+              {props.admin ? (
+                <Form.Select
+                  name="status"
+                  value={item.status}
+                  onChange={(e) => handleInputChange(e, item.id)}
+                >
+                  <option value="0">Новый</option>
+                  <option value="1">В работе</option>
+                  <option value="2">Завершен</option>
+                </Form.Select>
+              ) : ((() => {
+                let status = 'Завершен';
+
+                if (item.status === 0) {
+                  status = 'Новый';
+                } else if (item.status === 1) {
+                  status = 'В работе';
+                }
+
+                return status;
+              }
+              ))()}
+            </td>
             <td>{item.amount}</td>
             <td>
               {props.admin ? (
