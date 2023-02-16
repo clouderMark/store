@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {Container} from '@mui/material';
+import {Container, Typography} from '@mui/material';
 import {adminGetOne as getOneOrder} from '../http/orderAPI';
 import Order from '../components/Order';
 import {IOrderWithItems} from '../types/types';
@@ -29,7 +29,7 @@ const AdminOrder = () => {
 
   return (
     <Container sx={{mt: 2}}>
-      <h1> Заказ № {order?.id}</h1>
+      <Typography variant="h4"> Заказ № {order?.id}</Typography>
       <Order data={order!} admin={true} />
     </Container>
   );

@@ -1,4 +1,4 @@
-import {Container, Button, List, ListItem, ListItemButton, ListItemText} from '@mui/material';
+import {Container, Button, List, ListItem, ListItemButton, ListItemText, Typography} from '@mui/material';
 import {Link, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../components/AppContext';
 import {logout} from '../http/userAPI';
@@ -39,8 +39,8 @@ const Admin = () => {
 
   return (
     <Container sx={{mt: 2}}>
-      <h1>Панель управления</h1>
-      <p>Это панель управления магазином для администратора</p>
+      <Typography variant="h4">Панель управления</Typography>
+      <Typography variant="body1">Это панель управления магазином для администратора</Typography>
       <List>
         {links.map((item, i) => (
           <ListItem disablePadding key={i}>

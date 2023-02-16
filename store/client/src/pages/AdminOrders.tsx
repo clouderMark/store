@@ -1,4 +1,4 @@
-import {Container} from '@mui/material';
+import {Container, Typography} from '@mui/material';
 import {useState, useEffect} from 'react';
 import {adminGetAll as getAllOrders} from '../http/orderAPI';
 import Progress from '../components/LinearDeterminate';
@@ -21,7 +21,7 @@ const AdminOrders = () => {
 
   return (
     <Container sx={{mt: 2}}>
-      <h1>Все заказы</h1>
+      <Typography variant="h4">Все заказы</Typography>
       <Orders items={orders!} setItems={setOrders} admin={true}/>
     </Container>
   );

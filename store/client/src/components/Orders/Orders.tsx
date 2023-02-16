@@ -11,6 +11,7 @@ import {
   FormControl,
   Select,
   MenuItem,
+  Typography,
 } from '@mui/material';
 import {Link} from 'react-router-dom';
 import {headCells} from './headCells';
@@ -21,7 +22,7 @@ import {getStatusText, statusList} from './statusList';
 
 const Orders = (props: IProps) => {
   if (props.items.length === 0) {
-    return <p>Список заказов пустой</p>;
+    return <Typography variant="body1">Список заказов пустой</Typography>;
   }
 
   return (
