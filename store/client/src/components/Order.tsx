@@ -1,5 +1,27 @@
-import {Table} from 'react-bootstrap';
+import {
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemIcon,
+} from '@mui/material';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import ChairIcon from '@mui/icons-material/Chair';
+import WorkHistoryIcon from '@mui/icons-material/WorkHistory';
+import AirplanemodeActiveIcon from '@mui/icons-material/AirplanemodeActive';
+import HouseIcon from '@mui/icons-material/House';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import CommentIcon from '@mui/icons-material/Comment';
 import {IOrderWithItems} from '../types/types';
+import {getStatusText} from './Orders/statusList';
 
 interface IProps {
   data: IOrderWithItems;
@@ -8,46 +30,70 @@ interface IProps {
 
 const Order = (props: IProps) => (
   <>
-    <ul>
-      <li>Дата заказа: {props.data.prettyCreatedAt}</li>
-      <li>
-        Статус заказа:
-        {props.data.status === 0 && <span> Новый</span>}
-        {props.data.status === 1 && <span>В работе</span>}
-        {props.data.status === 2 && <span>Завершен</span>}
-      </li>
-    </ul>
-    <ul>
-      <li>Имя, Фамилия: {props.data.name}</li>
-      <li>Адрес почты: {props.data.email}</li>
-      <li>Номер телефона: {props.data.phone}</li>
-      <li>Адрес доставки: {props.data.address}</li>
-      <li>Комментрарии: {props.data.comment}</li>
-    </ul>
-    <Table bordered hover size="sm" className="mt-3">
-      <thead>
-        <tr>
-          <th>Название</th>
-          <th>Цена</th>
-          <th>Кол-во</th>
-          <th>Сумма</th>
-        </tr>
-      </thead>
-      <tbody>
-        {props.data.items.map((item) => (
-          <tr key={item.id}>
-            <td>{item.name}</td>
-            <td>{item.price}</td>
-            <td>{item.quantity}</td>
-            <td>{item.price * item.quantity}</td>
-          </tr>
-        ))}
-        <tr>
-          <td colSpan={3}>Итого</td>
-          <td>{props.data.amount}</td>
-        </tr>
-      </tbody>
-    </Table>
+    <List>
+      <ListItem>
+        <ListItemIcon><CalendarMonthOutlinedIcon/></ListItemIcon>
+        <ListItemText primary={` Дата заказа: ${props.data.prettyCreatedAt}`} />
+      </ListItem>
+      <ListItem>
+        {(() => {
+          if (props.data.status === 0) return <ListItemIcon><ChairIcon /></ListItemIcon>;
+          if (props.data.status === 1) return <ListItemIcon><WorkHistoryIcon /></ListItemIcon>;
+          if (props.data.status === 2) return <ListItemIcon><AirplanemodeActiveIcon /></ListItemIcon>;
+        })()}
+        <ListItemText
+          primary={`Статус заказа: ${getStatusText(props.data.status)}`}
+        />
+      </ListItem>
+    </List>
+    <List>
+      <ListItem>
+        <ListItemIcon><EmojiPeopleIcon/></ListItemIcon>
+        <ListItemText primary={`Имя, Фамилия: ${props.data.name}`} />
+      </ListItem>
+      <ListItem>
+        <ListItemIcon><MailOutlineIcon/></ListItemIcon>
+        <ListItemText primary={`Адрес почты: ${props.data.email}`} />
+      </ListItem>
+      <ListItem>
+        <ListItemIcon><ContactPhoneIcon/></ListItemIcon>
+        <ListItemText primary={`Номер телефона: ${props.data.phone}`} />
+      </ListItem>
+      <ListItem>
+        <ListItemIcon><HouseIcon/></ListItemIcon>
+        <ListItemText primary={`Адрес доставки: ${props.data.address}`} />
+      </ListItem>
+      <ListItem>
+        <ListItemIcon><CommentIcon/></ListItemIcon>
+        <ListItemText primary={`Комментрарии: ${props.data.comment ? props.data.comment : ''}`} />
+      </ListItem>
+    </List>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Название</TableCell>
+            <TableCell>Цена</TableCell>
+            <TableCell>Кол-во</TableCell>
+            <TableCell>Сумма</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {props.data.items.map((item) => (
+            <TableRow key={item.id} hover>
+              <TableCell>{item.name}</TableCell>
+              <TableCell>{item.price}</TableCell>
+              <TableCell>{item.quantity}</TableCell>
+              <TableCell>{item.price * item.quantity}</TableCell>
+            </TableRow>
+          ))}
+          <TableRow hover>
+            <TableCell colSpan={3}>Итого</TableCell>
+            <TableCell>{props.data.amount}</TableCell>
+          </TableRow>
+        </TableBody>
+      </Table>
+    </TableContainer>
   </>
 );
 

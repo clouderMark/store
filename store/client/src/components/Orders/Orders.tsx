@@ -26,7 +26,7 @@ const Orders = (props: IProps) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table>
+      <Table size="small">
         <TableHead>
           <TableRow>
             {headCells.map((headCell) => (

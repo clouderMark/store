@@ -1,9 +1,10 @@
 import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
-import {Container, Spinner} from 'react-bootstrap';
+import {Container} from '@mui/material';
 import {adminGetOne as getOneOrder} from '../http/orderAPI';
 import Order from '../components/Order';
 import {IOrderWithItems} from '../types/types';
+import Propgress from '../components/LinearDeterminate';
 
 const AdminOrder = () => {
   const {id} = useParams();
@@ -19,7 +20,7 @@ const AdminOrder = () => {
   }, [id]);
 
   if (fetching) {
-    return <Spinner animation="border" />;
+    return <Propgress />;
   }
 
   if (error) {
@@ -27,7 +28,7 @@ const AdminOrder = () => {
   }
 
   return (
-    <Container>
+    <Container sx={{mt: 2}}>
       <h1> Заказ № {order?.id}</h1>
       <Order data={order!} admin={true} />
     </Container>
