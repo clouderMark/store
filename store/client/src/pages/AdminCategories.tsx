@@ -1,8 +1,20 @@
 import {useEffect, useState} from 'react';
-import {Button, Container, Spinner, Table} from 'react-bootstrap';
+import {
+  Container,
+  Typography,
+  Button,
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+} from '@mui/material';
 import {deleteCategory, fetchCategories} from '../http/catalogAPI';
 import EditCategory from '../components/EditCategory';
 import {ICatalogItem} from '../types/types';
+import Propgress from '../components/LinearDeterminate';
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState<null | ICatalogItem[]>(null); // список загруженных категорий
@@ -39,43 +51,49 @@ const AdminCategories = () => {
   }, [change]);
 
   if (fetching) {
-    return <Spinner animation="border" />;
+    return <Propgress />;
   }
 
   return (
-    <Container>
-      <h1>Категории</h1>
-      <Button onClick={() => handleCreateClick()}>Создать категорию</Button>
-      <EditCategory id={categoryId} show={show} setShow={setShow} setChange={setChange} />
+    <Container sx={{mt: 2}}>
+      <Typography variant="h4" sx={{mb: 1}}>
+        Категории
+      </Typography>
+      <Button variant="outlined" onClick={() => handleCreateClick()}>
+        Создать категорию
+      </Button>
+      <EditCategory id={categoryId} show={show} setShow={setShow} setChange={setChange}/>
       {categories && categories.length > 0 ? (
-        <Table bordered hover size="sm" className="mt-3">
-          <thead>
-            <tr>
-              <th>Название</th>
-              <th>Редактировать</th>
-              <th>Удалить</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((item) => (
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>
-                  <Button variant="success" size="sm" onClick={() => handleUpdateClick(item.id)}>
-                    Редактировать
-                  </Button>
-                </td>
-                <td>
-                  <Button variant="danger" size="sm" onClick={() => handleDeleteClick(item.id)}>
-                    Удалить
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <TableContainer component={Paper} sx={{mt: 2}}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Название</TableCell>
+                <TableCell>Редактировать</TableCell>
+                <TableCell>Удалить</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {categories.map((item) => (
+                <TableRow key={item.id} hover>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell>
+                    <Button variant="outlined" color="success" onClick={() => handleUpdateClick(item.id)}>
+                      Редактировать
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="outlined" color="error" onClick={() => handleDeleteClick(item.id)}>
+                      Удалить
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       ) : (
-        <p>Список категорий пустой</p>
+        <Typography variant="body1">Список категорий пустой</Typography>
       )}
     </Container>
   );
