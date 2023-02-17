@@ -1,8 +1,20 @@
 import {useEffect, useState} from 'react';
-import {Button, Container, Spinner, Table} from 'react-bootstrap';
+import {
+  Container,
+  Typography,
+  Button,
+  TableContainer,
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+} from '@mui/material';
 import {deleteBrand, fetchBrands} from '../http/catalogAPI';
 import EditBrand from '../components/EditBrand';
 import {ICatalogItem} from '../types/types';
+import Propgress from '../components/LinearDeterminate';
 
 const AdminBrands = () => {
   const [brands, setBrands] = useState<ICatalogItem[] | null>(null); // список загруженных брендов
@@ -39,43 +51,49 @@ const AdminBrands = () => {
   }, [change]);
 
   if (fetching) {
-    return <Spinner animation="border" />;
+    return <Propgress />;
   }
 
   return (
-    <Container>
-      <h1>Бренды</h1>
-      <Button onClick={() => handleCreateClick()}>Создать бренд</Button>
+    <Container sx={{mt: 2}}>
+      <Typography variant="h4" sx={{mb: 1}}>
+        Бренды
+      </Typography>
+      <Button variant="outlined" onClick={() => handleCreateClick()}>
+        Создать бренд
+      </Button>
       <EditBrand id={brandId} show={show} setShow={setShow} setChange={setChange} />
       {brands!.length > 0 ? (
-        <Table bordered hover size="sm" className="mt-3">
-          <thead>
-            <tr>
-              <th>Название</th>
-              <th>Редактировать</th>
-              <th>Удалить</th>
-            </tr>
-          </thead>
-          <tbody>
-            {brands!.map((item) => (
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>
-                  <Button variant="success" size="sm" onClick={() => handleUpdateClick(item.id)}>
-                    Редактировать
-                  </Button>
-                </td>
-                <td>
-                  <Button variant="danger" size="sm" onClick={() => handleDeleteClick(item.id)}>
-                    Удалить
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <TableContainer component={Paper} sx={{mt: 2}}>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>Название</TableCell>
+                <TableCell>Редактировать</TableCell>
+                <TableCell>Удалить</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {brands!.map((item) => (
+                <TableRow key={item.id} hover>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell>
+                    <Button variant="outlined" color="success" onClick={() => handleUpdateClick(item.id)}>
+                      Редактировать
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="outlined" color="error" onClick={() => handleDeleteClick(item.id)}>
+                      Удалить
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       ) : (
-        <p>Список брендов пустой</p>
+        <Typography variant="body1">Список брендов пустой</Typography>
       )}
     </Container>
   );
