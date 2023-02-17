@@ -1,6 +1,6 @@
-import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent} from 'react';
-import {Modal, Form, Button} from 'react-bootstrap';
+import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent, useRef} from 'react';
 import {fetchBrand, createBrand, updateBrand} from '../http/catalogAPI';
+import {PopUp} from './PopUp';
 
 interface IProps {
   id: number;
@@ -14,6 +14,14 @@ const EditBrand = (props: IProps) => {
 
   const [name, setName] = useState('');
   const [valid, setValid] = useState<null | boolean>(null);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  if (show) {
+    if (inputRef && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+  }
 
   useEffect(() => {
     if (id) {
@@ -64,26 +72,17 @@ const EditBrand = (props: IProps) => {
   };
 
   return (
-    <Modal show={show} onHide={() => setShow(false)}>
-      <Modal.Header closeButton>
-        <Modal.Title>{id ? 'Редактирование' : 'Создание'} бренда</Modal.Title>
-      </Modal.Header>
-
-      <Modal.Body>
-        <Form noValidate onSubmit={handleSubmit}>
-          <Form.Control
-            name="name"
-            value={name}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-            isValid={valid === true}
-            isInvalid={valid === false}
-            placeholder="Название бренда..."
-            className="mb-3"
-          />
-          <Button type="submit">Сохранить</Button>
-        </Form>
-      </Modal.Body>
-    </Modal>
+    <PopUp
+      title="бренда"
+      show={show}
+      setShow={setShow}
+      id={id}
+      name={name}
+      valid={valid}
+      inputRef={inputRef}
+      handleSubmit={handleSubmit}
+      handleChange={handleChange}
+    />
   );
 };
 
