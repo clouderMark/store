@@ -1,5 +1,6 @@
-import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react';
-import {Button, Form, Modal} from 'react-bootstrap';
+import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent, useRef} from 'react';
+// import {Form} from 'react-bootstrap';
+import {Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Box} from '@mui/material';
 import {createCategory, fetchCategory, updateCategory} from '../http/catalogAPI';
 
 interface IProps {
@@ -14,6 +15,14 @@ const EditCategory = (props: IProps) => {
 
   const [name, setName] = useState('');
   const [valid, setValid] = useState<null | boolean>(null);
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  if (show) {
+    if (inputRef && inputRef.current) {
+      setTimeout(() => inputRef.current?.focus(), 100);
+    }
+  }
 
   useEffect(() => {
     if (id) {
@@ -64,26 +73,29 @@ const EditCategory = (props: IProps) => {
   };
 
   return (
-    <Modal show={show} onHide={() => setShow(false)}>
-      <Modal.Header closeButton>
-        <Modal.Title>{id ? 'Редактирование' : 'Создание'} категории</Modal.Title>
-      </Modal.Header>
+    <Dialog open={show} onClose={() => setShow(false)}>
+      <DialogTitle>{id ? 'Редактирование' : 'Создание'} категории</DialogTitle>
 
-      <Modal.Body>
-        <Form noValidate onSubmit={handleSubmit}>
-          <Form.Control
+      <DialogContent>
+        <Box component='form' noValidate onSubmit={handleSubmit}>
+          <TextField
+            autoFocus={true}
+            inputRef={inputRef}
             name="name"
             value={name}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-            isValid={valid === true}
-            isInvalid={valid === false}
+            required
+            error={valid === false}
+            color={valid ? 'success' : 'primary'}
             placeholder="Название категории..."
             className="mb-3"
           />
-          <Button type="submit">Сохранить</Button>
-        </Form>
-      </Modal.Body>
-    </Modal>
+          <DialogActions>
+            <Button type="submit" variant="outlined">Сохранить</Button>
+          </DialogActions>
+        </Box>
+      </DialogContent>
+    </Dialog>
   );
 };
 
