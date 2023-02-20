@@ -1,6 +1,9 @@
 import {Dispatch, SetStateAction} from 'react';
-import {Button, Col, Form, Row} from 'react-bootstrap';
 import uuid from 'react-uuid';
+import {Box, IconButton, Typography, TextField} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+// import {Form} from 'react-bootstrap';
 import {IProductProp} from '../types/types';
 
 interface IProps {
@@ -37,37 +40,41 @@ const EditProperties = (props: IProps) => {
 
   return (
     <>
-      <h5>Характеристики</h5>
-      <Button onClick={append} variant="outline-primary" size="sm" className="mb-2">
-        Добавить
-      </Button>
+      <Box sx={{display: 'flex', justifyContent: 'space-between'}}>
+        <Typography variant="subtitle1" component="h5">
+          Характеристики
+        </Typography>
+        <IconButton onClick={append} color="secondary" aria-label="add">
+          <AddIcon />
+        </IconButton>
+      </Box>
       {properties.map((item) => (
-        <Row key={item.unique} className="mb-2" style={{display: item.remove ? 'none' : 'flex'}}>
-          <Col>
-            <Form.Control
-              name={`name_${item.unique}`}
-              value={item.name}
-              onChange={(e) => change('name', e.target.value, item.unique)}
-              placeholder="Название..."
-              size="sm"
-            />
-          </Col>
-          <Col>
-            <Form.Control
-              name={`value_${item.unique}`}
-              value={item.value}
-              onChange={(e) => change('value', e.target.value, item.unique)}
-              placeholder="Значение..."
-              size="sm"
-            />
-          </Col>
-          <Col>
-            <Button onClick={() => remove(item.unique)} size="sm" variant="outline-danger">
-              Удалить
-            </Button>
-            {item.change && ' *'}
-          </Col>
-        </Row>
+        <Box key={item.unique} sx={{display: item.remove ? 'none' : 'flex', mb: 2}}>
+          <TextField
+            name={`name_${item.unique}`}
+            value={item.name}
+            onChange={(e) => change('name', e.target.value, item.unique)}
+            placeholder="Название..."
+            sx={{mr: 1, width: '100%'}}
+            size='small'
+          />
+          <TextField
+            name={`value_${item.unique}`}
+            value={item.value}
+            onChange={(e) => change('value', e.target.value, item.unique)}
+            placeholder="Значение..."
+            sx={{width: '100%'}}
+            size='small'
+          />
+          <IconButton
+            color="warning"
+            aria-label="delete"
+            onClick={() => remove(item.unique)}
+          >
+            <DeleteIcon />
+          </IconButton>
+          {item.change && ' *'}
+        </Box>
       ))}
     </>
   );
