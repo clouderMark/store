@@ -1,6 +1,5 @@
 import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react';
 import {
-  Button,
   Dialog,
   DialogContent,
   Box,
@@ -14,6 +13,7 @@ import {
   IconButton,
 } from '@mui/material';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
+import CreateIcon from '@mui/icons-material/Create';
 import EditProperties from './EditProperties';
 import {createProduct, fetchBrands, fetchCategories} from '../http/catalogAPI';
 import {ICatalogItem, IDefaultValue, IValid, IDefaultValid, IProductProp} from '../types/types';
@@ -197,10 +197,10 @@ const CreateProduct = (props: IProps) => {
             </IconButton>
           </Box>
           <EditProperties properties={properties} setProperties={setProperties} />
-          <Box>
-            <Button type="submit" variant="outlined">
-              Сохранить
-            </Button>
+          <Box sx={{width: '100%'}}>
+            <IconButton sx={{ml: 52}} type="submit" aria-label="save" color='success'>
+              <CreateIcon/>
+            </IconButton>
           </Box>
         </Box>
       </DialogContent>
