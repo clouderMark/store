@@ -1,5 +1,19 @@
 import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react';
-import {Button, Col, Form, Modal, Row} from 'react-bootstrap';
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  Box,
+  DialogTitle,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  SelectChangeEvent,
+  IconButton,
+} from '@mui/material';
+import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import EditProperties from './EditProperties';
 import {createProduct, fetchBrands, fetchCategories} from '../http/catalogAPI';
 import {ICatalogItem, IDefaultValue, IValid, IDefaultValid, IProductProp} from '../types/types';
@@ -36,7 +50,7 @@ const CreateProduct = (props: IProps) => {
   const [valid, setValid] = useState<IDefaultValid | IValid>(defaultValid);
 
   // выбранное для загрузки изображение товара
-  const [image, setImage] = useState<File | null>(null);//
+  const [image, setImage] = useState<File | null>(null); //
 
   // список характеристик товара
   const [properties, setProperties] = useState<IProductProp[]>([]);
@@ -51,14 +65,15 @@ const CreateProduct = (props: IProps) => {
     fetchBrands().then((data) => setBrands(data));
   }, []);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (event: SelectChangeEvent<string> | ChangeEvent<HTMLInputElement>) => {
     const data = {...value, [event.target.name]: event.target.value};
 
     setValue(data);
     setValid(isValid(data));
   };
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => { //
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    //
     if (event.target.files) {
       setImage(event.target.files[0]);
     }
@@ -107,85 +122,89 @@ const CreateProduct = (props: IProps) => {
   };
 
   return (
-    <Modal show={show} onHide={() => setShow(false)} size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>Новый товар</Modal.Title>
-      </Modal.Header>
+    <Dialog open={show} onClose={() => setShow(false)} PaperProps={{sx: {width: '30%', minWidth: '500px'}}}>
+      <DialogTitle>Новый товар</DialogTitle>
 
-      <Modal.Body>
-        <Form noValidate onSubmit={handleSubmit}>
-          <Form.Control
+      <DialogContent>
+        <Box noValidate onSubmit={handleSubmit} component="form">
+          <TextField
             name="name"
             value={value.name}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-            isValid={valid.name === true}
-            isInvalid={valid.name === false}
+            error={valid.name === false}
+            color={valid.name ? 'success' : 'primary'}
             placeholder="Название товара..."
             className="mb-3"
+            sx={{width: '100%'}}
           />
-          <Row className="mb-3">
-            <Col>
-              <Form.Select
+          <Box className="mb-3" sx={{display: 'flex'}}>
+            <FormControl sx={{width: '100%', mr: 1}}>
+              <InputLabel id="category-select-label">Категория</InputLabel>
+              <Select
+                labelId="category-select-label"
                 name="category"
                 value={value.category}
                 onChange={(e) => handleInputChange(e)}
-                isValid={valid.category === true}
-                isInvalid={valid.category === false}
+                error={valid.category === false}
+                color={valid.category ? 'success' : 'primary'}
               >
-                <option value="">Категория</option>
                 {categories &&
                   categories.map((item) => (
-                    <option key={item.id} value={item.id}>
+                    <MenuItem key={item.id} value={item.id}>
                       {item.name}
-                    </option>
+                    </MenuItem>
                   ))}
-              </Form.Select>
-            </Col>
-            <Col>
-              <Form.Select
+              </Select>
+            </FormControl>
+            <FormControl sx={{width: '100%', mr: 1}}>
+              <InputLabel id="brand-select-label">Бренд</InputLabel>
+              <Select
+                labelId="brand-select-label"
                 name="brand"
                 value={value.brand}
                 onChange={(e) => handleInputChange(e)}
-                isValid={valid.brand === true}
-                isInvalid={valid.brand === false}
+                error={valid.brand === false}
+                color={valid.brand ? 'success' : 'primary'}
               >
-                <option value="">Бренд</option>
                 {brands &&
                   brands.map((item) => (
-                    <option key={item.id} value={item.id}>
+                    <MenuItem key={item.id} value={item.id}>
                       {item.name}
-                    </option>
+                    </MenuItem>
                   ))}
-              </Form.Select>
-            </Col>
-            <Col>
-              <Form.Control
-                name="price"
-                value={value.price}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-                isValid={valid.price === true}
-                isInvalid={valid.price === false}
-                placeholder="Цена товара..."
-              />
-            </Col>
-            <Col>
-              <Form.Control //
+              </Select>
+            </FormControl>
+            <TextField
+              name="price"
+              value={value.price}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+              color={valid.price ? 'success' : 'primary'}
+              error={valid.price === false}
+              placeholder="Цена товара..."
+              sx={{width: '100%', mr: 1}}
+            />
+            <IconButton color="primary" aria-label="upload picture" component="label" sx={{width: 55}}>
+              <input
                 name="image"
                 type="file"
                 onChange={(e: ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
                 placeholder="Фото товара..."
+                hidden
+                accept="image/*"
+                aria-label="upload picture"
               />
-            </Col>
-          </Row>
+              <PhotoCamera />
+            </IconButton>
+          </Box>
           <EditProperties properties={properties} setProperties={setProperties} />
-          <Row>
-            <Col>
-              <Button type="submit">Сохранить</Button>
-            </Col>
-          </Row>
-        </Form>
-      </Modal.Body>
-    </Modal>
+          <Box>
+            <Button type="submit" variant="outlined">
+              Сохранить
+            </Button>
+          </Box>
+        </Box>
+      </DialogContent>
+    </Dialog>
   );
 };
 
