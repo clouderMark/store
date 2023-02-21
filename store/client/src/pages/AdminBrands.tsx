@@ -1,20 +1,9 @@
 import {useEffect, useState} from 'react';
-import {
-  Container,
-  Typography,
-  Button,
-  TableContainer,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-} from '@mui/material';
 import {deleteBrand, fetchBrands} from '../http/catalogAPI';
 import EditBrand from '../components/EditBrand';
 import {ICatalogItem} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
+import {TableCategory} from '../components/TableCategory';
 
 const AdminBrands = () => {
   const [brands, setBrands] = useState<ICatalogItem[] | null>(null); // список загруженных брендов
@@ -54,48 +43,17 @@ const AdminBrands = () => {
     return <Propgress />;
   }
 
+  const component = () => <EditBrand id={brandId} show={show} setShow={setShow} setChange={setChange} />;
+
   return (
-    <Container sx={{mt: 2}}>
-      <Typography variant="h4" sx={{mb: 1}}>
-        Бренды
-      </Typography>
-      <Button variant="outlined" onClick={() => handleCreateClick()}>
-        Создать бренд
-      </Button>
-      <EditBrand id={brandId} show={show} setShow={setShow} setChange={setChange} />
-      {brands!.length > 0 ? (
-        <TableContainer component={Paper} sx={{mt: 2}}>
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell>Название</TableCell>
-                <TableCell>Редактировать</TableCell>
-                <TableCell>Удалить</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {brands!.map((item) => (
-                <TableRow key={item.id} hover>
-                  <TableCell>{item.name}</TableCell>
-                  <TableCell>
-                    <Button variant="outlined" color="success" onClick={() => handleUpdateClick(item.id)}>
-                      Редактировать
-                    </Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button variant="outlined" color="error" onClick={() => handleDeleteClick(item.id)}>
-                      Удалить
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <Typography variant="body1">Список брендов пустой</Typography>
-      )}
-    </Container>
+    <TableCategory
+      title={'бренды'}
+      child={component}
+      handleCreateClick={handleCreateClick}
+      items={brands!}
+      handleUpdateClick={handleUpdateClick}
+      handleDeleteClick={handleDeleteClick}
+    />
   );
 };
 
