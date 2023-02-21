@@ -1,6 +1,6 @@
 import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent} from 'react';
-import {Button, Col, Form, Modal, Row} from 'react-bootstrap';
 import uuid from 'react-uuid';
+import {SelectChangeEvent} from '@mui/material';
 import {
   createProperty,
   deleteProperty,
@@ -10,7 +10,7 @@ import {
   updateProduct,
   updateProperty,
 } from '../http/catalogAPI';
-import EditProperties from './EditProperties';
+import {PopUpForProduct} from './PopUpForProduct';
 import {IDefaultValue, IDefaultValid, IValid, IProductProp, ICatalogItem} from '../types/types';
 
 interface IProps {
@@ -107,6 +107,10 @@ const UpdateProduct = (props: IProps) => {
   const [categories, setCategories] = useState<ICatalogItem[] | null>(null);
   const [brands, setBrands] = useState<ICatalogItem[] | null>(null);
 
+  const [fetchingProduct, setfetchingProduct] = useState(true);
+  const [fetchingCategories, setfetchingCategories] = useState(true);
+  const [fetchingBrands, setfetchingBrands] = useState(true);
+
   useEffect(() => {
     if (id) {
       // нужно получить с сервера данные товара для редактирования
@@ -122,22 +126,24 @@ const UpdateProduct = (props: IProps) => {
           setValue(prod);
           setValid(isValid(prod));
           setProperties(
-            data.props.map((item) => (
+            data.props.map((item) =>
               // при добавлении новой хар-ки свойство append принимает значение true
               // при изменении старой хар-ки свойство change принимает значение true
               // при удалении старой хар-ки свойство remove принимает значение true
-              {...item, unique: uuid(), append: false, remove: false, change: false}
-            )),
+              ({...item, unique: uuid(), append: false, remove: false, change: false})),
           );
         })
-        .catch((error) => console.error(error));
+        .catch((error) => console.error(error))
+        .finally(() => setfetchingProduct(false));
       // нужно получить с сервера список категорий и всех брендов
-      fetchCategories().then((data) => setCategories(data));
-      fetchBrands().then((data) => setBrands(data));
+      fetchCategories().then((data) => setCategories(data))
+        .finally(() => setfetchingCategories(false));
+      fetchBrands().then((data) => setBrands(data))
+        .finally(() => setfetchingBrands(false));
     }
   }, [id]);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (event: SelectChangeEvent<string> | ChangeEvent<HTMLInputElement>) => {
     const data = {...value, [event.target.name]: event.target.value};
 
     setValue(data);
@@ -195,9 +201,7 @@ const UpdateProduct = (props: IProps) => {
           // мы получили актуальные значения хар-к с сервера, потому что обновление
           // хар-тик завершилось еще до момента отправки этого http-запроса на сервер
           setProperties(
-            data.props.map((item) => (
-              {...item, unique: uuid(), append: false, remove: false, change: false}
-            )),
+            data.props.map((item) => ({...item, unique: uuid(), append: false, remove: false, change: false})),
           );
           // закрываю модально окно редактирования товара
           setShow(false);
@@ -209,87 +213,20 @@ const UpdateProduct = (props: IProps) => {
   };
 
   return (
-    <Modal show={show} onHide={() => setShow(false)} size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>Редактирование товара</Modal.Title>
-      </Modal.Header>
-
-      <Modal.Body>
-        <Form noValidate onSubmit={handleSubmit}>
-          <Form.Control
-            name="name"
-            value={value.name}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-            isValid={valid.name === true}
-            isInvalid={valid.name === false}
-            placeholder="Название товара..."
-            className="mb-3"
-          />
-          <Row className="mb-3">
-            <Col>
-              <Form.Select
-                name="category"
-                value={value.category}
-                onChange={(e) => handleInputChange(e)}
-                isValid={valid.category === true}
-                isInvalid={valid.category === false}
-              >
-                <option value="">Категория</option>
-                {categories &&
-                  categories.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-              </Form.Select>
-            </Col>
-            <Col>
-              <Form.Select
-                name="brand"
-                value={value.brand}
-                onChange={(e) => handleInputChange(e)}
-                isValid={valid.brand === true}
-                isInvalid={valid.brand === false}
-              >
-                <option value="">Бренд</option>
-                {brands &&
-                  brands.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-              </Form.Select>
-            </Col>
-          </Row>
-          <Row className="mb-3">
-            <Col>
-              <Form.Control
-                name="price"
-                value={value.price}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-                isValid={valid.price === true}
-                isInvalid={valid.price === false}
-                placeholder="Цена товара..."
-              />
-            </Col>
-            <Col>
-              <Form.Control
-                name="image"
-                type="file"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
-                placeholder="Фото товара..."
-              />
-            </Col>
-          </Row>
-          <EditProperties properties={properties} setProperties={setProperties} />
-          <Row>
-            <Col>
-              <Button type="submit">Сохранить</Button>
-            </Col>
-          </Row>
-        </Form>
-      </Modal.Body>
-    </Modal>
+    <PopUpForProduct
+      show={show && !fetchingProduct && !fetchingBrands && !fetchingCategories}
+      setShow={setShow}
+      handleSubmit={handleSubmit}
+      handleInputChange={handleInputChange}
+      handleImageChange={handleImageChange}
+      title={'Редактирование товара'}
+      value={value}
+      valid={valid}
+      categories={categories}
+      brands={brands}
+      properties={properties}
+      setProperties={setProperties}
+    />
   );
 };
 
