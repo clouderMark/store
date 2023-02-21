@@ -1,20 +1,8 @@
 import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react';
 import {
-  Dialog,
-  DialogContent,
-  Box,
-  DialogTitle,
-  TextField,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
   SelectChangeEvent,
-  IconButton,
 } from '@mui/material';
-import PhotoCamera from '@mui/icons-material/PhotoCamera';
-import CreateIcon from '@mui/icons-material/Create';
-import EditProperties from './EditProperties';
+import {PopUpForProduct} from './PopUpForProduct';
 import {createProduct, fetchBrands, fetchCategories} from '../http/catalogAPI';
 import {ICatalogItem, IDefaultValue, IValid, IDefaultValid, IProductProp} from '../types/types';
 
@@ -122,89 +110,20 @@ const CreateProduct = (props: IProps) => {
   };
 
   return (
-    <Dialog open={show} onClose={() => setShow(false)} PaperProps={{sx: {width: '30%', minWidth: '500px'}}}>
-      <DialogTitle>Новый товар</DialogTitle>
-
-      <DialogContent>
-        <Box noValidate onSubmit={handleSubmit} component="form">
-          <TextField
-            name="name"
-            value={value.name}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-            error={valid.name === false}
-            color={valid.name ? 'success' : 'primary'}
-            placeholder="Название товара..."
-            className="mb-3"
-            sx={{width: '100%'}}
-          />
-          <Box className="mb-3" sx={{display: 'flex'}}>
-            <FormControl sx={{width: '100%', mr: 1}}>
-              <InputLabel id="category-select-label">Категория</InputLabel>
-              <Select
-                labelId="category-select-label"
-                name="category"
-                value={value.category}
-                onChange={(e) => handleInputChange(e)}
-                error={valid.category === false}
-                color={valid.category ? 'success' : 'primary'}
-              >
-                {categories &&
-                  categories.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-            <FormControl sx={{width: '100%', mr: 1}}>
-              <InputLabel id="brand-select-label">Бренд</InputLabel>
-              <Select
-                labelId="brand-select-label"
-                name="brand"
-                value={value.brand}
-                onChange={(e) => handleInputChange(e)}
-                error={valid.brand === false}
-                color={valid.brand ? 'success' : 'primary'}
-              >
-                {brands &&
-                  brands.map((item) => (
-                    <MenuItem key={item.id} value={item.id}>
-                      {item.name}
-                    </MenuItem>
-                  ))}
-              </Select>
-            </FormControl>
-            <TextField
-              name="price"
-              value={value.price}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-              color={valid.price ? 'success' : 'primary'}
-              error={valid.price === false}
-              placeholder="Цена товара..."
-              sx={{width: '100%', mr: 1}}
-            />
-            <IconButton color="primary" aria-label="upload picture" component="label" sx={{width: 55}}>
-              <input
-                name="image"
-                type="file"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
-                placeholder="Фото товара..."
-                hidden
-                accept="image/*"
-                aria-label="upload picture"
-              />
-              <PhotoCamera />
-            </IconButton>
-          </Box>
-          <EditProperties properties={properties} setProperties={setProperties} />
-          <Box sx={{width: '100%'}}>
-            <IconButton sx={{ml: 52}} type="submit" aria-label="save" color='success'>
-              <CreateIcon/>
-            </IconButton>
-          </Box>
-        </Box>
-      </DialogContent>
-    </Dialog>
+    <PopUpForProduct
+      show={show}
+      setShow={setShow}
+      handleSubmit={handleSubmit}
+      handleInputChange={handleInputChange}
+      handleImageChange={handleImageChange}
+      title={'Новый товар'}
+      value={value}
+      valid={valid}
+      categories={categories}
+      brands={brands}
+      properties={properties}
+      setProperties={setProperties}
+    />
   );
 };
 
