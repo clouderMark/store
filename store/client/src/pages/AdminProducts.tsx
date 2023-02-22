@@ -1,23 +1,11 @@
 import {useEffect, useState} from 'react';
-import {
-  Container,
-  Typography,
-  Button,
-  TableContainer,
-  Paper,
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-  Pagination,
-  Stack,
-} from '@mui/material';
+import {Pagination, Stack} from '@mui/material';
 import CreateProduct from '../components/CreateProduct';
 import UpdateProduct from '../components/UpdateProduct';
 import {deleteProduct, fetchAllProducts} from '../http/catalogAPI';
 import {IAllProducts, IProductWithProps, IProduct} from '../types/types.js';
 import Progress from '../components/LinearDeterminate';
+import {AdminTable} from '../components/AdminTable/AdminTable';
 
 // количество товаров на страницу
 const ADMIN_PER_PAGE = 6;
@@ -66,6 +54,29 @@ const AdminProducts = () => {
       .catch((error) => alert(error.response.data.message));
   };
 
+  const handleCreateClick = () => {
+    setCreateShow(true);
+  };
+
+  const CreateProd = () => (
+    <CreateProduct show={createShow} setShow={setCreateShow} setChange={setChange} key={1}/>
+  );
+
+  const UpdateProd = () => (
+    <UpdateProduct id={product!} show={updateShow} setShow={setUpdateShow} setChange={setChange} key={2}/>
+  );
+
+  const Paginator = () => (
+    <Stack spacing={2} sx={{display: 'flex', alignItems: 'center', mt: 3}}>
+      <Pagination
+        count={totalPages}
+        page={currentPage}
+        onChange={(_, value) => handlePageClick(value)}
+        color="secondary"
+      />
+    </Stack>
+  );
+
   useEffect(() => {
     fetchAllProducts(null, null, currentPage, ADMIN_PER_PAGE)
       .then((data: IAllProducts) => {
@@ -80,66 +91,15 @@ const AdminProducts = () => {
   }
 
   return (
-    <Container sx={{mt: 2}}>
-      <Typography variant="h4" sx={{mb: 1}}>
-        Товары
-      </Typography>
-      <Button variant="outlined" onClick={() => setCreateShow(true)}>
-        Создать товар
-      </Button>
-      <CreateProduct show={createShow} setShow={setCreateShow} setChange={setChange} />
-      <UpdateProduct id={product!} show={updateShow} setShow={setUpdateShow} setChange={setChange} />
-      {products.length > 0 ? (
-        <>
-          <TableContainer component={Paper} sx={{mt: 2}}>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Название</TableCell>
-                  <TableCell>Категория</TableCell>
-                  <TableCell>Бренд</TableCell>
-                  <TableCell>Цена</TableCell>
-                  <TableCell>Редактировать</TableCell>
-                  <TableCell>Удалить</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {products.map((item) => (
-                  <TableRow key={item.id}>
-                    <TableCell>{item.name}</TableCell>
-                    <TableCell>{item.category.name}</TableCell>
-                    <TableCell>{item.brand.name}</TableCell>
-                    <TableCell>{item.price}</TableCell>
-                    <TableCell>
-                      <Button variant="outlined" color="success" onClick={() => handleUpdateClick(item.id)}>
-                        Редактировать
-                      </Button>
-                    </TableCell>
-                    <TableCell>
-                      <Button variant="outlined" color="error" onClick={() => handleDeleteClick(item.id)}>
-                        Удалить
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          {totalPages > 1 ? (
-            <Stack spacing={2} sx={{display: 'flex', alignItems: 'center', mt: 3}}>
-              <Pagination
-                count={totalPages}
-                page={currentPage}
-                onChange={(_, value) => handlePageClick(value)}
-                color="secondary"
-              />
-            </Stack>
-          ) : null}
-        </>
-      ) : (
-        <p>Список товаров пустой</p>
-      )}
-    </Container>
+    <AdminTable
+      title="goods"
+      children={[CreateProd, UpdateProd]}
+      handleCreateClick={handleCreateClick}
+      items={products!}
+      handleUpdateClick={handleUpdateClick}
+      handleDeleteClick={handleDeleteClick}
+      pagination={{totalPages, pagination: Paginator}}
+    />
   );
 };
 

@@ -3,7 +3,7 @@ import {deleteBrand, fetchBrands} from '../http/catalogAPI';
 import EditBrand from '../components/EditBrand';
 import {ICatalogItem} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
-import {TableCategory} from '../components/TableCategory';
+import {AdminTable} from '../components/AdminTable/AdminTable';
 
 const AdminBrands = () => {
   const [brands, setBrands] = useState<ICatalogItem[] | null>(null); // список загруженных брендов
@@ -33,6 +33,10 @@ const AdminBrands = () => {
       .catch((error) => console.error(error));
   };
 
+  const Edit = () => (
+    <EditBrand id={brandId} show={show} setShow={setShow} setChange={setChange} key={1}/>
+  );
+
   useEffect(() => {
     fetchBrands()
       .then((data) => setBrands(data))
@@ -43,16 +47,14 @@ const AdminBrands = () => {
     return <Propgress />;
   }
 
-  const component = () => <EditBrand id={brandId} show={show} setShow={setShow} setChange={setChange} />;
-
   return (
-    <TableCategory
-      title={'бренды'}
-      child={component}
+    <AdminTable
+      title={'brand'}
+      children={[Edit]}
       handleCreateClick={handleCreateClick}
-      items={brands!}
       handleUpdateClick={handleUpdateClick}
       handleDeleteClick={handleDeleteClick}
+      items={brands!}
     />
   );
 };

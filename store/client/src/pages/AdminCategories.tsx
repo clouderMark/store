@@ -3,7 +3,7 @@ import {deleteCategory, fetchCategories} from '../http/catalogAPI';
 import EditCategory from '../components/EditCategory';
 import {ICatalogItem} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
-import {TableCategory} from '../components/TableCategory';
+import {AdminTable} from '../components/AdminTable/AdminTable';
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState<null | ICatalogItem[]>(null); // список загруженных категорий
@@ -33,6 +33,10 @@ const AdminCategories = () => {
       .catch((error) => console.error(error));
   };
 
+  const Edit = () => (
+    <EditCategory id={categoryId} show={show} setShow={setShow} setChange={setChange} key={1}/>
+  );
+
   useEffect(() => {
     fetchCategories()
       .then((data) => setCategories(data))
@@ -43,16 +47,14 @@ const AdminCategories = () => {
     return <Propgress />;
   }
 
-  const component = () => <EditCategory id={categoryId} show={show} setShow={setShow} setChange={setChange} />;
-
   return (
-    <TableCategory
-      title={'категории'}
-      child={component}
+    <AdminTable
+      title={'category'}
+      children={[Edit]}
       handleCreateClick={handleCreateClick}
-      items={categories!}
       handleUpdateClick={handleUpdateClick}
       handleDeleteClick={handleDeleteClick}
+      items={categories!}
     />
   );
 };
