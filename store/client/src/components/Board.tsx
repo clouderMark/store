@@ -13,7 +13,7 @@ interface IProps {
 }
 
 export const Board = (props: IProps) => (
-  <TableContainer component={Paper} sx={{mt: 2}}>
+  <TableContainer component={Paper} sx={{mt: 2, mb: 2}}>
     <Table size="small">
       {props.tableHeadCells ? (
         <TableHead>
