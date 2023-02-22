@@ -3,7 +3,7 @@ import {useParams} from 'react-router-dom';
 import {Container} from '@mui/material';
 import Propgress from '../components/LinearDeterminate';
 import {userGetOne as getOneOrder} from '../http/orderAPI';
-import Order from '../components/Order';
+import Order from '../components/Order/Order';
 import {IOrderWithItems} from '../types/types';
 
 const UserOrder = () => {

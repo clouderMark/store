@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {useParams} from 'react-router-dom';
 import {Container, Typography} from '@mui/material';
 import {adminGetOne as getOneOrder} from '../http/orderAPI';
-import Order from '../components/Order';
+import Order from '../components/Order/Order';
 import {IOrderWithItems} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
 
