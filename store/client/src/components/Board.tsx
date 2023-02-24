@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 
 interface IProps {
-  tableHeadCells(): JSX.Element;
+  tableHeadCells?(): JSX.Element;
   tableBodyCells(): JSX.Element;
 }
 

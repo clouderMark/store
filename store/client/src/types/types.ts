@@ -6,6 +6,7 @@ export interface IItem extends IId {
   name: string;
   price: number;
   quantity: number;
+  image: string;
 }
 
 export interface IBasket extends IId {

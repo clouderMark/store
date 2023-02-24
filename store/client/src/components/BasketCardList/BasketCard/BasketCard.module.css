@@ -1,0 +1,50 @@
+.card {
+  display: flex;
+  min-width: 275px;
+  max-width: 720px;
+  height: 150px;
+  margin-bottom: 10px;
+}
+
+.imgWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 112px;
+  height: 150px;
+  margin-left: 10px;
+}
+
+.img {
+  width: 92px;
+  height: 92px;
+}
+
+.cardContent {
+  padding-top: 8px;
+  padding-left: 8px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.cardContentContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 100%;
+}
+
+.cardContentTitle {
+  width: 309px;
+  padding-top: 10px;
+}
+
+.price {
+  padding-top: 10px;
+}
+
+.quantity {
+  width: 309px;
+}
