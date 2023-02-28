@@ -1,17 +1,19 @@
 import {observer} from 'mobx-react-lite';
 import {AppBar, Toolbar, Container, Box, Button, TextField, InputAdornment} from '@mui/material';
+import {NavLink} from 'react-router-dom';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AnchorIcon from '@mui/icons-material/Anchor';
 import SearchIcon from '@mui/icons-material/Search';
-import {NavLink} from 'react-router-dom';
 import {useAppContext} from '../AppContext';
-import styles from './NavBar.module.css';
+import {navigation} from './navigation';
+import styles from './styles/logo.module.css';
+import {dFlex, justifySB, alignC} from './styles/flex';
 import {ReactComponent as Icon} from './Logo.svg';
 import {StyledBadge} from './StyledBadge';
-import {navigation} from './navigation';
+import {NavBarButton} from './NavBarButton';
 
 const NavBar = observer(() => {
   const {user, basket} = useAppContext();
@@ -19,70 +21,32 @@ const NavBar = observer(() => {
   return (
     <AppBar color="inherit" position="sticky">
       <Toolbar>
-        <Container maxWidth={false} sx={{width: 1400, height: 188}}>
-          <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-            <Button component={NavLink} to="/" className={styles.buttonLogo}>
+        <Container maxWidth={false} sx={{width: 1400, height: 188, pt: 3}}>
+          <Box sx={[dFlex, justifySB, alignC]}>
+            <Button component={NavLink} to="/" sx={{color: 'inherit'}}>
               <Icon className={styles.logo} />
             </Button>
-            <Box sx={{display: 'flex'}}>
-              <Button component={NavLink} to="/shop" className={styles.button} color="inherit" aria-label="магазин">
-                <Box className={styles.box}>
-                  <ShoppingCartOutlinedIcon />
-                </Box>
-                Магазин
-              </Button>
-              <Button component={NavLink} to="/news" className={styles.button} color="inherit" aria-label="новости">
-                <Box className={styles.box}>
-                  <NewspaperIcon />
-                </Box>
-                Новости
-              </Button>
+            <Box sx={dFlex}>
+              <NavBarButton title="Магазин" route="shop" icon={<ShoppingCartOutlinedIcon />} />
+              <NavBarButton title="Новости" route="news" icon={<NewspaperIcon />} />
               {user.isAuth ? (
-                <Button
-                  component={NavLink}
-                  to="/user"
-                  className={styles.button}
-                  color="inherit"
-                  aria-label="Личный кабинет"
-                >
-                  <Box className={styles.box}>
-                    <PersonOutlineOutlinedIcon />
-                  </Box>
-                  Кабинет
-                </Button>
+                <NavBarButton title="Кабинет" route="user" icon={<PersonOutlineOutlinedIcon />} />
               ) : (
-                <Button component={NavLink} to="/login" className={styles.button} color="inherit" aria-label="Войти">
-                  <Box className={styles.box}>
-                    <PersonOutlineOutlinedIcon />
-                  </Box>
-                  Войти
-                </Button>
+                <NavBarButton title="Войти" route="login" icon={<PersonOutlineOutlinedIcon />} />
               )}
-              {user.isAdmin && (
-                <Button
-                  component={NavLink}
-                  to="/admin"
-                  className={styles.button}
-                  color="inherit"
-                  aria-label="Панель управления"
-                >
-                  <Box className={styles.box}>
-                    <AnchorIcon />
-                  </Box>
-                  Управление
-                </Button>
-              )}
-              <Button component={NavLink} to="/basket" className={styles.button} color="inherit" aria-label="Корзина">
-                <Box className={styles.box}>
+              {user.isAdmin && <NavBarButton title="Управление" route="admin" icon={<AnchorIcon />} />}
+              <NavBarButton
+                title="Корзина"
+                route="basket"
+                icon={
                   <StyledBadge badgeContent={basket.count} color="secondary">
                     <ShoppingBagOutlinedIcon />
                   </StyledBadge>
-                </Box>
-                Корзина
-              </Button>
+                }
+              />
             </Box>
           </Box>
-          <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+          <Box sx={[{mt: 1.6}, dFlex, justifySB, alignC]}>
             <Box>
               {navigation.map((nav) => (
                 <Button component={NavLink} to={`/${nav.link}`} key={nav.link}>
@@ -93,7 +57,7 @@ const NavBar = observer(() => {
             <TextField
               label="Введите строку поиска"
               variant="standard"
-              sx={{width: 410, height: 39}}
+              sx={{width: 410, height: 63}}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
