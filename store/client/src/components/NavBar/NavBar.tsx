@@ -1,10 +1,11 @@
 import {observer} from 'mobx-react-lite';
-import {AppBar, Toolbar, Container, Box, Button} from '@mui/material';
+import {AppBar, Toolbar, Container, Box, Button, TextField, InputAdornment} from '@mui/material';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AnchorIcon from '@mui/icons-material/Anchor';
+import SearchIcon from '@mui/icons-material/Search';
 import {NavLink} from 'react-router-dom';
 import {useAppContext} from '../AppContext';
 import styles from './NavBar.module.css';
@@ -81,12 +82,26 @@ const NavBar = observer(() => {
               </Button>
             </Box>
           </Box>
-          <Box sx={{display: 'flex'}}>
-            {navigation.map((nav) => (
-              <Button component={NavLink} to={`/${nav.link}`} key={nav.link}>
-                {nav.title}
-              </Button>
-            ))}
+          <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Box>
+              {navigation.map((nav) => (
+                <Button component={NavLink} to={`/${nav.link}`} key={nav.link}>
+                  {nav.title}
+                </Button>
+              ))}
+            </Box>
+            <TextField
+              label="Введите строку поиска"
+              variant="standard"
+              sx={{width: 410, height: 39}}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <SearchIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
           </Box>
         </Container>
       </Toolbar>
