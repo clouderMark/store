@@ -1,5 +1,7 @@
+import React from 'react';
 import {observer} from 'mobx-react-lite';
-import {AppBar, Toolbar, Container, Box, Button, TextField, InputAdornment} from '@mui/material';
+import {AppBar, Toolbar, Container, Box, Button} from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {NavLink} from 'react-router-dom';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import NewspaperIcon from '@mui/icons-material/Newspaper';
@@ -8,27 +10,35 @@ import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import AnchorIcon from '@mui/icons-material/Anchor';
 import SearchIcon from '@mui/icons-material/Search';
 import {useAppContext} from '../AppContext';
-import {navigation} from './navigation';
+import {articles} from './articles';
 import styles from './styles/logo.module.css';
 import {dFlex, justifySB, alignC} from './styles/flex';
 import {ReactComponent as Icon} from './Logo.svg';
 import {StyledBadge} from './StyledBadge';
 import {NavBarButton} from './NavBarButton';
+import {ArticlesMenu} from './ArticlesMenu';
+import {IconTextField} from '../IconTextField';
+import {container} from './styles/container';
+import {queryMenu} from './queryMenu';
 
 const NavBar = observer(() => {
   const {user, basket} = useAppContext();
+  const matchesMenu = useMediaQuery(`(min-width:${queryMenu}px)`, {noSsr: true});
+  const matchesNews = useMediaQuery('(min-width:830px)', {noSsr: true});
 
   return (
     <AppBar color="inherit" position="sticky">
       <Toolbar>
-        <Container maxWidth={false} sx={{width: 1400, height: 188, pt: 3}}>
+        <Container maxWidth={false} sx={[container]}>
           <Box sx={[dFlex, justifySB, alignC]}>
             <Button component={NavLink} to="/" sx={{color: 'inherit'}}>
               <Icon className={styles.logo} />
             </Button>
             <Box sx={dFlex}>
               <NavBarButton title="Магазин" route="shop" icon={<ShoppingCartOutlinedIcon />} />
-              <NavBarButton title="Новости" route="news" icon={<NewspaperIcon />} />
+              {matchesNews ? (
+                <NavBarButton title="Новости" route="news" icon={<NewspaperIcon />} />
+              ) : null}
               {user.isAuth ? (
                 <NavBarButton title="Кабинет" route="user" icon={<PersonOutlineOutlinedIcon />} />
               ) : (
@@ -44,29 +54,28 @@ const NavBar = observer(() => {
                   </StyledBadge>
                 }
               />
+              {!matchesMenu ? (
+                <ArticlesMenu />
+              ) : null}
             </Box>
           </Box>
-          <Box sx={[{mt: 1.6}, dFlex, justifySB, alignC]}>
-            <Box>
-              {navigation.map((nav) => (
-                <Button component={NavLink} to={`/${nav.link}`} key={nav.link}>
-                  {nav.title}
-                </Button>
-              ))}
+          {matchesMenu ? (
+            <Box sx={[{mt: 1.2}, dFlex, justifySB, alignC]}>
+              <Box>
+                {articles.map((article) => (
+                  <Button component={NavLink} to={`/${article.link}`} key={article.link}>
+                    {article.title}
+                  </Button>
+                ))}
+              </Box>
+              <IconTextField
+                label="Введите строку поиска"
+                variant="standard"
+                sx={{width: 410, height: 63}}
+                icon={<SearchIcon />}
+              />
             </Box>
-            <TextField
-              label="Введите строку поиска"
-              variant="standard"
-              sx={{width: 410, height: 63}}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </Box>
+          ) : null}
         </Container>
       </Toolbar>
     </AppBar>

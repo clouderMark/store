@@ -2,3 +2,9 @@
   width: 255px;
   height: 72px;
 }
+
+@media (max-width: 715px) {
+  .logo {
+    width: 100%;
+  }
+}

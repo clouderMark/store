@@ -1,9 +1,11 @@
+import {queryMenu} from '../queryMenu';
+
 export const button = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  height: '75px',
-  padding: '0 10px',
+  height: '95px',
+  padding: '10px 10px',
   marginLeft: '15px',
   textTransform: 'none',
   fontWeight: 'normal',
@@ -18,6 +20,11 @@ export const button = {
     svg: {
       color: 'white',
     },
+  },
+  [`@media (max-width: ${queryMenu}px)`]: {
+    fontSize: 0,
+    height: '55px',
+    padding: '5px',
   },
 };
 

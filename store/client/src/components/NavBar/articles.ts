@@ -1,9 +1,9 @@
-interface INavigation {
+interface IArticle {
   link: string;
   title: string;
 }
 
-export const navigation: INavigation[] = [
+export const articles: IArticle[] = [
   {
     link: 'branches',
     title: 'Отрасли',
