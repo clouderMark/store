@@ -13,7 +13,7 @@ export const articles: IArticle[] = [
     title: 'Решения',
   },
   {
-    link: 'products',
+    link: 'shop',
     title: 'Продукты',
   },
   {
