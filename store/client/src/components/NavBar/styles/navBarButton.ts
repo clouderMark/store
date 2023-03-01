@@ -26,6 +26,14 @@ export const button = {
     height: '55px',
     padding: '5px',
   },
+  '&.active': {
+    '.box': {
+      backgroundColor: '#008f38',
+    },
+    svg: {
+      color: 'white',
+    },
+  },
 };
 
 export const box = {
