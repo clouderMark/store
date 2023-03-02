@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {useLocation, useSearchParams} from 'react-router-dom';
-import {Col, Container, Row, Spinner} from 'react-bootstrap';
+import {Container, Box, CircularProgress} from '@mui/material';
 import CategoryBar from '../components/CategoryBar';
 import BrandBar from '../components/BrandBar';
 import ProductList from '../components/ProductList';
@@ -48,10 +48,14 @@ const Shop = observer(() => {
 
   useEffect(() => {
     fetchCategories()
-      .then((data) => { catalog.categories = data; })
+      .then((data) => {
+        catalog.categories = data;
+      })
       .finally(() => setCategoriesFetching(false));
     fetchBrands()
-      .then((data) => { catalog.brands = data; })
+      .then((data) => {
+        catalog.brands = data;
+      })
       .finally(() => setBrandsFetching(false));
 
     const {category, brand, page} = getSearchParams(searchParams);
@@ -103,32 +107,16 @@ const Shop = observer(() => {
   }, [catalog.category, catalog.brand, catalog.page]);
 
   return (
-    <Container>
-      <Row className="mt-2">
-        <Col md={3}>
-          {categoriesFetching ? (
-            <Spinner animation="border" />
-          ) : (
-            <CategoryBar />
-          )}
-        </Col>
-        <Col>
-          <div>
-            {brandsFetching ? (
-              <Spinner animation="border" />
-            ) : (
-              <BrandBar />
-            )}
-          </div>
-          <div>
-            {productsFetching ? (
-              <Spinner animation="border" />
-            ) : (
-              <ProductList />
-            )}
-          </div>
-        </Col>
-      </Row>
+    <Container maxWidth={false} sx={{width: 1400}}>
+      <Box sx={{display: 'flex'}}>
+        <Box sx={{width: 258}}>
+          {categoriesFetching ? <CircularProgress color="success" /> : <CategoryBar />}
+          {brandsFetching ? <CircularProgress color="success" /> : <BrandBar />}
+        </Box>
+        <Box>
+          <div>{productsFetching ? <CircularProgress color="success" /> : <ProductList />}</div>
+        </Box>
+      </Box>
     </Container>
   );
 });

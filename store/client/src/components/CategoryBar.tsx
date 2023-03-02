@@ -1,6 +1,7 @@
 import {createSearchParams, useNavigate} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
-import {ListGroup} from 'react-bootstrap';
+import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
+// import {ListGroup, FormLabel} from 'react-bootstrap';
 import {useAppContext} from './AppContext';
 import {IObject} from '../types/types';
 
@@ -28,18 +29,37 @@ const CategoryBar = observer(() => {
   };
 
   return (
-    <ListGroup>
-      {catalog.categories.map((item) => (
-        <ListGroup.Item
-          key={item.id}
-          active={item.id === catalog.category}
-          onClick={() => handleClick(item.id)}
-          style={{cursor: 'pointer'}}
-        >
-          {item.name}
-        </ListGroup.Item>
-      ))}
-    </ListGroup>
+    // <ListGroup>
+    //   {catalog.categories.map((item) => (
+    //     <ListGroup.Item
+    //       key={item.id}
+    //       active={item.id === catalog.category}
+    //       onClick={() => handleClick(item.id)}
+    //       style={{cursor: 'pointer'}}
+    //     >
+    //       {item.name}
+    //     </ListGroup.Item>
+    //   ))}
+    // </ListGroup>
+    <FormControl sx={{m: 3}} component="fieldset" variant="standard">
+      <FormLabel component="legend">Промышленность</FormLabel>
+      <FormGroup>
+        {catalog.categories.map((item) => (
+          <FormControlLabel
+            control={
+              <Checkbox
+                onChange={() => handleClick(item.id)}
+                name="gilad"
+                color="success"
+                sx={{'& .MuiSvgIcon-root': {border: '1px'}}}
+              />
+            }
+            label={item.name}
+            key={item.id}
+          />
+        ))}
+      </FormGroup>
+    </FormControl>
   );
 });
 
