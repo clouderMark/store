@@ -1,9 +1,11 @@
 import {useEffect, useState} from 'react';
-import {Button, Container, Pagination, Spinner, Table} from 'react-bootstrap';
+import {Pagination, Stack} from '@mui/material';
 import CreateProduct from '../components/CreateProduct';
 import UpdateProduct from '../components/UpdateProduct';
 import {deleteProduct, fetchAllProducts} from '../http/catalogAPI';
 import {IAllProducts, IProductWithProps, IProduct} from '../types/types.js';
+import Progress from '../components/LinearDeterminate';
+import {AdminTable} from '../components/AdminTable/AdminTable';
 
 // количество товаров на страницу
 const ADMIN_PER_PAGE = 6;
@@ -25,20 +27,11 @@ const AdminProducts = () => {
 
   // обработчик клика по номеру страницы
   const handlePageClick = (page: number) => {
-    setCurrentPage(page);
-    setFetching(true);
+    if (page !== currentPage) {
+      setCurrentPage(page);
+      setFetching(true);
+    }
   };
-
-  // содержание компонента <Pagination>
-  const pages = [];
-
-  for (let page = 1; page <= totalPages; page++) {
-    pages.push(
-      <Pagination.Item key={page} active={page === currentPage} activeLabel="" onClick={() => handlePageClick(page)}>
-        {page}
-      </Pagination.Item>,
-    );
-  }
 
   const handleUpdateClick = (id: number) => {
     setProduct(id);
@@ -55,12 +48,34 @@ const AdminProducts = () => {
         } else {
           setChange(!change);
         }
-        // eslint-disable-next-line
+
         alert(`Товар "${data.name}" удален`);
       })
-      // eslint-disable-next-line
       .catch((error) => alert(error.response.data.message));
   };
+
+  const handleCreateClick = () => {
+    setCreateShow(true);
+  };
+
+  const CreateProd = () => (
+    <CreateProduct show={createShow} setShow={setCreateShow} setChange={setChange} key={1}/>
+  );
+
+  const UpdateProd = () => (
+    <UpdateProduct id={product!} show={updateShow} setShow={setUpdateShow} setChange={setChange} key={2}/>
+  );
+
+  const Paginator = () => (
+    <Stack spacing={2} sx={{display: 'flex', alignItems: 'center', mt: 3}}>
+      <Pagination
+        count={totalPages}
+        page={currentPage}
+        onChange={(_, value) => handlePageClick(value)}
+        color="secondary"
+      />
+    </Stack>
+  );
 
   useEffect(() => {
     fetchAllProducts(null, null, currentPage, ADMIN_PER_PAGE)
@@ -72,55 +87,19 @@ const AdminProducts = () => {
   }, [change, currentPage]);
 
   if (fetching) {
-    return <Spinner animation="border" />;
+    return <Progress />;
   }
 
   return (
-    <Container>
-      <h1>Товары</h1>
-      <Button onClick={() => setCreateShow(true)}>Создать товар</Button>
-      <CreateProduct show={createShow} setShow={setCreateShow} setChange={setChange} />
-      <UpdateProduct id={product!} show={updateShow} setShow={setUpdateShow} setChange={setChange} />
-      {products.length > 0 ? (
-        <>
-          <Table bordered hover size="sm" className="mt-3">
-            <thead>
-              <tr>
-                <th>Название</th>
-                <th>Категория</th>
-                <th>Бренд</th>
-                <th>Цена</th>
-                <th>Редактировать</th>
-                <th>Удалить</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((item) => (
-                <tr key={item.id}>
-                  <td>{item.name}</td>
-                  <td>{item.category.name}</td>
-                  <td>{item.brand.name}</td>
-                  <td>{item.price}</td>
-                  <td>
-                    <Button variant="success" size="sm" onClick={() => handleUpdateClick(item.id)}>
-                      Редактировать
-                    </Button>
-                  </td>
-                  <td>
-                    <Button variant="danger" size="sm" onClick={() => handleDeleteClick(item.id)}>
-                      Удалить
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-          {totalPages > 1 && <Pagination>{pages}</Pagination>}
-        </>
-      ) : (
-        <p>Список товаров пустой</p>
-      )}
-    </Container>
+    <AdminTable
+      title="goods"
+      children={[CreateProd, UpdateProd]}
+      handleCreateClick={handleCreateClick}
+      items={products!}
+      handleUpdateClick={handleUpdateClick}
+      handleDeleteClick={handleDeleteClick}
+      pagination={{totalPages, pagination: Paginator}}
+    />
   );
 };
 

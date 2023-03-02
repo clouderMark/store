@@ -21,7 +21,7 @@ import AdminBrands from '../pages/AdminBrands';
 import AdminProducts from '../pages/AdminProducts';
 
 const publicRoutes = [
-  {path: '/', Component: Shop},
+  {path: '/shop', Component: Shop},
   {path: '/login', Component: Login},
   {path: '/signup', Component: Signup},
   {path: '/product/:id', Component: Product},

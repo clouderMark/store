@@ -1,7 +1,8 @@
-import {Container, Spinner} from 'react-bootstrap';
+import {Container, Typography} from '@mui/material';
 import {useState, useEffect} from 'react';
 import {adminGetAll as getAllOrders} from '../http/orderAPI';
-import Orders from '../components/Orders';
+import Progress from '../components/LinearDeterminate';
+import Orders from '../components/Orders/Orders';
 import {IOrder} from '../types/types';
 
 const AdminOrders = () => {
@@ -15,13 +16,13 @@ const AdminOrders = () => {
   }, []);
 
   if (fetching) {
-    return <Spinner animation="border" />;
+    return <Progress />;
   }
 
   return (
-    <Container>
-      <h1>Все заказы</h1>
-      <Orders items={orders!} admin={true} />
+    <Container sx={{mt: 2}}>
+      <Typography variant="h4">Все заказы</Typography>
+      <Orders items={orders!} setItems={setOrders} admin={true}/>
     </Container>
   );
 };

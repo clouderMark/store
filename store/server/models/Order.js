@@ -55,10 +55,20 @@ class Order {
         return created
     }
 
+    async updateOne(id, data) {
+        const order = await OrderMapping.findByPk(id)
+        if (!order) {
+            throw new Error('Бренд не найдена в БД')
+        }
+        const {status = order.status} = data
+        await order.update({status})
+        return order
+    }
+
     async delete(id) {
         let order = await OrderMapping.findByPk(id, {
             include: [
-                { model: OrderItemMapping, attributes: ['name', 'price', 'quantity'] },
+                { model: OrderItemMapping, as: 'items', attributes: ['name', 'price', 'quantity'] },
             ],
         })
         if (!order) {

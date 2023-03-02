@@ -89,6 +89,18 @@ class Order {
         }
     }
 
+    async adminUpdate(req, res, next) {
+        try {
+            if(!req.params.id) {
+                throw new Error('Не указан id бренда')
+            }
+            const order = await OrderModel.updateOne(req.params.id, req.body)
+            res.json(order)
+        } catch(e) {
+            next(AppError.badRequest(e.message))
+        }
+    }
+
     async adminDelete(req, res, next) {
         try {
             if (!req.params.id) {

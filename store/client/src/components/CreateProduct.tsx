@@ -1,6 +1,8 @@
 import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react';
-import {Button, Col, Form, Modal, Row} from 'react-bootstrap';
-import EditProperties from './EditProperties';
+import {
+  SelectChangeEvent,
+} from '@mui/material';
+import {PopUpForProduct} from './PopUpForProduct';
 import {createProduct, fetchBrands, fetchCategories} from '../http/catalogAPI';
 import {ICatalogItem, IDefaultValue, IValid, IDefaultValid, IProductProp} from '../types/types';
 
@@ -36,7 +38,7 @@ const CreateProduct = (props: IProps) => {
   const [valid, setValid] = useState<IDefaultValid | IValid>(defaultValid);
 
   // выбранное для загрузки изображение товара
-  const [image, setImage] = useState<File | null>(null);//
+  const [image, setImage] = useState<File | null>(null); //
 
   // список характеристик товара
   const [properties, setProperties] = useState<IProductProp[]>([]);
@@ -51,14 +53,15 @@ const CreateProduct = (props: IProps) => {
     fetchBrands().then((data) => setBrands(data));
   }, []);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = (event: SelectChangeEvent<string> | ChangeEvent<HTMLInputElement>) => {
     const data = {...value, [event.target.name]: event.target.value};
 
     setValue(data);
     setValid(isValid(data));
   };
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => { //
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    //
     if (event.target.files) {
       setImage(event.target.files[0]);
     }
@@ -107,85 +110,20 @@ const CreateProduct = (props: IProps) => {
   };
 
   return (
-    <Modal show={show} onHide={() => setShow(false)} size="lg">
-      <Modal.Header closeButton>
-        <Modal.Title>Новый товар</Modal.Title>
-      </Modal.Header>
-
-      <Modal.Body>
-        <Form noValidate onSubmit={handleSubmit}>
-          <Form.Control
-            name="name"
-            value={value.name}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-            isValid={valid.name === true}
-            isInvalid={valid.name === false}
-            placeholder="Название товара..."
-            className="mb-3"
-          />
-          <Row className="mb-3">
-            <Col>
-              <Form.Select
-                name="category"
-                value={value.category}
-                onChange={(e) => handleInputChange(e)}
-                isValid={valid.category === true}
-                isInvalid={valid.category === false}
-              >
-                <option value="">Категория</option>
-                {categories &&
-                  categories.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-              </Form.Select>
-            </Col>
-            <Col>
-              <Form.Select
-                name="brand"
-                value={value.brand}
-                onChange={(e) => handleInputChange(e)}
-                isValid={valid.brand === true}
-                isInvalid={valid.brand === false}
-              >
-                <option value="">Бренд</option>
-                {brands &&
-                  brands.map((item) => (
-                    <option key={item.id} value={item.id}>
-                      {item.name}
-                    </option>
-                  ))}
-              </Form.Select>
-            </Col>
-            <Col>
-              <Form.Control
-                name="price"
-                value={value.price}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-                isValid={valid.price === true}
-                isInvalid={valid.price === false}
-                placeholder="Цена товара..."
-              />
-            </Col>
-            <Col>
-              <Form.Control //
-                name="image"
-                type="file"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => handleImageChange(e)}
-                placeholder="Фото товара..."
-              />
-            </Col>
-          </Row>
-          <EditProperties properties={properties} setProperties={setProperties} />
-          <Row>
-            <Col>
-              <Button type="submit">Сохранить</Button>
-            </Col>
-          </Row>
-        </Form>
-      </Modal.Body>
-    </Modal>
+    <PopUpForProduct
+      show={show}
+      setShow={setShow}
+      handleSubmit={handleSubmit}
+      handleInputChange={handleInputChange}
+      handleImageChange={handleImageChange}
+      title={'Новый товар'}
+      value={value}
+      valid={valid}
+      categories={categories}
+      brands={brands}
+      properties={properties}
+      setProperties={setProperties}
+    />
   );
 };
 

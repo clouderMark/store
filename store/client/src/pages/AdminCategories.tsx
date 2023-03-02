@@ -1,8 +1,9 @@
 import {useEffect, useState} from 'react';
-import {Button, Container, Spinner, Table} from 'react-bootstrap';
 import {deleteCategory, fetchCategories} from '../http/catalogAPI';
 import EditCategory from '../components/EditCategory';
 import {ICatalogItem} from '../types/types';
+import Propgress from '../components/LinearDeterminate';
+import {AdminTable} from '../components/AdminTable/AdminTable';
 
 const AdminCategories = () => {
   const [categories, setCategories] = useState<null | ICatalogItem[]>(null); // список загруженных категорий
@@ -32,6 +33,10 @@ const AdminCategories = () => {
       .catch((error) => console.error(error));
   };
 
+  const Edit = () => (
+    <EditCategory id={categoryId} show={show} setShow={setShow} setChange={setChange} key={1}/>
+  );
+
   useEffect(() => {
     fetchCategories()
       .then((data) => setCategories(data))
@@ -39,45 +44,18 @@ const AdminCategories = () => {
   }, [change]);
 
   if (fetching) {
-    return <Spinner animation="border" />;
+    return <Propgress />;
   }
 
   return (
-    <Container>
-      <h1>Категории</h1>
-      <Button onClick={() => handleCreateClick()}>Создать категорию</Button>
-      <EditCategory id={categoryId} show={show} setShow={setShow} setChange={setChange} />
-      {categories && categories.length > 0 ? (
-        <Table bordered hover size="sm" className="mt-3">
-          <thead>
-            <tr>
-              <th>Название</th>
-              <th>Редактировать</th>
-              <th>Удалить</th>
-            </tr>
-          </thead>
-          <tbody>
-            {categories.map((item) => (
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>
-                  <Button variant="success" size="sm" onClick={() => handleUpdateClick(item.id)}>
-                    Редактировать
-                  </Button>
-                </td>
-                <td>
-                  <Button variant="danger" size="sm" onClick={() => handleDeleteClick(item.id)}>
-                    Удалить
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      ) : (
-        <p>Список категорий пустой</p>
-      )}
-    </Container>
+    <AdminTable
+      title={'category'}
+      children={[Edit]}
+      handleCreateClick={handleCreateClick}
+      handleUpdateClick={handleUpdateClick}
+      handleDeleteClick={handleDeleteClick}
+      items={categories!}
+    />
   );
 };
 

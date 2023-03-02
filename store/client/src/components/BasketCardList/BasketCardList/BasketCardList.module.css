@@ -1,0 +1,17 @@
+.basketBox {
+  display: flex;
+  justify-content: space-between;
+}
+
+.makeAnOrder {
+  display: flex;
+  justify-content: center;
+  width: 412px;
+  height: 153px;
+  padding-top: 10px;
+}
+
+.makeAnOrderButton {
+  width: 90%;
+  height: 56px;
+}

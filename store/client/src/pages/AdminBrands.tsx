@@ -1,8 +1,9 @@
 import {useEffect, useState} from 'react';
-import {Button, Container, Spinner, Table} from 'react-bootstrap';
 import {deleteBrand, fetchBrands} from '../http/catalogAPI';
 import EditBrand from '../components/EditBrand';
 import {ICatalogItem} from '../types/types';
+import Propgress from '../components/LinearDeterminate';
+import {AdminTable} from '../components/AdminTable/AdminTable';
 
 const AdminBrands = () => {
   const [brands, setBrands] = useState<ICatalogItem[] | null>(null); // список загруженных брендов
@@ -32,6 +33,10 @@ const AdminBrands = () => {
       .catch((error) => console.error(error));
   };
 
+  const Edit = () => (
+    <EditBrand id={brandId} show={show} setShow={setShow} setChange={setChange} key={1}/>
+  );
+
   useEffect(() => {
     fetchBrands()
       .then((data) => setBrands(data))
@@ -39,45 +44,18 @@ const AdminBrands = () => {
   }, [change]);
 
   if (fetching) {
-    return <Spinner animation="border" />;
+    return <Propgress />;
   }
 
   return (
-    <Container>
-      <h1>Бренды</h1>
-      <Button onClick={() => handleCreateClick()}>Создать бренд</Button>
-      <EditBrand id={brandId} show={show} setShow={setShow} setChange={setChange} />
-      {brands!.length > 0 ? (
-        <Table bordered hover size="sm" className="mt-3">
-          <thead>
-            <tr>
-              <th>Название</th>
-              <th>Редактировать</th>
-              <th>Удалить</th>
-            </tr>
-          </thead>
-          <tbody>
-            {brands!.map((item) => (
-              <tr key={item.id}>
-                <td>{item.name}</td>
-                <td>
-                  <Button variant="success" size="sm" onClick={() => handleUpdateClick(item.id)}>
-                    Редактировать
-                  </Button>
-                </td>
-                <td>
-                  <Button variant="danger" size="sm" onClick={() => handleDeleteClick(item.id)}>
-                    Удалить
-                  </Button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      ) : (
-        <p>Список брендов пустой</p>
-      )}
-    </Container>
+    <AdminTable
+      title={'brand'}
+      children={[Edit]}
+      handleCreateClick={handleCreateClick}
+      handleUpdateClick={handleUpdateClick}
+      handleDeleteClick={handleDeleteClick}
+      items={brands!}
+    />
   );
 };
 

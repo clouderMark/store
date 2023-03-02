@@ -3,13 +3,15 @@ import {BrowserRouter} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import axios from 'axios';
+import {ThemeProvider} from '@mui/material/styles';
 import AppRouter from './components/AppRouter';
-import NavBar from './components/NavBar';
+import NavBar from './components/NavBar/NavBar';
 
 import {useAppContext} from './components/AppContext';
 import {check as checkAuth} from './http/userAPI';
 import {fetchBasket} from './http/basketAPI';
 import Loader from './components/Loader';
+import {theme} from './theme';
 
 const App = observer(() => {
   const {user, basket} = useAppContext();
@@ -36,10 +38,12 @@ const App = observer(() => {
   }
 
   return (
-    <BrowserRouter>
-      <NavBar />
-      <AppRouter />
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <NavBar />
+        <AppRouter />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 });
 
