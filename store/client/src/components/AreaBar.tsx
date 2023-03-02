@@ -30,24 +30,16 @@ const AreaBar = observer(() => {
   };
 
   return (
-    // <ListGroup>
-    //   {catalog.brands.map((item) => (
-    //     <ListGroup.Item
-    //       key={item.id}
-    //       active={item.id === catalog.brand}
-    //       onClick={() => handleClick(item.id)}
-    //       style={{cursor: 'pointer'}}
-    //     >
-    //       {item.name}
-    //     </ListGroup.Item>
-    //   ))}
-    // </ListGroup>
     <FormControl sx={{m: 3}} component="fieldset" variant="standard">
       <FormLabel component="legend">Области применения</FormLabel>
       <FormGroup>
         {catalog.areas.map((item) => (
           <FormControlLabel
-            control={<Checkbox onChange={() => handleClick(item.id)} name="gilad" color="success"/>}
+            control={
+              <Checkbox
+                onChange={() => handleClick(item.id)}
+                checked={item.id === catalog.area}
+                color="success" />}
             label={item.name}
             key={item.id}
           />

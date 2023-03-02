@@ -30,24 +30,18 @@ const BrandBar = observer(() => {
   };
 
   return (
-    // <ListGroup>
-    //   {catalog.brands.map((item) => (
-    //     <ListGroup.Item
-    //       key={item.id}
-    //       active={item.id === catalog.brand}
-    //       onClick={() => handleClick(item.id)}
-    //       style={{cursor: 'pointer'}}
-    //     >
-    //       {item.name}
-    //     </ListGroup.Item>
-    //   ))}
-    // </ListGroup>
     <FormControl sx={{m: 3}} component="fieldset" variant="standard">
       <FormLabel component="legend">Бренды</FormLabel>
       <FormGroup>
         {catalog.brands.map((item) => (
           <FormControlLabel
-            control={<Checkbox onChange={() => handleClick(item.id)} name="gilad" color="success"/>}
+            control={
+              <Checkbox
+                onChange={() => handleClick(item.id)}
+                color="success"
+                checked={item.id === catalog.brand}
+              />
+            }
             label={item.name}
             key={item.id}
           />

@@ -30,18 +30,6 @@ const CategoryBar = observer(() => {
   };
 
   return (
-    // <ListGroup>
-    //   {catalog.categories.map((item) => (
-    //     <ListGroup.Item
-    //       key={item.id}
-    //       active={item.id === catalog.category}
-    //       onClick={() => handleClick(item.id)}
-    //       style={{cursor: 'pointer'}}
-    //     >
-    //       {item.name}
-    //     </ListGroup.Item>
-    //   ))}
-    // </ListGroup>
     <FormControl sx={{m: 3}} component="fieldset" variant="standard">
       <FormLabel component="legend">Категории</FormLabel>
       <FormGroup>
@@ -50,9 +38,8 @@ const CategoryBar = observer(() => {
             control={
               <Checkbox
                 onChange={() => handleClick(item.id)}
-                name="gilad"
                 color="success"
-                sx={{'& .MuiSvgIcon-root': {border: '1px'}}}
+                checked={item.id === catalog.category}
               />
             }
             label={item.name}
