@@ -16,6 +16,7 @@ const ProductList = observer(() => {
 
     if (catalog.category) params.category = `${catalog.category}`;
     if (catalog.brand) params.brand = `${catalog.brand}`;
+    if (catalog.area) params.area = `${catalog.area}`;
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
       pathname: '/',
