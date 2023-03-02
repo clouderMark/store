@@ -5,15 +5,15 @@ import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mu
 import {useAppContext} from './AppContext';
 import {IObject} from '../types/types';
 
-const BrandBar = observer(() => {
+const AreaBar = observer(() => {
   const {catalog} = useAppContext();
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    if (id === catalog.brand) {
-      catalog.brand = null;
+    if (id === catalog.area) {
+      catalog.area = null;
     } else {
-      catalog.brand = id;
+      catalog.area = id;
     }
 
     // при каждом клике добавляем в историю браузера новый элемент
@@ -43,9 +43,9 @@ const BrandBar = observer(() => {
     //   ))}
     // </ListGroup>
     <FormControl sx={{m: 3}} component="fieldset" variant="standard">
-      <FormLabel component="legend">Бренды</FormLabel>
+      <FormLabel component="legend">Области применения</FormLabel>
       <FormGroup>
-        {catalog.brands.map((item) => (
+        {catalog.areas.map((item) => (
           <FormControlLabel
             control={<Checkbox onChange={() => handleClick(item.id)} name="gilad" color="success"/>}
             label={item.name}
@@ -57,4 +57,4 @@ const BrandBar = observer(() => {
   );
 });
 
-export default BrandBar;
+export default AreaBar;

@@ -7,6 +7,7 @@ import {
   fetchBrands,
   fetchCategories,
   fetchOneProduct,
+  fetchAreas,
   updateProduct,
   updateProperty,
 } from '../http/catalogAPI';
@@ -20,8 +21,8 @@ interface IProps {
   setChange: Dispatch<SetStateAction<boolean>>;
 }
 
-const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: ''};
-const defaultValid: IDefaultValid = {name: null, price: null, category: null, brand: null};
+const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: '', area: ''};
+const defaultValid: IDefaultValid = {name: null, price: null, category: null, brand: null, area: null};
 
 const isValid = (value: IDefaultValue): IValid => {
   const result = {} as IValid;
@@ -33,6 +34,7 @@ const isValid = (value: IDefaultValue): IValid => {
       if (key === 'price') result.price = pattern.test(value.price.trim());
       if (key === 'category') result.category = pattern.test(value.category);
       if (key === 'brand') result.brand = pattern.test(value.brand);
+      if (key === 'area') result.area = pattern.test(value.area);
     }
   }
 
@@ -106,10 +108,12 @@ const UpdateProduct = (props: IProps) => {
   // список категорий и список брендов для возможности выбора
   const [categories, setCategories] = useState<ICatalogItem[] | null>(null);
   const [brands, setBrands] = useState<ICatalogItem[] | null>(null);
+  const [areas, setAreas] = useState<ICatalogItem[] | null>(null);
 
   const [fetchingProduct, setfetchingProduct] = useState(true);
   const [fetchingCategories, setfetchingCategories] = useState(true);
   const [fetchingBrands, setfetchingBrands] = useState(true);
+  const [fetchingAreas, setfetchingAreas] = useState(true);
 
   useEffect(() => {
     if (id) {
@@ -121,6 +125,7 @@ const UpdateProduct = (props: IProps) => {
             price: data.price.toString(),
             category: data.categoryId.toString(),
             brand: data.brandId.toString(),
+            area: data.areaId.toString(),
           };
 
           setValue(prod);
@@ -140,6 +145,8 @@ const UpdateProduct = (props: IProps) => {
         .finally(() => setfetchingCategories(false));
       fetchBrands().then((data) => setBrands(data))
         .finally(() => setfetchingBrands(false));
+      fetchAreas().then((data) => setAreas(data))
+        .finally(() => setfetchingAreas(false));
     }
   }, [id]);
 
@@ -163,13 +170,14 @@ const UpdateProduct = (props: IProps) => {
     setValid(correct);
 
     // если прошли проверку то можно отправлять на сервер
-    if (correct.name && correct.price && correct.category && correct.brand) {
+    if (correct.name && correct.price && correct.category && correct.brand && correct.area) {
       const data = new FormData();
 
       data.append('name', value.name.trim());
       data.append('price', value.price.trim());
       data.append('categoryId', value.category);
       data.append('brandId', value.brand);
+      data.append('areaId', value.area);
       if (image) data.append('image', image, image.name);
 
       // нужно обновить, добавить или удалить хар-ку и обязательно дождаться ответа
@@ -194,6 +202,7 @@ const UpdateProduct = (props: IProps) => {
             price: data.price.toString(),
             category: data.categoryId.toString(),
             brand: data.brandId.toString(),
+            area: data.areaId.toString(),
           };
 
           setValue(prod);
@@ -214,7 +223,7 @@ const UpdateProduct = (props: IProps) => {
 
   return (
     <PopUpForProduct
-      show={show && !fetchingProduct && !fetchingBrands && !fetchingCategories}
+      show={show && !fetchingProduct && !fetchingBrands && !fetchingCategories && !fetchingAreas}
       setShow={setShow}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}
@@ -224,6 +233,7 @@ const UpdateProduct = (props: IProps) => {
       valid={valid}
       categories={categories}
       brands={brands}
+      areas={areas}
       properties={properties}
       setProperties={setProperties}
     />

@@ -6,11 +6,13 @@ import adminMiddleware from '../middleware/adminMiddleware.js'
 
 const router = new express.Router()
 //Список товаров выбранной категории и выбранного бренда
-router.get('/getall/categoryId/:categoryId([0-9]+)/brandId/:brandId([0-9]+)', ProductController.getAll)
+router.get('/getall/categoryId/:categoryId([0-9]+)/brandId/:brandId([0-9]+)/areaId/:areaId([0-9]+)', ProductController.getAll)
 //список товаров выбранной категории
 router.get('/getall/categoryId/:categoryId([0-9]+)', ProductController.getAll)
 //список товаров выбранного бренда
 router.get('/getall/brandId/:brandId([0-9]+)', ProductController.getAll)
+//список товароа выбранного решения
+router.get('/getall/areaId/:areaId([0-9]+)', ProductController.getAll)
 //список всех товаров
 router.get('/getall', ProductController.getAll)
 //получить один товар

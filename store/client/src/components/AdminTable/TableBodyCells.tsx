@@ -15,6 +15,7 @@ export const TableBodyCells = (props: ITableBodyCells): JSX.Element => (
             <TableCell>{item.name}</TableCell>
             <TableCell>{item.category.name}</TableCell>
             <TableCell>{item.brand.name}</TableCell>
+            <TableCell>{item.area.name}</TableCell>
             <TableCell>{item.price}</TableCell>
           </>
         ) : (

@@ -6,11 +6,15 @@ class CatalogStore {
 
   private _brands: ICatalogItem[] = [];
 
+  private _areas: ICatalogItem[] = [];
+
   private _products: IProductWithProps[] = [];
 
   private _category: number | null = null; // выбранная категория
 
   private _brand: number | null = null;
+
+  private _area: number | null = null;
 
   private _page = 1;
 
@@ -38,6 +42,14 @@ class CatalogStore {
     this._brands = brands;
   }
 
+  get areas() {
+    return this._areas;
+  }
+
+  set areas(areas: ICatalogItem[]) {
+    this._areas = areas;
+  }
+
   get products() {
     return this._products;
   }
@@ -62,6 +74,15 @@ class CatalogStore {
   set brand(id: number | null) {
     this.page = 1;
     this._brand = id;
+  }
+
+  get area() {
+    return this._area;
+  }
+
+  set area(id: number | null) {
+    this.page = 1;
+    this._area = id;
   }
 
   get page() {

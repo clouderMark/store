@@ -78,7 +78,7 @@ const AdminProducts = () => {
   );
 
   useEffect(() => {
-    fetchAllProducts(null, null, currentPage, ADMIN_PER_PAGE)
+    fetchAllProducts(null, null, null, currentPage, ADMIN_PER_PAGE)
       .then((data: IAllProducts) => {
         setProducts(data.rows);
         setTotalPages(Math.ceil(data.count / ADMIN_PER_PAGE));

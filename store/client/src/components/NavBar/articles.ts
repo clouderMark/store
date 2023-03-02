@@ -9,8 +9,8 @@ export const articles: IArticle[] = [
     title: 'Отрасли',
   },
   {
-    link: 'solutions',
-    title: 'Решения',
+    link: 'areas',
+    title: 'Области',
   },
   {
     link: 'shop',

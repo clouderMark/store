@@ -14,6 +14,10 @@ export const cells: ICells[] = [
     headerName: 'Бренд',
   },
   {
+    field: 'area',
+    headerName: 'Область',
+  },
+  {
     field: 'price',
     headerName: 'Цена',
   },
@@ -28,6 +32,6 @@ export const cells: ICells[] = [
 ];
 
 export const buttonText = {
-  edit: cells[4].headerName,
-  delete: cells[5].headerName,
+  edit: cells[5].headerName,
+  delete: cells[6].headerName,
 };

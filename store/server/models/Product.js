@@ -4,14 +4,16 @@ import AppError from '../errors/AppError.js'
 import FileService from '../services/File.js'
 import { Brand as BrandMapping } from './mapping.js'
 import { Category as CategoryMapping } from './mapping.js'
+import { Area as AreaMapping } from './mapping.js'
 
 class Product {
     async getAll(options) {
-        const { categoryId, brandId, limit, page } = options
+        const { categoryId, brandId, areaId, limit, page } = options
         const offset = (page - 1) * limit
         const where = {}
         if (categoryId) where.categoryId = categoryId
         if (brandId) where.brandId = brandId
+        if (areaId) where.areaId = areaId
         const products = await ProductMapping.findAndCountAll({
             where,
             limit,
@@ -19,7 +21,8 @@ class Product {
             //для каждого товара получаем бренд и категорию
             include: [
                 {model: BrandMapping, as: 'brand'},
-                {model: CategoryMapping, as: 'category'}
+                {model: CategoryMapping, as: 'category'},
+                {model: AreaMapping, as: 'area'}
             ]
         })
         return products
@@ -30,6 +33,7 @@ class Product {
             include: [
                 { model: ProductPropMapping, as: 'props' },
                 { model: BrandMapping, as: 'brand' },
+                { model: AreaMapping, as: 'area' },
                 { model: CategoryMapping, as: 'category'},
             ]
         })
@@ -41,8 +45,8 @@ class Product {
 
     async create(data, img) {
         const image = FileService.save(img) ?? ''
-        const { name, price, categoryId = null, brandId = null } = data
-        const product = await ProductMapping.create({ name, price, image, categoryId, brandId })
+        const { name, price, categoryId = null, brandId = null, areaId = null } = data
+        const product = await ProductMapping.create({ name, price, image, categoryId, brandId, areaId })
         if (data.props) {
             const props = JSON.parse(data.props)
             for (let prop of props) {
@@ -74,9 +78,10 @@ class Product {
             price = product.price,
             categoryId = product.categoryId,
             brandId = product.brandId,
+            areaId = product.areaId,
             image = file ? file : product.image
         } = data
-        await product.update({ name, price, image, categoryId, brandId })
+        await product.update({ name, price, image, categoryId, brandId, areaId })
         if (data.props) {//удаляем старые и добавляем новые
             await ProductPropMapping.destroy({where: {productId: id}})
             const props = JSON.parse(data.props)

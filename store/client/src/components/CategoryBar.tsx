@@ -21,6 +21,7 @@ const CategoryBar = observer(() => {
 
     if (catalog.category) params.category = `${catalog.category}`;
     if (catalog.brand) params.brand = `${catalog.brand}`;
+    if (catalog.area) params.area = `${catalog.area}`;
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
       pathname: '/shop',
@@ -42,7 +43,7 @@ const CategoryBar = observer(() => {
     //   ))}
     // </ListGroup>
     <FormControl sx={{m: 3}} component="fieldset" variant="standard">
-      <FormLabel component="legend">Промышленность</FormLabel>
+      <FormLabel component="legend">Категории</FormLabel>
       <FormGroup>
         {catalog.categories.map((item) => (
           <FormControlLabel

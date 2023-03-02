@@ -3,7 +3,7 @@ import {
   SelectChangeEvent,
 } from '@mui/material';
 import {PopUpForProduct} from './PopUpForProduct';
-import {createProduct, fetchBrands, fetchCategories} from '../http/catalogAPI';
+import {createProduct, fetchBrands, fetchCategories, fetchAreas} from '../http/catalogAPI';
 import {ICatalogItem, IDefaultValue, IValid, IDefaultValid, IProductProp} from '../types/types';
 
 interface IProps {
@@ -12,8 +12,8 @@ interface IProps {
   setChange: Dispatch<SetStateAction<boolean>>;
 }
 
-const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: ''};
-const defaultValid: IDefaultValid = {name: null, price: null, category: null, brand: null};
+const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: '', area: ''};
+const defaultValid: IDefaultValid = {name: null, price: null, category: null, brand: null, area: null};
 
 const isValid = (value: IDefaultValue): IValid => {
   const result = {} as IValid;
@@ -25,6 +25,7 @@ const isValid = (value: IDefaultValue): IValid => {
       if (key === 'price') result.price = pattern.test(value.price.trim());
       if (key === 'category') result.category = pattern.test(value.category);
       if (key === 'brand') result.brand = pattern.test(value.brand);
+      if (key === 'area') result.area = pattern.test(value.area);
     }
   }
 
@@ -46,11 +47,13 @@ const CreateProduct = (props: IProps) => {
   // список категорий и список брендов для возможности выбора
   const [categories, setCategories] = useState<ICatalogItem[] | null>(null);
   const [brands, setBrands] = useState<ICatalogItem[] | null>(null);
+  const [areas, setAreas] = useState<ICatalogItem[] | null>(null);
 
   // получить с сервера список категой и брендов
   useEffect(() => {
     fetchCategories().then((data) => setCategories(data));
     fetchBrands().then((data) => setBrands(data));
+    fetchAreas().then((data) => setAreas(data));
   }, []);
 
   const handleInputChange = (event: SelectChangeEvent<string> | ChangeEvent<HTMLInputElement>) => {
@@ -75,13 +78,14 @@ const CreateProduct = (props: IProps) => {
     setValid(correct);
 
     // все поля прошли проверку отправляю данные на сервер
-    if (correct.name && correct.price && correct.category && correct.brand) {
+    if (correct.name && correct.price && correct.category && correct.brand && correct.area) {
       const data = new FormData();
 
       data.append('name', value.name.trim());
       data.append('price', value.price.trim());
       data.append('categoryId', value.category);
       data.append('brandId', value.brand);
+      data.append('areaId', value.area);
       if (image) data.append('image', image, image.name); //
       // характеристика нового товара
       if (properties.length) {
@@ -121,6 +125,7 @@ const CreateProduct = (props: IProps) => {
       valid={valid}
       categories={categories}
       brands={brands}
+      areas={areas}
       properties={properties}
       setProperties={setProperties}
     />

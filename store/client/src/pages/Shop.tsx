@@ -4,9 +4,10 @@ import {useLocation, useSearchParams} from 'react-router-dom';
 import {Container, Box, CircularProgress} from '@mui/material';
 import CategoryBar from '../components/CategoryBar';
 import BrandBar from '../components/BrandBar';
+import AreaBar from '../components/AreaBar';
 import ProductList from '../components/ProductList';
 import {useAppContext} from '../components/AppContext';
-import {fetchAllProducts, fetchCategories, fetchBrands} from '../http/catalogAPI';
+import {fetchAllProducts, fetchCategories, fetchBrands, fetchAreas} from '../http/catalogAPI';
 
 const getSearchParams = (searchParams: URLSearchParams): {[key: string]: null | number} => {
   let category: string | null | number = searchParams.get('category');
@@ -25,6 +26,14 @@ const getSearchParams = (searchParams: URLSearchParams): {[key: string]: null | 
     brand = null;
   }
 
+  let area: string | null | number = searchParams.get('area');
+
+  if (area && /[1-9][0-9]*/.test(area)) {
+    area = parseInt(area);
+  } else {
+    area = null;
+  }
+
   let page: string | null | number = searchParams.get('page');
 
   if (page && /[1-9][0-9]*/.test(page)) {
@@ -33,7 +42,7 @@ const getSearchParams = (searchParams: URLSearchParams): {[key: string]: null | 
     page = null;
   }
 
-  return {category, brand, page};
+  return {category, brand, area, page};
 };
 
 const Shop = observer(() => {
@@ -41,6 +50,7 @@ const Shop = observer(() => {
 
   const [categoriesFetching, setCategoriesFetching] = useState(true);
   const [brandsFetching, setBrandsFetching] = useState(true);
+  const [areasFetching, setAreasFetching] = useState(true);
   const [productsFetching, setProductsFetching] = useState(true);
 
   const location = useLocation();
@@ -57,14 +67,20 @@ const Shop = observer(() => {
         catalog.brands = data;
       })
       .finally(() => setBrandsFetching(false));
+    fetchAreas()
+      .then((data) => {
+        catalog.areas = data;
+      })
+      .finally(() => setAreasFetching(false));
 
-    const {category, brand, page} = getSearchParams(searchParams);
+    const {category, brand, area, page} = getSearchParams(searchParams);
 
     catalog.category = category;
     catalog.brand = brand;
+    catalog.area = area;
     catalog.page = page ?? 1;
 
-    fetchAllProducts(catalog.category, catalog.brand, catalog.page, catalog.limit)
+    fetchAllProducts(catalog.category, catalog.brand, catalog.area, catalog.page, catalog.limit)
       .then((data) => {
         catalog.products = data.rows;
         catalog.count = data.count;
@@ -73,9 +89,9 @@ const Shop = observer(() => {
   }, []);
 
   useEffect(() => {
-    const {category, brand, page} = getSearchParams(searchParams);
+    const {category, brand, area, page} = getSearchParams(searchParams);
 
-    if (category || brand || page) {
+    if (category || brand || area || page) {
       if (category !== catalog.category) {
         catalog.category = category;
       }
@@ -84,12 +100,17 @@ const Shop = observer(() => {
         catalog.brand = brand;
       }
 
+      if (area !== catalog.area) {
+        catalog.area = area;
+      }
+
       if (page !== catalog.page) {
         catalog.page = page ?? 1;
       }
     } else {
       catalog.category = null;
       catalog.brand = null;
+      catalog.area = null;
       catalog.page = 1;
     }
   }, [location.search]);
@@ -97,14 +118,14 @@ const Shop = observer(() => {
   useEffect(() => {
     setProductsFetching(true);
     setTimeout(() => {
-      fetchAllProducts(catalog.category, catalog.brand, catalog.page, catalog.limit)
+      fetchAllProducts(catalog.category, catalog.brand, catalog.area, catalog.page, catalog.limit)
         .then((data) => {
           catalog.products = data.rows;
           catalog.count = data.count;
         })
         .finally(() => setProductsFetching(false));
     }, 1000);
-  }, [catalog.category, catalog.brand, catalog.page]);
+  }, [catalog.category, catalog.brand, catalog.area, catalog.page]);
 
   return (
     <Container maxWidth={false} sx={{width: 1400}}>
@@ -112,6 +133,7 @@ const Shop = observer(() => {
         <Box sx={{width: 258}}>
           {categoriesFetching ? <CircularProgress color="success" /> : <CategoryBar />}
           {brandsFetching ? <CircularProgress color="success" /> : <BrandBar />}
+          {areasFetching ? <CircularProgress color="success"/> : <AreaBar/>}
         </Box>
         <Box>
           <div>{productsFetching ? <CircularProgress color="success" /> : <ProductList />}</div>
