@@ -10,7 +10,7 @@ class CatalogStore {
 
   private _products: IProductWithProps[] = [];
 
-  private _category: number | null = null; // выбранная категория
+  private _category: number[] = []; // выбранная категория
 
   private _brand: number | null = null;
 
@@ -62,9 +62,9 @@ class CatalogStore {
     return this._category;
   }
 
-  set category(id: number | null) {
+  set category(newCategory: number[]) {
     this.page = 1;
-    this._category = id;
+    this._category = newCategory;
   }
 
   get brand() {

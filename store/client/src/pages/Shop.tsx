@@ -9,13 +9,20 @@ import ProductList from '../components/ProductList';
 import {useAppContext} from '../components/AppContext';
 import {fetchAllProducts, fetchCategories, fetchBrands, fetchAreas} from '../http/catalogAPI';
 
-const getSearchParams = (searchParams: URLSearchParams): {[key: string]: null | number} => {
-  let category: string | null | number = searchParams.get('category');
+const getSearchParams = (
+  searchParams: URLSearchParams,
+): {
+  brand: null | number;
+  page: null | number;
+  area: null | number;
+  category: number[];
+} => {
+  let category: string | null | number | number[] = searchParams.get('category');
 
   if (category && /[1-9][0-9]*/.test(category)) {
-    category = parseInt(category);
+    category = category.split(',').map((el) => +el);
   } else {
-    category = null;
+    category = [];
   }
 
   let brand: string | null | number = searchParams.get('brand');
@@ -80,7 +87,13 @@ const Shop = observer(() => {
     catalog.area = area;
     catalog.page = page ?? 1;
 
-    fetchAllProducts(catalog.category, catalog.brand, catalog.area, catalog.page, catalog.limit)
+    fetchAllProducts(
+      catalog.category.length > 0 ? catalog.category : null,
+      catalog.brand,
+      catalog.area,
+      catalog.page,
+      catalog.limit,
+    )
       .then((data) => {
         catalog.products = data.rows;
         catalog.count = data.count;
@@ -91,8 +104,8 @@ const Shop = observer(() => {
   useEffect(() => {
     const {category, brand, area, page} = getSearchParams(searchParams);
 
-    if (category || brand || area || page) {
-      if (category !== catalog.category) {
+    if (category.length > 0 || brand || area || page) {
+      if (category.length !== catalog.category.length) {
         catalog.category = category;
       }
 
@@ -108,7 +121,7 @@ const Shop = observer(() => {
         catalog.page = page ?? 1;
       }
     } else {
-      catalog.category = null;
+      catalog.category = [];
       catalog.brand = null;
       catalog.area = null;
       catalog.page = 1;
@@ -117,14 +130,18 @@ const Shop = observer(() => {
 
   useEffect(() => {
     setProductsFetching(true);
-    setTimeout(() => {
-      fetchAllProducts(catalog.category, catalog.brand, catalog.area, catalog.page, catalog.limit)
-        .then((data) => {
-          catalog.products = data.rows;
-          catalog.count = data.count;
-        })
-        .finally(() => setProductsFetching(false));
-    }, 1000);
+    fetchAllProducts(
+      catalog.category.length > 0 ? catalog.category : null,
+      catalog.brand,
+      catalog.area,
+      catalog.page,
+      catalog.limit,
+    )
+      .then((data) => {
+        catalog.products = data.rows;
+        catalog.count = data.count;
+      })
+      .finally(() => setProductsFetching(false));
   }, [catalog.category, catalog.brand, catalog.area, catalog.page]);
 
   return (
@@ -133,7 +150,7 @@ const Shop = observer(() => {
         <Box sx={{width: 258}}>
           {categoriesFetching ? <CircularProgress color="success" /> : <CategoryBar />}
           {brandsFetching ? <CircularProgress color="success" /> : <BrandBar />}
-          {areasFetching ? <CircularProgress color="success"/> : <AreaBar/>}
+          {areasFetching ? <CircularProgress color="success" /> : <AreaBar />}
         </Box>
         <Box>
           <div>{productsFetching ? <CircularProgress color="success" /> : <ProductList />}</div>

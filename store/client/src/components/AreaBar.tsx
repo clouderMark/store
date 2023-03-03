@@ -19,7 +19,7 @@ const AreaBar = observer(() => {
     // при каждом клике добавляем в историю браузера новый элемент
     const params: IObject = {};
 
-    if (catalog.category) params.category = `${catalog.category}`;
+    if (catalog.category.length > 0) params.category = catalog.category.join(',');
     if (catalog.brand) params.brand = `${catalog.brand}`;
     if (catalog.area) params.area = `${catalog.area}`;
     if (catalog.page > 1) params.page = `${catalog.page}`;

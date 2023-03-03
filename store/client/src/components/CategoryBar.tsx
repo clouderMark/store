@@ -1,7 +1,6 @@
 import {createSearchParams, useNavigate} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
 import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
-// import {ListGroup, FormLabel} from 'react-bootstrap';
 import {useAppContext} from './AppContext';
 import {IObject} from '../types/types';
 
@@ -10,16 +9,18 @@ const CategoryBar = observer(() => {
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    if (id === catalog.category) {
-      catalog.category = null;
+    const index = catalog.category.indexOf(id);
+
+    if (index >= 0) {
+      catalog.category = catalog.category.filter((_, i) => i !== index);
     } else {
-      catalog.category = id;
+      catalog.category = [...catalog.category, id];
     }
 
     // при каждом клике добавляем в браузер новый элемент
     const params: IObject = {};
 
-    if (catalog.category) params.category = `${catalog.category}`;
+    if (catalog.category.length > 0) params.category = catalog.category.join(',');
     if (catalog.brand) params.brand = `${catalog.brand}`;
     if (catalog.area) params.area = `${catalog.area}`;
     if (catalog.page > 1) params.page = `${catalog.page}`;
@@ -39,7 +40,7 @@ const CategoryBar = observer(() => {
               <Checkbox
                 onChange={() => handleClick(item.id)}
                 color="success"
-                checked={item.id === catalog.category}
+                checked={catalog.category.includes(item.id)}
               />
             }
             label={item.name}
