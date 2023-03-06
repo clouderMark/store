@@ -1,44 +1,11 @@
-import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react';
+import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import {SelectChangeEvent} from '@mui/material';
-import {PopUpForProduct} from './PopUpForProduct';
-import {createProduct, fetchBrands, fetchCategories, fetchAreas} from '../http/catalogAPI';
-import {ICatalogItem, IDefaultValue, IValid, IDefaultValid, IProductProp} from '../types/types';
-
-interface IProps {
-  show: boolean;
-  setShow: Dispatch<SetStateAction<boolean>>;
-  setChange: Dispatch<SetStateAction<boolean>>;
-}
-
-const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: '', area: '', article: '', weight: ''};
-const defaultValid: IDefaultValid = {
-  name: null,
-  price: null,
-  category: null,
-  brand: null,
-  area: null,
-  article: null,
-  weight: null,
-};
-
-const isValid = (value: IDefaultValue): IValid => {
-  const result = {} as IValid;
-  const pattern = /^[1-9][0-9]*$/;
-
-  for (const key in value) {
-    if (key) {
-      if (key === 'name') result.name = value.name.trim() !== '';
-      if (key === 'price') result.price = pattern.test(value.price.trim());
-      if (key === 'category') result.category = pattern.test(value.category);
-      if (key === 'brand') result.brand = pattern.test(value.brand);
-      if (key === 'area') result.area = pattern.test(value.area);
-      if (key === 'article') result.article = pattern.test(value.article);
-      if (key === 'weight') result.weight = pattern.test(value.weight);
-    }
-  }
-
-  return result;
-};
+import {PopUpForProduct} from '../PopUpForProduct';
+import {createProduct, fetchBrands, fetchCategories, fetchAreas} from '../../http/catalogAPI';
+import {ICatalogItem, IValid, IDefaultValid, IProductProp} from '../../types/types';
+import {IProps} from './types';
+import {defaultValue, defaultValid} from './default';
+import {isValid} from './isValid';
 
 const CreateProduct = (props: IProps) => {
   const {show, setShow, setChange} = props;
