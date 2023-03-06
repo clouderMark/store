@@ -104,6 +104,24 @@ export const PopUpForProduct = (props: IProps) => (
             </Select>
           </FormControl>
           <TextField
+            name="article"
+            value={props.value.article}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleInputChange(e)}
+            error={props.valid.article === false}
+            color={props.valid.article ? 'success' : 'primary'}
+            placeholder="Артикул товара..."
+            sx={{width: '100%', mb: 3}}
+          />
+          <TextField
+            name="weight"
+            value={props.value.weight}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleInputChange(e)}
+            error={props.valid.weight === false}
+            color={props.valid.weight ? 'success' : 'primary'}
+            placeholder="Масса товара в кг..."
+            sx={{width: '100%', mb: 3}}
+          />
+          <TextField
             name="price"
             value={props.value.price}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleInputChange(e)}

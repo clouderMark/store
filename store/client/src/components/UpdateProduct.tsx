@@ -21,8 +21,16 @@ interface IProps {
   setChange: Dispatch<SetStateAction<boolean>>;
 }
 
-const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: '', area: ''};
-const defaultValid: IDefaultValid = {name: null, price: null, category: null, brand: null, area: null};
+const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: '', area: '', article: '', weight: ''};
+const defaultValid: IDefaultValid = {
+  name: null,
+  price: null,
+  category: null,
+  brand: null,
+  area: null,
+  article: null,
+  weight: null,
+};
 
 const isValid = (value: IDefaultValue): IValid => {
   const result = {} as IValid;
@@ -35,6 +43,8 @@ const isValid = (value: IDefaultValue): IValid => {
       if (key === 'category') result.category = pattern.test(value.category);
       if (key === 'brand') result.brand = pattern.test(value.brand);
       if (key === 'area') result.area = pattern.test(value.area);
+      if (key === 'article') result.article = pattern.test(value.article);
+      if (key === 'weight') result.weight = pattern.test(value.weight);
     }
   }
 
@@ -126,6 +136,8 @@ const UpdateProduct = (props: IProps) => {
             category: data.categoryId.toString(),
             brand: data.brandId.toString(),
             area: data.areaId.toString(),
+            article: data.article.toString(),
+            weight: data.weight.toString(),
           };
 
           setValue(prod);
@@ -141,11 +153,14 @@ const UpdateProduct = (props: IProps) => {
         .catch((error) => console.error(error))
         .finally(() => setfetchingProduct(false));
       // нужно получить с сервера список категорий и всех брендов
-      fetchCategories().then((data) => setCategories(data))
+      fetchCategories()
+        .then((data) => setCategories(data))
         .finally(() => setfetchingCategories(false));
-      fetchBrands().then((data) => setBrands(data))
+      fetchBrands()
+        .then((data) => setBrands(data))
         .finally(() => setfetchingBrands(false));
-      fetchAreas().then((data) => setAreas(data))
+      fetchAreas()
+        .then((data) => setAreas(data))
         .finally(() => setfetchingAreas(false));
     }
   }, [id]);
@@ -178,6 +193,8 @@ const UpdateProduct = (props: IProps) => {
       data.append('categoryId', value.category);
       data.append('brandId', value.brand);
       data.append('areaId', value.area);
+      data.append('article', value.article.trim());
+      data.append('weight', value.weight.trim());
       if (image) data.append('image', image, image.name);
 
       // нужно обновить, добавить или удалить хар-ку и обязательно дождаться ответа
@@ -203,6 +220,8 @@ const UpdateProduct = (props: IProps) => {
             category: data.categoryId.toString(),
             brand: data.brandId.toString(),
             area: data.areaId.toString(),
+            article: data.article.toString(),
+            weight: data.weight.toString(),
           };
 
           setValue(prod);
