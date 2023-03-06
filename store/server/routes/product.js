@@ -5,28 +5,30 @@ import authMiddleware from '../middleware/authMiddleware.js'
 import adminMiddleware from '../middleware/adminMiddleware.js'
 
 const router = new express.Router()
-//Список товаров выбранной категории и выбранного бренда
-router.get('/getall/categoryId/:categoryId([0-9]+)/brandId/:brandId([0-9]+)', ProductController.getAll)
-//список товаров выбранной категории
-router.get('/getall/categoryId/:categoryId([0-9]+)', ProductController.getAll)
-//список товаров выбранного бренда
-router.get('/getall/brandId/:brandId([0-9]+)', ProductController.getAll)
-//список всех товаров
+router.get('/getall/areaId/:areaId', ProductController.getAll) // все проды по одному параметру
+router.get('/getall/brandId/:brandId', ProductController.getAll)
+router.get('/getall/categoryId/:categoryId', ProductController.getAll)
+
+router.get('/getall/categoryId/:categoryId/brandId/:brandId', ProductController.getAll) // все проды по двум параметрам
+router.get('/getall/categoryId/:categoryId/areaId/:areaId', ProductController.getAll)
+router.get('/getall/brandId/:brandId/areaId/:areaId', ProductController.getAll)
+
+
+router.get('/getall/categoryId/:categoryId/brandId/:brandId/areaId/:areaId', ProductController.getAll)  // все проды по трем
+
 router.get('/getall', ProductController.getAll)
-//получить один товар
+
 router.get('/getone/:id([0-9]+)', ProductController.getOne)
-//создать товар каталога - нужны права администратора
+
 router.post('/create',
     authMiddleware,
     adminMiddleware,
     ProductController.create)
-//обновить товар каталога - нужны права администратора
 router.put(
     '/update/:id([0-9]+)',
     authMiddleware,
     adminMiddleware,
     ProductController.update)
-//удалить товар каталога - нужны права администратора
 router.delete(
     '/delete/:id([0-9]+)',
     authMiddleware,

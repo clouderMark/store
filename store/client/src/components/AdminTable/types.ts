@@ -1,7 +1,7 @@
 import {ICatalogItem, IProductWithProps} from '../../types/types';
 
 export interface ITitle {
-  title: 'brand' | 'category' | 'goods';
+  title: 'brand' | 'category' | 'goods' | 'area';
 }
 
 export interface ITableBodyCells extends ITitle {

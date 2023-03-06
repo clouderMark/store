@@ -36,6 +36,11 @@ const Brand = sequelize.define('brand', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
 })
 
+const Area = sequelize.define('area', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+})
+
 const Rating = sequelize.define('rating', {
     rate: {type: DataTypes.INTEGER, allowNull: false},
 })
@@ -102,6 +107,9 @@ Product.belongsTo(Category)
 Brand.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Brand)
 
+Area.hasMany(Product, {onDelete: 'RESTRICT'})
+Product.belongsTo(Area)
+
 Product.belongsToMany(User, {through: Rating, onDelete: 'CASCADE'})
 User.belongsToMany(Product, {through: Rating, onDelete: 'CASCADE'})
 
@@ -125,6 +133,7 @@ export {
     Product,
     Category,
     Brand,
+    Area,
     Rating,
     BasketProduct,
     ProductProp,

@@ -22,6 +22,10 @@ const links: ILinks[] = [
     content: 'Бренды каталога',
   },
   {
+    address: '/admin/areas',
+    content: 'Области применения',
+  },
+  {
     address: '/admin/products',
     content: 'Товары каталога',
   },

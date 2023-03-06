@@ -6,11 +6,15 @@ class CatalogStore {
 
   private _brands: ICatalogItem[] = [];
 
+  private _areas: ICatalogItem[] = [];
+
   private _products: IProductWithProps[] = [];
 
-  private _category: number | null = null; // выбранная категория
+  private _category: number[] = []; // выбранная категория
 
-  private _brand: number | null = null;
+  private _brand: number[] = [];
+
+  private _area: number[] = [];
 
   private _page = 1;
 
@@ -38,6 +42,14 @@ class CatalogStore {
     this._brands = brands;
   }
 
+  get areas() {
+    return this._areas;
+  }
+
+  set areas(areas: ICatalogItem[]) {
+    this._areas = areas;
+  }
+
   get products() {
     return this._products;
   }
@@ -50,18 +62,27 @@ class CatalogStore {
     return this._category;
   }
 
-  set category(id: number | null) {
+  set category(newCategory: number[]) {
     this.page = 1;
-    this._category = id;
+    this._category = newCategory;
   }
 
   get brand() {
     return this._brand;
   }
 
-  set brand(id: number | null) {
+  set brand(newBrand: number[]) {
     this.page = 1;
-    this._brand = id;
+    this._brand = newBrand;
+  }
+
+  get area() {
+    return this._area;
+  }
+
+  set area(newArea: number[]) {
+    this.page = 1;
+    this._area = newArea;
   }
 
   get page() {

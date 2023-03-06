@@ -74,6 +74,38 @@ export const fetchBrand = async (id: number): Promise<ICatalogItem> => {
   return data;
 };
 
+// Создание, обновление, удаление продуктового решения, получение списка всех решений
+
+export const createArea = async (area: {name: string}): Promise<ICatalogItem> => {
+  const {data} = await authInstance.post('area/create', area);
+
+  return data;
+};
+
+export const updateArea = async (id: number, area: {name: string}): Promise<ICatalogItem> => {
+  const {data} = await authInstance.put(`area/update/${id}`, area);
+
+  return data;
+};
+
+export const deleteArea = async (id: number): Promise<ICatalogItem> => {
+  const {data} = await authInstance.delete(`area/delete/${id}`);
+
+  return data;
+};
+
+export const fetchAreas = async (): Promise<ICatalogItem[]> => {
+  const {data} = await guestInstance.get('area/getall');
+
+  return data;
+};
+
+export const fetchArea = async (id: number): Promise<ICatalogItem> => {
+  const {data} = await guestInstance.get(`area/getone/${id}`);
+
+  return data;
+};
+
 // Создание, обновление, удаление товара, получение списка всех товаров
 export const createProduct = async (product: FormData): Promise<IProduct> => {
   const {data} = await authInstance.post('product/create', product);
@@ -94,8 +126,9 @@ export const deleteProduct = async (id: number): Promise<IProduct> => {
 };
 
 export const fetchAllProducts = async (
-  categoryId: number | null,
-  brandId: number | null,
+  categoryId: number[] | null,
+  brandId: number[] | null,
+  areaId: number[] | null,
   page: number,
   limit: number,
 ): Promise<IAllProducts> => {
@@ -104,6 +137,7 @@ export const fetchAllProducts = async (
   // фильтр товаров по категории и/или бренду
   if (categoryId) url = `${url}/categoryId/${categoryId}`;
   if (brandId) url = `${url}/brandId/${brandId}`;
+  if (areaId) url = `${url}/areaId/${areaId}`;
   const {data} = await guestInstance.get(url, {
     params: {
       // GET-параметры для постраничной навигации

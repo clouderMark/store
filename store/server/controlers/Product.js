@@ -4,11 +4,14 @@ import AppError from "../errors/AppError.js"
 class Product {
     async getAll(req, res, next) {
         try {
-            const {categoryId = null, brandId = null} = req.params
+            const {categoryId = null, brandId = null, areaId = null} = req.params
+            const categories = categoryId ? categoryId.split(',').map((el) => el >= 0 ? +el : null).filter((el) => el) : null;
+            const brands = brandId ? brandId.split(',').map((el) => el >= 0 ? +el : null).filter((el) => el) : null;
+            const areas = areaId ? areaId.split(',').map((el) => el >= 0 ? +el : null).filter((el) => el) : null;
             let {limit = null, page = null} = req.query
             limit = limit && /[0-9]+/.test(limit) && parseInt(limit) ? parseInt(limit) : 3
             page = page && /[0-9]+/.test(page) && parseInt(page) ? parseInt(page) : 1
-            const options = {categoryId, brandId, limit, page}
+            const options = {categoryId: categories, brandId: brands, areaId: areas, limit, page}
             const products = await ProductModel.getAll(options)
             res.json(products)
         } catch (e) {

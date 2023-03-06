@@ -10,17 +10,20 @@ const BrandBar = observer(() => {
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    if (id === catalog.brand) {
-      catalog.brand = null;
+    const index = catalog.brand.indexOf(id);
+
+    if (index >= 0) {
+      catalog.brand = catalog.brand.filter((_, i) => i !== index);
     } else {
-      catalog.brand = id;
+      catalog.brand = [...catalog.brand, id];
     }
 
     // при каждом клике добавляем в историю браузера новый элемент
     const params: IObject = {};
 
-    if (catalog.category) params.category = `${catalog.category}`;
-    if (catalog.brand) params.brand = `${catalog.brand}`;
+    if (catalog.category.length) params.category = catalog.category.join(',');
+    if (catalog.brand.length) params.brand = catalog.brand.join(',');
+    if (catalog.area.length) params.area = catalog.area.join(',');
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
       pathname: '/shop',
@@ -29,24 +32,18 @@ const BrandBar = observer(() => {
   };
 
   return (
-    // <ListGroup>
-    //   {catalog.brands.map((item) => (
-    //     <ListGroup.Item
-    //       key={item.id}
-    //       active={item.id === catalog.brand}
-    //       onClick={() => handleClick(item.id)}
-    //       style={{cursor: 'pointer'}}
-    //     >
-    //       {item.name}
-    //     </ListGroup.Item>
-    //   ))}
-    // </ListGroup>
     <FormControl sx={{m: 3}} component="fieldset" variant="standard">
-      <FormLabel component="legend">Области применения</FormLabel>
+      <FormLabel component="legend">Бренды</FormLabel>
       <FormGroup>
         {catalog.brands.map((item) => (
           <FormControlLabel
-            control={<Checkbox onChange={() => handleClick(item.id)} name="gilad" color="success"/>}
+            control={
+              <Checkbox
+                onChange={() => handleClick(item.id)}
+                color="success"
+                checked={catalog.brand.includes(item.id)}
+              />
+            }
             label={item.name}
             key={item.id}
           />
