@@ -12,7 +12,7 @@ class CatalogStore {
 
   private _category: number[] = []; // выбранная категория
 
-  private _brand: number | null = null;
+  private _brand: number[] = [];
 
   private _area: number | null = null;
 
@@ -71,9 +71,9 @@ class CatalogStore {
     return this._brand;
   }
 
-  set brand(id: number | null) {
+  set brand(newBrand: number[]) {
     this.page = 1;
-    this._brand = id;
+    this._brand = newBrand;
   }
 
   get area() {

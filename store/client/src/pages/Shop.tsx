@@ -12,7 +12,7 @@ import {fetchAllProducts, fetchCategories, fetchBrands, fetchAreas} from '../htt
 const getSearchParams = (
   searchParams: URLSearchParams,
 ): {
-  brand: null | number;
+  brand: number[];
   page: null | number;
   area: null | number;
   category: number[];
@@ -25,12 +25,12 @@ const getSearchParams = (
     category = [];
   }
 
-  let brand: string | null | number = searchParams.get('brand');
+  let brand: string | null | number | number[] = searchParams.get('brand');
 
   if (brand && /[1-9][0-9]*/.test(brand)) {
-    brand = parseInt(brand);
+    brand = brand.split(',').map((el) => +el);
   } else {
-    brand = null;
+    brand = [];
   }
 
   let area: string | null | number = searchParams.get('area');
@@ -89,7 +89,7 @@ const Shop = observer(() => {
 
     fetchAllProducts(
       catalog.category.length > 0 ? catalog.category : null,
-      catalog.brand,
+      catalog.brand.length ? catalog.brand : null,
       catalog.area,
       catalog.page,
       catalog.limit,
@@ -104,12 +104,12 @@ const Shop = observer(() => {
   useEffect(() => {
     const {category, brand, area, page} = getSearchParams(searchParams);
 
-    if (category.length > 0 || brand || area || page) {
+    if (category.length > 0 || brand.length || area || page) {
       if (category.length !== catalog.category.length) {
         catalog.category = category;
       }
 
-      if (brand !== catalog.brand) {
+      if (brand.length !== catalog.brand.length) {
         catalog.brand = brand;
       }
 
@@ -122,7 +122,7 @@ const Shop = observer(() => {
       }
     } else {
       catalog.category = [];
-      catalog.brand = null;
+      catalog.brand = [];
       catalog.area = null;
       catalog.page = 1;
     }
@@ -132,7 +132,7 @@ const Shop = observer(() => {
     setProductsFetching(true);
     fetchAllProducts(
       catalog.category.length > 0 ? catalog.category : null,
-      catalog.brand,
+      catalog.brand.length ? catalog.brand : null,
       catalog.area,
       catalog.page,
       catalog.limit,

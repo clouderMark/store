@@ -10,17 +10,19 @@ const BrandBar = observer(() => {
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    if (id === catalog.brand) {
-      catalog.brand = null;
+    const index = catalog.brand.indexOf(id);
+
+    if (index >= 0) {
+      catalog.brand = catalog.brand.filter((_, i) => i !== index);
     } else {
-      catalog.brand = id;
+      catalog.brand = [...catalog.brand, id];
     }
 
     // при каждом клике добавляем в историю браузера новый элемент
     const params: IObject = {};
 
     if (catalog.category.length > 0) params.category = catalog.category.join(',');
-    if (catalog.brand) params.brand = `${catalog.brand}`;
+    if (catalog.brand) params.brand = catalog.brand.join(',');
     if (catalog.area) params.area = `${catalog.area}`;
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
@@ -39,7 +41,7 @@ const BrandBar = observer(() => {
               <Checkbox
                 onChange={() => handleClick(item.id)}
                 color="success"
-                checked={item.id === catalog.brand}
+                checked={catalog.brand.includes(item.id)}
               />
             }
             label={item.name}
