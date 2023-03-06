@@ -18,6 +18,14 @@ export const cells: ICells[] = [
     headerName: 'Область',
   },
   {
+    field: 'article',
+    headerName: 'Артикл',
+  },
+  {
+    field: 'weight',
+    headerName: 'Масса',
+  },
+  {
     field: 'price',
     headerName: 'Цена',
   },
@@ -32,6 +40,6 @@ export const cells: ICells[] = [
 ];
 
 export const buttonText = {
-  edit: cells[5].headerName,
-  delete: cells[6].headerName,
+  edit: cells[7].headerName,
+  delete: cells[8].headerName,
 };
