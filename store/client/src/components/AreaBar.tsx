@@ -10,10 +10,12 @@ const AreaBar = observer(() => {
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    if (id === catalog.area) {
-      catalog.area = null;
+    const index = catalog.area.indexOf(id);
+
+    if (index >= 0) {
+      catalog.area = catalog.area.filter((_, i) => i !== index);
     } else {
-      catalog.area = id;
+      catalog.area = [...catalog.area, id];
     }
 
     // при каждом клике добавляем в историю браузера новый элемент
@@ -21,7 +23,7 @@ const AreaBar = observer(() => {
 
     if (catalog.category.length > 0) params.category = catalog.category.join(',');
     if (catalog.brand.length > 0) params.brand = catalog.brand.join(',');
-    if (catalog.area) params.area = `${catalog.area}`;
+    if (catalog.area.length) params.area = catalog.area.join(',');
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
       pathname: '/shop',
@@ -38,7 +40,7 @@ const AreaBar = observer(() => {
             control={
               <Checkbox
                 onChange={() => handleClick(item.id)}
-                checked={item.id === catalog.area}
+                checked={catalog.area.includes(item.id)}
                 color="success" />}
             label={item.name}
             key={item.id}

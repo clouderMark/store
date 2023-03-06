@@ -22,8 +22,8 @@ const BrandBar = observer(() => {
     const params: IObject = {};
 
     if (catalog.category.length > 0) params.category = catalog.category.join(',');
-    if (catalog.brand) params.brand = catalog.brand.join(',');
-    if (catalog.area) params.area = `${catalog.area}`;
+    if (catalog.brand.length) params.brand = catalog.brand.join(',');
+    if (catalog.area.length) params.area = catalog.area.join(',');
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
       pathname: '/shop',

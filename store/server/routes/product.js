@@ -5,16 +5,16 @@ import authMiddleware from '../middleware/authMiddleware.js'
 import adminMiddleware from '../middleware/adminMiddleware.js'
 
 const router = new express.Router()
-router.get('/getall/areaId/:areaId([0-9]+)', ProductController.getAll) // все проды по одному параметру
+router.get('/getall/areaId/:areaId', ProductController.getAll) // все проды по одному параметру
 router.get('/getall/brandId/:brandId', ProductController.getAll)
 router.get('/getall/categoryId/:categoryId', ProductController.getAll)
 
 router.get('/getall/categoryId/:categoryId/brandId/:brandId', ProductController.getAll) // все проды по двум параметрам
-router.get('/getall/categoryId/:categoryId/areaId/:areaId([0-9]+)', ProductController.getAll)
-router.get('/getall/brandId/:brandId/areaId/:areaId([0-9]+)', ProductController.getAll)
+router.get('/getall/categoryId/:categoryId/areaId/:areaId', ProductController.getAll)
+router.get('/getall/brandId/:brandId/areaId/:areaId', ProductController.getAll)
 
 
-router.get('/getall/categoryId/:categoryId/brandId/:brandId/areaId/:areaId([0-9]+)', ProductController.getAll)  // все проды по трем
+router.get('/getall/categoryId/:categoryId/brandId/:brandId/areaId/:areaId', ProductController.getAll)  // все проды по трем
 
 router.get('/getall', ProductController.getAll)
 

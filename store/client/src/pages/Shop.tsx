@@ -14,7 +14,7 @@ const getSearchParams = (
 ): {
   brand: number[];
   page: null | number;
-  area: null | number;
+  area: number[];
   category: number[];
 } => {
   let category: string | null | number | number[] = searchParams.get('category');
@@ -33,12 +33,12 @@ const getSearchParams = (
     brand = [];
   }
 
-  let area: string | null | number = searchParams.get('area');
+  let area: string | null | number | number[] = searchParams.get('area');
 
   if (area && /[1-9][0-9]*/.test(area)) {
-    area = parseInt(area);
+    area = area.split(',').map((el) => +el);
   } else {
-    area = null;
+    area = [];
   }
 
   let page: string | null | number = searchParams.get('page');
@@ -90,7 +90,7 @@ const Shop = observer(() => {
     fetchAllProducts(
       catalog.category.length > 0 ? catalog.category : null,
       catalog.brand.length ? catalog.brand : null,
-      catalog.area,
+      catalog.area.length ? catalog.area : null,
       catalog.page,
       catalog.limit,
     )
@@ -104,7 +104,7 @@ const Shop = observer(() => {
   useEffect(() => {
     const {category, brand, area, page} = getSearchParams(searchParams);
 
-    if (category.length > 0 || brand.length || area || page) {
+    if (category.length > 0 || brand.length || area.length || page) {
       if (category.length !== catalog.category.length) {
         catalog.category = category;
       }
@@ -113,7 +113,7 @@ const Shop = observer(() => {
         catalog.brand = brand;
       }
 
-      if (area !== catalog.area) {
+      if (area.length !== catalog.area.length) {
         catalog.area = area;
       }
 
@@ -123,7 +123,7 @@ const Shop = observer(() => {
     } else {
       catalog.category = [];
       catalog.brand = [];
-      catalog.area = null;
+      catalog.area = [];
       catalog.page = 1;
     }
   }, [location.search]);
@@ -133,7 +133,7 @@ const Shop = observer(() => {
     fetchAllProducts(
       catalog.category.length > 0 ? catalog.category : null,
       catalog.brand.length ? catalog.brand : null,
-      catalog.area,
+      catalog.area.length ? catalog.area : null,
       catalog.page,
       catalog.limit,
     )

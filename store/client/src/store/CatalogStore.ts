@@ -14,7 +14,7 @@ class CatalogStore {
 
   private _brand: number[] = [];
 
-  private _area: number | null = null;
+  private _area: number[] = [];
 
   private _page = 1;
 
@@ -80,9 +80,9 @@ class CatalogStore {
     return this._area;
   }
 
-  set area(id: number | null) {
+  set area(newArea: number[]) {
     this.page = 1;
-    this._area = id;
+    this._area = newArea;
   }
 
   get page() {
