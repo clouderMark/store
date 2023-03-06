@@ -34,7 +34,7 @@ interface IProps {
 }
 
 export const PopUpForProduct = (props: IProps) => (
-  <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {width: '30%', minWidth: '500px'}}}>
+  <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {width: '60%', minWidth: '700px'}}}>
     <DialogTitle>{props.title}</DialogTitle>
 
     <DialogContent>
@@ -104,24 +104,27 @@ export const PopUpForProduct = (props: IProps) => (
             </Select>
           </FormControl>
           <TextField
+            label="Арикул"
             name="article"
             value={props.value.article}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleInputChange(e)}
             error={props.valid.article === false}
             color={props.valid.article ? 'success' : 'primary'}
             placeholder="Артикул товара..."
-            sx={{width: '100%', mb: 3}}
+            sx={{width: '100%', mr: 1}}
           />
           <TextField
+            label="Масса"
             name="weight"
             value={props.value.weight}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleInputChange(e)}
             error={props.valid.weight === false}
             color={props.valid.weight ? 'success' : 'primary'}
             placeholder="Масса товара в кг..."
-            sx={{width: '100%', mb: 3}}
+            sx={{width: '100%', mr: 1}}
           />
           <TextField
+            label="Цена"
             name="price"
             value={props.value.price}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleInputChange(e)}
