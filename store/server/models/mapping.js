@@ -24,6 +24,8 @@ const Product = sequelize.define('product', {
     price: {type: DataTypes.INTEGER, allowNull: false},
     rating: {type: DataTypes.INTEGER, defaultValue: 0},
     image: {type: DataTypes.STRING, allowNull: false},
+    article: {type: DataTypes.INTEGER, unique: true, allowNull: false},
+    weight: {type: DataTypes.INTEGER, allowNull: false},
 })
 
 const Category = sequelize.define('category', {
