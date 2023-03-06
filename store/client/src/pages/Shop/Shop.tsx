@@ -1,13 +1,14 @@
 import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
-import {useLocation, useSearchParams} from 'react-router-dom';
-import {Container, Box, CircularProgress} from '@mui/material';
-import CategoryBar from '../components/CategoryBar';
-import BrandBar from '../components/BrandBar';
-import AreaBar from '../components/AreaBar';
-import ProductList from '../components/ProductList';
-import {useAppContext} from '../components/AppContext';
-import {fetchAllProducts, fetchCategories, fetchBrands, fetchAreas} from '../http/catalogAPI';
+import {useLocation, useSearchParams, createSearchParams, useNavigate} from 'react-router-dom';
+import {Container, Box, CircularProgress, Button} from '@mui/material';
+import CategoryBar from '../../components/CategoryBar';
+import BrandBar from '../../components/BrandBar';
+import AreaBar from '../../components/AreaBar';
+import ProductList from '../../components/ProductList';
+import {useAppContext} from '../../components/AppContext';
+import {fetchAllProducts, fetchCategories, fetchBrands, fetchAreas} from '../../http/catalogAPI';
+import {button} from './styles';
 
 const getSearchParams = (
   searchParams: URLSearchParams,
@@ -62,6 +63,19 @@ const Shop = observer(() => {
 
   const location = useLocation();
   const [searchParams] = useSearchParams();
+
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    catalog.brand = [];
+    catalog.category = [];
+    catalog.area = [];
+
+    navigate({
+      pathname: '/shop',
+      search: `?${createSearchParams('')}`,
+    });
+  };
 
   useEffect(() => {
     fetchCategories()
@@ -151,6 +165,9 @@ const Shop = observer(() => {
           {categoriesFetching ? <CircularProgress color="success" /> : <CategoryBar />}
           {brandsFetching ? <CircularProgress color="success" /> : <BrandBar />}
           {areasFetching ? <CircularProgress color="success" /> : <AreaBar />}
+          <Button variant="outlined" sx={button} onClick={handleClick}>
+            Сбросить фильтры
+          </Button>
         </Box>
         <Box>
           <div>{productsFetching ? <CircularProgress color="success" /> : <ProductList />}</div>
