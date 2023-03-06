@@ -88,7 +88,7 @@ const Shop = observer(() => {
     catalog.page = page ?? 1;
 
     fetchAllProducts(
-      catalog.category.length > 0 ? catalog.category : null,
+      catalog.category.length ? catalog.category : null,
       catalog.brand.length ? catalog.brand : null,
       catalog.area.length ? catalog.area : null,
       catalog.page,
@@ -104,7 +104,7 @@ const Shop = observer(() => {
   useEffect(() => {
     const {category, brand, area, page} = getSearchParams(searchParams);
 
-    if (category.length > 0 || brand.length || area.length || page) {
+    if (category.length || brand.length || area.length || page) {
       if (category.length !== catalog.category.length) {
         catalog.category = category;
       }
@@ -131,7 +131,7 @@ const Shop = observer(() => {
   useEffect(() => {
     setProductsFetching(true);
     fetchAllProducts(
-      catalog.category.length > 0 ? catalog.category : null,
+      catalog.category.length ? catalog.category : null,
       catalog.brand.length ? catalog.brand : null,
       catalog.area.length ? catalog.area : null,
       catalog.page,
