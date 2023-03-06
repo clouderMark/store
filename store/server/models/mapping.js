@@ -92,7 +92,8 @@ const OrderItem = sequelize.define('order_item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
-    quantity: {type: DataTypes.INTEGER, allowNull: false}
+    quantity: {type: DataTypes.INTEGER, allowNull: false},
+    image: {type: DataTypes.STRING, allowNull: false},
 })
 
 Basket.belongsToMany(Product, {through: BasketProduct, onDelete: 'CASCADE'})
