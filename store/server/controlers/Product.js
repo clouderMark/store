@@ -5,10 +5,11 @@ class Product {
     async getAll(req, res, next) {
         try {
             const {categoryId = null, brandId = null, areaId = null} = req.params
+            const categories = categoryId ? categoryId.split(',').map((el) => el >= 0 ? +el : null).filter((el) => el) : null;
             let {limit = null, page = null} = req.query
             limit = limit && /[0-9]+/.test(limit) && parseInt(limit) ? parseInt(limit) : 3
             page = page && /[0-9]+/.test(page) && parseInt(page) ? parseInt(page) : 1
-            const options = {categoryId, brandId, areaId, limit, page}
+            const options = {categoryId: categories, brandId, areaId, limit, page}
             const products = await ProductModel.getAll(options)
             res.json(products)
         } catch (e) {
