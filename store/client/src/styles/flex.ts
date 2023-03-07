@@ -9,3 +9,7 @@ export const alignC = {
 export const justifySB = {
   justifyContent: 'space-between',
 };
+
+export const fWrap = {
+  flexWrap: 'wrap',
+};
