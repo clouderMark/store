@@ -12,7 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import {useAppContext} from '../AppContext';
 import {articles} from './articles';
 import styles from './styles/logo.module.css';
-import {dFlex, justifySB, alignC} from './styles/flex';
+import {dFlex, justifySB, alignC} from '../../styles/flex';
 import {ReactComponent as Icon} from './Logo.svg';
 import {StyledBadge} from './StyledBadge';
 import {NavBarButton} from './NavBarButton';
@@ -27,18 +27,16 @@ const NavBar = observer(() => {
   const matchesNews = useMediaQuery('(min-width:830px)', {noSsr: true});
 
   return (
-    <AppBar color="inherit" position="sticky">
-      <Toolbar>
-        <Container maxWidth={false} sx={[container]}>
-          <Box sx={[dFlex, justifySB, alignC]}>
+    <Container maxWidth={false} sx={[container]}>
+      <AppBar color="inherit" position="sticky">
+        <Toolbar sx={{display: 'flex', flexDirection: 'column'}}>
+          <Box sx={[dFlex, justifySB, alignC, {width: '100%'}]}>
             <Button component={NavLink} to="/" sx={{color: 'inherit'}}>
               <Icon className={styles.logo} />
             </Button>
             <Box sx={dFlex}>
               <NavBarButton title="Магазин" route="shop" icon={<ShoppingCartOutlinedIcon />} />
-              {matchesNews ? (
-                <NavBarButton title="Новости" route="news" icon={<NewspaperIcon />} />
-              ) : null}
+              {matchesNews ? <NavBarButton title="Новости" route="news" icon={<NewspaperIcon />} /> : null}
               {user.isAuth ? (
                 <NavBarButton title="Кабинет" route="user" icon={<PersonOutlineOutlinedIcon />} />
               ) : (
@@ -54,13 +52,11 @@ const NavBar = observer(() => {
                   </StyledBadge>
                 }
               />
-              {!matchesMenu ? (
-                <ArticlesMenu />
-              ) : null}
+              {!matchesMenu ? <ArticlesMenu /> : null}
             </Box>
           </Box>
           {matchesMenu ? (
-            <Box sx={[{mt: 1.2}, dFlex, justifySB, alignC]}>
+            <Box sx={[{mt: 1.2}, dFlex, justifySB, alignC, {width: '100%'}]}>
               <Box>
                 {articles.map((article) => (
                   <Button component={NavLink} to={`/${article.link}`} key={article.link}>
@@ -76,9 +72,9 @@ const NavBar = observer(() => {
               />
             </Box>
           ) : null}
-        </Container>
-      </Toolbar>
-    </AppBar>
+        </Toolbar>
+      </AppBar>
+    </Container>
   );
 });
 
