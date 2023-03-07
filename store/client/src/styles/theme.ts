@@ -19,7 +19,18 @@ export const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          boxShadow: '0 0 1px 0 #6f6f6f',
+          maxWidth: '1400px',
+          boxShadow: 'none',
+          position: 'sticky',
+        },
+      },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          padding: '0 !important',
+          display: 'flex',
+          flexDirection: 'column',
         },
       },
     },
