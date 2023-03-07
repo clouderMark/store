@@ -2,7 +2,7 @@ import {IDefaultValue, IValid} from '../../types/types';
 
 export const isValid = (value: IDefaultValue): IValid => {
   const result = {} as IValid;
-  const pattern = /^[1-9][0-9]*$/;
+  const pattern = /^[0-9.]*$/;
 
   for (const key in value) {
     if (key) {
