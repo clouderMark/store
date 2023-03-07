@@ -1,36 +1,11 @@
-import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react';
-import {
-  SelectChangeEvent,
-} from '@mui/material';
-import {PopUpForProduct} from './PopUpForProduct';
-import {createProduct, fetchBrands, fetchCategories, fetchAreas} from '../http/catalogAPI';
-import {ICatalogItem, IDefaultValue, IValid, IDefaultValid, IProductProp} from '../types/types';
-
-interface IProps {
-  show: boolean;
-  setShow: Dispatch<SetStateAction<boolean>>;
-  setChange: Dispatch<SetStateAction<boolean>>;
-}
-
-const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: '', area: ''};
-const defaultValid: IDefaultValid = {name: null, price: null, category: null, brand: null, area: null};
-
-const isValid = (value: IDefaultValue): IValid => {
-  const result = {} as IValid;
-  const pattern = /^[1-9][0-9]*$/;
-
-  for (const key in value) {
-    if (key) {
-      if (key === 'name') result.name = value.name.trim() !== '';
-      if (key === 'price') result.price = pattern.test(value.price.trim());
-      if (key === 'category') result.category = pattern.test(value.category);
-      if (key === 'brand') result.brand = pattern.test(value.brand);
-      if (key === 'area') result.area = pattern.test(value.area);
-    }
-  }
-
-  return result;
-};
+import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react';
+import {SelectChangeEvent} from '@mui/material';
+import {PopUpForProduct} from '../PopUpForProduct';
+import {createProduct, fetchBrands, fetchCategories, fetchAreas} from '../../http/catalogAPI';
+import {ICatalogItem, IValid, IDefaultValid, IProductProp} from '../../types/types';
+import {IProps} from './types';
+import {defaultValue, defaultValid} from './default';
+import {isValid} from './isValid';
 
 const CreateProduct = (props: IProps) => {
   const {show, setShow, setChange} = props;
@@ -78,7 +53,15 @@ const CreateProduct = (props: IProps) => {
     setValid(correct);
 
     // все поля прошли проверку отправляю данные на сервер
-    if (correct.name && correct.price && correct.category && correct.brand && correct.area) {
+    if (
+      correct.name &&
+      correct.price &&
+      correct.category &&
+      correct.brand &&
+      correct.area &&
+      correct.article &&
+      correct.weight
+    ) {
       const data = new FormData();
 
       data.append('name', value.name.trim());
@@ -86,6 +69,8 @@ const CreateProduct = (props: IProps) => {
       data.append('categoryId', value.category);
       data.append('brandId', value.brand);
       data.append('areaId', value.area);
+      data.append('article', value.article.trim());
+      data.append('weight', value.weight.trim());
       if (image) data.append('image', image, image.name); //
       // характеристика нового товара
       if (properties.length) {

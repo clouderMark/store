@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent} from 'react';
+import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import uuid from 'react-uuid';
 import {SelectChangeEvent} from '@mui/material';
 import {
@@ -10,36 +10,12 @@ import {
   fetchAreas,
   updateProduct,
   updateProperty,
-} from '../http/catalogAPI';
-import {PopUpForProduct} from './PopUpForProduct';
-import {IDefaultValue, IDefaultValid, IValid, IProductProp, ICatalogItem} from '../types/types';
-
-interface IProps {
-  id: number;
-  show: boolean;
-  setShow: Dispatch<SetStateAction<boolean>>;
-  setChange: Dispatch<SetStateAction<boolean>>;
-}
-
-const defaultValue: IDefaultValue = {name: '', price: '', category: '', brand: '', area: ''};
-const defaultValid: IDefaultValid = {name: null, price: null, category: null, brand: null, area: null};
-
-const isValid = (value: IDefaultValue): IValid => {
-  const result = {} as IValid;
-  const pattern = /^[1-9][0-9]*$/;
-
-  for (const key in value) {
-    if (key) {
-      if (key === 'name') result.name = value.name.trim() !== '';
-      if (key === 'price') result.price = pattern.test(value.price.trim());
-      if (key === 'category') result.category = pattern.test(value.category);
-      if (key === 'brand') result.brand = pattern.test(value.brand);
-      if (key === 'area') result.area = pattern.test(value.area);
-    }
-  }
-
-  return result;
-};
+} from '../../http/catalogAPI';
+import {PopUpForProduct} from '../PopUpForProduct';
+import {IDefaultValid, IValid, IProductProp, ICatalogItem} from '../../types/types';
+import {IPropsWithId as IProps} from './types';
+import {defaultValue, defaultValid} from './default';
+import {isValid} from './isValid';
 
 const updateProperties = async (properties: IProductProp[], productId: number) => {
   for (const prop of properties) {
@@ -126,6 +102,8 @@ const UpdateProduct = (props: IProps) => {
             category: data.categoryId.toString(),
             brand: data.brandId.toString(),
             area: data.areaId.toString(),
+            article: data.article.toString(),
+            weight: data.weight.toString(),
           };
 
           setValue(prod);
@@ -141,11 +119,14 @@ const UpdateProduct = (props: IProps) => {
         .catch((error) => console.error(error))
         .finally(() => setfetchingProduct(false));
       // нужно получить с сервера список категорий и всех брендов
-      fetchCategories().then((data) => setCategories(data))
+      fetchCategories()
+        .then((data) => setCategories(data))
         .finally(() => setfetchingCategories(false));
-      fetchBrands().then((data) => setBrands(data))
+      fetchBrands()
+        .then((data) => setBrands(data))
         .finally(() => setfetchingBrands(false));
-      fetchAreas().then((data) => setAreas(data))
+      fetchAreas()
+        .then((data) => setAreas(data))
         .finally(() => setfetchingAreas(false));
     }
   }, [id]);
@@ -178,6 +159,8 @@ const UpdateProduct = (props: IProps) => {
       data.append('categoryId', value.category);
       data.append('brandId', value.brand);
       data.append('areaId', value.area);
+      data.append('article', value.article.trim());
+      data.append('weight', value.weight.trim());
       if (image) data.append('image', image, image.name);
 
       // нужно обновить, добавить или удалить хар-ку и обязательно дождаться ответа
@@ -203,6 +186,8 @@ const UpdateProduct = (props: IProps) => {
             category: data.categoryId.toString(),
             brand: data.brandId.toString(),
             area: data.areaId.toString(),
+            article: data.article.toString(),
+            weight: data.weight.toString(),
           };
 
           setValue(prod);

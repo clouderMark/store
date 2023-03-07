@@ -43,7 +43,8 @@ class Order {
                 name: item.name,
                 price: item.price,
                 quantity: item.quantity,
-                orderId: order.id
+                orderId: order.id,
+                image: item.image,
             })
         }
         //возвращать буду заказ с составом

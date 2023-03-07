@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Pagination, Stack} from '@mui/material';
-import CreateProduct from '../components/CreateProduct';
-import UpdateProduct from '../components/UpdateProduct';
+import CreateProduct from '../components/CreateUpdateProduct/CreateProduct';
+import UpdateProduct from '../components/CreateUpdateProduct/UpdateProduct';
 import {deleteProduct, fetchAllProducts} from '../http/catalogAPI';
 import {IAllProducts, IProductWithProps, IProduct} from '../types/types.js';
 import Progress from '../components/LinearDeterminate';

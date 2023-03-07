@@ -11,7 +11,7 @@ import {useAppContext} from './components/AppContext';
 import {check as checkAuth} from './http/userAPI';
 import {fetchBasket} from './http/basketAPI';
 import Loader from './components/Loader';
-import {theme} from './theme';
+import {theme} from './styles/theme';
 
 const App = observer(() => {
   const {user, basket} = useAppContext();

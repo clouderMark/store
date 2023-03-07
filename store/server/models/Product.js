@@ -45,8 +45,8 @@ class Product {
 
     async create(data, img) {
         const image = FileService.save(img) ?? ''
-        const { name, price, categoryId = null, brandId = null, areaId = null } = data
-        const product = await ProductMapping.create({ name, price, image, categoryId, brandId, areaId })
+        const { name, price, categoryId = null, brandId = null, areaId = null, article = null, weight = null } = data
+        const product = await ProductMapping.create({ name, price, image, categoryId, brandId, areaId, article, weight })
         if (data.props) {
             const props = JSON.parse(data.props)
             for (let prop of props) {
@@ -79,9 +79,12 @@ class Product {
             categoryId = product.categoryId,
             brandId = product.brandId,
             areaId = product.areaId,
-            image = file ? file : product.image
+            image = file ? file : product.image,
+            article = product.article,
+            weight = product.weight,
         } = data
-        await product.update({ name, price, image, categoryId, brandId, areaId })
+        console.log(data);
+        await product.update({ name, price, image, categoryId, brandId, areaId, article, weight })
         if (data.props) {//удаляем старые и добавляем новые
             await ProductPropMapping.destroy({where: {productId: id}})
             const props = JSON.parse(data.props)

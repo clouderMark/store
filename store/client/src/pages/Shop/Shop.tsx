@@ -159,9 +159,9 @@ const Shop = observer(() => {
   }, [catalog.category, catalog.brand, catalog.area, catalog.page]);
 
   return (
-    <Container maxWidth={false} sx={{width: 1400}}>
+    <Container maxWidth={false} sx={{maxWidth: 1400}}>
       <Box sx={{display: 'flex'}}>
-        <Box sx={{width: 258}}>
+        <Box sx={{display: 'flex', flexDirection: 'column', minWidth: '358px'}}>
           {categoriesFetching ? <CircularProgress color="success" /> : <CategoryBar />}
           {brandsFetching ? <CircularProgress color="success" /> : <BrandBar />}
           {areasFetching ? <CircularProgress color="success" /> : <AreaBar />}
@@ -169,8 +169,8 @@ const Shop = observer(() => {
             Сбросить фильтры
           </Button>
         </Box>
-        <Box>
-          <div>{productsFetching ? <CircularProgress color="success" /> : <ProductList />}</div>
+        <Box sx={{width: '100%'}}>
+          {productsFetching ? <CircularProgress color="success" /> : <ProductList />}
         </Box>
       </Box>
     </Container>

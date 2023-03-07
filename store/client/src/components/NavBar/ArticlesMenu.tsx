@@ -3,7 +3,7 @@ import {Box, IconButton, Menu, MenuItem, Typography} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
 import {articles} from './articles';
-import {box, popUpMenu} from './styles/articlesMenu';
+import {articleMenu} from './styles/articlesMenu';
 import {IconTextField} from '../IconTextField';
 
 const menuStyle = {
@@ -25,7 +25,7 @@ export const ArticlesMenu = () => {
   };
 
   return (
-    <Box sx={[box]}>
+    <Box sx={[articleMenu.box]}>
       <IconButton
         aria-label="открыть меню"
         aria-controls="menu-appbar"
@@ -50,14 +50,14 @@ export const ArticlesMenu = () => {
         }}
         open={Boolean(anchorElNav)}
         onClose={handleCloseNavMenu}
-        sx={[popUpMenu]}
+        sx={[articleMenu.popUpMenu]}
         marginThreshold={0}
         PaperProps={{
           style: menuStyle,
         }}
       >
         {articles.map((article) => (
-          <MenuItem key={article.link} onClick={handleCloseNavMenu} sx={[popUpMenu]}>
+          <MenuItem key={article.link} onClick={handleCloseNavMenu} sx={[articleMenu.popUpMenu]}>
             <Typography textAlign="center">{article.title}</Typography>
           </MenuItem>
         ))}
@@ -65,7 +65,7 @@ export const ArticlesMenu = () => {
           <IconTextField
             label="Введите строку поиска"
             variant="standard"
-            sx={{width: '100%', height: 63}}
+            sx={articleMenu.icon}
             icon={<SearchIcon />}
           />
         </MenuItem>

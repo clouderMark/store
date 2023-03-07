@@ -21,9 +21,11 @@ const BasketProduct = sequelize.define('basket_product', {
 const Product = sequelize.define('product', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-    price: {type: DataTypes.INTEGER, allowNull: false},
+    price: {type: DataTypes.FLOAT, allowNull: false},
     rating: {type: DataTypes.INTEGER, defaultValue: 0},
     image: {type: DataTypes.STRING, allowNull: false},
+    article: {type: DataTypes.INTEGER, unique: true, allowNull: false},
+    weight: {type: DataTypes.FLOAT, allowNull: false},
 })
 
 const Category = sequelize.define('category', {
@@ -90,7 +92,8 @@ const OrderItem = sequelize.define('order_item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
-    quantity: {type: DataTypes.INTEGER, allowNull: false}
+    quantity: {type: DataTypes.INTEGER, allowNull: false},
+    image: {type: DataTypes.STRING, allowNull: false},
 })
 
 Basket.belongsToMany(Product, {through: BasketProduct, onDelete: 'CASCADE'})
