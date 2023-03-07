@@ -5,6 +5,9 @@ export const card = {
     borderRadius: 0,
     cursor: 'pointer',
     color: '#6f6f6f',
+    '&:hover': {
+      color: '#008f38',
+    },
   },
   img: {
     width: '100%',
