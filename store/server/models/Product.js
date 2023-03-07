@@ -83,6 +83,7 @@ class Product {
             article = product.article,
             weight = product.weight,
         } = data
+        console.log(data);
         await product.update({ name, price, image, categoryId, brandId, areaId, article, weight })
         if (data.props) {//удаляем старые и добавляем новые
             await ProductPropMapping.destroy({where: {productId: id}})
