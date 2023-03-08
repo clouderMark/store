@@ -25,7 +25,7 @@ const publicRoutes = [
   {path: '/shop', Component: Shop},
   {path: '/login', Component: Login},
   {path: '/signup', Component: Signup},
-  {path: '/product/:id', Component: Product},
+  {path: '/shop/:id', Component: Product},
   {path: '/basket', Component: Basket},
   {path: '/checkout', Component: Checkout},
   {path: '/delivery', Component: Delivery},

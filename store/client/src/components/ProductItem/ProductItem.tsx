@@ -8,7 +8,7 @@ const ProductItem = ({data}: IData<IProductWithProps>) => {
   const navigate = useNavigate();
 
   return (
-    <Card sx={card.card} onClick={() => navigate(`/product/${data.id}`)}>
+    <Card sx={card.card} onClick={() => navigate(`/shop/${data.id}`)}>
       {data.image ? (
         <CardMedia sx={card.img} component="img" image={process.env.REACT_APP_IMG_URL + data.image} />
       ) : (
@@ -21,7 +21,9 @@ const ProductItem = ({data}: IData<IProductWithProps>) => {
         <Typography sx={card.title} component="strong">
           {data.name}
         </Typography>
-        <Typography sx={card.brand} component="p">Бренд: {data.brand.name}</Typography>
+        <Typography sx={card.brand} component="p">
+          Бренд: {data.brand.name}
+        </Typography>
         <Typography sx={card.price} component="strong">
           {data.price} BYN
         </Typography>
