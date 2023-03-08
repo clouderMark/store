@@ -9,6 +9,7 @@ import ProductList from '../../components/ProductList';
 import {useAppContext} from '../../components/AppContext';
 import {fetchAllProducts, fetchCategories, fetchBrands, fetchAreas} from '../../http/catalogAPI';
 import {button} from './styles';
+import {SearchBar} from './SearchBar';
 
 const getSearchParams = (
   searchParams: URLSearchParams,
@@ -159,7 +160,8 @@ const Shop = observer(() => {
   }, [catalog.category, catalog.brand, catalog.area, catalog.page]);
 
   return (
-    <Container maxWidth={false} sx={{maxWidth: 1400}}>
+    <Container maxWidth={false}>
+      <SearchBar />
       <Box sx={{display: 'flex'}}>
         <Box sx={{display: 'flex', flexDirection: 'column', minWidth: '358px'}}>
           {categoriesFetching ? <CircularProgress color="success" /> : <CategoryBar />}
@@ -169,9 +171,7 @@ const Shop = observer(() => {
             Сбросить фильтры
           </Button>
         </Box>
-        <Box sx={{width: '100%'}}>
-          {productsFetching ? <CircularProgress color="success" /> : <ProductList />}
-        </Box>
+        <Box sx={{width: '100%'}}>{productsFetching ? <CircularProgress color="success" /> : <ProductList />}</Box>
       </Box>
     </Container>
   );
