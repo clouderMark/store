@@ -1,7 +1,7 @@
 import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import {SelectChangeEvent} from '@mui/material';
 import {PopUpForProduct} from '../PopUpForProduct';
-import {createProduct, fetchBrands, fetchCategories, fetchAreas} from '../../http/catalogAPI';
+import {createProduct, fetchSolutions, fetchIndustries, fetchAreas} from '../../http/catalogAPI';
 import {ICatalogItem, IValid, IDefaultValid, IProductProp} from '../../types/types';
 import {IProps} from './types';
 import {defaultValue, defaultValid} from './default';
@@ -19,15 +19,15 @@ const CreateProduct = (props: IProps) => {
   // список характеристик товара
   const [properties, setProperties] = useState<IProductProp[]>([]);
 
-  // список категорий и список брендов для возможности выбора
-  const [categories, setCategories] = useState<ICatalogItem[] | null>(null);
-  const [brands, setBrands] = useState<ICatalogItem[] | null>(null);
+  // список индустрий и список решений для возможности выбора
+  const [industries, setIndustries] = useState<ICatalogItem[] | null>(null);
+  const [solutions, setSolutions] = useState<ICatalogItem[] | null>(null);
   const [areas, setAreas] = useState<ICatalogItem[] | null>(null);
 
-  // получить с сервера список категой и брендов
+  // получить с сервера список индустрий и решений
   useEffect(() => {
-    fetchCategories().then((data) => setCategories(data));
-    fetchBrands().then((data) => setBrands(data));
+    fetchIndustries().then((data) => setIndustries(data));
+    fetchSolutions().then((data) => setSolutions(data));
     fetchAreas().then((data) => setAreas(data));
   }, []);
 
@@ -56,8 +56,8 @@ const CreateProduct = (props: IProps) => {
     if (
       correct.name &&
       correct.price &&
-      correct.category &&
-      correct.brand &&
+      correct.industry &&
+      correct.solution &&
       correct.area &&
       correct.article &&
       correct.weight
@@ -66,8 +66,8 @@ const CreateProduct = (props: IProps) => {
 
       data.append('name', value.name.trim());
       data.append('price', value.price.trim());
-      data.append('categoryId', value.category);
-      data.append('brandId', value.brand);
+      data.append('industryId', value.industry);
+      data.append('solutionId', value.solution);
       data.append('areaId', value.area);
       data.append('article', value.article.trim());
       data.append('weight', value.weight.trim());
@@ -108,8 +108,8 @@ const CreateProduct = (props: IProps) => {
       title={'Новый товар'}
       value={value}
       valid={valid}
-      categories={categories}
-      brands={brands}
+      industries={industries}
+      solutions={solutions}
       areas={areas}
       properties={properties}
       setProperties={setProperties}

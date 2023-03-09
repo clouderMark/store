@@ -30,7 +30,7 @@ export const card = {
     fontSize: '27px',
     fontWeight: 500,
   },
-  brand: {
+  solution: {
     margin: '0 0 21px',
     fontSize: '18px',
     fontWeight: 300,

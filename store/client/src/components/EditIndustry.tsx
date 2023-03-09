@@ -1,5 +1,5 @@
 import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent, useRef} from 'react';
-import {createCategory, fetchCategory, updateCategory} from '../http/catalogAPI';
+import {createIndustry, fetchIndustry, updateIndustry} from '../http/catalogAPI';
 import {PopUp} from './PopUp';
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
   setChange: Dispatch<SetStateAction<boolean>>;
 }
 
-const EditCategory = (props: IProps) => {
+const EditIndustry = (props: IProps) => {
   const {id, show, setShow, setChange} = props;
 
   const [name, setName] = useState('');
@@ -25,7 +25,7 @@ const EditCategory = (props: IProps) => {
 
   useEffect(() => {
     if (id) {
-      fetchCategory(id)
+      fetchIndustry(id)
         .then((data) => {
           setName(data.name);
           setValid(data.name !== '');
@@ -55,16 +55,16 @@ const EditCategory = (props: IProps) => {
       const success = () => {
         // закрываем модальное окно
         setShow(false);
-        // изменяю состояние родителя, чтобы обновить список категорий
+        // изменяю состояние родителя, чтобы обновить список индустрий
         setChange((state) => !state);
       };
 
       if (id) {
-        updateCategory(id, data)
+        updateIndustry(id, data)
           .then(success)
           .catch((error) => console.error(error));
       } else {
-        createCategory(data)
+        createIndustry(data)
           .then(success)
           .catch((error) => console.error(error));
       }
@@ -73,7 +73,7 @@ const EditCategory = (props: IProps) => {
 
   return (
     <PopUp
-      title="категории"
+      title="индустрии"
       show={show}
       setShow={setShow}
       id={id}
@@ -86,4 +86,4 @@ const EditCategory = (props: IProps) => {
   );
 };
 
-export default EditCategory;
+export default EditIndustry;

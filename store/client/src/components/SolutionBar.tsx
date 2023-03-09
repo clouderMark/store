@@ -1,27 +1,28 @@
-import {createSearchParams, useNavigate} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
+import {createSearchParams, useNavigate} from 'react-router-dom';
 import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
+// import {ListGroup} from 'react-bootstrap';
 import {useAppContext} from './AppContext';
 import {IObject} from '../types/types';
 
-const CategoryBar = observer(() => {
+const SolutionBar = observer(() => {
   const {catalog} = useAppContext();
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    const index = catalog.category.indexOf(id);
+    const index = catalog.solution.indexOf(id);
 
     if (index >= 0) {
-      catalog.category = catalog.category.filter((_, i) => i !== index);
+      catalog.solution = catalog.solution.filter((_, i) => i !== index);
     } else {
-      catalog.category = [...catalog.category, id];
+      catalog.solution = [...catalog.solution, id];
     }
 
-    // при каждом клике добавляем в браузер новый элемент
+    // при каждом клике добавляем в историю браузера новый элемент
     const params: IObject = {};
 
-    if (catalog.category.length) params.category = catalog.category.join(',');
-    if (catalog.brand.length) params.brand = catalog.brand.join(',');
+    if (catalog.industry.length) params.industry = catalog.industry.join(',');
+    if (catalog.solution.length) params.solution = catalog.solution.join(',');
     if (catalog.area.length) params.area = catalog.area.join(',');
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
@@ -32,15 +33,15 @@ const CategoryBar = observer(() => {
 
   return (
     <FormControl sx={{m: 3}} component="fieldset" variant="standard">
-      <FormLabel component="legend">Категории</FormLabel>
+      <FormLabel component="legend">Решения</FormLabel>
       <FormGroup>
-        {catalog.categories.map((item) => (
+        {catalog.solutions.map((item) => (
           <FormControlLabel
             control={
               <Checkbox
                 onChange={() => handleClick(item.id)}
                 color="success"
-                checked={catalog.category.includes(item.id)}
+                checked={catalog.solution.includes(item.id)}
               />
             }
             label={item.name}
@@ -52,4 +53,4 @@ const CategoryBar = observer(() => {
   );
 });
 
-export default CategoryBar;
+export default SolutionBar;

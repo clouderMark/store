@@ -21,8 +21,8 @@ const ProductItem = ({data}: IData<IProductWithProps>) => {
         <Typography sx={card.title} component="strong">
           {data.name}
         </Typography>
-        <Typography sx={card.brand} component="p">
-          Бренд: {data.brand.name}
+        <Typography sx={card.solution} component="p">
+          Решение: {data.solution.name}
         </Typography>
         <Typography sx={card.price} component="strong">
           {data.price} BYN

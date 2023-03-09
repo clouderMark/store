@@ -2,17 +2,17 @@ import {makeAutoObservable} from 'mobx';
 import {ICatalogItem, IProductWithProps} from '../types/types';
 
 class CatalogStore {
-  private _categories: ICatalogItem[] = [];
+  private _industries: ICatalogItem[] = [];
 
-  private _brands: ICatalogItem[] = [];
+  private _solutions: ICatalogItem[] = [];
 
   private _areas: ICatalogItem[] = [];
 
   private _products: IProductWithProps[] = [];
 
-  private _category: number[] = []; // выбранная категория
+  private _industry: number[] = []; // выбранная индустрия
 
-  private _brand: number[] = [];
+  private _solution: number[] = [];
 
   private _area: number[] = [];
 
@@ -26,20 +26,20 @@ class CatalogStore {
     makeAutoObservable(this);
   }
 
-  get categories() {
-    return this._categories;
+  get industries() {
+    return this._industries;
   }
 
-  set categories(categories: ICatalogItem[]) {
-    this._categories = categories;
+  set industries(industries: ICatalogItem[]) {
+    this._industries = industries;
   }
 
-  get brands() {
-    return this._brands;
+  get solutions() {
+    return this._solutions;
   }
 
-  set brands(brands: ICatalogItem[]) {
-    this._brands = brands;
+  set solutions(solutions: ICatalogItem[]) {
+    this._solutions = solutions;
   }
 
   get areas() {
@@ -58,22 +58,22 @@ class CatalogStore {
     this._products = products;
   }
 
-  get category() {
-    return this._category;
+  get industry() {
+    return this._industry;
   }
 
-  set category(newCategory: number[]) {
+  set industry(industry: number[]) {
     this.page = 1;
-    this._category = newCategory;
+    this._industry = industry;
   }
 
-  get brand() {
-    return this._brand;
+  get solution() {
+    return this._solution;
   }
 
-  set brand(newBrand: number[]) {
+  set solution(solution: number[]) {
     this.page = 1;
-    this._brand = newBrand;
+    this._solution = solution;
   }
 
   get area() {

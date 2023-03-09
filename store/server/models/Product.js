@@ -2,26 +2,26 @@ import { Product as ProductMapping } from './mapping.js'
 import { ProductProp as ProductPropMapping } from './mapping.js'
 import AppError from '../errors/AppError.js'
 import FileService from '../services/File.js'
-import { Brand as BrandMapping } from './mapping.js'
-import { Category as CategoryMapping } from './mapping.js'
+import { Solution as SolutionMapping } from './mapping.js'
+import { Industry as IndustryMapping } from './mapping.js'
 import { Area as AreaMapping } from './mapping.js'
 
 class Product {
     async getAll(options) {
-        const { categoryId, brandId, areaId, limit, page } = options
+        const { industryId, solutionId, areaId, limit, page } = options
         const offset = (page - 1) * limit
         const where = {}
-        if (categoryId) where.categoryId = categoryId
-        if (brandId) where.brandId = brandId
+        if (industryId) where.industryId = industryId
+        if (solutionId) where.solutionId = solutionId
         if (areaId) where.areaId = areaId
         const products = await ProductMapping.findAndCountAll({
             where,
             limit,
             offset,
-            //для каждого товара получаем бренд и категорию
+            //для каждого товара получаем решение и индустрии
             include: [
-                {model: BrandMapping, as: 'brand'},
-                {model: CategoryMapping, as: 'category'},
+                {model: SolutionMapping, as: 'solution'},
+                {model: IndustryMapping, as: 'industry'},
                 {model: AreaMapping, as: 'area'}
             ]
         })
@@ -32,9 +32,9 @@ class Product {
         const product = await ProductMapping.findByPk(id, {
             include: [
                 { model: ProductPropMapping, as: 'props' },
-                { model: BrandMapping, as: 'brand' },
+                { model: SolutionMapping, as: 'solution' },
                 { model: AreaMapping, as: 'area' },
-                { model: CategoryMapping, as: 'category'},
+                { model: IndustryMapping, as: 'industry'},
             ]
         })
         if (!product) {
@@ -45,8 +45,8 @@ class Product {
 
     async create(data, img) {
         const image = FileService.save(img) ?? ''
-        const { name, price, categoryId = null, brandId = null, areaId = null, article = null, weight = null } = data
-        const product = await ProductMapping.create({ name, price, image, categoryId, brandId, areaId, article, weight })
+        const { name, price, industryId = null, solutionId = null, areaId = null, article = null, weight = null } = data
+        const product = await ProductMapping.create({ name, price, image, industryId, solutionId, areaId, article, weight })
         if (data.props) {
             const props = JSON.parse(data.props)
             for (let prop of props) {
@@ -76,15 +76,14 @@ class Product {
         const {
             name = product.name,
             price = product.price,
-            categoryId = product.categoryId,
-            brandId = product.brandId,
+            industryId = product.industryId,
+            solutionId = product.solutionId,
             areaId = product.areaId,
             image = file ? file : product.image,
             article = product.article,
             weight = product.weight,
         } = data
-        console.log(data);
-        await product.update({ name, price, image, categoryId, brandId, areaId, article, weight })
+        await product.update({ name, price, image, industryId, solutionId, areaId, article, weight })
         if (data.props) {//удаляем старые и добавляем новые
             await ProductPropMapping.destroy({where: {productId: id}})
             const props = JSON.parse(data.props)

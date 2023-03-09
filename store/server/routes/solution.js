@@ -1,26 +1,26 @@
 import express from 'express'
-import BrandController from '../controlers/Brand.js'
+import SolutionController from '../controlers/Solution.js'
 import authMiddleware from '../middleware/authMiddleware.js'
 import adminMiddleware from '../middleware/adminMiddleware.js'
 
 const router = new express.Router()
 
-router.get('/getall', BrandController.getAll)
-router.get('/getone/:id([0-9]+)', BrandController.getOne)
+router.get('/getall', SolutionController.getAll)
+router.get('/getone/:id([0-9]+)', SolutionController.getOne)
 router.post(
     '/create',
     authMiddleware,
     adminMiddleware,
-    BrandController.create)
+    SolutionController.create)
 router.put(
     '/update/:id([0-9]+)',
     authMiddleware,
     adminMiddleware,
-    BrandController.update)
+    SolutionController.update)
 router.delete(
     '/delete/:id([0-9]+)',
     authMiddleware,
     adminMiddleware,
-    BrandController.delete)
+    SolutionController.delete)
 
 export default router

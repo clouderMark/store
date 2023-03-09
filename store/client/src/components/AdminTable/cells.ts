@@ -6,12 +6,12 @@ export const cells: ICells[] = [
     headerName: 'Название',
   },
   {
-    field: 'category',
-    headerName: 'Категория',
+    field: 'industry',
+    headerName: 'Индустрии',
   },
   {
-    field: 'brand',
-    headerName: 'Бренд',
+    field: 'solution',
+    headerName: 'Решение',
   },
   {
     field: 'area',

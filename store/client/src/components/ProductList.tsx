@@ -16,8 +16,8 @@ const ProductList = observer(() => {
 
     const params: IObject = {};
 
-    if (catalog.category) params.category = `${catalog.category}`;
-    if (catalog.brand) params.brand = `${catalog.brand}`;
+    if (catalog.industry) params.industry = `${catalog.industry}`;
+    if (catalog.solution) params.solution = `${catalog.solution}`;
     if (catalog.area) params.area = `${catalog.area}`;
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({

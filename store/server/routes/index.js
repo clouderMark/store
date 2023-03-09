@@ -1,8 +1,8 @@
 import  express from 'express'
 
 import product from './product.js'
-import category from './category.js'
-import brand from './brand.js'
+import industry from './industry.js'
+import solution from './solution.js'
 import area from './area.js'
 import user from './user.js'
 import basket from './basket.js'
@@ -12,8 +12,8 @@ import order from './order.js'
 const router = new express.Router()
 
 router.use('/product', product)
-router.use('/category', category)
-router.use('/brand', brand)
+router.use('/industry', industry)
+router.use('/solution', solution)
 router.use('/area', area)
 router.use('/user', user)
 router.use('/basket', basket)
