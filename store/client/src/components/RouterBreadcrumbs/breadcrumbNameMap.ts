@@ -33,7 +33,7 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
     const path = name.split('/');
 
     if (path.includes('shop') && +path.slice(-1) >= 0) {
-      crumb = product.name;
+      crumb = product.name.charAt(0).toUpperCase() + product.name.slice(1);
     } else {
       crumb = this.allNames[name];
     }
