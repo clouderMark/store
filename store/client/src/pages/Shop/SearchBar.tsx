@@ -4,7 +4,7 @@ import {IconTextField} from '../../components/IconTextField';
 import {SelectSort} from './SelectSort';
 
 export const SearchBar = () => (
-  <Box sx={{display: 'flex', justifyContent: 'space-between', mt: '60px'}}>
+  <Box sx={{display: 'flex', justifyContent: 'space-between', mt: '90px'}}>
     <IconTextField
       label="Поиск продукта"
       variant="filled"
