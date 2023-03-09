@@ -6,6 +6,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import LinkRouter from './LinkRouter';
 import breadcrumbNameMap from './breadcrumbNameMap';
 import {useAppContext} from '../AppContext';
+import {styles} from './styles';
 
 const Page = observer(() => {
   const {productItem} = useAppContext();
@@ -14,7 +15,7 @@ const Page = observer(() => {
 
   return (
     <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" />}>
-      <LinkRouter underline="hover" color="inherit" to="/">
+      <LinkRouter underline="hover" sx={styles.notLast} color="inherit" to="/">
         Главная
       </LinkRouter>
       {pathnames.map((value, index) => {
@@ -22,11 +23,11 @@ const Page = observer(() => {
         const to = `/${pathnames.slice(0, index + 1).join('/')}`;
 
         return last ? (
-          <Typography color="text.primary" key={to}>
+          <Typography key={to} sx={styles.last}>
             {breadcrumbNameMap.getName(to, productItem)}
           </Typography>
         ) : (
-          <LinkRouter underline="hover" color="inherit" to={to} key={to}>
+          <LinkRouter underline="hover" sx={styles.notLast} to={to} key={to}>
             {breadcrumbNameMap.getName(to, productItem)}
           </LinkRouter>
         );
