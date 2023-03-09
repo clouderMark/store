@@ -21,7 +21,7 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
     '/admin': 'Управление',
     '/admin/orders': 'Заказы',
     '/admin/industries': 'Индустрии',
-    '/admin/brands': 'Бренды',
+    '/admin/solutions': 'Решения',
     '/admin/areas': 'Области',
     '/admin/products': 'Товары',
     '/services': 'Сервисы',

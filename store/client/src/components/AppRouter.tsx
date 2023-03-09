@@ -17,7 +17,7 @@ import UserOrder from '../pages/UserOrder';
 import AdminOrders from '../pages/AdminOrders';
 import AdminOrder from '../pages/AdminOrder';
 import AdminIndustries from '../pages/AdminIndustries';
-import AdminBrands from '../pages/AdminBrands';
+import AdminSolutions from '../pages/AdminSolutions';
 import AdminAreas from '../pages/AdminAreas';
 import AdminProducts from '../pages/AdminProducts';
 
@@ -44,7 +44,7 @@ const adminRoutes = [
   {path: '/admin/orders', Component: AdminOrders},
   {path: '/admin/order/:id', Component: AdminOrder},
   {path: '/admin/industries', Component: AdminIndustries},
-  {path: '/admin/brands', Component: AdminBrands},
+  {path: '/admin/solutions', Component: AdminSolutions},
   {path: '/admin/areas', Component: AdminAreas},
   {path: '/admin/products', Component: AdminProducts},
 ];

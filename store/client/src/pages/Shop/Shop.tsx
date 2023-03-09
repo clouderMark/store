@@ -3,18 +3,18 @@ import {observer} from 'mobx-react-lite';
 import {useLocation, useSearchParams, createSearchParams, useNavigate} from 'react-router-dom';
 import {Container, Box, CircularProgress, Button} from '@mui/material';
 import IndustryBar from '../../components/IndustryBar';
-import BrandBar from '../../components/BrandBar';
+import SolutionBar from '../../components/SolutionBar';
 import AreaBar from '../../components/AreaBar';
 import ProductList from '../../components/ProductList';
 import {useAppContext} from '../../components/AppContext';
-import {fetchAllProducts, fetchIndustries, fetchBrands, fetchAreas} from '../../http/catalogAPI';
+import {fetchAllProducts, fetchIndustries, fetchSolutions, fetchAreas} from '../../http/catalogAPI';
 import {button} from './styles';
 import {SearchBar} from './SearchBar';
 
 const getSearchParams = (
   searchParams: URLSearchParams,
 ): {
-  brand: number[];
+  solution: number[];
   page: null | number;
   area: number[];
   industry: number[];
@@ -27,12 +27,12 @@ const getSearchParams = (
     industry = [];
   }
 
-  let brand: string | null | number | number[] = searchParams.get('brand');
+  let solution: string | null | number | number[] = searchParams.get('solution');
 
-  if (brand && /[1-9][0-9]*/.test(brand)) {
-    brand = brand.split(',').map((el) => +el);
+  if (solution && /[1-9][0-9]*/.test(solution)) {
+    solution = solution.split(',').map((el) => +el);
   } else {
-    brand = [];
+    solution = [];
   }
 
   let area: string | null | number | number[] = searchParams.get('area');
@@ -51,14 +51,14 @@ const getSearchParams = (
     page = null;
   }
 
-  return {industry, brand, area, page};
+  return {industry, solution, area, page};
 };
 
 const Shop = observer(() => {
   const {catalog} = useAppContext();
 
   const [industriesFetching, setIndustriesFetching] = useState(true);
-  const [brandsFetching, setBrandsFetching] = useState(true);
+  const [solutionsFetching, setSolutionsFetching] = useState(true);
   const [areasFetching, setAreasFetching] = useState(true);
   const [productsFetching, setProductsFetching] = useState(true);
 
@@ -68,7 +68,7 @@ const Shop = observer(() => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    catalog.brand = [];
+    catalog.solution = [];
     catalog.industry = [];
     catalog.area = [];
 
@@ -84,27 +84,27 @@ const Shop = observer(() => {
         catalog.industries = data;
       })
       .finally(() => setIndustriesFetching(false));
-    fetchBrands()
+    fetchSolutions()
       .then((data) => {
-        catalog.brands = data;
+        catalog.solutions = data;
       })
-      .finally(() => setBrandsFetching(false));
+      .finally(() => setSolutionsFetching(false));
     fetchAreas()
       .then((data) => {
         catalog.areas = data;
       })
       .finally(() => setAreasFetching(false));
 
-    const {industry, brand, area, page} = getSearchParams(searchParams);
+    const {industry, solution, area, page} = getSearchParams(searchParams);
 
     catalog.industry = industry;
-    catalog.brand = brand;
+    catalog.solution = solution;
     catalog.area = area;
     catalog.page = page ?? 1;
 
     fetchAllProducts(
       catalog.industry.length ? catalog.industry : null,
-      catalog.brand.length ? catalog.brand : null,
+      catalog.solution.length ? catalog.solution : null,
       catalog.area.length ? catalog.area : null,
       catalog.page,
       catalog.limit,
@@ -117,15 +117,15 @@ const Shop = observer(() => {
   }, []);
 
   useEffect(() => {
-    const {industry, brand, area, page} = getSearchParams(searchParams);
+    const {industry, solution, area, page} = getSearchParams(searchParams);
 
-    if (industry.length || brand.length || area.length || page) {
+    if (industry.length || solution.length || area.length || page) {
       if (industry.length !== catalog.industry.length) {
         catalog.industry = industry;
       }
 
-      if (brand.length !== catalog.brand.length) {
-        catalog.brand = brand;
+      if (solution.length !== catalog.solution.length) {
+        catalog.solution = solution;
       }
 
       if (area.length !== catalog.area.length) {
@@ -137,7 +137,7 @@ const Shop = observer(() => {
       }
     } else {
       catalog.industry = [];
-      catalog.brand = [];
+      catalog.solution = [];
       catalog.area = [];
       catalog.page = 1;
     }
@@ -147,7 +147,7 @@ const Shop = observer(() => {
     setProductsFetching(true);
     fetchAllProducts(
       catalog.industry.length ? catalog.industry : null,
-      catalog.brand.length ? catalog.brand : null,
+      catalog.solution.length ? catalog.solution : null,
       catalog.area.length ? catalog.area : null,
       catalog.page,
       catalog.limit,
@@ -157,7 +157,7 @@ const Shop = observer(() => {
         catalog.count = data.count;
       })
       .finally(() => setProductsFetching(false));
-  }, [catalog.industry, catalog.brand, catalog.area, catalog.page]);
+  }, [catalog.industry, catalog.solution, catalog.area, catalog.page]);
 
   return (
     <Container maxWidth={false}>
@@ -165,8 +165,8 @@ const Shop = observer(() => {
       <Box sx={{display: 'flex'}}>
         <Box sx={{display: 'flex', flexDirection: 'column', minWidth: '358px'}}>
           {industriesFetching ? <CircularProgress color="success" /> : <IndustryBar />}
-          {brandsFetching ? <CircularProgress color="success" /> : <BrandBar />}
           {areasFetching ? <CircularProgress color="success" /> : <AreaBar />}
+          {solutionsFetching ? <CircularProgress color="success" /> : <SolutionBar />}
           <Button variant="outlined" sx={button} onClick={handleClick}>
             Сбросить фильтры
           </Button>

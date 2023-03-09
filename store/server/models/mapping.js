@@ -33,7 +33,7 @@ const Industry = sequelize.define('industry', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false}
 })
 
-const Brand = sequelize.define('brand', {
+const Solution = sequelize.define('solution', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
 })
@@ -107,8 +107,8 @@ BasketProduct.belongsTo(Product)
 Industry.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Industry)
 
-Brand.hasMany(Product, {onDelete: 'RESTRICT'})
-Product.belongsTo(Brand)
+Solution.hasMany(Product, {onDelete: 'RESTRICT'})
+Product.belongsTo(Solution)
 
 Area.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Area)
@@ -135,7 +135,7 @@ export {
     Basket,
     Product,
     Industry,
-    Brand,
+    Solution,
     Area,
     Rating,
     BasketProduct,

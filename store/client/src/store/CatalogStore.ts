@@ -4,7 +4,7 @@ import {ICatalogItem, IProductWithProps} from '../types/types';
 class CatalogStore {
   private _industries: ICatalogItem[] = [];
 
-  private _brands: ICatalogItem[] = [];
+  private _solutions: ICatalogItem[] = [];
 
   private _areas: ICatalogItem[] = [];
 
@@ -12,7 +12,7 @@ class CatalogStore {
 
   private _industry: number[] = []; // выбранная индустрия
 
-  private _brand: number[] = [];
+  private _solution: number[] = [];
 
   private _area: number[] = [];
 
@@ -34,12 +34,12 @@ class CatalogStore {
     this._industries = industries;
   }
 
-  get brands() {
-    return this._brands;
+  get solutions() {
+    return this._solutions;
   }
 
-  set brands(brands: ICatalogItem[]) {
-    this._brands = brands;
+  set solutions(solutions: ICatalogItem[]) {
+    this._solutions = solutions;
   }
 
   get areas() {
@@ -67,13 +67,13 @@ class CatalogStore {
     this._industry = industry;
   }
 
-  get brand() {
-    return this._brand;
+  get solution() {
+    return this._solution;
   }
 
-  set brand(newBrand: number[]) {
+  set solution(solution: number[]) {
     this.page = 1;
-    this._brand = newBrand;
+    this._solution = solution;
   }
 
   get area() {

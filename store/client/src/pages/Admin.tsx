@@ -18,8 +18,8 @@ const links: ILinks[] = [
     content: 'Индустрии каталога',
   },
   {
-    address: '/admin/brands',
-    content: 'Бренды каталога',
+    address: '/admin/solutions',
+    content: 'Решения каталога',
   },
   {
     address: '/admin/areas',

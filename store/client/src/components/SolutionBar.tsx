@@ -5,24 +5,24 @@ import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mu
 import {useAppContext} from './AppContext';
 import {IObject} from '../types/types';
 
-const BrandBar = observer(() => {
+const SolutionBar = observer(() => {
   const {catalog} = useAppContext();
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    const index = catalog.brand.indexOf(id);
+    const index = catalog.solution.indexOf(id);
 
     if (index >= 0) {
-      catalog.brand = catalog.brand.filter((_, i) => i !== index);
+      catalog.solution = catalog.solution.filter((_, i) => i !== index);
     } else {
-      catalog.brand = [...catalog.brand, id];
+      catalog.solution = [...catalog.solution, id];
     }
 
     // при каждом клике добавляем в историю браузера новый элемент
     const params: IObject = {};
 
     if (catalog.industry.length) params.industry = catalog.industry.join(',');
-    if (catalog.brand.length) params.brand = catalog.brand.join(',');
+    if (catalog.solution.length) params.solution = catalog.solution.join(',');
     if (catalog.area.length) params.area = catalog.area.join(',');
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
@@ -33,15 +33,15 @@ const BrandBar = observer(() => {
 
   return (
     <FormControl sx={{m: 3}} component="fieldset" variant="standard">
-      <FormLabel component="legend">Бренды</FormLabel>
+      <FormLabel component="legend">Решения</FormLabel>
       <FormGroup>
-        {catalog.brands.map((item) => (
+        {catalog.solutions.map((item) => (
           <FormControlLabel
             control={
               <Checkbox
                 onChange={() => handleClick(item.id)}
                 color="success"
-                checked={catalog.brand.includes(item.id)}
+                checked={catalog.solution.includes(item.id)}
               />
             }
             label={item.name}
@@ -53,4 +53,4 @@ const BrandBar = observer(() => {
   );
 });
 
-export default BrandBar;
+export default SolutionBar;

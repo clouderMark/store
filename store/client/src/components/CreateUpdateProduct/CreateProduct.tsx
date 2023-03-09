@@ -1,7 +1,7 @@
 import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import {SelectChangeEvent} from '@mui/material';
 import {PopUpForProduct} from '../PopUpForProduct';
-import {createProduct, fetchBrands, fetchIndustries, fetchAreas} from '../../http/catalogAPI';
+import {createProduct, fetchSolutions, fetchIndustries, fetchAreas} from '../../http/catalogAPI';
 import {ICatalogItem, IValid, IDefaultValid, IProductProp} from '../../types/types';
 import {IProps} from './types';
 import {defaultValue, defaultValid} from './default';
@@ -19,15 +19,15 @@ const CreateProduct = (props: IProps) => {
   // список характеристик товара
   const [properties, setProperties] = useState<IProductProp[]>([]);
 
-  // список индустрий и список брендов для возможности выбора
+  // список индустрий и список решений для возможности выбора
   const [industries, setIndustries] = useState<ICatalogItem[] | null>(null);
-  const [brands, setBrands] = useState<ICatalogItem[] | null>(null);
+  const [solutions, setSolutions] = useState<ICatalogItem[] | null>(null);
   const [areas, setAreas] = useState<ICatalogItem[] | null>(null);
 
-  // получить с сервера список индустрий и брендов
+  // получить с сервера список индустрий и решений
   useEffect(() => {
     fetchIndustries().then((data) => setIndustries(data));
-    fetchBrands().then((data) => setBrands(data));
+    fetchSolutions().then((data) => setSolutions(data));
     fetchAreas().then((data) => setAreas(data));
   }, []);
 
@@ -57,7 +57,7 @@ const CreateProduct = (props: IProps) => {
       correct.name &&
       correct.price &&
       correct.industry &&
-      correct.brand &&
+      correct.solution &&
       correct.area &&
       correct.article &&
       correct.weight
@@ -67,7 +67,7 @@ const CreateProduct = (props: IProps) => {
       data.append('name', value.name.trim());
       data.append('price', value.price.trim());
       data.append('industryId', value.industry);
-      data.append('brandId', value.brand);
+      data.append('solutionId', value.solution);
       data.append('areaId', value.area);
       data.append('article', value.article.trim());
       data.append('weight', value.weight.trim());
@@ -109,7 +109,7 @@ const CreateProduct = (props: IProps) => {
       value={value}
       valid={valid}
       industries={industries}
-      brands={brands}
+      solutions={solutions}
       areas={areas}
       properties={properties}
       setProperties={setProperties}

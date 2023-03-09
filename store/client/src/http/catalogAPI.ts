@@ -42,34 +42,34 @@ export const fetchIndustry = async (id: number): Promise<ICatalogItem> => {
   return data;
 };
 
-// Создание, обновление, удаление брендов, получение списка всех бредов
+// Создание, обновление, удаление решений, получение списка всех решений
 
-export const createBrand = async (brand: {name: string}): Promise<ICatalogItem> => {
-  const {data} = await authInstance.post('brand/create', brand);
-
-  return data;
-};
-
-export const updateBrand = async (id: number, brand: {name: string}): Promise<ICatalogItem> => {
-  const {data} = await authInstance.put(`brand/update/${id}`, brand);
+export const createSolution = async (solution: {name: string}): Promise<ICatalogItem> => {
+  const {data} = await authInstance.post('solution/create', solution);
 
   return data;
 };
 
-export const deleteBrand = async (id: number): Promise<ICatalogItem> => {
-  const {data} = await authInstance.delete(`brand/delete/${id}`);
+export const updateSolution = async (id: number, solution: {name: string}): Promise<ICatalogItem> => {
+  const {data} = await authInstance.put(`solution/update/${id}`, solution);
 
   return data;
 };
 
-export const fetchBrands = async (): Promise<ICatalogItem[]> => {
-  const {data} = await guestInstance.get('brand/getall');
+export const deleteSolution = async (id: number): Promise<ICatalogItem> => {
+  const {data} = await authInstance.delete(`solution/delete/${id}`);
 
   return data;
 };
 
-export const fetchBrand = async (id: number): Promise<ICatalogItem> => {
-  const {data} = await guestInstance.get(`brand/getone/${id}`);
+export const fetchSolutions = async (): Promise<ICatalogItem[]> => {
+  const {data} = await guestInstance.get('solution/getall');
+
+  return data;
+};
+
+export const fetchSolution = async (id: number): Promise<ICatalogItem> => {
+  const {data} = await guestInstance.get(`solution/getone/${id}`);
 
   return data;
 };
@@ -127,16 +127,16 @@ export const deleteProduct = async (id: number): Promise<IProduct> => {
 
 export const fetchAllProducts = async (
   industryId: number[] | null,
-  brandId: number[] | null,
+  solutionId: number[] | null,
   areaId: number[] | null,
   page: number,
   limit: number,
 ): Promise<IAllProducts> => {
   let url = 'product/getall';
 
-  // фильтр товаров по индустриям и/или бренду
+  // фильтр товаров по индустриям и/или решению
   if (industryId) url = `${url}/industryId/${industryId}`;
-  if (brandId) url = `${url}/brandId/${brandId}`;
+  if (solutionId) url = `${url}/solutionId/${solutionId}`;
   if (areaId) url = `${url}/areaId/${areaId}`;
   const {data} = await guestInstance.get(url, {
     params: {

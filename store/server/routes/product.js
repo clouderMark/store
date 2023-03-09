@@ -6,15 +6,15 @@ import adminMiddleware from '../middleware/adminMiddleware.js'
 
 const router = new express.Router()
 router.get('/getall/areaId/:areaId', ProductController.getAll) // все проды по одному параметру
-router.get('/getall/brandId/:brandId', ProductController.getAll)
+router.get('/getall/solutionId/:solutionId', ProductController.getAll)
 router.get('/getall/industryId/:industryId', ProductController.getAll)
 
-router.get('/getall/industryId/:industryId/brandId/:brandId', ProductController.getAll) // все проды по двум параметрам
+router.get('/getall/industryId/:industryId/solutionId/:solutionId', ProductController.getAll) // все проды по двум параметрам
 router.get('/getall/industryId/:industryId/areaId/:areaId', ProductController.getAll)
-router.get('/getall/brandId/:brandId/areaId/:areaId', ProductController.getAll)
+router.get('/getall/solutionId/:solutionId/areaId/:areaId', ProductController.getAll)
 
 
-router.get('/getall/industryId/:industryId/brandId/:brandId/areaId/:areaId', ProductController.getAll)  // все проды по трем
+router.get('/getall/industryId/:industryId/solutionId/:solutionId/areaId/:areaId', ProductController.getAll)  // все проды по трем
 
 router.get('/getall', ProductController.getAll)
 

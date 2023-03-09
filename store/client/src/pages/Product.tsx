@@ -43,7 +43,7 @@ const Product = () => {
         <Col>
           <h1>{product.name}</h1>
           <h3>{product.price}.00 руб</h3>
-          <p>Бренд: {product.brand.name}</p>
+          <p>Решение: {product.solution.name}</p>
           <p>Индустрия: {product.industry.name}</p>
           <div>
             {rating ? (

@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent, useRef} from 'react';
-import {fetchBrand, createBrand, updateBrand} from '../http/catalogAPI';
+import {fetchSolution, createSolution, updateSolution} from '../http/catalogAPI';
 import {PopUp} from './PopUp';
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
   setChange: Dispatch<SetStateAction<boolean>>;
 }
 
-const EditBrand = (props: IProps) => {
+const EditSolution = (props: IProps) => {
   const {id, show, setShow, setChange} = props;
 
   const [name, setName] = useState('');
@@ -25,7 +25,7 @@ const EditBrand = (props: IProps) => {
 
   useEffect(() => {
     if (id) {
-      fetchBrand(id)
+      fetchSolution(id)
         .then((data) => {
           setName(data.name);
           setValid(data.name !== '');
@@ -53,18 +53,18 @@ const EditBrand = (props: IProps) => {
         name: name.trim(),
       };
       const success = () => {
-        // закрываю окно создания редактирования бренда
+        // закрываю окно создания редактирования решения
         setShow(false);
-        // измения состояние родителя, чтобы обновить список брендов
+        // измения состояние родителя, чтобы обновить список решений
         setChange((state) => !state);
       };
 
       if (id) {
-        updateBrand(id, data)
+        updateSolution(id, data)
           .then(success)
           .catch((error) => console.error(error));
       } else {
-        createBrand(data)
+        createSolution(data)
           .then(success)
           .catch((error) => console.error(error));
       }
@@ -73,7 +73,7 @@ const EditBrand = (props: IProps) => {
 
   return (
     <PopUp
-      title="бренда"
+      title="решения"
       show={show}
       setShow={setShow}
       id={id}
@@ -86,4 +86,4 @@ const EditBrand = (props: IProps) => {
   );
 };
 
-export default EditBrand;
+export default EditSolution;

@@ -4,7 +4,7 @@ import {SelectChangeEvent} from '@mui/material';
 import {
   createProperty,
   deleteProperty,
-  fetchBrands,
+  fetchSolutions,
   fetchIndustries,
   fetchOneProduct,
   fetchAreas,
@@ -81,14 +81,14 @@ const UpdateProduct = (props: IProps) => {
   // список характеристик товара
   const [properties, setProperties] = useState<IProductProp[]>([]);
 
-  // список индустрий и список брендов для возможности выбора
+  // список индустрий и список решений для возможности выбора
   const [industries, setIndustries] = useState<ICatalogItem[] | null>(null);
-  const [brands, setBrands] = useState<ICatalogItem[] | null>(null);
+  const [solutions, setSolutions] = useState<ICatalogItem[] | null>(null);
   const [areas, setAreas] = useState<ICatalogItem[] | null>(null);
 
   const [fetchingProduct, setfetchingProduct] = useState(true);
   const [fetchingIndustries, setfetchingIndustries] = useState(true);
-  const [fetchingBrands, setfetchingBrands] = useState(true);
+  const [fetchingSolutions, setfetchingSolutions] = useState(true);
   const [fetchingAreas, setfetchingAreas] = useState(true);
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const UpdateProduct = (props: IProps) => {
             name: data.name,
             price: data.price.toString(),
             industry: data.industryId.toString(),
-            brand: data.brandId.toString(),
+            solution: data.solutionId.toString(),
             area: data.areaId.toString(),
             article: data.article.toString(),
             weight: data.weight.toString(),
@@ -118,13 +118,13 @@ const UpdateProduct = (props: IProps) => {
         })
         .catch((error) => console.error(error))
         .finally(() => setfetchingProduct(false));
-      // нужно получить с сервера список индустрий и всех брендов
+      // нужно получить с сервера список индустрий и всех решений
       fetchIndustries()
         .then((data) => setIndustries(data))
         .finally(() => setfetchingIndustries(false));
-      fetchBrands()
-        .then((data) => setBrands(data))
-        .finally(() => setfetchingBrands(false));
+      fetchSolutions()
+        .then((data) => setSolutions(data))
+        .finally(() => setfetchingSolutions(false));
       fetchAreas()
         .then((data) => setAreas(data))
         .finally(() => setfetchingAreas(false));
@@ -151,13 +151,13 @@ const UpdateProduct = (props: IProps) => {
     setValid(correct);
 
     // если прошли проверку то можно отправлять на сервер
-    if (correct.name && correct.price && correct.industry && correct.brand && correct.area) {
+    if (correct.name && correct.price && correct.industry && correct.solution && correct.area) {
       const data = new FormData();
 
       data.append('name', value.name.trim());
       data.append('price', value.price.trim());
       data.append('industryId', value.industry);
-      data.append('brandId', value.brand);
+      data.append('solutionId', value.solution);
       data.append('areaId', value.area);
       data.append('article', value.article.trim());
       data.append('weight', value.weight.trim());
@@ -184,7 +184,7 @@ const UpdateProduct = (props: IProps) => {
             name: data.name,
             price: data.price.toString(),
             industry: data.industryId.toString(),
-            brand: data.brandId.toString(),
+            solution: data.solutionId.toString(),
             area: data.areaId.toString(),
             article: data.article.toString(),
             weight: data.weight.toString(),
@@ -208,7 +208,7 @@ const UpdateProduct = (props: IProps) => {
 
   return (
     <PopUpForProduct
-      show={show && !fetchingProduct && !fetchingBrands && !fetchingIndustries && !fetchingAreas}
+      show={show && !fetchingProduct && !fetchingSolutions && !fetchingIndustries && !fetchingAreas}
       setShow={setShow}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}
@@ -217,7 +217,7 @@ const UpdateProduct = (props: IProps) => {
       value={value}
       valid={valid}
       industries={industries}
-      brands={brands}
+      solutions={solutions}
       areas={areas}
       properties={properties}
       setProperties={setProperties}

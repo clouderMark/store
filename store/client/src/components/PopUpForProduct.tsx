@@ -27,7 +27,7 @@ interface IProps {
   value: IDefaultValue;
   valid: IDefaultValid | IValid;
   industries: ICatalogItem[] | null;
-  brands: ICatalogItem[] | null;
+  solutions: ICatalogItem[] | null;
   areas: ICatalogItem[] | null;
   properties: IProductProp[];
   setProperties: Dispatch<SetStateAction<IProductProp[]>>;
@@ -68,17 +68,17 @@ export const PopUpForProduct = (props: IProps) => (
             </Select>
           </FormControl>
           <FormControl sx={{width: '100%', mr: 1}}>
-            <InputLabel id="brand-select-label">Бренд</InputLabel>
+            <InputLabel id="solution-select-label">Решение</InputLabel>
             <Select
-              labelId="brand-select-label"
-              name="brand"
-              value={`${props.value.brand}` ?? ''}
+              labelId="solution-select-label"
+              name="solution"
+              value={`${props.value.solution}` ?? ''}
               onChange={(e) => props.handleInputChange(e)}
-              error={props.valid.brand === false}
-              color={props.valid.brand ? 'success' : 'primary'}
+              error={props.valid.solution === false}
+              color={props.valid.solution ? 'success' : 'primary'}
             >
-              {props.brands &&
-                props.brands.map((item) => (
+              {props.solutions &&
+                props.solutions.map((item) => (
                   <MenuItem key={item.id} value={`${item.id}`}>
                     {item.name}
                   </MenuItem>

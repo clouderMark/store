@@ -14,7 +14,7 @@ export const TableBodyCells = (props: ITableBodyCells): JSX.Element => (
           <>
             <TableCell>{item.name}</TableCell>
             <TableCell>{item.industry.name}</TableCell>
-            <TableCell>{item.brand.name}</TableCell>
+            <TableCell>{item.solution.name}</TableCell>
             <TableCell>{item.area.name}</TableCell>
             <TableCell># {item.article}</TableCell>
             <TableCell>{item.weight} кг</TableCell>

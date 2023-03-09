@@ -2,7 +2,7 @@ import  express from 'express'
 
 import product from './product.js'
 import industry from './industry.js'
-import brand from './brand.js'
+import solution from './solution.js'
 import area from './area.js'
 import user from './user.js'
 import basket from './basket.js'
@@ -13,7 +13,7 @@ const router = new express.Router()
 
 router.use('/product', product)
 router.use('/industry', industry)
-router.use('/brand', brand)
+router.use('/solution', solution)
 router.use('/area', area)
 router.use('/user', user)
 router.use('/basket', basket)

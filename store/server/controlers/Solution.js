@@ -1,11 +1,11 @@
-import BrandModel from '../models/Brand.js'
+import SolutionModel from '../models/Solution.js'
 import AppError from '../errors/AppError.js'
 
-class Brand {
+class Solution {
     async getAll(req, res, next) {
         try {
-            const brands = await BrandModel.getAll()
-            res.json(brands)
+            const solutions = await SolutionModel.getAll()
+            res.json(solutions)
         } catch(e) {
             next(AppError.badRequest(e.message))
         }
@@ -14,10 +14,10 @@ class Brand {
     async getOne(req, res, next) {
         try {
             if (!req.params.id) {
-                throw new Error('Не указан id бренда')
+                throw new Error('Не указан id решения')
             }
-            const brand = await BrandModel.getOne(req.params.id)
-            res.json(brand)
+            const solution = await SolutionModel.getOne(req.params.id)
+            res.json(solution)
         } catch(e) {
             next(AppError.badRequest(e.message))
         }
@@ -25,8 +25,8 @@ class Brand {
 
     async create(req, res, next) {
         try {
-            const brand = await BrandModel.create(req.body)
-            res.json(brand)
+            const solution = await SolutionModel.create(req.body)
+            res.json(solution)
         } catch(e) {
             next(AppError.badRequest(e.message))
         }
@@ -35,10 +35,10 @@ class Brand {
     async update(req, res, next) {
         try {
             if(!req.params.id) {
-                throw new Error('Не указан id бренда')
+                throw new Error('Не указан id решения')
             }
-            const brand = await BrandModel.update(req.params.id, req.body)
-            res.json(brand)
+            const solution = await SolutionModel.update(req.params.id, req.body)
+            res.json(solution)
         } catch(e) {
             next(AppError.badRequest(e.message))
         }
@@ -47,14 +47,14 @@ class Brand {
     async delete(req, res, next) {
         try {   
             if (!req.params.id) {
-                throw new Error('Не указан id бренда')
+                throw new Error('Не указан id решения')
             }
-            const brand = await BrandModel.delete(req.params.id)
-            res.json(brand)
+            const solution = await SolutionModel.delete(req.params.id)
+            res.json(solution)
         } catch(e)  {
             next(AppError.badRequest(e.message))
         }
     }
 }
 
-export default new Brand()
+export default new Solution()
