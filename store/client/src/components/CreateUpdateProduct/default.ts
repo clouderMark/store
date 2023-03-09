@@ -3,7 +3,7 @@ import {IDefaultValue, IDefaultValid} from '../../types/types';
 export const defaultValue: IDefaultValue = {
   name: '',
   price: '',
-  category: '',
+  industry: '',
   brand: '',
   area: '',
   article: '',
@@ -12,7 +12,7 @@ export const defaultValue: IDefaultValue = {
 export const defaultValid: IDefaultValid = {
   name: null,
   price: null,
-  category: null,
+  industry: null,
   brand: null,
   area: null,
   article: null,

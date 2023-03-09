@@ -44,7 +44,7 @@ const Product = () => {
           <h1>{product.name}</h1>
           <h3>{product.price}.00 руб</h3>
           <p>Бренд: {product.brand.name}</p>
-          <p>Категория: {product.category.name}</p>
+          <p>Индустрия: {product.industry.name}</p>
           <div>
             {rating ? (
               <p>Рейтинг: {rating.rating}, голосов {rating.votes}</p>

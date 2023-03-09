@@ -21,7 +21,7 @@ export interface ICatalogItem extends IId {
 
 export interface IProduct extends ICatalogItem {
   brandId: number;
-  categoryId: number;
+  industryId: number;
   areaId: number;
   image: string | null;
   price: number;
@@ -42,7 +42,7 @@ export interface IUpdatedProduct extends IProduct {
 
 export interface IProductWithProps extends IProduct {
   brand: ICatalogItem;
-  category: ICatalogItem;
+  industry: ICatalogItem;
   area: ICatalogItem;
   props: IProperty[]
 }
@@ -100,7 +100,7 @@ export interface IData<T> {
 export interface IDefaultValue {
   name: string;
   price: string;
-  category: string;
+  industry: string;
   brand: string;
   area: string;
   article: string;
@@ -110,7 +110,7 @@ export interface IDefaultValue {
 export interface IDefaultValid {
   name: null;
   price: null;
-  category: null;
+  industry: null;
   brand: null;
   area: null;
   article: null;
@@ -120,7 +120,7 @@ export interface IDefaultValid {
 export interface IValid {
   name: boolean;
   price: boolean;
-  category: boolean;
+  industry: boolean;
   brand: boolean;
   area: boolean;
   article: boolean;

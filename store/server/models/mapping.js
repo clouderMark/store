@@ -28,7 +28,7 @@ const Product = sequelize.define('product', {
     weight: {type: DataTypes.FLOAT, allowNull: false},
 })
 
-const Category = sequelize.define('category', {
+const Industry = sequelize.define('industry', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false}
 })
@@ -104,8 +104,8 @@ BasketProduct.belongsTo(Basket)
 Product.hasMany(BasketProduct)
 BasketProduct.belongsTo(Product)
 
-Category.hasMany(Product, {onDelete: 'RESTRICT'})
-Product.belongsTo(Category)
+Industry.hasMany(Product, {onDelete: 'RESTRICT'})
+Product.belongsTo(Industry)
 
 Brand.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Brand)
@@ -134,7 +134,7 @@ export {
     User,
     Basket,
     Product,
-    Category,
+    Industry,
     Brand,
     Area,
     Rating,

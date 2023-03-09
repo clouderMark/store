@@ -4,23 +4,23 @@ import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mu
 import {useAppContext} from './AppContext';
 import {IObject} from '../types/types';
 
-const CategoryBar = observer(() => {
+const IndustryBar = observer(() => {
   const {catalog} = useAppContext();
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    const index = catalog.category.indexOf(id);
+    const index = catalog.industry.indexOf(id);
 
     if (index >= 0) {
-      catalog.category = catalog.category.filter((_, i) => i !== index);
+      catalog.industry = catalog.industry.filter((_, i) => i !== index);
     } else {
-      catalog.category = [...catalog.category, id];
+      catalog.industry = [...catalog.industry, id];
     }
 
     // при каждом клике добавляем в браузер новый элемент
     const params: IObject = {};
 
-    if (catalog.category.length) params.category = catalog.category.join(',');
+    if (catalog.industry.length) params.industry = catalog.industry.join(',');
     if (catalog.brand.length) params.brand = catalog.brand.join(',');
     if (catalog.area.length) params.area = catalog.area.join(',');
     if (catalog.page > 1) params.page = `${catalog.page}`;
@@ -32,15 +32,15 @@ const CategoryBar = observer(() => {
 
   return (
     <FormControl sx={{m: 3}} component="fieldset" variant="standard">
-      <FormLabel component="legend">Категории</FormLabel>
+      <FormLabel component="legend">Индустрии</FormLabel>
       <FormGroup>
-        {catalog.categories.map((item) => (
+        {catalog.industries.map((item) => (
           <FormControlLabel
             control={
               <Checkbox
                 onChange={() => handleClick(item.id)}
                 color="success"
-                checked={catalog.category.includes(item.id)}
+                checked={catalog.industry.includes(item.id)}
               />
             }
             label={item.name}
@@ -52,4 +52,4 @@ const CategoryBar = observer(() => {
   );
 });
 
-export default CategoryBar;
+export default IndustryBar;

@@ -10,34 +10,34 @@ import {
   IProductProp,
 } from '../types/types';
 
-// Создание, обновление, удаление категории, получение списка всех категой
+// Создание, обновление, удаление индустрии, получение списка всех индустрий
 
-export const createCategory = async (category: {name: string}): Promise<ICatalogItem> => {
-  const {data} = await authInstance.post('category/create', category);
-
-  return data;
-};
-
-export const updateCategory = async (id: number, category: {name: string}): Promise<ICatalogItem> => {
-  const {data} = await authInstance.put(`category/update/${id}`, category);
+export const createIndustry = async (industry: {name: string}): Promise<ICatalogItem> => {
+  const {data} = await authInstance.post('industry/create', industry);
 
   return data;
 };
 
-export const deleteCategory = async (id: number): Promise<ICatalogItem> => {
-  const {data} = await authInstance.delete(`category/delete/${id}`);
+export const updateIndustry = async (id: number, industry: {name: string}): Promise<ICatalogItem> => {
+  const {data} = await authInstance.put(`industry/update/${id}`, industry);
 
   return data;
 };
 
-export const fetchCategories = async (): Promise<ICatalogItem[]> => {
-  const {data} = await guestInstance.get('category/getall');
+export const deleteIndustry = async (id: number): Promise<ICatalogItem> => {
+  const {data} = await authInstance.delete(`industry/delete/${id}`);
 
   return data;
 };
 
-export const fetchCategory = async (id: number): Promise<ICatalogItem> => {
-  const {data} = await guestInstance.get(`category/getone/${id}`);
+export const fetchIndustries = async (): Promise<ICatalogItem[]> => {
+  const {data} = await guestInstance.get('industry/getall');
+
+  return data;
+};
+
+export const fetchIndustry = async (id: number): Promise<ICatalogItem> => {
+  const {data} = await guestInstance.get(`industry/getone/${id}`);
 
   return data;
 };
@@ -126,7 +126,7 @@ export const deleteProduct = async (id: number): Promise<IProduct> => {
 };
 
 export const fetchAllProducts = async (
-  categoryId: number[] | null,
+  industryId: number[] | null,
   brandId: number[] | null,
   areaId: number[] | null,
   page: number,
@@ -134,8 +134,8 @@ export const fetchAllProducts = async (
 ): Promise<IAllProducts> => {
   let url = 'product/getall';
 
-  // фильтр товаров по категории и/или бренду
-  if (categoryId) url = `${url}/categoryId/${categoryId}`;
+  // фильтр товаров по индустриям и/или бренду
+  if (industryId) url = `${url}/industryId/${industryId}`;
   if (brandId) url = `${url}/brandId/${brandId}`;
   if (areaId) url = `${url}/areaId/${areaId}`;
   const {data} = await guestInstance.get(url, {

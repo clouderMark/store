@@ -89,7 +89,6 @@ class User{
     }
 
     async update(req, res, next) {
-        // console.log(req, res, next)
         try {
             if (!req.params.id) {
                 throw new Error('Не указан id пользователя')
@@ -112,7 +111,6 @@ class User{
     }
 
     async delete(req, res, next) {
-        console.log(req.params)
         try {
             if(!req.params.id) {
                 throw new Error('Не указан id пользователя')

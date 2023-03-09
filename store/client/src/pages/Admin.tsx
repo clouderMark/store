@@ -14,8 +14,8 @@ const links: ILinks[] = [
     content: 'Заказы в магазине',
   },
   {
-    address: '/admin/categories',
-    content: 'Категории каталога',
+    address: '/admin/industries',
+    content: 'Индустрии каталога',
   },
   {
     address: '/admin/brands',

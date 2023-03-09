@@ -2,12 +2,12 @@ import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {useLocation, useSearchParams, createSearchParams, useNavigate} from 'react-router-dom';
 import {Container, Box, CircularProgress, Button} from '@mui/material';
-import CategoryBar from '../../components/CategoryBar';
+import IndustryBar from '../../components/IndustryBar';
 import BrandBar from '../../components/BrandBar';
 import AreaBar from '../../components/AreaBar';
 import ProductList from '../../components/ProductList';
 import {useAppContext} from '../../components/AppContext';
-import {fetchAllProducts, fetchCategories, fetchBrands, fetchAreas} from '../../http/catalogAPI';
+import {fetchAllProducts, fetchIndustries, fetchBrands, fetchAreas} from '../../http/catalogAPI';
 import {button} from './styles';
 import {SearchBar} from './SearchBar';
 
@@ -17,14 +17,14 @@ const getSearchParams = (
   brand: number[];
   page: null | number;
   area: number[];
-  category: number[];
+  industry: number[];
 } => {
-  let category: string | null | number | number[] = searchParams.get('category');
+  let industry: string | null | number | number[] = searchParams.get('industry');
 
-  if (category && /[1-9][0-9]*/.test(category)) {
-    category = category.split(',').map((el) => +el);
+  if (industry && /[1-9][0-9]*/.test(industry)) {
+    industry = industry.split(',').map((el) => +el);
   } else {
-    category = [];
+    industry = [];
   }
 
   let brand: string | null | number | number[] = searchParams.get('brand');
@@ -51,13 +51,13 @@ const getSearchParams = (
     page = null;
   }
 
-  return {category, brand, area, page};
+  return {industry, brand, area, page};
 };
 
 const Shop = observer(() => {
   const {catalog} = useAppContext();
 
-  const [categoriesFetching, setCategoriesFetching] = useState(true);
+  const [industriesFetching, setIndustriesFetching] = useState(true);
   const [brandsFetching, setBrandsFetching] = useState(true);
   const [areasFetching, setAreasFetching] = useState(true);
   const [productsFetching, setProductsFetching] = useState(true);
@@ -69,7 +69,7 @@ const Shop = observer(() => {
 
   const handleClick = () => {
     catalog.brand = [];
-    catalog.category = [];
+    catalog.industry = [];
     catalog.area = [];
 
     navigate({
@@ -79,11 +79,11 @@ const Shop = observer(() => {
   };
 
   useEffect(() => {
-    fetchCategories()
+    fetchIndustries()
       .then((data) => {
-        catalog.categories = data;
+        catalog.industries = data;
       })
-      .finally(() => setCategoriesFetching(false));
+      .finally(() => setIndustriesFetching(false));
     fetchBrands()
       .then((data) => {
         catalog.brands = data;
@@ -95,15 +95,15 @@ const Shop = observer(() => {
       })
       .finally(() => setAreasFetching(false));
 
-    const {category, brand, area, page} = getSearchParams(searchParams);
+    const {industry, brand, area, page} = getSearchParams(searchParams);
 
-    catalog.category = category;
+    catalog.industry = industry;
     catalog.brand = brand;
     catalog.area = area;
     catalog.page = page ?? 1;
 
     fetchAllProducts(
-      catalog.category.length ? catalog.category : null,
+      catalog.industry.length ? catalog.industry : null,
       catalog.brand.length ? catalog.brand : null,
       catalog.area.length ? catalog.area : null,
       catalog.page,
@@ -117,11 +117,11 @@ const Shop = observer(() => {
   }, []);
 
   useEffect(() => {
-    const {category, brand, area, page} = getSearchParams(searchParams);
+    const {industry, brand, area, page} = getSearchParams(searchParams);
 
-    if (category.length || brand.length || area.length || page) {
-      if (category.length !== catalog.category.length) {
-        catalog.category = category;
+    if (industry.length || brand.length || area.length || page) {
+      if (industry.length !== catalog.industry.length) {
+        catalog.industry = industry;
       }
 
       if (brand.length !== catalog.brand.length) {
@@ -136,7 +136,7 @@ const Shop = observer(() => {
         catalog.page = page ?? 1;
       }
     } else {
-      catalog.category = [];
+      catalog.industry = [];
       catalog.brand = [];
       catalog.area = [];
       catalog.page = 1;
@@ -146,7 +146,7 @@ const Shop = observer(() => {
   useEffect(() => {
     setProductsFetching(true);
     fetchAllProducts(
-      catalog.category.length ? catalog.category : null,
+      catalog.industry.length ? catalog.industry : null,
       catalog.brand.length ? catalog.brand : null,
       catalog.area.length ? catalog.area : null,
       catalog.page,
@@ -157,14 +157,14 @@ const Shop = observer(() => {
         catalog.count = data.count;
       })
       .finally(() => setProductsFetching(false));
-  }, [catalog.category, catalog.brand, catalog.area, catalog.page]);
+  }, [catalog.industry, catalog.brand, catalog.area, catalog.page]);
 
   return (
     <Container maxWidth={false}>
       <SearchBar />
       <Box sx={{display: 'flex'}}>
         <Box sx={{display: 'flex', flexDirection: 'column', minWidth: '358px'}}>
-          {categoriesFetching ? <CircularProgress color="success" /> : <CategoryBar />}
+          {industriesFetching ? <CircularProgress color="success" /> : <IndustryBar />}
           {brandsFetching ? <CircularProgress color="success" /> : <BrandBar />}
           {areasFetching ? <CircularProgress color="success" /> : <AreaBar />}
           <Button variant="outlined" sx={button} onClick={handleClick}>

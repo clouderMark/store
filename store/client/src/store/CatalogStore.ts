@@ -2,7 +2,7 @@ import {makeAutoObservable} from 'mobx';
 import {ICatalogItem, IProductWithProps} from '../types/types';
 
 class CatalogStore {
-  private _categories: ICatalogItem[] = [];
+  private _industries: ICatalogItem[] = [];
 
   private _brands: ICatalogItem[] = [];
 
@@ -10,7 +10,7 @@ class CatalogStore {
 
   private _products: IProductWithProps[] = [];
 
-  private _category: number[] = []; // выбранная категория
+  private _industry: number[] = []; // выбранная индустрия
 
   private _brand: number[] = [];
 
@@ -26,12 +26,12 @@ class CatalogStore {
     makeAutoObservable(this);
   }
 
-  get categories() {
-    return this._categories;
+  get industries() {
+    return this._industries;
   }
 
-  set categories(categories: ICatalogItem[]) {
-    this._categories = categories;
+  set industries(industries: ICatalogItem[]) {
+    this._industries = industries;
   }
 
   get brands() {
@@ -58,13 +58,13 @@ class CatalogStore {
     this._products = products;
   }
 
-  get category() {
-    return this._category;
+  get industry() {
+    return this._industry;
   }
 
-  set category(newCategory: number[]) {
+  set industry(industry: number[]) {
     this.page = 1;
-    this._category = newCategory;
+    this._industry = industry;
   }
 
   get brand() {

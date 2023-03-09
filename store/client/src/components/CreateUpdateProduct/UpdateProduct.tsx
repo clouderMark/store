@@ -5,7 +5,7 @@ import {
   createProperty,
   deleteProperty,
   fetchBrands,
-  fetchCategories,
+  fetchIndustries,
   fetchOneProduct,
   fetchAreas,
   updateProduct,
@@ -81,13 +81,13 @@ const UpdateProduct = (props: IProps) => {
   // список характеристик товара
   const [properties, setProperties] = useState<IProductProp[]>([]);
 
-  // список категорий и список брендов для возможности выбора
-  const [categories, setCategories] = useState<ICatalogItem[] | null>(null);
+  // список индустрий и список брендов для возможности выбора
+  const [industries, setIndustries] = useState<ICatalogItem[] | null>(null);
   const [brands, setBrands] = useState<ICatalogItem[] | null>(null);
   const [areas, setAreas] = useState<ICatalogItem[] | null>(null);
 
   const [fetchingProduct, setfetchingProduct] = useState(true);
-  const [fetchingCategories, setfetchingCategories] = useState(true);
+  const [fetchingIndustries, setfetchingIndustries] = useState(true);
   const [fetchingBrands, setfetchingBrands] = useState(true);
   const [fetchingAreas, setfetchingAreas] = useState(true);
 
@@ -99,7 +99,7 @@ const UpdateProduct = (props: IProps) => {
           const prod = {
             name: data.name,
             price: data.price.toString(),
-            category: data.categoryId.toString(),
+            industry: data.industryId.toString(),
             brand: data.brandId.toString(),
             area: data.areaId.toString(),
             article: data.article.toString(),
@@ -118,10 +118,10 @@ const UpdateProduct = (props: IProps) => {
         })
         .catch((error) => console.error(error))
         .finally(() => setfetchingProduct(false));
-      // нужно получить с сервера список категорий и всех брендов
-      fetchCategories()
-        .then((data) => setCategories(data))
-        .finally(() => setfetchingCategories(false));
+      // нужно получить с сервера список индустрий и всех брендов
+      fetchIndustries()
+        .then((data) => setIndustries(data))
+        .finally(() => setfetchingIndustries(false));
       fetchBrands()
         .then((data) => setBrands(data))
         .finally(() => setfetchingBrands(false));
@@ -151,12 +151,12 @@ const UpdateProduct = (props: IProps) => {
     setValid(correct);
 
     // если прошли проверку то можно отправлять на сервер
-    if (correct.name && correct.price && correct.category && correct.brand && correct.area) {
+    if (correct.name && correct.price && correct.industry && correct.brand && correct.area) {
       const data = new FormData();
 
       data.append('name', value.name.trim());
       data.append('price', value.price.trim());
-      data.append('categoryId', value.category);
+      data.append('industryId', value.industry);
       data.append('brandId', value.brand);
       data.append('areaId', value.area);
       data.append('article', value.article.trim());
@@ -183,7 +183,7 @@ const UpdateProduct = (props: IProps) => {
           const prod = {
             name: data.name,
             price: data.price.toString(),
-            category: data.categoryId.toString(),
+            industry: data.industryId.toString(),
             brand: data.brandId.toString(),
             area: data.areaId.toString(),
             article: data.article.toString(),
@@ -208,7 +208,7 @@ const UpdateProduct = (props: IProps) => {
 
   return (
     <PopUpForProduct
-      show={show && !fetchingProduct && !fetchingBrands && !fetchingCategories && !fetchingAreas}
+      show={show && !fetchingProduct && !fetchingBrands && !fetchingIndustries && !fetchingAreas}
       setShow={setShow}
       handleSubmit={handleSubmit}
       handleInputChange={handleInputChange}
@@ -216,7 +216,7 @@ const UpdateProduct = (props: IProps) => {
       title={'Редактирование товара'}
       value={value}
       valid={valid}
-      categories={categories}
+      industries={industries}
       brands={brands}
       areas={areas}
       properties={properties}

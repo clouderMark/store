@@ -6,8 +6,8 @@ export const cells: ICells[] = [
     headerName: 'Название',
   },
   {
-    field: 'category',
-    headerName: 'Категория',
+    field: 'industry',
+    headerName: 'Индустрии',
   },
   {
     field: 'brand',
