@@ -1,11 +1,14 @@
 import * as React from 'react';
 import {useLocation} from 'react-router-dom';
+import {observer} from 'mobx-react-lite';
 import {Typography, Breadcrumbs} from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import LinkRouter from './LinkRouter';
 import breadcrumbNameMap from './breadcrumbNameMap';
+import {useAppContext} from '../AppContext';
 
-const Page = () => {
+const Page = observer(() => {
+  const {productItem} = useAppContext();
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
@@ -20,16 +23,16 @@ const Page = () => {
 
         return last ? (
           <Typography color="text.primary" key={to}>
-            {breadcrumbNameMap.getKey(to)}
+            {breadcrumbNameMap.getName(to, productItem)}
           </Typography>
         ) : (
           <LinkRouter underline="hover" color="inherit" to={to} key={to}>
-            {breadcrumbNameMap.getKey(to)}
+            {breadcrumbNameMap.getName(to, productItem)}
           </LinkRouter>
         );
       })}
     </Breadcrumbs>
   );
-};
+});
 
 export default Page;

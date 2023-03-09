@@ -1,10 +1,12 @@
+import CurrentProductStore from '../../store/ProductItemStore';
+
 interface IBreadcrumbNameMap {
-  allKey: {[key: string]: string};
-  getKey(key: string): string | undefined;
+  allNames: {[key: string]: string};
+  getName(name: string, product: CurrentProductStore): string | undefined;
 }
 
 const breadcrumbNameMap: IBreadcrumbNameMap = {
-  allKey: {
+  allNames: {
     '/shop': 'Магазин',
     '/shop/ ': 'Продукт',
     '/basket': 'Корзина',
@@ -25,14 +27,15 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
     '/services': 'Сервисы',
     '/areas': 'Области',
   },
-  getKey(key: string) {
-    let crumb;
-    const path = key.split('/').slice(-1);
 
-    if (+path >= 0) {
-      crumb = `${path}`;
+  getName(name, product) {
+    let crumb;
+    const path = name.split('/');
+
+    if (path.includes('shop') && +path.slice(-1) >= 0) {
+      crumb = product.name;
     } else {
-      crumb = this.allKey[key];
+      crumb = this.allNames[name];
     }
 
     return crumb;
