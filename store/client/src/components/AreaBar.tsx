@@ -1,9 +1,9 @@
 import {observer} from 'mobx-react-lite';
 import {createSearchParams, useNavigate} from 'react-router-dom';
 import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
-// import {ListGroup} from 'react-bootstrap';
 import {useAppContext} from './AppContext';
 import {IObject} from '../types/types';
+import {bar} from '../styles/bar';
 
 const AreaBar = observer(() => {
   const {catalog} = useAppContext();
@@ -32,8 +32,10 @@ const AreaBar = observer(() => {
   };
 
   return (
-    <FormControl sx={{m: 3}} component="fieldset" variant="standard">
-      <FormLabel component="legend">Области применения</FormLabel>
+    <FormControl component="fieldset" variant="standard">
+      <FormLabel component="legend" sx={bar.title}>
+        Области применения
+      </FormLabel>
       <FormGroup>
         {catalog.areas.map((item) => (
           <FormControlLabel
@@ -41,7 +43,10 @@ const AreaBar = observer(() => {
               <Checkbox
                 onChange={() => handleClick(item.id)}
                 checked={catalog.area.includes(item.id)}
-                color="success" />}
+                color="success"
+              />
+            }
+            sx={bar.text}
             label={item.name}
             key={item.id}
           />

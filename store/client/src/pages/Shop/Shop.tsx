@@ -163,7 +163,7 @@ const Shop = observer(() => {
     <Container maxWidth={false}>
       <SearchBar />
       <Box sx={{display: 'flex'}}>
-        <Box sx={{display: 'flex', flexDirection: 'column', minWidth: '358px'}}>
+        <Box sx={{display: 'flex', flexDirection: 'column', minWidth: '25.57%'}}>
           {industriesFetching ? <CircularProgress color="success" /> : <IndustryBar />}
           {areasFetching ? <CircularProgress color="success" /> : <AreaBar />}
           {solutionsFetching ? <CircularProgress color="success" /> : <SolutionBar />}

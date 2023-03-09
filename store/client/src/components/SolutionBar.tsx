@@ -1,9 +1,9 @@
 import {observer} from 'mobx-react-lite';
 import {createSearchParams, useNavigate} from 'react-router-dom';
 import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
-// import {ListGroup} from 'react-bootstrap';
 import {useAppContext} from './AppContext';
 import {IObject} from '../types/types';
+import {bar} from '../styles/bar';
 
 const SolutionBar = observer(() => {
   const {catalog} = useAppContext();
@@ -32,8 +32,10 @@ const SolutionBar = observer(() => {
   };
 
   return (
-    <FormControl sx={{m: 3}} component="fieldset" variant="standard">
-      <FormLabel component="legend">Решения</FormLabel>
+    <FormControl component="fieldset" variant="standard">
+      <FormLabel component="legend" sx={bar.title}>
+        Решения
+      </FormLabel>
       <FormGroup>
         {catalog.solutions.map((item) => (
           <FormControlLabel
@@ -44,6 +46,7 @@ const SolutionBar = observer(() => {
                 checked={catalog.solution.includes(item.id)}
               />
             }
+            sx={bar.text}
             label={item.name}
             key={item.id}
           />

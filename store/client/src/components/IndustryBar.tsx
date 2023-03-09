@@ -3,6 +3,7 @@ import {observer} from 'mobx-react-lite';
 import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
 import {useAppContext} from './AppContext';
 import {IObject} from '../types/types';
+import {bar} from '../styles/bar';
 
 const IndustryBar = observer(() => {
   const {catalog} = useAppContext();
@@ -31,8 +32,8 @@ const IndustryBar = observer(() => {
   };
 
   return (
-    <FormControl sx={{m: 3}} component="fieldset" variant="standard">
-      <FormLabel component="legend">Индустрии</FormLabel>
+    <FormControl component="fieldset" variant="standard">
+      <FormLabel component="legend" sx={bar.title}>Индустрии</FormLabel>
       <FormGroup>
         {catalog.industries.map((item) => (
           <FormControlLabel
@@ -43,6 +44,7 @@ const IndustryBar = observer(() => {
                 checked={catalog.industry.includes(item.id)}
               />
             }
+            sx={bar.text}
             label={item.name}
             key={item.id}
           />

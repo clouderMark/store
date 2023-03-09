@@ -1,18 +1,14 @@
-import {Box} from '@mui/material';
+import {Box, Typography} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import {IconTextField} from '../../components/IconTextField';
 import {SelectSort} from './SelectSort';
+import {bar} from './styles';
 
 export const SearchBar = () => (
-  <Box sx={{display: 'flex', justifyContent: 'space-between', mt: '90px'}}>
-    <IconTextField
-      label="Поиск продукта"
-      variant="filled"
-      sx={{width: '296px', height: '55px'}}
-      icon={<SearchIcon />}
-    />
-    <Box sx={{display: 'flex', alignItems: 'center'}}>
-      Сортировать по:
+  <Box sx={bar.box}>
+    <IconTextField label="Поиск продукта" variant="filled" sx={bar.textFiled} icon={<SearchIcon />} />
+    <Box sx={bar.boxInBox}>
+      <Typography component='span' sx={bar.label}>Сортировать по:</Typography>
       <SelectSort />
     </Box>
   </Box>
