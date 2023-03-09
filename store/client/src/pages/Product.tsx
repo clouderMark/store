@@ -8,12 +8,15 @@ import {IProductWithProps, IRating} from '../types/types';
 
 const Product = () => {
   const id: number = Number(useParams().id);
-  const {basket} = useAppContext();
+  const {basket, productItem} = useAppContext();
   const [product, setProduct] = useState<IProductWithProps | null>(null);
   const [rating, setRating] = useState<IRating | null>(null);
 
   useEffect(() => {
-    fetchOneProduct(id).then((data) => setProduct(data));
+    fetchOneProduct(id).then((data) => {
+      setProduct(data);
+      productItem.name = data.name;
+    });
     fetchProdRating(id).then((data) => setRating(data));
   }, [id]);
 

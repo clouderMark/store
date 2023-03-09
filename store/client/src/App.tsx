@@ -12,6 +12,7 @@ import {check as checkAuth} from './http/userAPI';
 import {fetchBasket} from './http/basketAPI';
 import Loader from './components/Loader';
 import {theme} from './styles/theme';
+import RouterBreadcrumbs from './components/RouterBreadcrumbs/RouterBreadcrumbs';
 
 const App = observer(() => {
   const {user, basket} = useAppContext();
@@ -41,6 +42,7 @@ const App = observer(() => {
     <ThemeProvider theme={theme}>
       <BrowserRouter>
         <NavBar />
+        <RouterBreadcrumbs/>
         <AppRouter />
       </BrowserRouter>
     </ThemeProvider>
