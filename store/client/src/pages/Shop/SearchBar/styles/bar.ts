@@ -1,8 +1,9 @@
+const searchQuery = '1130';
+
 export const bar = {
   box: {
     display: 'flex',
     justifyContent: 'space-between',
-    mt: '90px',
     mb: '32px',
   },
   textFiled: {
@@ -11,6 +12,9 @@ export const bar = {
     input: {
       color: '#707070',
       fontWeight: 400,
+    },
+    [`@media (max-width: ${searchQuery}px)`]: {
+      width: '27.5%',
     },
   },
   boxInBox: {

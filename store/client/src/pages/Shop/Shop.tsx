@@ -2,14 +2,20 @@ import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {useLocation, useSearchParams, createSearchParams, useNavigate} from 'react-router-dom';
 import {Container, Box, CircularProgress, Button} from '@mui/material';
-import IndustryBar from '../../components/Bar/IndustryBar';
-import SolutionBar from '../../components/Bar/SolutionBar';
-import AreaBar from '../../components/Bar/AreaBar';
+import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
+import useMediaQuery from '@mui/material/useMediaQuery';
+// import IndustryBar from '../../components/Bar/IndustryBar';
+// import SolutionBar from '../../components/Bar/SolutionBar';
+// import AreaBar from '../../components/Bar/AreaBar';
 import ProductList from '../../components/ProductList';
 import {useAppContext} from '../../components/AppContext';
 import {fetchAllProducts, fetchIndustries, fetchSolutions, fetchAreas} from '../../http/catalogAPI';
-import {button, mockHeight} from './styles/button';
-import {SearchBar} from './SearchBar';
+import {
+  button,
+  // mockHeight,
+} from './styles/button';
+import {SearchBar} from './SearchBar/SearchBar';
+import {FiltersBar} from './FiltersBar/FiltersBar';
 
 const getSearchParams = (
   searchParams: URLSearchParams,
@@ -65,9 +71,14 @@ const Shop = observer(() => {
   const location = useLocation();
   const [searchParams] = useSearchParams();
 
+  const [open, setOpen] = useState(false);
+
   const navigate = useNavigate();
 
-  const handleClick = () => {
+  const barQueryDesctop = useMediaQuery('(min-width:1023px)', {noSsr: true});
+  const filterLength = catalog.solution.length + catalog.area.length + catalog.industry.length;
+
+  const resetFilters = () => {
     catalog.solution = [];
     catalog.industry = [];
     catalog.area = [];
@@ -76,6 +87,10 @@ const Shop = observer(() => {
       pathname: '/shop',
       search: `?${createSearchParams('')}`,
     });
+  };
+
+  const openDrawer = () => {
+    setOpen(!open);
   };
 
   useEffect(() => {
@@ -161,20 +176,23 @@ const Shop = observer(() => {
 
   return (
     <Container maxWidth={false}>
-      <SearchBar />
+      {!barQueryDesctop ? (
+        <Button onClick={openDrawer} sx={button.filters} startIcon={<TuneRoundedIcon />}>
+          Фильтры {filterLength > 0 ? `(${filterLength})` : null}
+        </Button>
+      ) : null}
+      <SearchBar matches={barQueryDesctop} />
       <Box sx={{display: 'flex'}}>
-        <Box sx={{width: '25.57%', marginRight: '100px'}}>
-          <Box sx={{display: 'flex', flexDirection: 'column', width: '83%'}}>
-            {industriesFetching ? <CircularProgress color="success" /> : <IndustryBar />}
-            {areasFetching ? <CircularProgress color="success" /> : <AreaBar />}
-            {solutionsFetching ? <CircularProgress color="success" /> : <SolutionBar />}
-            {catalog.solution.length || catalog.area.length || catalog.industry.length ? (
-              <Button variant="outlined" sx={button} onClick={handleClick}>
-                Сбросить фильтры
-              </Button>
-            ) : <Box sx={mockHeight}/>}
-          </Box>
-        </Box>
+        <FiltersBar
+          industriesFetching={industriesFetching}
+          areasFetching={areasFetching}
+          solutionsFetching={solutionsFetching}
+          resetFilters={resetFilters}
+          isResetButton={filterLength > 0}
+          query={barQueryDesctop}
+          open={open}
+          setOpen={setOpen}
+        />
         <Box sx={{width: '100%'}}>{productsFetching ? <CircularProgress color="success" /> : <ProductList />}</Box>
       </Box>
     </Container>

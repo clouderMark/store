@@ -4,7 +4,7 @@ import {Route, Routes} from 'react-router-dom';
 import Page from './Page';
 
 const RouterBreadcrumbs = () => (
-  <Container maxWidth={false}>
+  <Container maxWidth={false} sx={{mb: '90px'}}>
     <Box sx={{display: 'flex', flexDirection: 'column', width: 360, m: '16px 10px'}}>
       <Routes>
         <Route path="*" element={<Page />} />
