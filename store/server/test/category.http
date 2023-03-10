@@ -1,0 +1,32 @@
+### Список всех татегорий
+GET /api/industry/getall HTTP/1.1
+Host: localhost:2900
+
+###Получить одну индустрию
+GET /api/industry/getone/1 HTTP/1.1
+Host: localhost:2900
+
+### Создать новую индустрию
+POST /api/industry/create HTTP/1.1
+Host: localhost:2900
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjYxOTI1MzIzLCJleHAiOjE2NjIwMTE3MjN9.CZPuoNPodSgFre-vPqVjIV4zQB1RMX9UHeM0P7-k9Mk
+Content-Type: application/json; charset=utf-8
+
+{
+    "name": "Первая индустрия"
+}
+
+###Обновить индустрию
+PUT /api/industry/update/1 HTTP/1.1
+Host: localhost:2900
+# Authorization: Bearer
+Content-Type: application/json; charset=utf-8
+
+{
+    "name": "Первая индустрия (new)"
+}
+
+###Удалить индустрию
+DELETE /api/industry/delete/1 HTTP/1.1
+Host: localhost:2900
+# Authorization: Bearer
