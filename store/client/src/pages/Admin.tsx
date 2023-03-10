@@ -14,12 +14,12 @@ const links: ILinks[] = [
     content: 'Заказы в магазине',
   },
   {
-    address: '/admin/categories',
-    content: 'Категории каталога',
+    address: '/admin/industries',
+    content: 'Индустрии каталога',
   },
   {
-    address: '/admin/brands',
-    content: 'Бренды каталога',
+    address: '/admin/solutions',
+    content: 'Решения каталога',
   },
   {
     address: '/admin/areas',

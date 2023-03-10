@@ -16,8 +16,8 @@ const ProductList = observer(() => {
 
     const params: IObject = {};
 
-    if (catalog.category) params.category = `${catalog.category}`;
-    if (catalog.brand) params.brand = `${catalog.brand}`;
+    if (catalog.industry) params.industry = `${catalog.industry}`;
+    if (catalog.solution) params.solution = `${catalog.solution}`;
     if (catalog.area) params.area = `${catalog.area}`;
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
@@ -38,7 +38,7 @@ const ProductList = observer(() => {
 
   return (
     <>
-      <Box sx={[dFlex, fWrap, justifySB, {mt: 4}]}>
+      <Box sx={[dFlex, fWrap, justifySB]}>
         {catalog.products.length ? (
           catalog.products.map((item: IProductWithProps) => <ProductItem key={item.id} data={item} />)
         ) : (

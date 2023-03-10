@@ -92,7 +92,7 @@ class Order {
     async adminUpdate(req, res, next) {
         try {
             if(!req.params.id) {
-                throw new Error('Не указан id бренда')
+                throw new Error('Не указан id решения')
             }
             const order = await OrderModel.updateOne(req.params.id, req.body)
             res.json(order)

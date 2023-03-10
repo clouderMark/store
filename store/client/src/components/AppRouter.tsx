@@ -16,8 +16,8 @@ import UserOrders from '../pages/UserOrders';
 import UserOrder from '../pages/UserOrder';
 import AdminOrders from '../pages/AdminOrders';
 import AdminOrder from '../pages/AdminOrder';
-import AdminCategories from '../pages/AdminCategories';
-import AdminBrands from '../pages/AdminBrands';
+import AdminIndustries from '../pages/AdminIndustries';
+import AdminSolutions from '../pages/AdminSolutions';
 import AdminAreas from '../pages/AdminAreas';
 import AdminProducts from '../pages/AdminProducts';
 
@@ -25,7 +25,7 @@ const publicRoutes = [
   {path: '/shop', Component: Shop},
   {path: '/login', Component: Login},
   {path: '/signup', Component: Signup},
-  {path: '/product/:id', Component: Product},
+  {path: '/shop/:id', Component: Product},
   {path: '/basket', Component: Basket},
   {path: '/checkout', Component: Checkout},
   {path: '/delivery', Component: Delivery},
@@ -43,8 +43,8 @@ const adminRoutes = [
   {path: '/admin', Component: Admin},
   {path: '/admin/orders', Component: AdminOrders},
   {path: '/admin/order/:id', Component: AdminOrder},
-  {path: '/admin/categories', Component: AdminCategories},
-  {path: '/admin/brands', Component: AdminBrands},
+  {path: '/admin/industries', Component: AdminIndustries},
+  {path: '/admin/solutions', Component: AdminSolutions},
   {path: '/admin/areas', Component: AdminAreas},
   {path: '/admin/products', Component: AdminProducts},
 ];

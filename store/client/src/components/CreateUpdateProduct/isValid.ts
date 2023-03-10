@@ -8,8 +8,8 @@ export const isValid = (value: IDefaultValue): IValid => {
     if (key) {
       if (key === 'name') result.name = value.name.trim() !== '';
       if (key === 'price') result.price = pattern.test(value.price.trim());
-      if (key === 'category') result.category = pattern.test(value.category);
-      if (key === 'brand') result.brand = pattern.test(value.brand);
+      if (key === 'industry') result.industry = pattern.test(value.industry);
+      if (key === 'solution') result.solution = pattern.test(value.solution);
       if (key === 'area') result.area = pattern.test(value.area);
       if (key === 'article') result.article = pattern.test(value.article);
       if (key === 'weight') result.weight = pattern.test(value.weight);

@@ -1,7 +1,6 @@
 import {queryMenu} from '../queryMenu';
 
 export const container = {
-  maxWidth: '1400px',
   height: 188,
   pt: '29px',
   mb: '9px',

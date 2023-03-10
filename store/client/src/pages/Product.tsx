@@ -8,12 +8,15 @@ import {IProductWithProps, IRating} from '../types/types';
 
 const Product = () => {
   const id: number = Number(useParams().id);
-  const {basket} = useAppContext();
+  const {basket, productItem} = useAppContext();
   const [product, setProduct] = useState<IProductWithProps | null>(null);
   const [rating, setRating] = useState<IRating | null>(null);
 
   useEffect(() => {
-    fetchOneProduct(id).then((data) => setProduct(data));
+    fetchOneProduct(id).then((data) => {
+      setProduct(data);
+      productItem.name = data.name;
+    });
     fetchProdRating(id).then((data) => setRating(data));
   }, [id]);
 
@@ -40,8 +43,8 @@ const Product = () => {
         <Col>
           <h1>{product.name}</h1>
           <h3>{product.price}.00 руб</h3>
-          <p>Бренд: {product.brand.name}</p>
-          <p>Категория: {product.category.name}</p>
+          <p>Решение: {product.solution.name}</p>
+          <p>Индустрия: {product.industry.name}</p>
           <div>
             {rating ? (
               <p>Рейтинг: {rating.rating}, голосов {rating.votes}</p>

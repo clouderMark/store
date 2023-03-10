@@ -59,7 +59,7 @@ class Order {
     async updateOne(id, data) {
         const order = await OrderMapping.findByPk(id)
         if (!order) {
-            throw new Error('Бренд не найдена в БД')
+            throw new Error('Решение не найдена в БД')
         }
         const {status = order.status} = data
         await order.update({status})

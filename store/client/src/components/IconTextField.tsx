@@ -3,8 +3,8 @@ import {TextField, InputAdornment} from '@mui/material';
 interface IProps {
   icon: JSX.Element;
   label: string;
-  variant: 'standard' | 'filled' | 'outlined' | undefined;
-  sx: {[key: string]: string | number}
+  variant: 'standard' | 'filled' | 'outlined' | undefined; // eslint-disable-next-line
+  sx: {[key: string]: any};
 }
 
 export const IconTextField = (props: IProps) => (

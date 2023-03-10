@@ -26,8 +26,8 @@ interface IProps {
   title: 'Новый товар' | 'Редактирование товара';
   value: IDefaultValue;
   valid: IDefaultValid | IValid;
-  categories: ICatalogItem[] | null;
-  brands: ICatalogItem[] | null;
+  industries: ICatalogItem[] | null;
+  solutions: ICatalogItem[] | null;
   areas: ICatalogItem[] | null;
   properties: IProductProp[];
   setProperties: Dispatch<SetStateAction<IProductProp[]>>;
@@ -50,17 +50,17 @@ export const PopUpForProduct = (props: IProps) => (
         />
         <Box className="mb-3" sx={{display: 'flex'}}>
           <FormControl sx={{width: '100%', mr: 1}}>
-            <InputLabel id="category-select-label">Категория</InputLabel>
+            <InputLabel id="industry-select-label">Индустрия</InputLabel>
             <Select
-              labelId="category-select-label"
-              name="category"
-              value={props.value.category}
+              labelId="industry-select-label"
+              name="industry"
+              value={props.value.industry}
               onChange={(e) => props.handleInputChange(e)}
-              error={props.valid.category === false}
-              color={props.valid.category ? 'success' : 'primary'}
+              error={props.valid.industry === false}
+              color={props.valid.industry ? 'success' : 'primary'}
             >
-              {props.categories &&
-                props.categories.map((item) => (
+              {props.industries &&
+                props.industries.map((item) => (
                   <MenuItem key={item.id} value={`${item.id}`}>
                     {item.name}
                   </MenuItem>
@@ -68,17 +68,17 @@ export const PopUpForProduct = (props: IProps) => (
             </Select>
           </FormControl>
           <FormControl sx={{width: '100%', mr: 1}}>
-            <InputLabel id="brand-select-label">Бренд</InputLabel>
+            <InputLabel id="solution-select-label">Решение</InputLabel>
             <Select
-              labelId="brand-select-label"
-              name="brand"
-              value={`${props.value.brand}` ?? ''}
+              labelId="solution-select-label"
+              name="solution"
+              value={`${props.value.solution}` ?? ''}
               onChange={(e) => props.handleInputChange(e)}
-              error={props.valid.brand === false}
-              color={props.valid.brand ? 'success' : 'primary'}
+              error={props.valid.solution === false}
+              color={props.valid.solution ? 'success' : 'primary'}
             >
-              {props.brands &&
-                props.brands.map((item) => (
+              {props.solutions &&
+                props.solutions.map((item) => (
                   <MenuItem key={item.id} value={`${item.id}`}>
                     {item.name}
                   </MenuItem>
