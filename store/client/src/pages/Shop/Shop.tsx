@@ -8,7 +8,7 @@ import AreaBar from '../../components/Bar/AreaBar';
 import ProductList from '../../components/ProductList';
 import {useAppContext} from '../../components/AppContext';
 import {fetchAllProducts, fetchIndustries, fetchSolutions, fetchAreas} from '../../http/catalogAPI';
-import {button} from './styles';
+import {button, mockHeight} from './styles/button';
 import {SearchBar} from './SearchBar';
 
 const getSearchParams = (
@@ -163,13 +163,17 @@ const Shop = observer(() => {
     <Container maxWidth={false}>
       <SearchBar />
       <Box sx={{display: 'flex'}}>
-        <Box sx={{display: 'flex', flexDirection: 'column', minWidth: '25.57%'}}>
-          {industriesFetching ? <CircularProgress color="success" /> : <IndustryBar />}
-          {areasFetching ? <CircularProgress color="success" /> : <AreaBar />}
-          {solutionsFetching ? <CircularProgress color="success" /> : <SolutionBar />}
-          <Button variant="outlined" sx={button} onClick={handleClick}>
-            Сбросить фильтры
-          </Button>
+        <Box sx={{width: '25.57%', marginRight: '100px'}}>
+          <Box sx={{display: 'flex', flexDirection: 'column', width: '83%'}}>
+            {industriesFetching ? <CircularProgress color="success" /> : <IndustryBar />}
+            {areasFetching ? <CircularProgress color="success" /> : <AreaBar />}
+            {solutionsFetching ? <CircularProgress color="success" /> : <SolutionBar />}
+            {catalog.solution.length || catalog.area.length || catalog.industry.length ? (
+              <Button variant="outlined" sx={button} onClick={handleClick}>
+                Сбросить фильтры
+              </Button>
+            ) : <Box sx={mockHeight}/>}
+          </Box>
         </Box>
         <Box sx={{width: '100%'}}>{productsFetching ? <CircularProgress color="success" /> : <ProductList />}</Box>
       </Box>

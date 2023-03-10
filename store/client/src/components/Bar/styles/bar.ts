@@ -17,4 +17,11 @@ export const bar = {
       color: '#008f38',
     },
   },
+  divider: {
+    borderBottomWidth: 1.5,
+    marginBottom: '35px',
+  },
+  control: {
+    marginBottom: '30px',
+  },
 };

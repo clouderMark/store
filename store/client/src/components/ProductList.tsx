@@ -38,7 +38,7 @@ const ProductList = observer(() => {
 
   return (
     <>
-      <Box sx={[dFlex, fWrap, justifySB, {mt: 4}]}>
+      <Box sx={[dFlex, fWrap, justifySB]}>
         {catalog.products.length ? (
           catalog.products.map((item: IProductWithProps) => <ProductItem key={item.id} data={item} />)
         ) : (

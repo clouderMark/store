@@ -1,9 +1,9 @@
 import {createSearchParams, useNavigate} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
-import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
+import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, Divider} from '@mui/material';
 import {useAppContext} from '../AppContext';
 import {IObject} from '../../types/types';
-import {bar} from '../../styles/bar';
+import {bar} from './styles/bar';
 
 const IndustryBar = observer(() => {
   const {catalog} = useAppContext();
@@ -32,25 +32,30 @@ const IndustryBar = observer(() => {
   };
 
   return (
-    <FormControl component="fieldset" variant="standard">
-      <FormLabel component="legend" sx={bar.title}>Индустрии</FormLabel>
-      <FormGroup>
-        {catalog.industries.map((item) => (
-          <FormControlLabel
-            control={
-              <Checkbox
-                onChange={() => handleClick(item.id)}
-                color="success"
-                checked={catalog.industry.includes(item.id)}
-              />
-            }
-            sx={bar.text}
-            label={item.name}
-            key={item.id}
-          />
-        ))}
-      </FormGroup>
-    </FormControl>
+    <>
+      <FormControl component="fieldset" variant="standard" sx={bar.control}>
+        <FormLabel component="legend" sx={bar.title}>
+          Индустрии
+        </FormLabel>
+        <FormGroup>
+          {catalog.industries.map((item) => (
+            <FormControlLabel
+              control={
+                <Checkbox
+                  onChange={() => handleClick(item.id)}
+                  color="success"
+                  checked={catalog.industry.includes(item.id)}
+                />
+              }
+              sx={bar.text}
+              label={item.name}
+              key={item.id}
+            />
+          ))}
+        </FormGroup>
+      </FormControl>
+      <Divider sx={bar.divider} />
+    </>
   );
 });
 

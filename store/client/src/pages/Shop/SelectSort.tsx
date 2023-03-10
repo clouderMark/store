@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {FormControl, Select, MenuItem, SelectChangeEvent} from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import {selectItems} from './selectItems';
-import {select} from './styles';
+import {select} from './styles/select';
 
 export const SelectSort = () => {
   const [sort, setSort] = useState('0');
