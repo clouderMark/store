@@ -1,6 +1,6 @@
 import {Box, Typography} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
-import {IconTextField} from '../../../components/IconTextField';
+import {IconTextField} from '../../IconTextField';
 import {SelectSort} from './SelectSort';
 import {bar} from './styles/bar';
 

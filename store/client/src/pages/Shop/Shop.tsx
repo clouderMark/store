@@ -4,18 +4,12 @@ import {useLocation, useSearchParams, createSearchParams, useNavigate} from 'rea
 import {Container, Box, CircularProgress, Button} from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import useMediaQuery from '@mui/material/useMediaQuery';
-// import IndustryBar from '../../components/Bar/IndustryBar';
-// import SolutionBar from '../../components/Bar/SolutionBar';
-// import AreaBar from '../../components/Bar/AreaBar';
 import ProductList from '../../components/ProductList';
 import {useAppContext} from '../../components/AppContext';
 import {fetchAllProducts, fetchIndustries, fetchSolutions, fetchAreas} from '../../http/catalogAPI';
-import {
-  button,
-  // mockHeight,
-} from './styles/button';
-import {SearchBar} from './SearchBar/SearchBar';
-import {FiltersBar} from './FiltersBar/FiltersBar';
+import {button} from './styles/button';
+import {SearchBar} from '../../components/Bar/SearchBar/SearchBar';
+import {FiltersBar} from '../../components/Bar/FiltersBar/FiltersBar';
 
 const getSearchParams = (
   searchParams: URLSearchParams,

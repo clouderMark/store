@@ -2,11 +2,11 @@ import React, {Dispatch, SetStateAction} from 'react';
 import {Box, Button, CircularProgress, Drawer, IconButton} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import IndustryBar from '../../../components/Bar/IndustryBar';
-import AreaBar from '../../../components/Bar/AreaBar';
-import SolutionBar from '../../../components/Bar/SolutionBar';
-import {button, mockHeight} from '../styles/button';
-import {IconTextField} from '../../../components/IconTextField';
+import IndustryBar from '../IndustryBar';
+import AreaBar from '../AreaBar';
+import SolutionBar from '../SolutionBar';
+import {button, mockHeight} from '../../../pages/Shop/styles/button';
+import {IconTextField} from '../../IconTextField';
 
 interface IProps {
   industriesFetching: boolean;
