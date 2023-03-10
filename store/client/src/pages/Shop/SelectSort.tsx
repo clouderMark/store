@@ -5,15 +5,15 @@ import {selectItems} from './selectItems';
 import {select} from './styles';
 
 export const SelectSort = () => {
-  const [age, setAge] = useState('0');
+  const [sort, setSort] = useState('0');
 
   const handleChange = (event: SelectChangeEvent) => {
-    setAge(event.target.value as string);
+    setSort(event.target.value as string);
   };
 
   return (
     <FormControl sx={select.conrol}>
-      <Select onChange={handleChange} sx={select.select} value={age} IconComponent={KeyboardArrowDownIcon}>
+      <Select onChange={handleChange} sx={select.select} value={sort} IconComponent={KeyboardArrowDownIcon}>
         {selectItems.map((item) => (
           <MenuItem value={item.value} key={item.value}>
             {item.name}
