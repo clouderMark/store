@@ -1,24 +1,24 @@
-import {createSearchParams, useNavigate} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
+import {createSearchParams, useNavigate} from 'react-router-dom';
 import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
-import {useAppContext} from './AppContext';
-import {IObject} from '../types/types';
-import {bar} from '../styles/bar';
+import {useAppContext} from '../AppContext';
+import {IObject} from '../../types/types';
+import {bar} from '../../styles/bar';
 
-const IndustryBar = observer(() => {
+const AreaBar = observer(() => {
   const {catalog} = useAppContext();
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    const index = catalog.industry.indexOf(id);
+    const index = catalog.area.indexOf(id);
 
     if (index >= 0) {
-      catalog.industry = catalog.industry.filter((_, i) => i !== index);
+      catalog.area = catalog.area.filter((_, i) => i !== index);
     } else {
-      catalog.industry = [...catalog.industry, id];
+      catalog.area = [...catalog.area, id];
     }
 
-    // при каждом клике добавляем в браузер новый элемент
+    // при каждом клике добавляем в историю браузера новый элемент
     const params: IObject = {};
 
     if (catalog.industry.length) params.industry = catalog.industry.join(',');
@@ -33,15 +33,17 @@ const IndustryBar = observer(() => {
 
   return (
     <FormControl component="fieldset" variant="standard">
-      <FormLabel component="legend" sx={bar.title}>Индустрии</FormLabel>
+      <FormLabel component="legend" sx={bar.title}>
+        Области применения
+      </FormLabel>
       <FormGroup>
-        {catalog.industries.map((item) => (
+        {catalog.areas.map((item) => (
           <FormControlLabel
             control={
               <Checkbox
                 onChange={() => handleClick(item.id)}
+                checked={catalog.area.includes(item.id)}
                 color="success"
-                checked={catalog.industry.includes(item.id)}
               />
             }
             sx={bar.text}
@@ -54,4 +56,4 @@ const IndustryBar = observer(() => {
   );
 });
 
-export default IndustryBar;
+export default AreaBar;

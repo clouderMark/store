@@ -1,21 +1,21 @@
 import {observer} from 'mobx-react-lite';
 import {createSearchParams, useNavigate} from 'react-router-dom';
 import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox} from '@mui/material';
-import {useAppContext} from './AppContext';
-import {IObject} from '../types/types';
-import {bar} from '../styles/bar';
+import {useAppContext} from '../AppContext';
+import {IObject} from '../../types/types';
+import {bar} from '../../styles/bar';
 
-const AreaBar = observer(() => {
+const SolutionBar = observer(() => {
   const {catalog} = useAppContext();
   const navigate = useNavigate();
 
   const handleClick = (id: number) => {
-    const index = catalog.area.indexOf(id);
+    const index = catalog.solution.indexOf(id);
 
     if (index >= 0) {
-      catalog.area = catalog.area.filter((_, i) => i !== index);
+      catalog.solution = catalog.solution.filter((_, i) => i !== index);
     } else {
-      catalog.area = [...catalog.area, id];
+      catalog.solution = [...catalog.solution, id];
     }
 
     // при каждом клике добавляем в историю браузера новый элемент
@@ -34,16 +34,16 @@ const AreaBar = observer(() => {
   return (
     <FormControl component="fieldset" variant="standard">
       <FormLabel component="legend" sx={bar.title}>
-        Области применения
+        Решения
       </FormLabel>
       <FormGroup>
-        {catalog.areas.map((item) => (
+        {catalog.solutions.map((item) => (
           <FormControlLabel
             control={
               <Checkbox
                 onChange={() => handleClick(item.id)}
-                checked={catalog.area.includes(item.id)}
                 color="success"
+                checked={catalog.solution.includes(item.id)}
               />
             }
             sx={bar.text}
@@ -56,4 +56,4 @@ const AreaBar = observer(() => {
   );
 });
 
-export default AreaBar;
+export default SolutionBar;
