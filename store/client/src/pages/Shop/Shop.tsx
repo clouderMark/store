@@ -12,6 +12,7 @@ import {SearchBar} from '../../components/Bar/SearchBar/SearchBar';
 import {FiltersBar} from '../../components/Bar/FiltersBar/FiltersBar';
 import IndividualProduct from '../../components/IndividualProduct/IndividualProduct';
 import Shipping from '../../components/Shipping/Shipping';
+import Contact from '../../components/Contact/Contact';
 
 const getSearchParams = (
   searchParams: URLSearchParams,
@@ -197,6 +198,7 @@ const Shop = observer(() => {
         </Box>
       </Container>
       <Shipping />
+      <Contact />
     </>
   );
 });
