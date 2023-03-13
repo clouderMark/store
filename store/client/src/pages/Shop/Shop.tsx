@@ -11,6 +11,7 @@ import {button} from './styles/button';
 import {SearchBar} from '../../components/Bar/SearchBar/SearchBar';
 import {FiltersBar} from '../../components/Bar/FiltersBar/FiltersBar';
 import IndividualProduct from '../../components/IndividualProduct/IndividualProduct';
+import Shipping from '../../components/Shipping/Shipping';
 
 const getSearchParams = (
   searchParams: URLSearchParams,
@@ -170,30 +171,33 @@ const Shop = observer(() => {
   }, [catalog.industry, catalog.solution, catalog.area, catalog.page]);
 
   return (
-    <Container maxWidth={false} sx={{paddingBottom: '100px'}}>
-      {!barQueryDesctop ? (
-        <Button onClick={openDrawer} sx={button.filters} startIcon={<TuneRoundedIcon />}>
-          Фильтры {filterLength > 0 ? `(${filterLength})` : null}
-        </Button>
-      ) : null}
-      <SearchBar matches={barQueryDesctop} />
-      <Box sx={{display: 'flex'}}>
-        <FiltersBar
-          industriesFetching={industriesFetching}
-          areasFetching={areasFetching}
-          solutionsFetching={solutionsFetching}
-          resetFilters={resetFilters}
-          isResetButton={filterLength > 0}
-          query={barQueryDesctop}
-          open={open}
-          setOpen={setOpen}
-        />
-        <Box sx={{width: '100%'}}>
-          {productsFetching ? <CircularProgress color="success" /> : <ProductList />}
-          <IndividualProduct />
+    <>
+      <Container maxWidth={false} sx={{paddingBottom: '100px'}}>
+        {!barQueryDesctop ? (
+          <Button onClick={openDrawer} sx={button.filters} startIcon={<TuneRoundedIcon />}>
+            Фильтры {filterLength > 0 ? `(${filterLength})` : null}
+          </Button>
+        ) : null}
+        <SearchBar matches={barQueryDesctop} />
+        <Box sx={{display: 'flex'}}>
+          <FiltersBar
+            industriesFetching={industriesFetching}
+            areasFetching={areasFetching}
+            solutionsFetching={solutionsFetching}
+            resetFilters={resetFilters}
+            isResetButton={filterLength > 0}
+            query={barQueryDesctop}
+            open={open}
+            setOpen={setOpen}
+          />
+          <Box sx={{width: '100%'}}>
+            {productsFetching ? <CircularProgress color="success" /> : <ProductList />}
+            <IndividualProduct />
+          </Box>
         </Box>
-      </Box>
-    </Container>
+      </Container>
+      <Shipping />
+    </>
   );
 });
 
