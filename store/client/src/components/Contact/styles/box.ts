@@ -1,6 +1,8 @@
 const color = 'white';
 const weight = 300;
 const fontSize = 25;
+const tabletSize = 767;
+const mobileSize = 600;
 
 export const box = {
   minHeight: '610px',
@@ -9,9 +11,19 @@ export const box = {
     display: 'flex',
     justifyContent: 'space-between',
     padding: '90px 0 90px 0',
+    [`@media (max-width: ${tabletSize}px)`]: {
+      flexDirection: 'column',
+    },
+    [`@media (max-width: ${mobileSize}px)`]: {
+      padding: '90px 10px 90px 10px',
+    },
   },
   content: {
     width: '43.9%',
+    [`@media (max-width: ${tabletSize}px)`]: {
+      width: '100%',
+      marginBottom: '50px',
+    },
   },
   headers: {
     color: color,
