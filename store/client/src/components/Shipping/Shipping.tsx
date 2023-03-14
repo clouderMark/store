@@ -1,19 +1,19 @@
 import {Box, Typography} from '@mui/material';
 import {box} from './styles/box';
-import img1 from './images/payment-paypal.png';
-import img2 from './images/shipping-dhl.png';
+import {content} from './content';
 
 const Shipping = () => (
   <Box sx={box}>
     <Typography sx={box.content.title} component="h2">
       <Typography sx={box.content.top} component="span">
-        Виды доставки
+        {content.title.top}
       </Typography>
-      Наши партнеры доставки и оплаты
+      {content.title.bottom}
     </Typography>
     <Box sx={box.content.images}>
-      <Box component="img" sx={box.content.img} src={img1} alt="paypal" />
-      <Box component="img" sx={box.content.img} src={img2} alt="dhl"/>
+      {content.images.map((el, i) => (
+        <Box component="img" sx={box.content.img} src={el.img} alt={el.alt} key={i}/>
+      ))}
     </Box>
   </Box>
 );
