@@ -9,6 +9,7 @@ import {
   FormControlLabel,
   Radio,
   Link,
+  Button,
 } from '@mui/material';
 import PhoneInTalkOutlinedIcon from '@mui/icons-material/PhoneInTalkOutlined';
 import {box} from './styles/box';
@@ -80,6 +81,9 @@ const Contact = () => {
             multiline
             rows={4}
           />
+          <Button type="submit" sx={form.button}>
+            {formContent.button}
+          </Button>
         </Box>
       </Container>
     </Box>

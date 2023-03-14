@@ -11,6 +11,7 @@ export const form = {
     display: 'flex',
     flexWrap: 'wrap',
     width: '100%',
+    marginTop: '24px',
   },
   textField: {
     width: '48%',
@@ -41,6 +42,22 @@ export const form = {
     label: {
       fontWeight: fontWeight,
       textTransform: 'lowercase',
+    },
+  },
+  button: {
+    height: '54px',
+    padding: '25px',
+    marginTop: '50px',
+    backgroundColor: 'white',
+    borderRadius: 0,
+    color: '#008f38',
+    '&:hover': {
+      backgroundColor: 'rgba(255, 255, 255, 0.6)',
+      color: '#008f38',
+    },
+    '&:active': {
+      backgroundColor: 'white',
+      color: '#008f38',
     },
   },
 };

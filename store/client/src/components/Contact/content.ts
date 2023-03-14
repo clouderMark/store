@@ -27,4 +27,5 @@ export const formContent = {
     phone: 'Телефон',
     question: 'Ваш вопрос',
   },
+  button: 'Отправить запрос',
 };
