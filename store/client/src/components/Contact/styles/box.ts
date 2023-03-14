@@ -3,12 +3,12 @@ const weight = 300;
 const fontSize = 25;
 
 export const box = {
-  height: '610px',
+  minHeight: '610px',
   backgroundColor: '#008f38',
   container: {
     display: 'flex',
     justifyContent: 'space-between',
-    paddingTop: '90px',
+    padding: '90px 0 90px 0',
   },
   content: {
     width: '43.9%',
