@@ -1,4 +1,4 @@
-import {FormEvent} from 'react';
+import {FormEvent, useState, ChangeEvent} from 'react';
 import {
   Box,
   Typography,
@@ -15,10 +15,51 @@ import PhoneInTalkOutlinedIcon from '@mui/icons-material/PhoneInTalkOutlined';
 import {box} from './styles/box';
 import {form} from './styles/form';
 import {contact, formContent} from './content';
+import {IDefaultValid} from './types';
+import {defaultValue, defaultValid} from './defaultValue';
+import isValid from './isValid';
 
 const Contact = () => {
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const [value, setValue] = useState(defaultValue);
+  const [valid, setValid] = useState<IDefaultValid>(defaultValid);
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setValue({...value, [event.target.name]: event.target.value});
+    setValid({...valid, [event.target.name]: isValid(event.target)});
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    const company = event.currentTarget.elements.namedItem('company') as HTMLInputElement;
+    const name = event.currentTarget.elements.namedItem('name') as HTMLInputElement;
+    const email = event.currentTarget.elements.namedItem('email') as HTMLInputElement;
+    const phone = event.currentTarget.elements.namedItem('phone') as HTMLInputElement;
+    const question = event.currentTarget.elements.namedItem('question') as HTMLInputElement;
+
+    setValue({
+      company: company.value.trim(),
+      name: name.value.trim(),
+      email: email.value.trim(),
+      phone: phone.value.trim(),
+      question: question.value.trim(),
+    });
+
+    setValid({
+      company: isValid(company),
+      name: isValid(name),
+      email: isValid(email),
+      phone: isValid(phone),
+      question: isValid(question),
+    });
+
+    if (valid.company && valid.name && valid.email && valid.phone && valid.question) {
+      const body = {...value};
+
+      console.log(body);
+
+      setValue(defaultValue);
+    }
   };
 
   return (
@@ -68,14 +109,44 @@ const Contact = () => {
             />
           </RadioGroup>
           <Box sx={form.block}>
-            <TextField name="company" value="" placeholder={formContent.textField.company} sx={form.textField} />
-            <TextField name="name" value="" placeholder={formContent.textField.name} sx={form.textField} />
-            <TextField name="email" value="" placeholder={formContent.textField.email} sx={form.textField} />
-            <TextField name="phone" value="" placeholder={formContent.textField.phone} sx={form.textField} />
+            <TextField
+              name="company"
+              value={value.company}
+              error={valid.company === false}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+              placeholder={formContent.textField.company}
+              sx={form.textField}
+            />
+            <TextField
+              name="name"
+              value={value.name}
+              error={valid.name === false}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+              placeholder={formContent.textField.name}
+              sx={form.textField}
+            />
+            <TextField
+              name="email"
+              value={value.email}
+              error={valid.email === false}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+              placeholder={formContent.textField.email}
+              sx={form.textField}
+            />
+            <TextField
+              name="phone"
+              value={value.phone}
+              error={valid.phone === false}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+              placeholder={formContent.textField.phone}
+              sx={form.textField}
+            />
           </Box>
           <TextField
             name="question"
-            value=""
+            value={value.question}
+            error={valid.question === false}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
             placeholder={formContent.textField.question}
             sx={form.textFieldMultiline}
             multiline
