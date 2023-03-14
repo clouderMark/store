@@ -1,64 +1,70 @@
+const color = 'white';
+const weight = 300;
+const fontSize = 25;
+
 export const box = {
   height: '610px',
   backgroundColor: '#008f38',
   container: {
     display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: '90px',
   },
   content: {
-    width: '48%',
+    width: '43.9%',
   },
-  // form: {
-  //   width: '50%',
-  //   block: {
-  //     display: 'flex',
-  //     flexWrap: 'wrap',
-  //     width: '100%',
-  //   },
-  //   textField: {
-  //     width: '48%',
-  //     marginBottom: '20px',
-  //     marginRight: '2%',
-  //   },
-  //   textFieldMultiline: {
-  //     width: '98%',
-  //     height: '114px',
-  //   },
-  //   label: {
-  //     color: 'white',
-  //     fontWeight: 300,
-  //     fontSize: '20px',
-  //   },
-  //   checkbox: {
-  //     color: 'white',
-  //     '&.Mui-checked': {
-  //       color: 'white',
-  //     },
-  //     label: {
-  //       fontWeight: 300,
-  //     },
-  //   },
-  // },
+  headers: {
+    color: color,
+    top: {
+      marginBottom: '8px',
+      fontWeight: 500,
+      textTransform: 'uppercase',
+      fontSize: '20px',
+      color: color,
+    },
+    bottom: {
+      marginBottom: '8px',
+      fontWeight: weight,
+      fontSize: '35px',
+      lineHeight: '43px',
+      color: color,
+    },
+  },
+  paragraph: {
+    marginBottom: '40px',
+    fontSize: '16px',
+    color: 'white',
+    fontWeight: weight,
+  },
+  contacts: {
+    paragraph: {
+      marginBottom: '8px',
+      fontSize: `${fontSize}px`,
+      color: color,
+      fontWeight: weight,
+    },
+    link: {
+      fontSize: `${fontSize}px`,
+      color: color,
+      fontWeight: weight,
+      '&:hover': {
+        color: color,
+        textDecorationThickness: '1px',
+      },
+      img: {
+        fontSize: '30px',
+      },
+      number: {
+        marginLeft: '10px',
+        fontSize: `${fontSize}px`,
+      },
+    },
+    working: {
+      marginTop: '8px',
+      marginLeft: '40px',
+      color: color,
+      fontSize: '16px',
+      fontWeight: weight,
+    },
+  },
 };
-
-// const textField = {
-//   '& .MuiInputBase-root': {
-//     color: 'white',
-//     fontWeight: 300,
-//     borderRadius: 0,
-//     '& fieldset': {
-//       borderColor: 'rgba(255, 255, 255, 0.6)',
-//     },
-//     '&:hover fieldset': {
-//       borderColor: 'white',
-//       borderWidth: '2px',
-//     },
-//     '&.Mui-focused': {
-//       '& .MuiOutlinedInput-notchedOutline': {
-//         borderColor: 'white',
-//       },
-//     },
-//   },
-// };
-
-// Object.assign(box.form.textField, textField);
-// Object.assign(box.form.textFieldMultiline, textField);

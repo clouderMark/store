@@ -26,6 +26,7 @@ export const form = {
     },
     label: {
       fontWeight: 300,
+      textTransform: 'lowercase',
     },
   },
 };
