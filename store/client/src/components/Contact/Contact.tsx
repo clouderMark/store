@@ -71,7 +71,7 @@ const Contact = () => {
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
               row
             >
-              {formContent.checkbox.map((el) => (
+              {formContent.checkbox.map((el, i) => (
                 <FormControlLabel
                   value={el.value}
                   control={<Radio sx={form.checkbox} />}
@@ -80,6 +80,7 @@ const Contact = () => {
                       {el.content}
                     </Typography>
                   }
+                  key={i}
                 />
               ))}
             </RadioGroup>
