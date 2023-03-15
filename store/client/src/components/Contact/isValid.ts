@@ -19,7 +19,7 @@ const isValid = (input: HTMLInputElement): boolean => {
     case 'question':
       return input.value.trim() !== '';
     case 'type':
-      return input.value.trim() !== '';
+      return input.value.trim() === 'commercial' || input.value.trim() === 'privat';
     default: return false;
   }
 };

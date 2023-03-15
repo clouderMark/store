@@ -19,6 +19,7 @@ import {contact, formContent} from './content';
 import {IDefaultValid} from './types';
 import {defaultValue, defaultValid} from './defaultValue';
 import isValid from './isValid';
+import {handleSubmit as makeSubmit} from './handleSubmit';
 
 const Contact = () => {
   const [value, setValue] = useState(defaultValue);
@@ -34,47 +35,7 @@ const Contact = () => {
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const company = event.currentTarget.elements.namedItem('company') as HTMLInputElement;
-    const name = event.currentTarget.elements.namedItem('name') as HTMLInputElement;
-    const email = event.currentTarget.elements.namedItem('email') as HTMLInputElement;
-    const phone = event.currentTarget.elements.namedItem('phone') as HTMLInputElement;
-    const question = event.currentTarget.elements.namedItem('question') as HTMLInputElement;
-    const type = event.currentTarget.elements.namedItem('type') as HTMLInputElement;
-
-    setValue({
-      company: company.value.trim(),
-      name: name.value.trim(),
-      email: email.value.trim(),
-      phone: phone.value.trim(),
-      question: question.value.trim(),
-      type: type.value.trim(),
-    });
-
-    setValid({
-      company: isValid(company),
-      name: isValid(name),
-      email: isValid(email),
-      phone: isValid(phone),
-      question: isValid(question),
-      type: isValid(type),
-    });
-
-    if (valid.type === null) {
-      setError(true);
-    } else {
-      setError(false);
-    }
-
-    if (valid.company && valid.name && valid.email && valid.phone && valid.question && valid.type) {
-      const body = {...value};
-
-      console.log(body);
-
-      setValue(defaultValue);
-      setValid(defaultValid);
-    }
+    makeSubmit({event, value, setValue, valid, setValid, setError});
   };
 
   return (
