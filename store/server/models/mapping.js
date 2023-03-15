@@ -96,6 +96,16 @@ const OrderItem = sequelize.define('order_item', {
     image: {type: DataTypes.STRING, allowNull: false},
 })
 
+const Message = sequelize.define('message', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    company: {type: DataTypes.STRING, allowNull: false},
+    name: {type: DataTypes.STRING, allowNull: false},
+    email: {type: DataTypes.STRING, allowNull: false},
+    phone: {type: DataTypes.STRING, allowNull: false},
+    question: {type: DataTypes.STRING, allowNull: false},
+    type: {type: DataTypes.STRING, allowNull: false},
+})
+
 Basket.belongsToMany(Product, {through: BasketProduct, onDelete: 'CASCADE'})
 Product.belongsToMany(Basket, {through: BasketProduct, onDelete: 'CASCADE'})
 
@@ -141,5 +151,6 @@ export {
     BasketProduct,
     ProductProp,
     Order,
-    OrderItem
+    OrderItem,
+    Message,
 }

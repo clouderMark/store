@@ -23,7 +23,7 @@ export const formContent: IFormContent = {
     },
     {
       value: 'privat',
-      content: 'Коммерческое',
+      content: 'Личное',
     },
   ],
   textField: [
@@ -64,6 +64,7 @@ export const formContent: IFormContent = {
     },
   ],
   button: 'Отправить запрос',
+  alert: 'Успешный успех',
 };
 
 interface IFormContent {
@@ -71,6 +72,7 @@ interface IFormContent {
   checkbox: Array<ICheckbox>;
   textField: Array<ITextField>;
   button: string;
+  alert: string;
 }
 
 interface ITextField {

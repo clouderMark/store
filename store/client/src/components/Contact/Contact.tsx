@@ -11,6 +11,8 @@ import {
   Link,
   Button,
   FormControl,
+  Alert,
+  Fade,
 } from '@mui/material';
 import PhoneInTalkOutlinedIcon from '@mui/icons-material/PhoneInTalkOutlined';
 import {box} from './styles/box';
@@ -20,11 +22,13 @@ import {IDefaultValid} from './types';
 import {defaultValue, defaultValid} from './defaultValue';
 import isValid from './isValid';
 import {handleSubmit as makeSubmit} from './handleSubmit';
+import {alert} from './styles/alert';
 
 const Contact = () => {
   const [value, setValue] = useState(defaultValue);
   const [valid, setValid] = useState<IDefaultValid>(defaultValid);
   const [error, setError] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue({...value, [event.target.name]: event.target.value});
@@ -35,7 +39,7 @@ const Contact = () => {
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    makeSubmit({event, value, setValue, valid, setValid, setError});
+    await makeSubmit({event, value, setValue, valid, setValid, setError, setSuccess});
   };
 
   return (
@@ -105,6 +109,11 @@ const Contact = () => {
           </Button>
         </Box>
       </Container>
+      <Fade in={success}>
+        <Alert severity="success" sx={alert} elevation={6}>
+          {formContent.alert}
+        </Alert>
+      </Fade>
     </Box>
   );
 };
