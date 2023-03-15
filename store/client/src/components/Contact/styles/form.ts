@@ -61,6 +61,7 @@ export const form = {
     },
   },
   control: {
+    display: 'block',
     '& .Mui-error svg': {
       color: 'red',
     },
