@@ -18,6 +18,8 @@ const isValid = (input: HTMLInputElement): boolean => {
       return pattern.test(input.value.trim());
     case 'question':
       return input.value.trim() !== '';
+    case 'type':
+      return input.value.trim() !== '';
     default: return false;
   }
 };

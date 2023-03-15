@@ -10,6 +10,7 @@ import {
   Radio,
   Link,
   Button,
+  FormControl,
 } from '@mui/material';
 import PhoneInTalkOutlinedIcon from '@mui/icons-material/PhoneInTalkOutlined';
 import {box} from './styles/box';
@@ -22,10 +23,14 @@ import isValid from './isValid';
 const Contact = () => {
   const [value, setValue] = useState(defaultValue);
   const [valid, setValid] = useState<IDefaultValid>(defaultValid);
+  const [error, setError] = useState(false);
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue({...value, [event.target.name]: event.target.value});
     setValid({...valid, [event.target.name]: isValid(event.target)});
+    if (event.target.name === 'type') {
+      setError(false);
+    }
   };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -36,6 +41,7 @@ const Contact = () => {
     const email = event.currentTarget.elements.namedItem('email') as HTMLInputElement;
     const phone = event.currentTarget.elements.namedItem('phone') as HTMLInputElement;
     const question = event.currentTarget.elements.namedItem('question') as HTMLInputElement;
+    const type = event.currentTarget.elements.namedItem('type') as HTMLInputElement;
 
     setValue({
       company: company.value.trim(),
@@ -43,6 +49,7 @@ const Contact = () => {
       email: email.value.trim(),
       phone: phone.value.trim(),
       question: question.value.trim(),
+      type: type.value.trim(),
     });
 
     setValid({
@@ -51,14 +58,22 @@ const Contact = () => {
       email: isValid(email),
       phone: isValid(phone),
       question: isValid(question),
+      type: isValid(type),
     });
 
-    if (valid.company && valid.name && valid.email && valid.phone && valid.question) {
+    if (valid.type === null) {
+      setError(true);
+    } else {
+      setError(false);
+    }
+
+    if (valid.company && valid.name && valid.email && valid.phone && valid.question && valid.type) {
       const body = {...value};
 
       console.log(body);
 
       setValue(defaultValue);
+      setValid(defaultValid);
     }
   };
 
@@ -88,26 +103,33 @@ const Contact = () => {
         </Box>
         <Box noValidate onSubmit={handleSubmit} component="form" sx={form}>
           <FormLabel sx={form.label}>{formContent.label}</FormLabel>
-          <RadioGroup row>
-            <FormControlLabel
-              value="commercial"
-              control={<Radio sx={form.checkbox} />}
-              label={
-                <Typography sx={form.checkbox.label} component="label">
-                  {formContent.checkbox.commercial}
-                </Typography>
-              }
-            />
-            <FormControlLabel
-              value="privat"
-              control={<Radio sx={form.checkbox} />}
-              label={
-                <Typography sx={form.checkbox.label} component="label">
-                  {formContent.checkbox.privat}
-                </Typography>
-              }
-            />
-          </RadioGroup>
+          <FormControl error={error} sx={form.control}>
+            <RadioGroup
+              name="type"
+              value={value.type}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+              row
+            >
+              <FormControlLabel
+                value="commercial"
+                control={<Radio sx={form.checkbox}/>}
+                label={
+                  <Typography sx={form.checkbox.label} component="label">
+                    {formContent.checkbox.commercial}
+                  </Typography>
+                }
+              />
+              <FormControlLabel
+                value="privat"
+                control={<Radio sx={form.checkbox} />}
+                label={
+                  <Typography sx={form.checkbox.label} component="label">
+                    {formContent.checkbox.privat}
+                  </Typography>
+                }
+              />
+            </RadioGroup>
+          </FormControl>
           <Box sx={form.block}>
             <TextField
               name="company"

@@ -60,6 +60,11 @@ export const form = {
       color: '#008f38',
     },
   },
+  control: {
+    '& .Mui-error svg': {
+      color: 'red',
+    },
+  },
 };
 
 const textField = {

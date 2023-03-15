@@ -6,6 +6,7 @@ export const defaultValue: IDefaultValue = {
   email: '',
   phone: '',
   question: '',
+  type: '',
 };
 
 export const defaultValid: IDefaultValid = {
@@ -14,4 +15,5 @@ export const defaultValid: IDefaultValid = {
   email: null,
   phone: null,
   question: null,
+  type: null,
 };

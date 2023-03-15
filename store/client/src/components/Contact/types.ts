@@ -4,6 +4,7 @@ export interface IDefaultValue {
   email: string,
   phone: string,
   question: string,
+  type: string,
 }
 
 export interface IDefaultValid {
@@ -12,4 +13,5 @@ export interface IDefaultValid {
   email: null | boolean,
   phone: null | boolean,
   question: null | boolean,
+  type: null | boolean,
 }
