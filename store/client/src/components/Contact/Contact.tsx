@@ -71,70 +71,34 @@ const Contact = () => {
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
               row
             >
-              <FormControlLabel
-                value="commercial"
-                control={<Radio sx={form.checkbox}/>}
-                label={
-                  <Typography sx={form.checkbox.label} component="label">
-                    {formContent.checkbox.commercial}
-                  </Typography>
-                }
-              />
-              <FormControlLabel
-                value="privat"
-                control={<Radio sx={form.checkbox} />}
-                label={
-                  <Typography sx={form.checkbox.label} component="label">
-                    {formContent.checkbox.privat}
-                  </Typography>
-                }
-              />
+              {formContent.checkbox.map((el) => (
+                <FormControlLabel
+                  value={el.value}
+                  control={<Radio sx={form.checkbox} />}
+                  label={
+                    <Typography sx={form.checkbox.label} component="label">
+                      {el.content}
+                    </Typography>
+                  }
+                />
+              ))}
             </RadioGroup>
           </FormControl>
           <Box sx={form.block}>
-            <TextField
-              name="company"
-              value={value.company}
-              error={valid.company === false}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-              placeholder={formContent.textField.company}
-              sx={form.textField}
-            />
-            <TextField
-              name="name"
-              value={value.name}
-              error={valid.name === false}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-              placeholder={formContent.textField.name}
-              sx={form.textField}
-            />
-            <TextField
-              name="email"
-              value={value.email}
-              error={valid.email === false}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-              placeholder={formContent.textField.email}
-              sx={form.textField}
-            />
-            <TextField
-              name="phone"
-              value={value.phone}
-              error={valid.phone === false}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-              placeholder={formContent.textField.phone}
-              sx={form.textField}
-            />
+            {formContent.textField.map((el, i) => (
+              <TextField
+                name={el.name}
+                value={value[el.name]}
+                error={valid[el.name] === false}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
+                placeholder={el.placeholder}
+                sx={form[el.style]}
+                multiline={el.multiline}
+                rows={el.rows}
+                key={i}
+              />
+            ))}
           </Box>
-          <TextField
-            name="question"
-            value={value.question}
-            error={valid.question === false}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
-            placeholder={formContent.textField.question}
-            sx={form.textFieldMultiline}
-            multiline
-            rows={4}
-          />
           <Button type="submit" sx={form.button}>
             {formContent.button}
           </Button>

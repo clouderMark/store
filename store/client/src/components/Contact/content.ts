@@ -14,18 +14,74 @@ export const contact = {
   },
 };
 
-export const formContent = {
+export const formContent: IFormContent = {
   label: 'Как с нами свзаться?*',
-  checkbox: {
-    commercial: 'Коммерческое',
-    privat: 'Личное',
-  },
-  textField: {
-    company: 'Компания',
-    name: 'Имя и Фамилия',
-    email: 'E-mail *',
-    phone: 'Телефон',
-    question: 'Ваш вопрос',
-  },
+  checkbox: [
+    {
+      value: 'commercial',
+      content: 'Коммерческое',
+    },
+    {
+      value: 'privat',
+      content: 'Коммерческое',
+    },
+  ],
+  textField: [
+    {
+      name: 'company',
+      placeholder: 'Компания',
+      multiline: false,
+      style: 'textField',
+      rows: 1,
+    },
+    {
+      name: 'name',
+      placeholder: 'Имя и Фамилия',
+      multiline: false,
+      style: 'textField',
+      rows: 1,
+    },
+    {
+      name: 'email',
+      placeholder: 'E-mail *',
+      multiline: false,
+      style: 'textField',
+      rows: 1,
+    },
+    {
+      name: 'phone',
+      placeholder: 'Телефон',
+      multiline: false,
+      style: 'textField',
+      rows: 1,
+    },
+    {
+      name: 'question',
+      placeholder: 'Ваш вопрос',
+      multiline: true,
+      style: 'textFieldMultiline',
+      rows: 4,
+    },
+  ],
   button: 'Отправить запрос',
 };
+
+interface IFormContent {
+  label: string;
+  checkbox: Array<ICheckbox>;
+  textField: Array<ITextField>;
+  button: string;
+}
+
+interface ITextField {
+  name: 'company' | 'name' | 'email' | 'phone' | 'question';
+  placeholder: string;
+  multiline: boolean;
+  style: 'textField' | 'textFieldMultiline';
+  rows: number;
+}
+
+interface ICheckbox {
+  value: string;
+  content: string;
+}
