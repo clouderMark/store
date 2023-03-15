@@ -10,6 +10,25 @@ class Message {
 
     return true
   }
+
+  async getAll(userId = null) {
+    const options = {};
+    if (userId) {
+      options.where = {userId};
+    }
+    const messages = await MessageMapping.findAll(options);
+    return messages;
+  }
+
+  async delete(id) {
+    let message = await MessageMapping.findByPk(id);
+
+    if (!message) {
+      throw new Error('Сообщение не найдено');
+    }
+    await message.destroy();
+    return message;
+  }
 }
 
 export default new Message();

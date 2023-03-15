@@ -22,6 +22,27 @@ class Message {
       next(AppError.badRequest(e.message))
     }
   }
+
+  async adminGetAll(req, res, next) {
+    try {
+      const messages = await MessageModel.getAll()
+      res.json(messages)
+    } catch (e) {
+      next(AppError.badRequest(e.message))
+    }
+  }
+
+  async adminDelete(req, res, next) {
+    try {
+      if (!req.params.id) {
+        throw new Error('Не указан id сообщения');
+      }
+      const message = await MessageModel.delete(req.params.id);
+      res.json(message);
+    } catch (e) {
+      next(AppError.badRequest(e.message));
+    }
+  }
 }
 
 export default new Message();
