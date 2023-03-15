@@ -2,6 +2,7 @@ import {FormEvent, Dispatch, SetStateAction} from 'react';
 import {IDefaultValid, IDefaultValue} from './types';
 import isValid from './isValid';
 import {defaultValue, defaultValid} from './defaultValue';
+import {sendMessage} from '../../http/contactAPI';
 
 interface IProps {
   event: FormEvent<HTMLFormElement>;
@@ -10,6 +11,7 @@ interface IProps {
   valid: IDefaultValid;
   setValid: Dispatch<SetStateAction<IDefaultValid>>;
   setError: Dispatch<SetStateAction<boolean>>;
+  setSuccess: Dispatch<SetStateAction<boolean>>;
 }
 
 export const handleSubmit = async (props: IProps) => {
@@ -56,7 +58,13 @@ export const handleSubmit = async (props: IProps) => {
   ) {
     const body = {...props.value};
 
-    console.log(body);
+    sendMessage(body).then((res) => {
+      props.setSuccess(res);
+      setTimeout(() => {
+        props.setSuccess(false);
+      }, 5000);
+    })
+      .catch(console.error);
 
     props.setValue(defaultValue);
     props.setValid(defaultValid);
