@@ -3,10 +3,13 @@ import {Container, Box, Typography, TextField, Button} from '@mui/material';
 import {box} from './styles/box';
 import letter from './images/envelop.svg';
 import {content} from './content';
+import {subscribe} from '../../http/subscription';
+import AlertLine from '../AlertLine/AlertLine';
 
 const Newsletter = () => {
   const [value, setValue] = useState('');
   const [valid, setValid] = useState<null | boolean>(null);
+  const [success, setSuccess] = useState(false);
   const pattern = /^[-_.a-z]+@([-a-z]+\.){1,2}[a-z]+$/i;
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -16,12 +19,17 @@ const Newsletter = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const email = event.currentTarget.elements.namedItem('email') as HTMLInputElement;
+    const email = (event.currentTarget.elements.namedItem('email') as HTMLInputElement).value.trim();
 
     if (valid) {
-      const subscribeThis = email.value.trim();
+      subscribe({email})
+        .then(() => {
+          setSuccess(true);
+          setTimeout(() => {
+            setSuccess(false);
+          }, 5000);
+        });
 
-      console.log(subscribeThis);
       setValue('');
       setValid(null);
     }
@@ -55,6 +63,7 @@ const Newsletter = () => {
           </Button>
         </Box>
       </Container>
+      <AlertLine success={success} content={'Подписка оформлена'}/>
     </Box>
   );
 };
