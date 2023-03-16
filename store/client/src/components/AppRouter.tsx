@@ -20,6 +20,7 @@ import AdminIndustries from '../pages/AdminIndustries';
 import AdminSolutions from '../pages/AdminSolutions';
 import AdminAreas from '../pages/AdminAreas';
 import AdminProducts from '../pages/AdminProducts';
+import AdminMessages from '../pages/AdminMessages';
 
 const publicRoutes = [
   {path: '/shop', Component: Shop},
@@ -47,6 +48,7 @@ const adminRoutes = [
   {path: '/admin/solutions', Component: AdminSolutions},
   {path: '/admin/areas', Component: AdminAreas},
   {path: '/admin/products', Component: AdminProducts},
+  {path: '/admin/messages', Component: AdminMessages},
 ];
 
 const AppRouter = observer(() => {
