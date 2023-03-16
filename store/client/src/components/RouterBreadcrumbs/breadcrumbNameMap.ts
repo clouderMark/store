@@ -35,6 +35,8 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
 
     if (path.includes('shop') && +path.slice(-1) >= 0) {
       crumb = product.name.charAt(0).toUpperCase() + product.name.slice(1);
+    } else if (path.includes('messages') && +path.slice(-1) >= 0) {
+      crumb = `Сообщение №${path.slice(-1)}`;
     } else {
       crumb = this.allNames[name];
     }
