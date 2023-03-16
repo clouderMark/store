@@ -1,4 +1,5 @@
-import {guestInstance} from './index';
+import {guestInstance, authInstance} from './index';
+import {ISubscribe} from '../types/types';
 
 export const subscribe = async (body: {[key: string]: string}): Promise<ISubscribe> => {
   const {data} = await guestInstance.post('subscription/user/create', body);
@@ -6,9 +7,8 @@ export const subscribe = async (body: {[key: string]: string}): Promise<ISubscri
   return data;
 };
 
-interface ISubscribe {
-  createdAt: string;
-  email: string;
-  id: number;
-  updatedAt: string;
-}
+export const adminGetAllSubscriptions = async (): Promise<ISubscribe[]> => {
+  const {data} = await authInstance.get('subscription/admin/getall');
+
+  return data;
+};

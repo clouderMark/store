@@ -149,3 +149,10 @@ export interface IMessageBody {
 export interface IMessage extends IMessageBody {
   id: number;
 }
+
+export interface ISubscribe {
+  createdAt: string;
+  email: string;
+  id: number;
+  updatedAt: string;
+}

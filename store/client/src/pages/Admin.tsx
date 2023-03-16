@@ -33,6 +33,10 @@ const links: ILinks[] = [
     address: '/admin/messages',
     content: 'Сообщения пользователей',
   },
+  {
+    address: '/admin/subscriptions',
+    content: 'Подписки',
+  },
 ];
 
 const Admin = () => {

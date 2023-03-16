@@ -13,6 +13,15 @@ class SubscriptionController {
       next(AppError.badRequest(e.message));
     }
   }
+
+  async adminGetAll(req, res, next) {
+    try {
+      const emails = await SubscriptionModel.getAll();
+      res.json(emails);
+    } catch (e) {
+      next(AppError.badRequest(e.message));
+    }
+  }
 }
 
 export default new SubscriptionController();
