@@ -44,11 +44,11 @@ export const TableBodyCells = (props: IProps): JSX.Element => (
         <TableCell>{item.amount}</TableCell>
         <TableCell>
           {props.admin ? (
-            <Button component={Link} to={`/admin/order/${item.id}`} variant="outlined">
+            <Button component={Link} to={`/admin/orders/${item.id}`} variant="outlined">
               Подробнее
             </Button>
           ) : (
-            <Button component={Link} to={`/user/order/${item.id}`} variant="outlined">
+            <Button component={Link} to={`/user/orders/${item.id}`} variant="outlined">
               Подробнее
             </Button>
           )}
