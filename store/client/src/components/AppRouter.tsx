@@ -38,13 +38,13 @@ const publicRoutes = [
 const authRoutes = [
   {path: '/user', Component: User},
   {path: '/user/orders', Component: UserOrders},
-  {path: 'user/order/:id', Component: UserOrder},
+  {path: 'user/orders/:id', Component: UserOrder},
 ];
 
 const adminRoutes = [
   {path: '/admin', Component: Admin},
   {path: '/admin/orders', Component: AdminOrders},
-  {path: '/admin/order/:id', Component: AdminOrder},
+  {path: '/admin/orders/:id', Component: AdminOrder},
   {path: '/admin/industries', Component: AdminIndustries},
   {path: '/admin/solutions', Component: AdminSolutions},
   {path: '/admin/areas', Component: AdminAreas},
