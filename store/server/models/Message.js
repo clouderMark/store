@@ -29,6 +29,20 @@ class Message {
     await message.destroy();
     return message;
   }
+
+  async getOne(id, userId = null) {
+    const options = {
+      where: {id},
+    };
+    if (userId) options.where.userId = userId;
+    const message = await MessageMapping.findOne(options);
+
+    if (!message) {
+      throw new Error('Сообщение не найдено');
+    }
+
+    return message;
+  }
 }
 
 export default new Message();
