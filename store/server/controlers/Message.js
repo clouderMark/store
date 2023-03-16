@@ -43,6 +43,18 @@ class Message {
       next(AppError.badRequest(e.message));
     }
   }
+
+  async adminGetOne(req, res, next) {
+    try {
+      if (!req.params.id) {
+        throw new Error('Не указан id сообщения');
+      }
+      const message = await MessageModel.getOne(req.params.id);
+      res.json(message);
+    }catch (e) {
+      next(AppError.badRequest(e.message));
+    }
+  }
 }
 
 export default new Message();

@@ -26,4 +26,11 @@ router.delete(
   MessageConroller.adminDelete
 )
 
+router.get(
+  '/admin/getone/:id([0-9]+)',
+  authMiddleware,
+  adminMiddleware,
+  MessageConroller.adminGetOne
+)
+
 export default router;

@@ -18,3 +18,9 @@ export const adminDelete = async (id: number): Promise<IMessage> => {
 
   return data;
 };
+
+export const adminGetOneMessage = async (id: number): Promise<IMessage> => {
+  const {data} = await authInstance.get(`message/admin/getone/${id}`);
+
+  return data;
+};

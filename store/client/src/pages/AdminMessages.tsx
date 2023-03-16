@@ -75,7 +75,7 @@ const AdminMessages = () => {
           <TableCell>{item.question}</TableCell>
           <TableCell>{item.type}</TableCell>
           <TableCell>
-            <Button component={Link} to={`/admin/message/${item.id}`} variant="outlined">
+            <Button component={Link} to={`/admin/messages/${item.id}`} variant="outlined">
               Подробнее
             </Button>
           </TableCell>
