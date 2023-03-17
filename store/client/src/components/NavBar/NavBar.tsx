@@ -13,7 +13,7 @@ import {useAppContext} from '../AppContext';
 import {articles} from './articles';
 import styles from './styles/logo.module.css';
 import {dFlex, justifySB, alignC} from '../../styles/flex';
-import {ReactComponent as Icon} from './Logo.svg';
+import {ReactComponent as Icon} from '../../image/Logo.svg';
 import {StyledBadge} from './StyledBadge';
 import {NavBarButton} from './NavBarButton';
 import {ArticlesMenu} from './ArticlesMenu';

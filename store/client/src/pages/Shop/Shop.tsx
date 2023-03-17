@@ -14,6 +14,7 @@ import IndividualProduct from '../../components/IndividualProduct/IndividualProd
 import Shipping from '../../components/Shipping/Shipping';
 import Contact from '../../components/Contact/Contact';
 import Newsletter from '../../components/Newsletter/Newsletter';
+import Footer from '../../components/Footer/Footer';
 
 const getSearchParams = (
   searchParams: URLSearchParams,
@@ -201,6 +202,7 @@ const Shop = observer(() => {
       <Shipping />
       <Contact />
       <Newsletter />
+      <Footer />
     </>
   );
 });
