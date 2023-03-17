@@ -12,3 +12,9 @@ export const adminGetAllSubscriptions = async (): Promise<ISubscribe[]> => {
 
   return data;
 };
+
+export const adminDeleteSubscription = async (id: number): Promise<ISubscribe> => {
+  const {data} = await authInstance.delete(`/subscription/admin/delete/${id}`);
+
+  return data;
+};

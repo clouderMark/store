@@ -17,6 +17,16 @@ class Subscription {
     const emails = await SubscriptionMapping.findAll(options);
     return emails;
   }
+
+  async delete(id) {
+    const email =  await SubscriptionMapping.findByPk(id);
+
+    if (!email) {
+      throw new Error('Подписчик не найден');
+    }
+    await email.destroy();
+    return email;
+  }
 }
 
 export default new Subscription();

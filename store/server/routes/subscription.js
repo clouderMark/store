@@ -17,4 +17,11 @@ router.get(
   SubscriptionController.adminGetAll
 )
 
+router.delete(
+  '/admin/delete/:id([0-9]+)',
+  authMiddleware,
+  adminMiddleware,
+  SubscriptionController.adminDelete
+)
+
 export default router;

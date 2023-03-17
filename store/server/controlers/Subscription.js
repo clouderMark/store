@@ -22,6 +22,18 @@ class SubscriptionController {
       next(AppError.badRequest(e.message));
     }
   }
+
+  async adminDelete(req, res, next) {
+    try {
+      if (!req.params.id) {
+        throw new Error('Не указан id подписчика');
+      }
+      const email = await SubscriptionModel.delete(req.params.id);
+      res.json(email);
+    } catch (e) {
+      next(AppError.badRequest(e.message));
+    }
+  }
 }
 
 export default new SubscriptionController();

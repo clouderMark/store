@@ -2,7 +2,7 @@ import {useState, useEffect} from 'react';
 import {Container, Typography, TableCell, Button, TableRow} from '@mui/material';
 import {Board} from '../components/Board';
 import Progress from '../components/LinearDeterminate';
-import {adminGetAllSubscriptions} from '../http/subscription';
+import {adminGetAllSubscriptions, adminDeleteSubscription} from '../http/subscription';
 import {ISubscribe} from '../types/types';
 
 const content: IContent = {
@@ -18,7 +18,14 @@ const AdminSubscription = () => {
   const [fetching, setFetching] = useState(true);
 
   const handleDeleteClick = (id: number) => {
-    console.log(id);
+    adminDeleteSubscription(id)
+      .then((data) => {
+        alert(`Подписчик с email: ${data.email} удален`);
+        if (subscriptions) {
+          setSubscriptions(subscriptions?.filter((el) => el.id !== data.id));
+        }
+      })
+      .catch(console.error);
   };
 
   useEffect(() => {
@@ -44,7 +51,7 @@ const AdminSubscription = () => {
         <TableRow key={item.id} hover>
           <TableCell scope="row">{item.id}</TableCell>
           <TableCell>{item.email}</TableCell>
-          <TableCell>{item.createdAt}</TableCell>
+          <TableCell>{item.createdAt.split('T')[0]}</TableCell>
           <TableCell>
             <Button variant="outlined" onClick={() => handleDeleteClick(item.id)} color="warning">
               Удалить
