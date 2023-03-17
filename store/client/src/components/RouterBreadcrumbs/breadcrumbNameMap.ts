@@ -27,6 +27,7 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
     '/services': 'Сервисы',
     '/areas': 'Области',
     '/admin/messages': 'Сообщения пользователей',
+    '/admin/subscriptions': 'Подписки',
   },
 
   getName(name, product) {

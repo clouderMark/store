@@ -1,5 +1,5 @@
-import bg1 from '../image/bg1.png';
-import bg2 from '../image/bg2.png';
+import bg1 from '../../../image/bg1.png';
+import bg2 from '../../../image/bg2.png';
 
 export const box = {
   display: 'flex',
