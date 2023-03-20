@@ -13,7 +13,7 @@ const menuStyle = {
   maxWidth: '100%',
 };
 
-export const ArticlesMenu = () => {
+const TabletArticlesMenu = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -73,3 +73,5 @@ export const ArticlesMenu = () => {
     </Box>
   );
 };
+
+export default TabletArticlesMenu;

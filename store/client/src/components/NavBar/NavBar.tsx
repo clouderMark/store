@@ -1,6 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {observer} from 'mobx-react-lite';
-import {AppBar, Toolbar, Container, Box, Button, Divider} from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Container,
+  Box,
+  Button,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {NavLink} from 'react-router-dom';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
@@ -16,15 +27,28 @@ import {dFlex, justifySB, alignC} from '../../styles/flex';
 import {ReactComponent as Icon} from '../../image/Logo.svg';
 import {StyledBadge} from './StyledBadge';
 import {NavBarButton} from './NavBarButton';
-import {ArticlesMenu} from './ArticlesMenu';
+import TabletArticlesMenu from './TabletArticlesMenu';
 import {IconTextField} from '../IconTextField';
 import {container} from './styles/container';
 import {queryMenu} from './queryMenu';
+import {list} from './styles/list';
+import ListItemMenu from './ListItemMenu';
 
 const NavBar = observer(() => {
   const {user, basket} = useAppContext();
   const matchesMenu = useMediaQuery(`(min-width:${queryMenu}px)`, {noSsr: true});
   const matchesNews = useMediaQuery('(min-width:830px)', {noSsr: true});
+  const [anchorElListItem, setAnchorListItem] = useState<null | HTMLElement>(null);
+  const [link, setLink] = useState('');
+
+  const handleClickListItemMenu = (event: React.MouseEvent<HTMLElement>, to: string) => {
+    setAnchorListItem(event.currentTarget);
+    setLink(to);
+  };
+
+  const handleCloseItemMenu = () => {
+    setAnchorListItem(null);
+  };
 
   return (
     <>
@@ -53,24 +77,27 @@ const NavBar = observer(() => {
                     </StyledBadge>
                   }
                 />
-                {!matchesMenu ? <ArticlesMenu /> : null}
+                {!matchesMenu ? <TabletArticlesMenu /> : null}
               </Box>
             </Box>
             {matchesMenu ? (
               <Box sx={[{mt: 1.2}, dFlex, justifySB, alignC, {width: '100%'}]}>
-                <Box>
+                <List sx={list}>
                   {articles.map((article) => (
-                    <Button component={NavLink} to={`/${article.link}`} key={article.link}>
-                      {article.title}
-                    </Button>
+                    <ListItem key={article.link} sx={list.item}>
+                      <ListItemButton onClick={(e) => handleClickListItemMenu(e, article.link)}>
+                        <ListItemText primary={article.title}/>
+                      </ListItemButton>
+                    </ListItem>
                   ))}
-                </Box>
+                </List>
                 <IconTextField
                   label="Введите строку поиска"
                   variant="standard"
                   sx={{width: 410, height: 63}}
                   icon={<SearchIcon />}
                 />
+                <ListItemMenu anchor={anchorElListItem} close={handleCloseItemMenu} to={link}/>
               </Box>
             ) : null}
           </Toolbar>
