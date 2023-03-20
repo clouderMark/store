@@ -136,3 +136,23 @@ export interface IProductProp {
   change?: boolean;
   remove?: boolean;
 }
+
+export interface IMessageBody {
+  company: string;
+  name: string;
+  email: string;
+  phone: string;
+  question: string;
+  type: string;
+}
+
+export interface IMessage extends IMessageBody {
+  id: number;
+}
+
+export interface ISubscribe {
+  createdAt: string;
+  email: string;
+  id: number;
+  updatedAt: string;
+}

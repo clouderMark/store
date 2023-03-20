@@ -106,6 +106,11 @@ const Message = sequelize.define('message', {
     type: {type: DataTypes.STRING, allowNull: false},
 })
 
+const Subscription = sequelize.define('subscription', {
+  id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+  email: {type: DataTypes.STRING, allowNull: false},
+})
+
 Basket.belongsToMany(Product, {through: BasketProduct, onDelete: 'CASCADE'})
 Product.belongsToMany(Basket, {through: BasketProduct, onDelete: 'CASCADE'})
 
@@ -153,4 +158,5 @@ export {
     Order,
     OrderItem,
     Message,
+    Subscription,
 }

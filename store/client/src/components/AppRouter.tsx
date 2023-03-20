@@ -20,6 +20,9 @@ import AdminIndustries from '../pages/AdminIndustries';
 import AdminSolutions from '../pages/AdminSolutions';
 import AdminAreas from '../pages/AdminAreas';
 import AdminProducts from '../pages/AdminProducts';
+import AdminMessages from '../pages/AdminMessages';
+import AdminMessage from '../pages/AdminMessage';
+import AdminSubscriptions from '../pages/AdminSubscriptions';
 
 const publicRoutes = [
   {path: '/shop', Component: Shop},
@@ -36,17 +39,20 @@ const publicRoutes = [
 const authRoutes = [
   {path: '/user', Component: User},
   {path: '/user/orders', Component: UserOrders},
-  {path: 'user/order/:id', Component: UserOrder},
+  {path: 'user/orders/:id', Component: UserOrder},
 ];
 
 const adminRoutes = [
   {path: '/admin', Component: Admin},
   {path: '/admin/orders', Component: AdminOrders},
-  {path: '/admin/order/:id', Component: AdminOrder},
+  {path: '/admin/orders/:id', Component: AdminOrder},
   {path: '/admin/industries', Component: AdminIndustries},
   {path: '/admin/solutions', Component: AdminSolutions},
   {path: '/admin/areas', Component: AdminAreas},
   {path: '/admin/products', Component: AdminProducts},
+  {path: '/admin/messages', Component: AdminMessages},
+  {path: '/admin/messages/:id', Component: AdminMessage},
+  {path: '/admin/subscriptions', Component: AdminSubscriptions},
 ];
 
 const AppRouter = observer(() => {

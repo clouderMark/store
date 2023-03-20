@@ -29,6 +29,14 @@ const links: ILinks[] = [
     address: '/admin/products',
     content: 'Товары каталога',
   },
+  {
+    address: '/admin/messages',
+    content: 'Сообщения пользователей',
+  },
+  {
+    address: '/admin/subscriptions',
+    content: 'Подписки',
+  },
 ];
 
 const Admin = () => {

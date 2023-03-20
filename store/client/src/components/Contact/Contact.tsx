@@ -11,8 +11,6 @@ import {
   Link,
   Button,
   FormControl,
-  Alert,
-  Fade,
 } from '@mui/material';
 import PhoneInTalkOutlinedIcon from '@mui/icons-material/PhoneInTalkOutlined';
 import {box} from './styles/box';
@@ -22,7 +20,7 @@ import {IDefaultValid} from './types';
 import {defaultValue, defaultValid} from './defaultValue';
 import isValid from './isValid';
 import {handleSubmit as makeSubmit} from './handleSubmit';
-import {alert} from './styles/alert';
+import AlertLine from '../AlertLine/AlertLine';
 
 const Contact = () => {
   const [value, setValue] = useState(defaultValue);
@@ -109,11 +107,7 @@ const Contact = () => {
           </Button>
         </Box>
       </Container>
-      <Fade in={success}>
-        <Alert severity="success" sx={alert} elevation={6}>
-          {formContent.alert}
-        </Alert>
-      </Fade>
+      <AlertLine content={formContent.alert} success={success}/>
     </Box>
   );
 };
