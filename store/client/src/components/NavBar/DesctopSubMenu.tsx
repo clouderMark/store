@@ -10,7 +10,7 @@ interface IProps {
   to: string;
 }
 
-const ListItemMenu = (props: IProps) => (
+const DesctopSubMenu = (props: IProps) => (
   <Menu
     open={Boolean(props.anchor)}
     onClose={props.close}
@@ -60,4 +60,4 @@ const ListItemMenu = (props: IProps) => (
   </Menu>
 );
 
-export default ListItemMenu;
+export default DesctopSubMenu;

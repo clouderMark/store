@@ -32,7 +32,7 @@ import {IconTextField} from '../IconTextField';
 import {container} from './styles/container';
 import {queryMenu} from './queryMenu';
 import {list} from './styles/list';
-import ListItemMenu from './ListItemMenu';
+import DesctopSubMenu from './DesctopSubMenu';
 
 const NavBar = observer(() => {
   const {user, basket} = useAppContext();
@@ -97,7 +97,7 @@ const NavBar = observer(() => {
                   sx={{width: 410, height: 63}}
                   icon={<SearchIcon />}
                 />
-                <ListItemMenu anchor={anchorElListItem} close={handleCloseItemMenu} to={link}/>
+                <DesctopSubMenu anchor={anchorElListItem} close={handleCloseItemMenu} to={link}/>
               </Box>
             ) : null}
           </Toolbar>
