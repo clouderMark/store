@@ -9,7 +9,7 @@ interface IProps {
   to: string;
 }
 
-const content = ['первый', 'второй'];
+const content = ['первый', 'второй', 'первый', 'второй'];
 
 const ListItemMenu = (props: IProps) => (
   <Menu
@@ -35,7 +35,7 @@ const ListItemMenu = (props: IProps) => (
     }}
     sx={listItemMenu.list}
   >
-    <MenuItem onClick={props.close} sx={listItemMenu.header.wrapper}>
+    <MenuItem onClick={props.close} sx={listItemMenu.header.wrapper(content.length)}>
       <Button component={NavLink} to={`/${props.to}`} sx={listItemMenu.header} endIcon={<ArrowForwardIosOutlinedIcon/>}>
         {props.anchor?.textContent}
       </Button>

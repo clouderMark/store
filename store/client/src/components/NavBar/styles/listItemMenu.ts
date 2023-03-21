@@ -28,8 +28,12 @@ export const listItemMenu = {
       color: '#008f38',
     },
 
-    wrapper: {
-      padding: 0,
+    wrapper(length: number) {
+      return {
+        width: '259px',
+        padding: 0,
+        gridColumn: `1 / span ${Math.ceil(length / 4)}`,
+      };
     },
   },
 
