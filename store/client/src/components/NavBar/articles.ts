@@ -1,7 +1,9 @@
+import {aboutList} from '../../commonContent/aboutList';
+
 interface IArticle {
   link: string;
   title: string;
-  list: IList[]
+  list: IList[];
 }
 
 interface IList {
@@ -13,127 +15,36 @@ export const articles: IArticle[] = [
   {
     link: 'branches',
     title: 'Отрасли',
-    list: [
-      {
-        link: '111',
-        content: 'Корпаративные правила',
-      },
-      {
-        link: '222',
-        content: 'Устойчивость',
-      },
-      {
-        link: '333',
-        content: 'Партнеры',
-      },
-    ],
+    list: [],
   },
   {
     link: 'areas',
     title: 'Области',
-    list: [
-      {
-        link: '111',
-        content: 'Корпаративные правила',
-      },
-      {
-        link: '222',
-        content: 'Устойчивость',
-      },
-      {
-        link: '333',
-        content: 'Партнеры',
-      },
-    ],
+    list: [],
   },
   {
     link: 'shop',
     title: 'Продукты',
-    list: [
-      {
-        link: '111',
-        content: 'Корпаративные правила',
-      },
-      {
-        link: '222',
-        content: 'Устойчивость',
-      },
-      {
-        link: '333',
-        content: 'Партнеры',
-      },
-    ],
+    list: [],
   },
   {
     link: 'services',
     title: 'Наши сервисы',
-    list: [
-      {
-        link: '111',
-        content: 'Корпаративные правила',
-      },
-      {
-        link: '222',
-        content: 'Устойчивость',
-      },
-      {
-        link: '333',
-        content: 'Партнеры',
-      },
-    ],
+    list: [],
   },
   {
     link: 'delivery',
     title: 'Доставка',
-    list: [
-      {
-        link: '111',
-        content: 'Корпаративные правила',
-      },
-      {
-        link: '222',
-        content: 'Устойчивость',
-      },
-      {
-        link: '333',
-        content: 'Партнеры',
-      },
-    ],
+    list: [],
   },
   {
     link: 'about',
     title: 'О нас',
-    list: [
-      {
-        link: '111',
-        content: 'Корпаративные правила',
-      },
-      {
-        link: '222',
-        content: 'Устойчивость',
-      },
-      {
-        link: '333',
-        content: 'Партнеры',
-      },
-    ],
+    list: aboutList,
   },
   {
     link: 'contacts',
     title: 'Контакты',
-    list: [
-      {
-        link: '111',
-        content: 'Корпаративные правила',
-      },
-      {
-        link: '222',
-        content: 'Устойчивость',
-      },
-      {
-        link: '333',
-        content: 'Партнеры',
-      },
-    ],
+    list: [],
   },
 ];
