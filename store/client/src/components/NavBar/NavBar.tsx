@@ -40,13 +40,24 @@ const NavBar = observer(() => {
   const matchesNews = useMediaQuery('(min-width:830px)', {noSsr: true});
   const [anchorElListItem, setAnchorListItem] = useState<null | HTMLElement>(null);
   const [link, setLink] = useState('');
+  const [items, setItems] = useState<IItems[]>([]);
 
-  const handleClickListItemMenu = (event: React.MouseEvent<HTMLElement>, to: string) => {
+  interface IItems {
+    link: string,
+    content: string,
+  }
+
+  const handleClickDesctopMenu = (
+    event: React.MouseEvent<HTMLElement>,
+    to: string,
+    items: IItems[],
+  ) => {
     setAnchorListItem(event.currentTarget);
     setLink(to);
+    setItems(items);
   };
 
-  const handleCloseItemMenu = () => {
+  const handleCloseDesctopMenu = () => {
     setAnchorListItem(null);
   };
 
@@ -85,8 +96,8 @@ const NavBar = observer(() => {
                 <List sx={list}>
                   {articles.map((article) => (
                     <ListItem key={article.link} sx={list.item}>
-                      <ListItemButton onClick={(e) => handleClickListItemMenu(e, article.link)}>
-                        <ListItemText primary={article.title}/>
+                      <ListItemButton onClick={(e) => handleClickDesctopMenu(e, article.link, article.list)}>
+                        <ListItemText primary={article.title} />
                       </ListItemButton>
                     </ListItem>
                   ))}
@@ -97,7 +108,7 @@ const NavBar = observer(() => {
                   sx={{width: 410, height: 63}}
                   icon={<SearchIcon />}
                 />
-                <DesctopSubMenu anchor={anchorElListItem} close={handleCloseItemMenu} to={link}/>
+                <DesctopSubMenu anchor={anchorElListItem} close={handleCloseDesctopMenu} to={link} items={items} />
               </Box>
             ) : null}
           </Toolbar>

@@ -8,7 +8,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {articles} from './articles';
 import {tabletMenu} from './styles/tabletMenu';
 import {IconTextField} from '../IconTextField';
-import {content} from './content';
 
 const TabletMenu = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -67,15 +66,15 @@ const TabletMenu = () => {
             </Button>
             <Collapse in={open[i]} sx={tabletMenu.submenu}>
               <List sx={tabletMenu.submenu}>
-                {content.map((el, i) => (
+                {article.list.map((el, i) => (
                   <ListItemButton
                     component={NavLink}
-                    to={`/${el.path}`}
+                    to={`/${el.link}`}
                     onClick={handleCloseNavMenu}
                     key={i}
                     sx={tabletMenu.submenu.item}
                   >
-                    {el.title}
+                    {el.content}
                   </ListItemButton>
                 ))}
               </List>

@@ -2,12 +2,17 @@ import {NavLink} from 'react-router-dom';
 import {Menu, MenuItem, Button} from '@mui/material';
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
 import {listItemMenu} from './styles/listItemMenu';
-import {content} from './content';
 
 interface IProps {
   anchor: null | HTMLElement;
   close(): void;
   to: string;
+  items: IItems[];
+}
+
+interface IItems {
+  link: string,
+  content: string,
 }
 
 const DesctopSubMenu = (props: IProps) => (
@@ -34,7 +39,7 @@ const DesctopSubMenu = (props: IProps) => (
     }}
     sx={listItemMenu.list}
   >
-    <MenuItem onClick={props.close} sx={listItemMenu.header.wrapper(content.length)}>
+    <MenuItem onClick={props.close} sx={listItemMenu.header.wrapper(props.items.length)}>
       <Button
         component={NavLink}
         to={`/${props.to}`}
@@ -44,16 +49,16 @@ const DesctopSubMenu = (props: IProps) => (
         {props.anchor?.textContent}
       </Button>
     </MenuItem>
-    {content.map((el, i) => (
+    {props.items.map((el, i) => (
       <MenuItem key={i} sx={listItemMenu.item.wrapper}>
         <Button
           component={NavLink}
-          to={`/${el.path}`}
+          to={`/${el.link}`}
           onClick={props.close}
           sx={listItemMenu.item}
           endIcon={<ArrowForwardIosOutlinedIcon />}
         >
-          {el.title}
+          {el.content}
         </Button>
       </MenuItem>
     ))}
