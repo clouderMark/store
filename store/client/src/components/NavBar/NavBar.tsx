@@ -27,7 +27,7 @@ import {dFlex, justifySB, alignC} from '../../styles/flex';
 import {ReactComponent as Icon} from '../../image/Logo.svg';
 import {StyledBadge} from './StyledBadge';
 import {NavBarButton} from './NavBarButton';
-import TabletArticlesMenu from './TabletArticlesMenu';
+import TabletMenu from './TabletMenu';
 import {IconTextField} from '../IconTextField';
 import {container} from './styles/container';
 import {queryMenu} from './queryMenu';
@@ -77,7 +77,7 @@ const NavBar = observer(() => {
                     </StyledBadge>
                   }
                 />
-                {!matchesMenu ? <TabletArticlesMenu /> : null}
+                {!matchesMenu ? <TabletMenu /> : null}
               </Box>
             </Box>
             {matchesMenu ? (
