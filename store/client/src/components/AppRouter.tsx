@@ -23,6 +23,7 @@ import AdminProducts from '../pages/AdminProducts';
 import AdminMessages from '../pages/AdminMessages';
 import AdminMessage from '../pages/AdminMessage';
 import AdminSubscriptions from '../pages/AdminSubscriptions';
+import Main from '../pages/Main/Main';
 
 const publicRoutes = [
   {path: '/shop', Component: Shop},
@@ -34,6 +35,7 @@ const publicRoutes = [
   {path: '/delivery', Component: Delivery},
   {path: '/contacts', Component: Contacts},
   {path: '*', Component: NotFound},
+  {path: '/', Component: Main},
 ];
 
 const authRoutes = [

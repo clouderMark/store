@@ -30,13 +30,13 @@ import {NavBarButton} from './NavBarButton';
 import TabletMenu from './TabletMenu';
 import {IconTextField} from '../IconTextField';
 import {container} from './styles/container';
-import {queryMenu} from './queryMenu';
+import {queryTablet} from '../../commonContent/queryTablet';
 import {list} from './styles/list';
 import DesctopSubMenu from './DesctopSubMenu';
 
 const NavBar = observer(() => {
   const {user, basket} = useAppContext();
-  const matchesMenu = useMediaQuery(`(min-width:${queryMenu}px)`, {noSsr: true});
+  const matchesMenu = useMediaQuery(`(min-width:${queryTablet}px)`, {noSsr: true});
   const matchesNews = useMediaQuery('(min-width:830px)', {noSsr: true});
   const [anchorElListItem, setAnchorListItem] = useState<null | HTMLElement>(null);
   const [link, setLink] = useState('');

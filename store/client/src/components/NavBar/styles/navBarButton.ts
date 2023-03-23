@@ -1,4 +1,4 @@
-import {queryMenu} from '../queryMenu';
+import {queryTablet} from '../../../commonContent/queryTablet';
 
 export const button = {
   display: 'flex',
@@ -21,7 +21,7 @@ export const button = {
       color: 'white',
     },
   },
-  [`@media (max-width: ${queryMenu}px)`]: {
+  [`@media (max-width: ${queryTablet}px)`]: {
     fontSize: 0,
     height: '55px',
     padding: '5px',
