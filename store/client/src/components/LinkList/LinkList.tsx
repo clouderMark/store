@@ -10,8 +10,8 @@ const LinkList = () => (
   <Box sx={linkList}>
     <Container maxWidth={false}>
       <List sx={linkList.list}>
-        {content.list.map((item) => (
-          <ListItem sx={linkList.item}>
+        {content.list.map((item, i) => (
+          <ListItem sx={linkList.item} key={i}>
             <ListItemButton component={NavLink} to={`/${item.to}`} sx={linkList.itemButton}>
               <Typography sx={linkList.title} component="h2">
                 <Typography component="span" sx={linkList.titleSpan}>
