@@ -19,7 +19,7 @@ const LinkList = () => (
                 </Typography>
                 {item.content.bottom}
               </Typography>
-              <Arrow/>
+              <Arrow color={'#6f6f6f'} direction={'right'} size={'m'}/>
             </ListItemButton>
           </ListItem>
         ))}
