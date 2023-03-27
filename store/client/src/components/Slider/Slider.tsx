@@ -12,7 +12,7 @@ const content = {
 };
 
 const Slider = () => {
-  const amountItems = 5;
+  const amountItems = Math.ceil(content.list.length / 2);
   const [count, setCount] = useState(1);
   const [translateTo, setTranslateTo] = useState(0);
   const refComponent = createRef<HTMLLIElement>();
@@ -61,7 +61,14 @@ const Slider = () => {
         <Box sx={slider.box}>
           <List sx={[slider.list, {transform: `translate3d(-${(count - 1) * translateTo}px, 0px, 0px)`}]}>
             {content.list.map((item, i) => (
-              <ListItem sx={slider.item} key={i} ref={refComponent}>
+              <ListItem
+                sx={[
+                  slider.item,
+                  i + 1 > count * 2 ? {opacity: 0.25} : {},
+                  i + 2 < count * 2 ? {opacity: 0} : {}]}
+                key={i}
+                ref={refComponent}
+              >
                 {item}
               </ListItem>
             ))}
