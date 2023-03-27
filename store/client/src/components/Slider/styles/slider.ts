@@ -1,13 +1,22 @@
 import bg from '../../../image/bg1.png';
 
+const queryTablet = 1425;
+
 export const slider = {
   container: {
     display: 'flex',
     height: '365px',
     marginBottom: '100px',
+
+    [`@media (max-width: ${queryTablet}px)`]: {
+      height: '25.8vw',
+    },
   },
 
   info: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     zIndex: 1,
     height: '100%',
     width: '33.3%',
@@ -16,6 +25,10 @@ export const slider = {
     backgroundImage: `url(${bg})`,
     backgroundRepeat: 'no-repeat',
     backgroundPositionY: '-55px',
+
+    [`@media (max-width: ${queryTablet}px)`]: {
+      padding: '40px 40px 37px',
+    },
 
     button: {
       '&:hover': {
@@ -28,12 +41,29 @@ export const slider = {
       },
     },
 
+    title: {
+      display: 'flex',
+      flexDirection: 'column',
+      color: 'white',
+      fontWeight: 300,
+      fontSize: '30px',
+      lineHeight: 1.2,
+
+      [`@media (max-width: ${queryTablet}px)`]: {
+        fontSize: 'calc(1.3125rem + .75vw)',
+      },
+
+      span: {
+        marginBottom: '6%',
+        fontWeight: 500,
+        fontSize: '18px',
+      },
+    },
+
     navigation: {
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      height: '100%',
-      marginTop: 'auto',
     },
 
     count: {
@@ -41,21 +71,6 @@ export const slider = {
       fontWeight: 400,
       fontSize: '1.6rem',
       lineHeight: 1.2,
-    },
-  },
-
-  title: {
-    display: 'flex',
-    flexDirection: 'column',
-    color: 'white',
-    fontWeight: 300,
-    fontSize: '1.875rem',
-    lineHeight: 1.2,
-
-    span: {
-      marginBottom: '18px',
-      fontWeight: 500,
-      fontSize: '18px',
     },
   },
 
@@ -73,8 +88,12 @@ export const slider = {
     height: '100%',
     padding: '0 0 1px',
 
+    [`@media (max-width: ${queryTablet}px)`]: {
+      width: '196vw',
+    },
+
     item: {
-      width: '292px',
+      width: '10.466%',
       height: '100%',
       marginLeft: '18px',
       padding: 0,
@@ -82,6 +101,8 @@ export const slider = {
     },
 
     card: {
+      display: 'flex',
+      flexDirection: 'column',
       width: '100%',
       height: '100%',
       borderRadius: 0,
@@ -106,18 +127,25 @@ export const slider = {
 
     image: {
       width: '100%',
-      height: '202px',
+      height: '55%',
     },
 
     content: {
+      flexGrow: 1,
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
       padding: '36px 27px 33px',
+
+      [`@media (max-width: ${queryTablet}px)`]: {
+        padding: '24px 20px 22px',
+      },
     },
 
     title: {
-      marginBottom: '29px',
       fontWeight: 300,
       fontSize: '25px',
-      textTransform: 'uppercase',
+      textTransform: 'capitalize',
       color: '#6f6f6f',
     },
   },

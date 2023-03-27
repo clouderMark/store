@@ -1,6 +1,7 @@
 import {MouseEvent, useState, createRef, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Container, Box, Typography, IconButton, List, ListItem, Card, CardMedia, CardContent} from '@mui/material';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import {fetchProductsForSlider} from '../../http/catalogAPI';
 import {slider} from './styles/slider';
 import Arrow from '../Arrow/Arrow';
@@ -15,6 +16,7 @@ const content = {
 
 const Slider = () => {
   const navigate = useNavigate();
+  const matchesTablet = useMediaQuery('(min-width: 1425px)', {noSsr: true});
   const amountOfProducts = 9;
   const quantitySteps = Math.ceil(amountOfProducts / 2);
   const [count, setCount] = useState(1);
@@ -53,8 +55,8 @@ const Slider = () => {
     <Box sx={slider.wrapper}>
       <Container sx={slider.container} maxWidth={false}>
         <Box sx={slider.info}>
-          <Typography sx={slider.title} component="h3">
-            <Typography sx={slider.title.span} component="span">
+          <Typography sx={slider.info.title} component="h3">
+            <Typography sx={slider.info.title.span} component="span">
               {content.title.top}
             </Typography>
             {content.title.bottom}
@@ -75,7 +77,11 @@ const Slider = () => {
           <List sx={[slider.list, {transform: `translate3d(-${(count - 1) * translateTo}px, 0px, 0px)`}]}>
             {products?.map((item, i) => (
               <ListItem
-                sx={[slider.list.item, i + 1 > count * 2 ? {opacity: 0.25} : {}, i + 2 < count * 2 ? {opacity: 0} : {}]}
+                sx={[
+                  slider.list.item,
+                  i + 1 > count * 2 && matchesTablet ? {opacity: 0.25} : {},
+                  i + 2 < count * 2 ? {opacity: 0} : {},
+                ]}
                 key={i}
                 ref={refComponent}
               >
@@ -90,8 +96,10 @@ const Slider = () => {
                     <CardMedia sx={slider.list.image} component="img" image="http://via.placeholder.com/335" />
                   )}
                   <CardContent sx={slider.list.content}>
-                    <Typography sx={slider.list.title} component="p">{item.name}</Typography>
-                    <Arrow color={'#008f38'} direction={'right'} size={'s'}/>
+                    <Typography sx={slider.list.title} component="p">
+                      {item.name}
+                    </Typography>
+                    <Arrow color={'#008f38'} direction={'right'} size={'s'} />
                   </CardContent>
                 </Card>
               </ListItem>
