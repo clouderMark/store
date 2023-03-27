@@ -18,6 +18,8 @@ router.get('/getall/industryId/:industryId/solutionId/:solutionId/areaId/:areaId
 
 router.get('/getall', ProductController.getAll)
 
+router.get('/slider', ProductController.getForSlider)
+
 router.get('/getone/:id([0-9]+)', ProductController.getOne)
 
 router.post('/create',

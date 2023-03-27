@@ -19,6 +19,19 @@ class Product {
         }
     }
 
+    async getForSlider(req, res, next) {
+        try {
+            if (!req.query.limit) {
+                throw new Error('Не указано количнство продуктов для слайдера');
+            }
+                const products = await ProductModel.getForSlider(req.query.limit);
+
+                res.json(products);
+            } catch (e) {
+            next(AppError.badRequest(e.message));
+        }
+    }
+
     async getOne(req, res, next) {
         try {
             if (!req.params.id) {
