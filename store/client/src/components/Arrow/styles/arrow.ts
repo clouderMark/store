@@ -1,5 +1,5 @@
 export const arrow = {
-  make(color: string, direction: 'left' | 'right', format: 'm' | 'l') {
+  make(color: string, direction: 'left' | 'right', format: 'm' | 'l' | 's') {
     let rotateTo: number;
     let size: number;
     let top: number;
@@ -13,11 +13,15 @@ export const arrow = {
         size = 40;
         top = 14;
         left = 12;
-      } else {
+      } else if (format === 'l') {
         size = 48;
         top = 19;
         left = 16;
         weight = 2.5;
+      } else {
+        size = 31;
+        top = 9;
+        left = 7;
       }
     } else {
       rotateTo = -135;
@@ -26,11 +30,15 @@ export const arrow = {
         size = 40;
         top = 14;
         left = 15;
-      } else {
+      } else if (format === 'l') {
         size = 48;
         top = 18;
         left = 20;
         weight = 2.5;
+      } else {
+        size = 31;
+        top = 9;
+        left = 12;
       }
     }
 
