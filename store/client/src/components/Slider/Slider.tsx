@@ -1,21 +1,34 @@
 import {MouseEvent, useState, createRef, useEffect} from 'react';
-import {Container, Box, Typography, IconButton, List, ListItem} from '@mui/material';
+import {useNavigate} from 'react-router-dom';
+import {Container, Box, Typography, IconButton, List, ListItem, Card, CardMedia, CardContent} from '@mui/material';
+import {fetchProductsForSlider} from '../../http/catalogAPI';
 import {slider} from './styles/slider';
 import Arrow from '../Arrow/Arrow';
+import {ISlider} from '../../types/types';
 
 const content = {
   title: {
     top: 'Products',
     bottom: 'Here you can find our latest products.',
   },
-  list: [1, 2, 3, 4, 5, 6, 7, 8, 9],
 };
 
 const Slider = () => {
-  const amountItems = Math.ceil(content.list.length / 2);
+  const navigate = useNavigate();
+  const amountOfProducts = 9;
+  const quantitySteps = Math.ceil(amountOfProducts / 2);
   const [count, setCount] = useState(1);
   const [translateTo, setTranslateTo] = useState(0);
   const refComponent = createRef<HTMLLIElement>();
+  const [products, setProducts] = useState<ISlider[] | null>(null);
+
+  useEffect(() => {
+    fetchProductsForSlider(amountOfProducts)
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch(console.error);
+  }, []);
 
   useEffect(() => {
     if (refComponent.current) {
@@ -30,9 +43,9 @@ const Slider = () => {
     const {name} = event.currentTarget;
 
     if (name === 'next') {
-      setCount(count <= amountItems - 1 ? count + 1 : 1);
+      setCount(count <= quantitySteps - 1 ? count + 1 : 1);
     } else {
-      setCount(count >= 2 ? count - 1 : amountItems);
+      setCount(count >= 2 ? count - 1 : quantitySteps);
     }
   };
 
@@ -46,30 +59,41 @@ const Slider = () => {
             </Typography>
             {content.title.bottom}
           </Typography>
-          <Box sx={slider.navigation}>
-            <IconButton onClick={handleClick} name="back" sx={slider.button} aria-label="previous-products">
+          <Box sx={slider.info.navigation}>
+            <IconButton onClick={handleClick} name="back" sx={slider.info.button} aria-label="previous-products">
               <Arrow color={'white'} direction={'left'} size={'l'} />
             </IconButton>
-            <Typography sx={slider.count} component="span">
-              {count}/{amountItems}
+            <Typography sx={slider.info.count} component="span">
+              {count}/{quantitySteps}
             </Typography>
-            <IconButton onClick={handleClick} name="next" sx={slider.button} aria-label="next-products">
+            <IconButton onClick={handleClick} name="next" sx={slider.info.button} aria-label="next-products">
               <Arrow color={'white'} direction={'right'} size={'l'} />
             </IconButton>
           </Box>
         </Box>
         <Box sx={slider.box}>
           <List sx={[slider.list, {transform: `translate3d(-${(count - 1) * translateTo}px, 0px, 0px)`}]}>
-            {content.list.map((item, i) => (
+            {products?.map((item, i) => (
               <ListItem
-                sx={[
-                  slider.item,
-                  i + 1 > count * 2 ? {opacity: 0.25} : {},
-                  i + 2 < count * 2 ? {opacity: 0} : {}]}
+                sx={[slider.list.item, i + 1 > count * 2 ? {opacity: 0.25} : {}, i + 2 < count * 2 ? {opacity: 0} : {}]}
                 key={i}
                 ref={refComponent}
               >
-                {item}
+                <Card sx={slider.list.card} onClick={() => navigate(`/shop/${item.id}`)}>
+                  {item.image ? (
+                    <CardMedia
+                      sx={slider.list.image}
+                      component="img"
+                      image={process.env.REACT_APP_IMG_URL + item.image}
+                    />
+                  ) : (
+                    <CardMedia sx={slider.list.image} component="img" image="http://via.placeholder.com/335" />
+                  )}
+                  <CardContent sx={slider.list.content}>
+                    <Typography sx={slider.list.title} component="p">{item.name}</Typography>
+                    <Arrow color={'#008f38'} direction={'right'} size={'s'}/>
+                  </CardContent>
+                </Card>
               </ListItem>
             ))}
           </List>

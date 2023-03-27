@@ -16,6 +16,32 @@ export const slider = {
     backgroundImage: `url(${bg})`,
     backgroundRepeat: 'no-repeat',
     backgroundPositionY: '-55px',
+
+    button: {
+      '&:hover': {
+        '& i::before': {
+          backgroundColor: 'white',
+        },
+        '& i::after': {
+          borderColor: '#008f38',
+        },
+      },
+    },
+
+    navigation: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      height: '100%',
+      marginTop: 'auto',
+    },
+
+    count: {
+      color: 'white',
+      fontWeight: 400,
+      fontSize: '1.6rem',
+      lineHeight: 1.2,
+    },
   },
 
   title: {
@@ -33,14 +59,6 @@ export const slider = {
     },
   },
 
-  navigation: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    height: '100%',
-    marginTop: 'auto',
-  },
-
   box: {
     width: '66.6%',
   },
@@ -53,33 +71,54 @@ export const slider = {
     display: 'flex',
     width: '2790px',
     height: '100%',
-    backgroundColor: 'red',
     padding: '0 0 1px',
-  },
 
-  item: {
-    width: '292px',
-    height: '100%',
-    marginLeft: '18px',
-    backgroundColor: 'blue',
-    color: 'white',
-  },
+    item: {
+      width: '292px',
+      height: '100%',
+      marginLeft: '18px',
+      padding: 0,
+      color: 'white',
+    },
 
-  button: {
-    '&:hover': {
-      '& i::before': {
-        backgroundColor: 'white',
-      },
-      '& i::after': {
-        borderColor: '#008f38',
+    card: {
+      width: '100%',
+      height: '100%',
+      borderRadius: 0,
+      margin: 0,
+
+      '&:hover': {
+        cursor: 'pointer',
+        '& i': {
+          '&::before': {
+            backgroundColor: '#008f38',
+          },
+          '&::after': {
+            borderColor: 'white',
+          },
+        },
+        '& .MuiTypography-root': {
+          color: '#008f38',
+          textDecoration: 'underline',
+        },
       },
     },
-  },
 
-  count: {
-    color: 'white',
-    fontWeight: 400,
-    fontSize: '1.6rem',
-    lineHeight: 1.2,
+    image: {
+      width: '100%',
+      height: '202px',
+    },
+
+    content: {
+      padding: '36px 27px 33px',
+    },
+
+    title: {
+      marginBottom: '29px',
+      fontWeight: 300,
+      fontSize: '25px',
+      textTransform: 'uppercase',
+      color: '#6f6f6f',
+    },
   },
 };
