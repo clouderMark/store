@@ -1,4 +1,5 @@
 import {queryTablet} from '../../../commonContent/queryTablet';
+import {queryMobile} from '../query';
 
 export const button = {
   display: 'flex',
@@ -26,6 +27,13 @@ export const button = {
     height: '55px',
     padding: '5px',
   },
+
+  [`@media (max-width: ${queryMobile}px)`]: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    marginLeft: 0,
+  },
+
   '&.active': {
     '.box': {
       backgroundColor: '#008f38',
