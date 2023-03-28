@@ -42,8 +42,9 @@ const Slider = () => {
     if (refComponent.current) {
       const {width} = refComponent.current.getBoundingClientRect();
       const margin = parseInt(getComputedStyle(refComponent.current).marginLeft);
+      const translate = matchesMobile ? (width + margin) * 2 : (width + margin);
 
-      setTranslateTo((width + margin) * 2);
+      setTranslateTo(translate);
     }
   }, [refComponent]);
 
@@ -71,12 +72,29 @@ const Slider = () => {
     const isRightSwipe = distance < -minSwipeDistance;
 
     if (isLeftSwipe) {
-      setCount(count >= 2 ? count - 1 : quantitySteps);
+      setCount(count <= quantitySteps - 1 ? count + 1 : 1);
     }
 
     if (isRightSwipe) {
-      setCount(count <= quantitySteps - 1 ? count + 1 : 1);
+      setCount(count >= 2 ? count - 1 : quantitySteps);
     }
+  };
+
+  const getOpacity = (item: number, counter: number, queryTablet: boolean, queryMobile: boolean) => {
+    interface IResult {
+      opacity?: number;
+    }
+    const result: IResult = {};
+
+    if (item + 1 > counter * 2 && queryTablet) {
+      result.opacity = 0.25;
+    }
+
+    if (item + 2 < counter * 2 && queryMobile) {
+      result.opacity = 0;
+    }
+
+    return result;
   };
 
   return (
@@ -114,8 +132,9 @@ const Slider = () => {
               <ListItem
                 sx={[
                   slider.list.item,
-                  i + 1 > count * 2 && matchesTablet ? {opacity: 0.25} : {},
-                  i + 2 < count * 2 ? {opacity: 0} : {},
+                  // i + 1 > count * 2 && matchesTablet ? {opacity: 0.25} : {},
+                  // i + 2 < count * 2 ? {opacity: 0} : {},
+                  getOpacity(i, count, matchesTablet, matchesMobile),
                 ]}
                 key={i}
                 ref={refComponent}

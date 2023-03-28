@@ -108,6 +108,8 @@ export const slider = {
     width: '2790px',
     height: '100%',
     padding: '0 0 1px',
+    transitionDuration: '.5s',
+    transitionProperty: 'transform',
 
     [`@media (max-width: ${queryTablet}px)`]: {
       width: '196vw',
@@ -127,6 +129,8 @@ export const slider = {
       marginLeft: '18px',
       padding: 0,
       color: 'white',
+      transitionDuration: '.5s',
+      transitionProperty: 'opacity',
     },
 
     card: {
