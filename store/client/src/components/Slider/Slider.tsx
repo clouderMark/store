@@ -110,13 +110,13 @@ const Slider = () => {
             </Typography>
             <Box sx={slider.info.navigation}>
               <IconButton onClick={handleClick} name="back" sx={slider.info.button} aria-label="previous-products">
-                <Arrow color={'white'} direction={'left'} size={'l'} />
+                <Arrow color={'white'} direction={'left'} size={48} />
               </IconButton>
               <Typography sx={slider.info.count} component="span">
                 {count}/{quantitySteps}
               </Typography>
               <IconButton onClick={handleClick} name="next" sx={slider.info.button} aria-label="next-products">
-                <Arrow color={'white'} direction={'right'} size={'l'} />
+                <Arrow color={'white'} direction={'right'} size={48} />
               </IconButton>
             </Box>
           </Box>
@@ -132,8 +132,6 @@ const Slider = () => {
               <ListItem
                 sx={[
                   slider.list.item,
-                  // i + 1 > count * 2 && matchesTablet ? {opacity: 0.25} : {},
-                  // i + 2 < count * 2 ? {opacity: 0} : {},
                   getOpacity(i, count, matchesTablet, matchesMobile),
                 ]}
                 key={i}
@@ -153,7 +151,7 @@ const Slider = () => {
                     <Typography sx={slider.list.title} component="p">
                       {item.name}
                     </Typography>
-                    <Arrow color={'#008f38'} direction={'right'} size={'s'} />
+                    <Arrow color={'#008f38'} direction={'right'} size={31} />
                   </CardContent>
                 </Card>
               </ListItem>
