@@ -1,6 +1,7 @@
 import bg from '../../../image/bg1.png';
 
 const queryTablet = 1425;
+const querySmallTablet = 1023;
 
 export const slider = {
   container: {
@@ -10,6 +11,10 @@ export const slider = {
 
     [`@media (max-width: ${queryTablet}px)`]: {
       height: '25.8vw',
+    },
+
+    [`@media (max-width: ${querySmallTablet}px)`]: {
+      height: '30vw',
     },
   },
 
@@ -28,6 +33,11 @@ export const slider = {
 
     [`@media (max-width: ${queryTablet}px)`]: {
       padding: '40px 40px 37px',
+    },
+
+    [`@media (max-width: ${querySmallTablet}px)`]: {
+      width: '50%',
+      padding: '55px 40px 37px',
     },
 
     button: {
@@ -76,6 +86,10 @@ export const slider = {
 
   box: {
     width: '66.6%',
+
+    [`@media (max-width: ${querySmallTablet}px)`]: {
+      width: '50%',
+    },
   },
 
   wrapper: {
@@ -90,6 +104,10 @@ export const slider = {
 
     [`@media (max-width: ${queryTablet}px)`]: {
       width: '196vw',
+    },
+
+    [`@media (max-width: ${querySmallTablet}px)`]: {
+      width: '217vw',
     },
 
     item: {
@@ -147,6 +165,10 @@ export const slider = {
       fontSize: '25px',
       textTransform: 'capitalize',
       color: '#6f6f6f',
+
+      [`@media (max-width: ${querySmallTablet}px)`]: {
+        fontSize: 'calc(1.28125rem + .375vw)',
+      },
     },
   },
 };
