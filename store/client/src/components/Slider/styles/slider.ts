@@ -177,6 +177,22 @@ export const slider = {
       [`@media (max-width: ${queryTablet}px)`]: {
         padding: '24px 20px 22px',
       },
+
+      '@media (max-width: 650px)': {
+        padding: '2px 20px 2px',
+      },
+
+      '@media (max-width: 410px)': {
+        '& i': {
+          width: '20px',
+          height: '20px',
+
+          '&::after': {
+            top: '6px',
+            left: '5px',
+          },
+        },
+      },
     },
 
     title: {
