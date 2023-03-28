@@ -26,6 +26,10 @@ const Slider = () => {
   const refComponent = createRef<HTMLLIElement>();
   const [products, setProducts] = useState<ISlider[] | null>(null);
 
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const minSwipeDistance = 50;
+
   useEffect(() => {
     fetchProductsForSlider(amountOfProducts)
       .then((data) => {
@@ -50,6 +54,28 @@ const Slider = () => {
       setCount(count <= quantitySteps - 1 ? count + 1 : 1);
     } else {
       setCount(count >= 2 ? count - 1 : quantitySteps);
+    }
+  };
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null);
+    setTouchStart(e.targetTouches[0].clientX);
+  };
+
+  const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX);
+
+  const onTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    const distance = touchStart - touchEnd;
+    const isLeftSwipe = distance > minSwipeDistance;
+    const isRightSwipe = distance < -minSwipeDistance;
+
+    if (isLeftSwipe) {
+      setCount(count >= 2 ? count - 1 : quantitySteps);
+    }
+
+    if (isRightSwipe) {
+      setCount(count <= quantitySteps - 1 ? count + 1 : 1);
     }
   };
 
@@ -78,7 +104,12 @@ const Slider = () => {
           </Box>
         ) : null}
         <Box sx={slider.box}>
-          <List sx={[slider.list, {transform: `translate3d(-${(count - 1) * translateTo}px, 0px, 0px)`}]}>
+          <List
+            onTouchStart={onTouchStart}
+            onTouchMove={onTouchMove}
+            onTouchEnd={onTouchEnd}
+            sx={[slider.list, {transform: `translate3d(-${(count - 1) * translateTo}px, 0px, 0px)`}]}
+          >
             {products?.map((item, i) => (
               <ListItem
                 sx={[
