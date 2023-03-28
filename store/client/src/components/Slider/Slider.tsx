@@ -6,6 +6,7 @@ import {fetchProductsForSlider} from '../../http/catalogAPI';
 import {slider} from './styles/slider';
 import Arrow from '../Arrow/Arrow';
 import {ISlider} from '../../types/types';
+import {queryTablet, queryMobile} from './query';
 
 const content = {
   title: {
@@ -16,7 +17,8 @@ const content = {
 
 const Slider = () => {
   const navigate = useNavigate();
-  const matchesTablet = useMediaQuery('(min-width: 1425px)', {noSsr: true});
+  const matchesTablet = useMediaQuery(`(min-width: ${queryTablet}px)`, {noSsr: true});
+  const matchesMobile = useMediaQuery(`(min-width: ${queryMobile}px)`, {noSsr: true});
   const amountOfProducts = 9;
   const quantitySteps = Math.ceil(amountOfProducts / 2);
   const [count, setCount] = useState(1);
@@ -54,25 +56,27 @@ const Slider = () => {
   return (
     <Box sx={slider.wrapper}>
       <Container sx={slider.container} maxWidth={false}>
-        <Box sx={slider.info}>
-          <Typography sx={slider.info.title} component="h3">
-            <Typography sx={slider.info.title.span} component="span">
-              {content.title.top}
+        {matchesMobile ? (
+          <Box sx={slider.info}>
+            <Typography sx={slider.info.title} component="h3">
+              <Typography sx={slider.info.title.span} component="span">
+                {content.title.top}
+              </Typography>
+              {content.title.bottom}
             </Typography>
-            {content.title.bottom}
-          </Typography>
-          <Box sx={slider.info.navigation}>
-            <IconButton onClick={handleClick} name="back" sx={slider.info.button} aria-label="previous-products">
-              <Arrow color={'white'} direction={'left'} size={'l'} />
-            </IconButton>
-            <Typography sx={slider.info.count} component="span">
-              {count}/{quantitySteps}
-            </Typography>
-            <IconButton onClick={handleClick} name="next" sx={slider.info.button} aria-label="next-products">
-              <Arrow color={'white'} direction={'right'} size={'l'} />
-            </IconButton>
+            <Box sx={slider.info.navigation}>
+              <IconButton onClick={handleClick} name="back" sx={slider.info.button} aria-label="previous-products">
+                <Arrow color={'white'} direction={'left'} size={'l'} />
+              </IconButton>
+              <Typography sx={slider.info.count} component="span">
+                {count}/{quantitySteps}
+              </Typography>
+              <IconButton onClick={handleClick} name="next" sx={slider.info.button} aria-label="next-products">
+                <Arrow color={'white'} direction={'right'} size={'l'} />
+              </IconButton>
+            </Box>
           </Box>
-        </Box>
+        ) : null}
         <Box sx={slider.box}>
           <List sx={[slider.list, {transform: `translate3d(-${(count - 1) * translateTo}px, 0px, 0px)`}]}>
             {products?.map((item, i) => (

@@ -1,7 +1,5 @@
 import bg from '../../../image/bg1.png';
-
-const queryTablet = 1425;
-const querySmallTablet = 1023;
+import {queryTablet, querySmallTablet, queryMobile} from '../query';
 
 export const slider = {
   container: {
@@ -15,6 +13,11 @@ export const slider = {
 
     [`@media (max-width: ${querySmallTablet}px)`]: {
       height: '30vw',
+    },
+
+    [`@media (max-width: ${queryMobile}px)`]: {
+      height: '71.5vw',
+      paddingLeft: 0,
     },
   },
 
@@ -90,6 +93,10 @@ export const slider = {
     [`@media (max-width: ${querySmallTablet}px)`]: {
       width: '50%',
     },
+
+    [`@media (max-width: ${queryMobile}px)`]: {
+      width: '100%',
+    },
   },
 
   wrapper: {
@@ -108,6 +115,10 @@ export const slider = {
 
     [`@media (max-width: ${querySmallTablet}px)`]: {
       width: '217vw',
+    },
+
+    [`@media (max-width: ${queryMobile}px)`]: {
+      width: '753vw',
     },
 
     item: {
@@ -146,6 +157,10 @@ export const slider = {
     image: {
       width: '100%',
       height: '55%',
+
+      [`@media (max-width: ${queryMobile}px)`]: {
+        height: '76%',
+      },
     },
 
     content: {
