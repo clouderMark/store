@@ -44,7 +44,7 @@ export interface IProductWithProps extends IProduct {
   solution: ICatalogItem;
   industry: ICatalogItem;
   area: ICatalogItem;
-  props: IProperty[]
+  props: IProperty[];
 }
 
 export interface IRating {
@@ -54,39 +54,39 @@ export interface IRating {
 }
 
 export interface IProperty extends ICatalogItem {
-  productId: number,
-  value: string,
+  productId: number;
+  value: string;
 }
 
 export interface IOrderBody {
-  address: string,
-  comment: string | null,
-  email: string,
-  name: string,
-  phone: string,
+  address: string;
+  comment: string | null;
+  email: string;
+  name: string;
+  phone: string;
 }
 
 export interface IOrder extends IOrderBody {
-  amount: number,
-  createdAt: string,
-  id: number,
-  prettyCreatedAt: string,
-  prettyUpdatedAt: string,
-  status: number,
-  updatedAt: string,
-  userId: null | number,
+  amount: number;
+  createdAt: string;
+  id: number;
+  prettyCreatedAt: string;
+  prettyUpdatedAt: string;
+  status: number;
+  updatedAt: string;
+  userId: null | number;
 }
 
 export interface IOrderWithItems extends IOrder {
-  items: IItem[],
+  items: IItem[];
 }
 
 export interface IRegistration {
-  email: string,
-  exp?: number,
-  iat?: number
-  id: number
-  role: 'USER' | 'ADMIN',
+  email: string;
+  exp?: number;
+  iat?: number;
+  id: number;
+  role: 'USER' | 'ADMIN';
 }
 
 export interface IObject {
@@ -129,7 +129,7 @@ export interface IValid {
 
 export interface IProductProp {
   id: null | number;
-  name: string
+  name: string;
   value: string;
   unique: string;
   append: boolean;
@@ -155,4 +155,10 @@ export interface ISubscribe {
   email: string;
   id: number;
   updatedAt: string;
+}
+
+export interface ISlider {
+  id: number;
+  name: string;
+  image: string;
 }

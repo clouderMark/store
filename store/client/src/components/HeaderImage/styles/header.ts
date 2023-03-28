@@ -73,7 +73,7 @@ export const header = {
         height: '100%',
         border: '3px solid #a3d8dd',
         top: '20px',
-        left: '20px',
+        left: '16px',
       },
     },
 

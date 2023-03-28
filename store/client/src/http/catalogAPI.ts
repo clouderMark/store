@@ -8,6 +8,7 @@ import {
   IRating,
   IProperty,
   IProductProp,
+  ISlider,
 } from '../types/types';
 
 // Создание, обновление, удаление индустрии, получение списка всех индустрий
@@ -142,6 +143,16 @@ export const fetchAllProducts = async (
     params: {
       // GET-параметры для постраничной навигации
       page,
+      limit,
+    },
+  });
+
+  return data;
+};
+
+export const fetchProductsForSlider = async (limit: number): Promise<ISlider[]> => {
+  const {data} = await guestInstance.get('product/slider', {
+    params: {
       limit,
     },
   });

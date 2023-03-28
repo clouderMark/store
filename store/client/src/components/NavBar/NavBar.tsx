@@ -31,6 +31,7 @@ import TabletMenu from './TabletMenu';
 import {IconTextField} from '../IconTextField';
 import {container} from './styles/container';
 import {queryTablet} from '../../commonContent/queryTablet';
+import {queryMobile} from './query';
 import {list} from './styles/list';
 import DesctopSubMenu from './DesctopSubMenu';
 
@@ -38,20 +39,17 @@ const NavBar = observer(() => {
   const {user, basket} = useAppContext();
   const matchesMenu = useMediaQuery(`(min-width:${queryTablet}px)`, {noSsr: true});
   const matchesNews = useMediaQuery('(min-width:830px)', {noSsr: true});
+  const matchesMobile = useMediaQuery(`(min-width:${queryMobile}px)`, {noSsr: true});
   const [anchorElListItem, setAnchorListItem] = useState<null | HTMLElement>(null);
   const [link, setLink] = useState('');
   const [items, setItems] = useState<IItems[]>([]);
 
   interface IItems {
-    link: string,
-    content: string,
+    link: string;
+    content: string;
   }
 
-  const handleClickDesctopMenu = (
-    event: React.MouseEvent<HTMLElement>,
-    to: string,
-    items: IItems[],
-  ) => {
+  const handleClickDesctopMenu = (event: React.MouseEvent<HTMLElement>, to: string, items: IItems[]) => {
     setAnchorListItem(event.currentTarget);
     setLink(to);
     setItems(items);
@@ -78,7 +76,9 @@ const NavBar = observer(() => {
                 ) : (
                   <NavBarButton title="Войти" route="login" icon={<PersonOutlineOutlinedIcon />} />
                 )}
-                {user.isAdmin && <NavBarButton title="Управление" route="admin" icon={<AnchorIcon />} />}
+                {user.isAdmin && matchesMobile ? (
+                  <NavBarButton title="Управление" route="admin" icon={<AnchorIcon />} />
+                ) : null}
                 <NavBarButton
                   title="Корзина"
                   route="basket"
