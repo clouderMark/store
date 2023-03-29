@@ -4,7 +4,7 @@ import {Box, Typography, Button} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import image from './image/startseite-header.jpg';
 import {header} from './styles/header';
-import {queryTablet} from '../../commonContent/queryTablet';
+import {queryTablet} from '../commonContent/queryTablet';
 import {content} from './content';
 
 const HeaderImage = () => {

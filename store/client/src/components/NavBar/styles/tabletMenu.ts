@@ -1,4 +1,4 @@
-import {queryTablet} from '../../../commonContent/queryTablet';
+import {queryTablet} from '../../commonContent/queryTablet';
 
 export const tabletMenu = {
   paper: {
