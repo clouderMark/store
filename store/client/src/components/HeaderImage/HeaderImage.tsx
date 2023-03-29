@@ -34,7 +34,7 @@ const HeaderImage = () => {
             to={`/${content.button.to}`}
             sx={header.button}
             variant="contained"
-            color="secondary"
+            color="second"
           >
             {content.button.content}
           </Button>

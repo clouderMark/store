@@ -1,6 +1,61 @@
-import {createTheme} from '@mui/material/styles';
+import {createTheme, PaletteColorOptions, PaletteColor, lighten} from '@mui/material/styles';
+
+declare module '@mui/material/styles' {
+  interface PaletteOptions {
+    first?: PaletteColorOptions;
+    second?: PaletteColorOptions;
+    third?: PaletteColorOptions;
+  }
+
+  interface Palette {
+    first: PaletteColor;
+    second: PaletteColor;
+    third: PaletteColor;
+  }
+
+  interface ButtonPropsColorOverrides {
+    first: true;
+    second: true;
+    third: true;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    first: true;
+    second: true;
+    third: true;
+  }
+}
+
+const globalTheme = createTheme({
+  palette: {
+    first: {
+      main: '#008f38',
+    },
+    second: {
+      main: '#a3d8dd',
+    },
+    third: {
+      main: '#fff',
+      light: lighten('#fff', 0.6),
+    },
+  },
+});
 
 export const theme = createTheme({
+  palette: {
+    first: {
+      main: globalTheme.palette.first.main,
+    },
+    second: {
+      main: globalTheme.palette.second.main,
+    },
+    third: {
+      main: globalTheme.palette.third.main,
+      light: globalTheme.palette.third.light,
+    },
+  },
   components: {
     MuiButton: {
       styleOverrides: {
@@ -17,31 +72,49 @@ export const theme = createTheme({
       },
       variants: [
         {
-          props: {variant: 'contained', color: 'primary'},
+          props: {variant: 'contained', color: 'first'},
           style: {
-            backgroundColor: '#008f38',
+            backgroundColor: globalTheme.palette.first.main,
             borderRadius: 0,
             height: '54px',
             padding: '25px',
-            color: 'white',
+            color: globalTheme.palette.third.main,
 
             '&:hover': {
               backgroundColor: '#007146',
-              color: 'white',
+              color: globalTheme.palette.third.main,
             },
           },
         },
         {
-          props: {variant: 'contained', color: 'secondary'},
+          props: {variant: 'contained', color: 'second'},
           style: {
-            backgroundColor: '#a3d8dd',
+            backgroundColor: globalTheme.palette.second.main,
             borderRadius: 0,
             height: '54px',
             padding: '25px',
             color: '#292929',
 
             '&:hover': {
-              backgroundColor: 'white',
+              backgroundColor: globalTheme.palette.third.main,
+            },
+          },
+        },
+        {
+          props: {variant: 'contained', color: 'third'},
+          style: {
+            height: '54px',
+            padding: '25px',
+            backgroundColor: globalTheme.palette.third.main,
+            borderRadius: 0,
+            color: globalTheme.palette.first.main,
+            '&:hover': {
+              backgroundColor: globalTheme.palette.third.light,
+              color: globalTheme.palette.first.main,
+            },
+            '&:active': {
+              backgroundColor: globalTheme.palette.third.main,
+              color: globalTheme.palette.first.main,
             },
           },
         },

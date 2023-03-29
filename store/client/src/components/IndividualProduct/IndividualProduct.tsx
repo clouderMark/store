@@ -22,6 +22,8 @@ const IndividualProduct = () => (
       component={NavLink}
       to="/services"
       sx={button}
+      variant='contained'
+      color='third'
     >
       к разработке продуктов
     </Button>
