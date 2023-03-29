@@ -1,4 +1,4 @@
-import {aboutList} from '../../commonContent/aboutList';
+import {aboutList} from '../commonContent/aboutList';
 
 interface IArticle {
   link: string;

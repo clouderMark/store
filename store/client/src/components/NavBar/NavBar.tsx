@@ -30,7 +30,7 @@ import {NavBarButton} from './NavBarButton';
 import TabletMenu from './TabletMenu';
 import {IconTextField} from '../IconTextField';
 import {container} from './styles/container';
-import {queryTablet} from '../../commonContent/queryTablet';
+import {queryTablet} from '../commonContent/queryTablet';
 import {queryMobile} from './query';
 import {list} from './styles/list';
 import DesctopSubMenu from './DesctopSubMenu';
