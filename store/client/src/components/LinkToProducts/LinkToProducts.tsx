@@ -13,7 +13,7 @@ const LinkToProducts = () => (
       <Typography sx={linkToProducts.p} component="p">
         {content.row2.p}
       </Typography>
-      <Button component={NavLink} to={`/${content.row2.button.to}`} sx={linkToProducts.button}>
+      <Button component={NavLink} to={`/${content.row2.button.to}`} variant='contained' color='primary'>
         {content.row2.button.content}
       </Button>
     </Box>

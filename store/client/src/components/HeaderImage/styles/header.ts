@@ -107,15 +107,7 @@ export const header = {
   },
 
   button: {
-    padding: '10px 20px',
     marginTop: '25px',
-    backgroundColor: '#a3d8dd',
-    borderRadius: 0,
-    color: '#292929',
-
-    '&:hover': {
-      backgroundColor: 'white',
-    },
 
     [`@media (max-width: ${queryTablet}px)`]: {
       marginTop: '1.125rem',

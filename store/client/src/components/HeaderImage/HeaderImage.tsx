@@ -29,7 +29,13 @@ const HeaderImage = () => {
               </React.Fragment>
             ))}
           </Typography>
-          <Button component={NavLink} to={`/${content.button.to}`} sx={header.button}>
+          <Button
+            component={NavLink}
+            to={`/${content.button.to}`}
+            sx={header.button}
+            variant="contained"
+            color="secondary"
+          >
             {content.button.content}
           </Button>
         </Box>
