@@ -1,4 +1,4 @@
-import {aboutList} from '../../commonContent/aboutList';
+import {aboutList} from '../commonContent/aboutList';
 import {ReactComponent as linkedin} from './image/linkedin.svg';
 import {ReactComponent as youtube} from './image/youtube-logo.svg';
 

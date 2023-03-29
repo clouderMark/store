@@ -1,5 +1,5 @@
 import pentagon from '../image/pentagon.svg';
-import {queryTablet} from '../../../commonContent/queryTablet';
+import {queryTablet} from '../../commonContent/queryTablet';
 
 const queryMobile = 844;
 

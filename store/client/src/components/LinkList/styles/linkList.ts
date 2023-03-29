@@ -1,6 +1,6 @@
 import bg1 from '../../../image/bg1.png';
 import bg2 from '../../../image/bg2.png';
-import {queryTablet} from '../../../commonContent/queryTablet';
+import {queryTablet} from '../../commonContent/queryTablet';
 
 export const linkList = {
   marginBottom: '100px',
