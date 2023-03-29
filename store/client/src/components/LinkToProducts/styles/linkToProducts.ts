@@ -26,7 +26,7 @@ export const linkToProducts = {
 
   title: {
     width: '40%',
-    fontSize: 'calc(1.35rem + 1.2vw)',
+    fontSize: '35px',
     fontWeight: 300,
     lineHeight: 1.2,
 
