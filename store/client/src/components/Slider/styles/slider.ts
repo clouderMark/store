@@ -5,7 +5,6 @@ export const slider = {
   container: {
     display: 'flex',
     height: '365px',
-    marginBottom: '100px',
 
     [`@media (max-width: ${queryTablet}px)`]: {
       height: '25.8vw',
