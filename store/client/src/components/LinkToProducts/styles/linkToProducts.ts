@@ -1,8 +1,5 @@
 const queryMobile = 732;
 const color = '#6f6f6f';
-const color1 = 'white';
-const colorBtn = '#008f38';
-const colorBtnHover = '#007146';
 
 export const linkToProducts = {
   container: {
@@ -45,18 +42,5 @@ export const linkToProducts = {
   p: {
     marginBottom: '16px',
     fontWeight: 300,
-  },
-
-  button: {
-    backgroundColor: colorBtn,
-    borderRadius: 0,
-    height: '54px',
-    padding: '25px',
-    color: color1,
-
-    '&:hover': {
-      backgroundColor: colorBtnHover,
-      color: color1,
-    },
   },
 };

@@ -15,6 +15,37 @@ export const theme = createTheme({
           },
         },
       },
+      variants: [
+        {
+          props: {variant: 'contained', color: 'primary'},
+          style: {
+            backgroundColor: '#008f38',
+            borderRadius: 0,
+            height: '54px',
+            padding: '25px',
+            color: 'white',
+
+            '&:hover': {
+              backgroundColor: '#007146',
+              color: 'white',
+            },
+          },
+        },
+        {
+          props: {variant: 'contained', color: 'secondary'},
+          style: {
+            backgroundColor: '#a3d8dd',
+            borderRadius: 0,
+            height: '54px',
+            padding: '25px',
+            color: '#292929',
+
+            '&:hover': {
+              backgroundColor: 'white',
+            },
+          },
+        },
+      ],
     },
     MuiAppBar: {
       styleOverrides: {
