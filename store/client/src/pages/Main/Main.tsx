@@ -12,10 +12,8 @@ const Main = () => (
     <LinkList />
     <LinkToProducts />
     <Slider />
-    <Box component='p' sx={{width: '100%', display: 'flex', justifyContent: 'center', mt: '70px', mb: '140px'}}>
-      <Button component={NavLink}
-        to={'/shop'}
-        variant="contained" color="first">
+    <Box component="p" sx={{width: '100%', display: 'flex', justifyContent: 'center', mt: '70px', mb: '140px'}}>
+      <Button component={NavLink} to={'/shop'} variant="contained" color="first">
         Смотреть все продукты
       </Button>
     </Box>
