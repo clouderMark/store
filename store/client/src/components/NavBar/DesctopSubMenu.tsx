@@ -42,7 +42,7 @@ const DesctopSubMenu = (props: IProps) => (
     <MenuItem onClick={props.close} sx={listItemMenu.header.wrapper(props.items.length)}>
       <Button
         component={NavLink}
-        to={`/${props.to}`}
+        to={props.to}
         sx={listItemMenu.header}
         endIcon={<ArrowForwardIosOutlinedIcon />}
       >

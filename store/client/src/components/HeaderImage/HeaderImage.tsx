@@ -6,6 +6,7 @@ import image from './image/startseite-header.jpg';
 import {header} from './styles/header';
 import {queryTablet} from '../commonContent/queryTablet';
 import {content} from './content';
+import {EPath} from '../../enums/EPath';
 
 const HeaderImage = () => {
   const matchesTablet = useMediaQuery(`(min-width:${queryTablet}px)`, {noSsr: true});
@@ -31,7 +32,7 @@ const HeaderImage = () => {
           </Typography>
           <Button
             component={NavLink}
-            to={`/${content.button.to}`}
+            to={EPath.Shop}
             sx={header.button}
             variant="contained"
             color="second"

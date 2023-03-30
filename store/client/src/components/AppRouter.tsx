@@ -24,37 +24,38 @@ import AdminMessages from '../pages/AdminMessages';
 import AdminMessage from '../pages/AdminMessage';
 import AdminSubscriptions from '../pages/AdminSubscriptions';
 import Main from '../pages/Main/Main';
+import {EPath} from '../enums/EPath';
 
 const publicRoutes = [
-  {path: '/shop', Component: Shop},
-  {path: '/login', Component: Login},
-  {path: '/signup', Component: Signup},
-  {path: '/shop/:id', Component: Product},
-  {path: '/basket', Component: Basket},
-  {path: '/checkout', Component: Checkout},
-  {path: '/delivery', Component: Delivery},
-  {path: '/contacts', Component: Contacts},
-  {path: '*', Component: NotFound},
-  {path: '/', Component: Main},
+  {path: EPath.Shop, Component: Shop},
+  {path: EPath.Login, Component: Login},
+  {path: EPath.Signup, Component: Signup},
+  {path: EPath.Product, Component: Product},
+  {path: EPath.Basket, Component: Basket},
+  {path: EPath.Checkout, Component: Checkout},
+  {path: EPath.Delivery, Component: Delivery},
+  {path: EPath.Contacts, Component: Contacts},
+  {path: EPath.NotFound, Component: NotFound},
+  {path: EPath.Main, Component: Main},
 ];
 
 const authRoutes = [
-  {path: '/user', Component: User},
-  {path: '/user/orders', Component: UserOrders},
-  {path: 'user/orders/:id', Component: UserOrder},
+  {path: EPath.User, Component: User},
+  {path: EPath.UserOrders, Component: UserOrders},
+  {path: EPath.UserOrder, Component: UserOrder},
 ];
 
 const adminRoutes = [
-  {path: '/admin', Component: Admin},
-  {path: '/admin/orders', Component: AdminOrders},
-  {path: '/admin/orders/:id', Component: AdminOrder},
-  {path: '/admin/industries', Component: AdminIndustries},
-  {path: '/admin/solutions', Component: AdminSolutions},
-  {path: '/admin/areas', Component: AdminAreas},
-  {path: '/admin/products', Component: AdminProducts},
-  {path: '/admin/messages', Component: AdminMessages},
-  {path: '/admin/messages/:id', Component: AdminMessage},
-  {path: '/admin/subscriptions', Component: AdminSubscriptions},
+  {path: EPath.Admin, Component: Admin},
+  {path: EPath.AdminOrders, Component: AdminOrders},
+  {path: EPath.AdminOrder, Component: AdminOrder},
+  {path: EPath.AdminIndustries, Component: AdminIndustries},
+  {path: EPath.AdminSolutions, Component: AdminSolutions},
+  {path: EPath.AdminAreas, Component: AdminAreas},
+  {path: EPath.AdminProducts, Component: AdminProducts},
+  {path: EPath.AdminMessages, Component: AdminMessages},
+  {path: EPath.AdminMessage, Component: AdminMessage},
+  {path: EPath.AdminSubscriptions, Component: AdminSubscriptions},
 ];
 
 const AppRouter = observer(() => {
