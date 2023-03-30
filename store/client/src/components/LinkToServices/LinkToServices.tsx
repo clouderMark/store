@@ -1,9 +1,9 @@
 import {NavLink} from 'react-router-dom';
-import {Box, Typography, Button, List, ListSubheader, ListItem, ListItemText} from '@mui/material';
+import {Box, Typography, Button} from '@mui/material';
 import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwoColumns';
+import ListWithSubheader from '../ListWithSubheader/ListWithSubheader';
 import {linkToServices as styles} from './styles/linkToServices';
 import {content} from './content';
-import {bullet} from '../commonContent/bullet';
 
 const LinkToServices = () => {
   const firstColumn = () => <Box component="img" src={content.column1.image} sx={styles.image} />;
@@ -16,19 +16,10 @@ const LinkToServices = () => {
         </Typography>
         {content.conlumn2.title.bottom}
       </Typography>
-      <List
-        subheader={
-          <ListSubheader component="p" sx={styles.item}>
-            {content.conlumn2.list.header}
-          </ListSubheader>
-        }
-      >
-        {content.conlumn2.list.items.map((el, i) => (
-          <ListItem disablePadding key={i} sx={[styles.item, bullet]}>
-            <ListItemText primary={el} />
-          </ListItem>
-        ))}
-      </List>
+      <ListWithSubheader
+        subheader={content.conlumn2.list.header}
+        items={content.conlumn2.list.items}
+      />
       <Typography component="p" sx={styles.p}>
         {content.conlumn2.p}
       </Typography>

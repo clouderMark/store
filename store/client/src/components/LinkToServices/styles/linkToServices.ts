@@ -22,16 +22,6 @@ export const linkToServices = {
     color: color,
   },
 
-  item: {
-    position: 'static',
-    marginBottom: '15px',
-    fontWeight: 300,
-    fontSize: '18px',
-    padding: 0,
-    color: color,
-    lineHeight: 1.2,
-  },
-
   p: {
     marginBottom: '20px',
     fontSize: '18px',
