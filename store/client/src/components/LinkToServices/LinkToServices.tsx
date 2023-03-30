@@ -5,6 +5,7 @@ import ListWithSubheader from '../ListWithSubheader/ListWithSubheader';
 import {linkToServices as styles} from './styles/linkToServices';
 import {content} from './content';
 import {h6} from '../../styles/h6';
+import {EPath} from '../../enums/EPath';
 
 const LinkToServices = () => {
   const firstColumn = () => <Box component="img" src={content.column1.image} sx={styles.image} />;
@@ -25,7 +26,13 @@ const LinkToServices = () => {
   );
 
   const button = () => (
-    <Button component={NavLink} to={'/'} variant="contained" color="first" sx={{textTransform: 'capitalize'}}>
+    <Button
+      component={NavLink}
+      to={EPath.Services}
+      variant="contained"
+      color="first"
+      sx={{textTransform: 'capitalize'}}
+    >
       {content.conlumn2.title.top}
     </Button>
   );
