@@ -6,13 +6,6 @@ export const linkToServices = {
     height: 'auto',
   },
 
-  titleSpan: {
-    marginBottom: '23px',
-    color: '#008f38',
-    textTransform: 'uppercase',
-    fontWeight: 500,
-  },
-
   title: {
     display: 'flex',
     flexDirection: 'column',

@@ -4,6 +4,7 @@ import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwo
 import ListWithSubheader from '../ListWithSubheader/ListWithSubheader';
 import {linkToServices as styles} from './styles/linkToServices';
 import {content} from './content';
+import {h6} from '../../styles/h6';
 
 const LinkToServices = () => {
   const firstColumn = () => <Box component="img" src={content.column1.image} sx={styles.image} />;
@@ -11,15 +12,12 @@ const LinkToServices = () => {
   const secondColumn = () => (
     <>
       <Typography component="h2" sx={styles.title}>
-        <Typography component="span" sx={styles.titleSpan}>
+        <Typography component="span" sx={h6}>
           {content.conlumn2.title.top}
         </Typography>
         {content.conlumn2.title.bottom}
       </Typography>
-      <ListWithSubheader
-        subheader={content.conlumn2.list.header}
-        items={content.conlumn2.list.items}
-      />
+      <ListWithSubheader subheader={content.conlumn2.list.header} items={content.conlumn2.list.items} />
       <Typography component="p" sx={styles.p}>
         {content.conlumn2.p}
       </Typography>
