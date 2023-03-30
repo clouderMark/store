@@ -23,6 +23,7 @@ export const linkToServices = {
   },
 
   item: {
+    position: 'static',
     marginBottom: '15px',
     fontWeight: 300,
     fontSize: '18px',

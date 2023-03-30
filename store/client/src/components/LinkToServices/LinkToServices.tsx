@@ -1,13 +1,12 @@
 import {NavLink} from 'react-router-dom';
 import {Box, Typography, Button, List, ListSubheader, ListItem, ListItemText} from '@mui/material';
 import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwoColumns';
-import image from './images/diamant-unser-service-450x386.png';
 import {linkToServices as styles} from './styles/linkToServices';
 import {content} from './content';
 import {bullet} from '../commonContent/bullet';
 
 const LinkToServices = () => {
-  const firstColumn = () => <Box component="img" src={image} sx={styles.image} />;
+  const firstColumn = () => <Box component="img" src={content.column1.image} sx={styles.image} />;
 
   const secondColumn = () => (
     <>

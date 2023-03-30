@@ -1,4 +1,9 @@
+import image from './images/diamant-unser-service-450x386.png';
+
 export const content = {
+  column1: {
+    image: image,
+  },
   conlumn2: {
     title: {
       top: 'our service',
