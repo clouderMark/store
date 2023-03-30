@@ -1,9 +1,16 @@
 const color = '#6f6f6f';
+const queryMobile = 732;
 
-export const linkToServices = {
+export const twoColumns = {
   image: {
     width: '100%',
     height: 'auto',
+    marginTop: '80px',
+    marginBottom: '80px',
+
+    [`@media (max-width: ${queryMobile}px)`]: {
+      marginTop: 0,
+    },
   },
 
   title: {
