@@ -7,6 +7,7 @@ export const containerWithTwoColumns = {
     justifyContent: 'space-between',
     color: color,
     paddingBottom: '80px',
+    marginTop: '80px',
 
     [`@media (max-width: ${queryMobile}px)`]: {
       flexDirection: 'column',

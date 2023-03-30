@@ -7,6 +7,7 @@ import Slider from '../../components/Slider/Slider';
 import LinkToServices from '../../components/LinkToServices/LinkToServices';
 import {EPath} from '../../enums/EPath';
 import Quality from '../../components/Quality/Quality';
+import LinkToContactUs from '../../components/LinkToContactUs/LinkToContactUs';
 
 const Main = () => (
   <>
@@ -14,13 +15,14 @@ const Main = () => (
     <LinkList />
     <LinkToProducts />
     <Slider />
-    <Box component="p" sx={{width: '100%', display: 'flex', justifyContent: 'center', mt: '70px', mb: '140px'}}>
+    <Box component="p" sx={{width: '100%', display: 'flex', justifyContent: 'center', mt: '70px', mb: '70px'}}>
       <Button component={NavLink} to={EPath.Shop} variant="contained" color="first">
         Смотреть все продукты
       </Button>
     </Box>
     <LinkToServices />
     <Quality />
+    <LinkToContactUs/>
   </>
 );
 
