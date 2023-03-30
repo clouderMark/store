@@ -3,6 +3,7 @@ import {Typography, Button} from '@mui/material';
 import {linkToProducts} from './styles/linkToProducts';
 import {content} from './content';
 import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwoColumns';
+import {EPath} from '../../enums/EPath';
 
 const LinkToProducts = () => {
   const firstColumn = () => <Typography sx={linkToProducts.title}>{content.row1.title}</Typography>;
@@ -19,7 +20,7 @@ const LinkToProducts = () => {
   );
 
   const button = () => (
-    <Button component={NavLink} to={`/${content.row2.button.to}`} variant="contained" color="first">
+    <Button component={NavLink} to={EPath.Shop} variant="contained" color="first">
       {content.row2.button.content}
     </Button>
   );

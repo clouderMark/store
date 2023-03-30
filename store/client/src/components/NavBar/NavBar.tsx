@@ -34,6 +34,7 @@ import {queryTablet} from '../commonContent/queryTablet';
 import {queryMobile} from './query';
 import {list} from './styles/list';
 import DesctopSubMenu from './DesctopSubMenu';
+import {EPath} from '../../enums/EPath';
 
 const NavBar = observer(() => {
   const {user, basket} = useAppContext();
@@ -65,7 +66,7 @@ const NavBar = observer(() => {
         <AppBar color="inherit">
           <Toolbar>
             <Box sx={[dFlex, justifySB, alignC, {width: '100%'}]}>
-              <Button component={NavLink} to="/" sx={{color: 'inherit'}}>
+              <Button component={NavLink} to={EPath.Main} sx={{color: 'inherit'}}>
                 <Icon className={styles.logo} />
               </Button>
               <Box sx={dFlex}>

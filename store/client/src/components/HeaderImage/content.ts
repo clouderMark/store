@@ -3,6 +3,5 @@ export const content = {
   p: 'DIAMANT MAINTAINS THE WORLD',
   button: {
     content: 'Магазин',
-    to: 'shop',
   },
 };

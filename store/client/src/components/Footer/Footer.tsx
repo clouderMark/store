@@ -18,12 +18,13 @@ import {column} from './styles/column';
 import {ReactComponent as Icon} from '../../image/Logo.svg';
 import styles from './styles/logo.module.css';
 import {content} from './content';
+import {EPath} from '../../enums/EPath';
 
 const Footer = () => (
   <Container maxWidth={false} component="footer">
     <Box sx={footer}>
       <Box sx={column}>
-        <Button component={NavLink} to="/" sx={column.button}>
+        <Button component={NavLink} to={EPath.Main} sx={column.button}>
           <Icon className={styles.logo} />
         </Button>
         <Box component="address" sx={footer.column.address}>
