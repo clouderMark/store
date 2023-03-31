@@ -24,6 +24,7 @@ import AdminMessages from '../pages/AdminMessages';
 import AdminMessage from '../pages/AdminMessage';
 import AdminSubscriptions from '../pages/AdminSubscriptions';
 import Main from '../pages/Main/Main';
+import Branches from '../pages/Branches/Branches';
 import {EPath} from '../enums/EPath';
 
 const publicRoutes = [
@@ -37,6 +38,7 @@ const publicRoutes = [
   {path: EPath.Contacts, Component: Contacts},
   {path: EPath.NotFound, Component: NotFound},
   {path: EPath.Main, Component: Main},
+  {path: EPath.Branches, Component: Branches},
 ];
 
 const authRoutes = [
