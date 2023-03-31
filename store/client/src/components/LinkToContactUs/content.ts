@@ -1,6 +1,8 @@
 import image from './images/diamant-qualitaet-450x386.png';
+import {EPath} from '../../enums/EPath';
+import {ITwoColumnContent} from '../../types/types';
 
-export const content = {
+export const content: ITwoColumnContent = {
   column1: {
     image: image,
   },
@@ -25,9 +27,19 @@ export const content = {
       ],
     }, // eslint-disable-next-line
     p: 'Would you like to learn more about the advantages of our products and services? Contact us now. Our experienced staff will be happy to help you. Contact us',
-    button: {
-      first: 'contact us',
-      second: 'learn more about DIAMANT',
-    },
+    buttons: [
+      {
+        content: 'contact us',
+        color: 'first',
+        variant: 'contained',
+        to: EPath.Contacts,
+      },
+      {
+        content: 'learn more about DIAMANT',
+        color: 'first',
+        variant: 'outlined',
+        to: EPath.Contacts,
+      },
+    ],
   },
 };

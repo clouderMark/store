@@ -1,8 +1,6 @@
-import {NavLink} from 'react-router-dom';
-import {Button} from '@mui/material';
 import {content} from './content';
-import {EPath} from '../../enums/EPath';
 import TwoColumns from '../TwoColumns/TwoColumns';
+import NavLinkButtons from '../NavLinkButtons/NavLinkButtons';
 
 const buttonStyle = {
   textTransform: 'capitalize',
@@ -10,31 +8,8 @@ const buttonStyle = {
   mb: '10px',
 };
 
-const LinkToContactUs = () => {
-  const button = () => (
-    <>
-      <Button
-        component={NavLink}
-        to={EPath.Contacts}
-        variant="contained"
-        color="first"
-        sx={buttonStyle}
-      >
-        {content.column2.button.first}
-      </Button>
-      <Button
-        component={NavLink}
-        to={EPath.About}
-        variant="outlined"
-        color="first"
-        sx={buttonStyle}
-      >
-        {content.column2.button.second}
-      </Button>
-    </>
-  );
-
-  return <TwoColumns content={content} buttons={button} />;
-};
+const LinkToContactUs = () => (
+  <TwoColumns content={content} buttons={<NavLinkButtons buttons={content.column2.buttons} sx={buttonStyle} />} />
+);
 
 export default LinkToContactUs;

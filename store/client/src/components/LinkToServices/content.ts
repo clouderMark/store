@@ -1,6 +1,8 @@
 import image from './images/diamant-unser-service-450x386.png';
+import {EPath} from '../../enums/EPath';
+import {ITwoColumnContent} from '../../types/types';
 
-export const content = {
+export const content: ITwoColumnContent = {
   column1: {
     image: image,
   },
@@ -22,6 +24,13 @@ export const content = {
       ],
     }, // eslint-disable-next-line
     p: 'Our services are as diverse as our products. As a full-service provider, we supply you with everything from a single source, including product development in our own laboratory, technical consulting and installation services. Are you looking for contract manufacturing or a private label product? Here, you are also in good hands with us. We will be happy to support you with the realisation. Benefit from more than 100 years of experience in handling and manufacturing polymer systems.',
-    button: 'our service',
+    buttons: [
+      {
+        content: 'our service',
+        color: 'first',
+        variant: 'contained',
+        to: EPath.Services,
+      },
+    ],
   },
 };

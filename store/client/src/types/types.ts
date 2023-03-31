@@ -162,3 +162,31 @@ export interface ISlider {
   name: string;
   image: string;
 }
+
+export interface IButtons {
+  content: string;
+  color: 'first';
+  variant: 'contained' | 'outlined';
+  to: string;
+}
+
+export interface ITwoColumnContent {
+  column1: {
+    // eslint-disable-next-line
+    image: any;
+  },
+
+  column2: {
+    title: {
+      top: string;
+      bottom: string;
+    },
+    paragraph?: string;
+    list: {
+      header: string;
+      items: string[];
+    },
+    p: string,
+    buttons: IButtons[];
+  },
+}

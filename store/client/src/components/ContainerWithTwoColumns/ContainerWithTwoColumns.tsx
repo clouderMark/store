@@ -4,7 +4,7 @@ import {containerWithTwoColumns as styles} from './styles/containerWithTwoColumn
 interface IProps {
   firstColumn(): JSX.Element;
   secondColumn(): JSX.Element;
-  buttons(): JSX.Element;
+  buttons: JSX.Element;
 }
 
 const ContainerWithTwoColumns = (props: IProps) => (
@@ -13,7 +13,7 @@ const ContainerWithTwoColumns = (props: IProps) => (
     <Box sx={styles.column2}>
       {props.secondColumn()}
       <Box>
-        {props.buttons()}
+        {props.buttons}
       </Box>
     </Box>
   </Container>

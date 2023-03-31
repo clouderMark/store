@@ -23,7 +23,7 @@ interface IProps {
       p: string;
     };
   };
-  buttons(): JSX.Element;
+  buttons: JSX.Element;
 }
 
 const TwoColumns = (props: IProps) => {
