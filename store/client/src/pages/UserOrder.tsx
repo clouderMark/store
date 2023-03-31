@@ -5,6 +5,7 @@ import Propgress from '../components/LinearDeterminate';
 import {userGetOne as getOneOrder} from '../http/orderAPI';
 import Order from '../components/Order/Order';
 import {IOrderWithItems} from '../types/types';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const UserOrder = () => {
   const {id} = useParams();
@@ -20,7 +21,7 @@ const UserOrder = () => {
   }, [id]);
 
   if (fetching) {
-    return <Propgress/>;
+    return <Propgress />;
   }
 
   if (error) {
@@ -28,10 +29,13 @@ const UserOrder = () => {
   }
 
   return (
-    <Container sx={{mt: 2}}>
-      <h1>Заказ № {order?.id}</h1>
-      <Order data={order!} admin={false} />
-    </Container>
+    <>
+      <Breadcrumbs />
+      <Container sx={{mt: 2}}>
+        <h1>Заказ № {order?.id}</h1>
+        <Order data={order!} admin={false} />
+      </Container>
+    </>
   );
 };
 

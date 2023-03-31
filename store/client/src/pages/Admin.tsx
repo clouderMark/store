@@ -2,6 +2,7 @@ import {Container, Button, List, ListItem, ListItemButton, ListItemText, Typogra
 import {Link, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../components/AppContext';
 import {logout} from '../http/userAPI';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 interface ILinks {
   address: string;
@@ -50,22 +51,25 @@ const Admin = () => {
   };
 
   return (
-    <Container sx={{mt: 2}}>
-      <Typography variant="h4">Панель управления</Typography>
-      <Typography variant="body1">Это панель управления магазином для администратора</Typography>
-      <List>
-        {links.map((item, i) => (
-          <ListItem disablePadding key={i}>
-            <ListItemButton component={Link} to={item.address}>
-              <ListItemText primary={item.content} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Button onClick={handleLogout} variant="outlined">
-        Выйти
-      </Button>
-    </Container>
+    <>
+      <Breadcrumbs />
+      <Container sx={{mt: 2}}>
+        <Typography variant="h4">Панель управления</Typography>
+        <Typography variant="body1">Это панель управления магазином для администратора</Typography>
+        <List>
+          {links.map((item, i) => (
+            <ListItem disablePadding key={i}>
+              <ListItemButton component={Link} to={item.address}>
+                <ListItemText primary={item.content} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Button onClick={handleLogout} variant="outlined">
+          Выйти
+        </Button>
+      </Container>
+    </>
   );
 };
 

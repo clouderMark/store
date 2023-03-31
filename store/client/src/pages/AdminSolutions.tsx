@@ -4,6 +4,7 @@ import EditSolution from '../components/EditSolution';
 import {ICatalogItem} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
 import {AdminTable} from '../components/AdminTable/AdminTable';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const AdminSolutions = () => {
   const [solutions, setSolutions] = useState<ICatalogItem[] | null>(null); // список загруженных решений
@@ -33,9 +34,7 @@ const AdminSolutions = () => {
       .catch((error) => console.error(error));
   };
 
-  const Edit = () => (
-    <EditSolution id={solutionId} show={show} setShow={setShow} setChange={setChange} key={1}/>
-  );
+  const Edit = () => <EditSolution id={solutionId} show={show} setShow={setShow} setChange={setChange} key={1} />;
 
   useEffect(() => {
     fetchSolutions()
@@ -48,14 +47,17 @@ const AdminSolutions = () => {
   }
 
   return (
-    <AdminTable
-      title={'solution'}
-      children={[Edit]}
-      handleCreateClick={handleCreateClick}
-      handleUpdateClick={handleUpdateClick}
-      handleDeleteClick={handleDeleteClick}
-      items={solutions!}
-    />
+    <>
+      <Breadcrumbs />
+      <AdminTable
+        title={'solution'}
+        children={[Edit]}
+        handleCreateClick={handleCreateClick}
+        handleUpdateClick={handleUpdateClick}
+        handleDeleteClick={handleDeleteClick}
+        items={solutions!}
+      />
+    </>
   );
 };
 

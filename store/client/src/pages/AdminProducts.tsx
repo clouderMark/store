@@ -6,6 +6,7 @@ import {deleteProduct, fetchAllProducts} from '../http/catalogAPI';
 import {IAllProducts, IProductWithProps, IProduct} from '../types/types.js';
 import Progress from '../components/LinearDeterminate';
 import {AdminTable} from '../components/AdminTable/AdminTable';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 // количество товаров на страницу
 const ADMIN_PER_PAGE = 6;
@@ -58,12 +59,10 @@ const AdminProducts = () => {
     setCreateShow(true);
   };
 
-  const CreateProd = () => (
-    <CreateProduct show={createShow} setShow={setCreateShow} setChange={setChange} key={1}/>
-  );
+  const CreateProd = () => <CreateProduct show={createShow} setShow={setCreateShow} setChange={setChange} key={1} />;
 
   const UpdateProd = () => (
-    <UpdateProduct id={product!} show={updateShow} setShow={setUpdateShow} setChange={setChange} key={2}/>
+    <UpdateProduct id={product!} show={updateShow} setShow={setUpdateShow} setChange={setChange} key={2} />
   );
 
   const Paginator = () => (
@@ -91,15 +90,18 @@ const AdminProducts = () => {
   }
 
   return (
-    <AdminTable
-      title="goods"
-      children={[CreateProd, UpdateProd]}
-      handleCreateClick={handleCreateClick}
-      items={products!}
-      handleUpdateClick={handleUpdateClick}
-      handleDeleteClick={handleDeleteClick}
-      pagination={{totalPages, pagination: Paginator}}
-    />
+    <>
+      <Breadcrumbs />
+      <AdminTable
+        title="goods"
+        children={[CreateProd, UpdateProd]}
+        handleCreateClick={handleCreateClick}
+        items={products!}
+        handleUpdateClick={handleUpdateClick}
+        handleDeleteClick={handleDeleteClick}
+        pagination={{totalPages, pagination: Paginator}}
+      />
+    </>
   );
 };
 

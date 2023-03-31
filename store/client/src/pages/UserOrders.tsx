@@ -3,6 +3,7 @@ import {useState, useEffect} from 'react';
 import {userGetAll as getAllOrders} from '../http/orderAPI';
 import Orders from '../components/Orders/Orders';
 import {IOrder} from '../types/types';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const UserOrders = () => {
   const [orders, setOrders] = useState<IOrder[] | null>(null);
@@ -10,12 +11,8 @@ const UserOrders = () => {
 
   useEffect(() => {
     getAllOrders()
-      .then(
-        (data) => setOrders(data),
-      )
-      .finally(
-        () => setFetching(false),
-      );
+      .then((data) => setOrders(data))
+      .finally(() => setFetching(false));
   }, []);
 
   if (fetching) {
@@ -23,10 +20,13 @@ const UserOrders = () => {
   }
 
   return (
-    <Container>
-      <h1>Ваши заказы</h1>
-      <Orders items={orders!} admin={false} />
-    </Container>
+    <>
+      <Breadcrumbs />
+      <Container>
+        <h1>Ваши заказы</h1>
+        <Orders items={orders!} admin={false} />
+      </Container>
+    </>
   );
 };
 

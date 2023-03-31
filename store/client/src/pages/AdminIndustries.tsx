@@ -4,6 +4,7 @@ import EditIndustry from '../components/EditIndustry';
 import {ICatalogItem} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
 import {AdminTable} from '../components/AdminTable/AdminTable';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const AdminIndustries = () => {
   const [industries, setIndustries] = useState<null | ICatalogItem[]>(null); // список загруженных индустрий
@@ -33,9 +34,7 @@ const AdminIndustries = () => {
       .catch((error) => console.error(error));
   };
 
-  const Edit = () => (
-    <EditIndustry id={industryId} show={show} setShow={setShow} setChange={setChange} key={1}/>
-  );
+  const Edit = () => <EditIndustry id={industryId} show={show} setShow={setShow} setChange={setChange} key={1} />;
 
   useEffect(() => {
     fetchIndustries()
@@ -48,14 +47,17 @@ const AdminIndustries = () => {
   }
 
   return (
-    <AdminTable
-      title={'industry'}
-      children={[Edit]}
-      handleCreateClick={handleCreateClick}
-      handleUpdateClick={handleUpdateClick}
-      handleDeleteClick={handleDeleteClick}
-      items={industries!}
-    />
+    <>
+      <Breadcrumbs />
+      <AdminTable
+        title={'industry'}
+        children={[Edit]}
+        handleCreateClick={handleCreateClick}
+        handleUpdateClick={handleUpdateClick}
+        handleDeleteClick={handleDeleteClick}
+        items={industries!}
+      />
+    </>
   );
 };
 

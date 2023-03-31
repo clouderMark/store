@@ -19,10 +19,8 @@ export const header = {
   image: {
     width: '100%',
     height: '100%',
-    marginTop: '-129px',
 
     [`@media (max-width: ${queryTablet}px)`]: {
-      marginTop: '-116px',
       maxHeight: '423px',
     },
 
@@ -35,7 +33,7 @@ export const header = {
 
   bg: {
     position: 'absolute',
-    top: '-129px',
+    top: 0,
     bottom: 0,
     left: '50%',
     marginLeft: '-51%',
@@ -48,7 +46,7 @@ export const header = {
     position: 'absolute',
     top: '50%',
     left: '50%',
-    marginTop: '-220px',
+    marginTop: '-104px',
     marginLeft: '-680px',
     width: '1400px',
 

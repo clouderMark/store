@@ -4,6 +4,7 @@ import EditArea from '../components/EditArea';
 import {ICatalogItem} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
 import {AdminTable} from '../components/AdminTable/AdminTable';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const AdminAreas = () => {
   const [areas, setAreas] = useState<ICatalogItem[] | null>(null);
@@ -31,9 +32,7 @@ const AdminAreas = () => {
       .catch((error) => console.error(error));
   };
 
-  const Edit = () => (
-    <EditArea id={areaId} show={show} setShow={setShow} setChange={setChange} key={1}/>
-  );
+  const Edit = () => <EditArea id={areaId} show={show} setShow={setShow} setChange={setChange} key={1} />;
 
   useEffect(() => {
     fetchAreas()
@@ -46,14 +45,17 @@ const AdminAreas = () => {
   }
 
   return (
-    <AdminTable
-      title={'area'}
-      children={[Edit]}
-      handleCreateClick={handleCreateClick}
-      handleUpdateClick={handleUpdateClick}
-      handleDeleteClick={handleDeleteClick}
-      items={areas!}
-    />
+    <>
+      <Breadcrumbs />
+      <AdminTable
+        title={'area'}
+        children={[Edit]}
+        handleCreateClick={handleCreateClick}
+        handleUpdateClick={handleUpdateClick}
+        handleDeleteClick={handleDeleteClick}
+        items={areas!}
+      />
+    </>
   );
 };
 

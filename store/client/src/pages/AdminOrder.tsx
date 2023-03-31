@@ -5,6 +5,7 @@ import {adminGetOne as getOneOrder} from '../http/orderAPI';
 import Order from '../components/Order/Order';
 import {IOrderWithItems} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const AdminOrder = () => {
   const {id} = useParams();
@@ -28,10 +29,13 @@ const AdminOrder = () => {
   }
 
   return (
-    <Container sx={{mt: 2}}>
-      <Typography variant="h4"> Заказ № {order?.id}</Typography>
-      <Order data={order!} admin={true} />
-    </Container>
+    <>
+      <Breadcrumbs />
+      <Container sx={{mt: 2}}>
+        <Typography variant="h4"> Заказ № {order?.id}</Typography>
+        <Order data={order!} admin={true} />
+      </Container>
+    </>
   );
 };
 

@@ -4,6 +4,7 @@ import {Container, Typography, Button} from '@mui/material';
 import Propgress from '../components/LinearDeterminate';
 import {adminGetOneMessage, adminDelete} from '../http/contactAPI';
 import {IMessage} from '../types/types';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const AdminMessage = () => {
   const {id} = useParams();
@@ -38,23 +39,24 @@ const AdminMessage = () => {
   }
 
   return (
-    <Container sx={{mt: 2}}>
-      <Typography variant="h4"> Сообщение № {message?.id}</Typography>
-      <Typography variant="body1">От: {message?.name}</Typography>
-      <Typography variant="body1">Компания: {message?.company}</Typography>
-      <Typography variant="body1">Тип вопроса: {message?.type === 'commercial' ? 'коммерческий' : 'личный'}</Typography>
-      <Typography variant="body1">Как со мной связаться: </Typography>
-      <Typography variant="body1">телефон: {message?.phone}</Typography>
-      <Typography variant="body1">mail: {message?.email}</Typography>
-      <Typography variant="body1">Тема вопроса: {message?.question}</Typography>
-      <Button
-        variant="outlined"
-        onClick={() => handleDeleteClick(message!.id)}
-        color="warning"
-      >
-        Удалить
-      </Button>
-    </Container>
+    <>
+      <Breadcrumbs />
+      <Container sx={{mt: 2}}>
+        <Typography variant="h4"> Сообщение № {message?.id}</Typography>
+        <Typography variant="body1">От: {message?.name}</Typography>
+        <Typography variant="body1">Компания: {message?.company}</Typography>
+        <Typography variant="body1">
+          Тип вопроса: {message?.type === 'commercial' ? 'коммерческий' : 'личный'}
+        </Typography>
+        <Typography variant="body1">Как со мной связаться: </Typography>
+        <Typography variant="body1">телефон: {message?.phone}</Typography>
+        <Typography variant="body1">mail: {message?.email}</Typography>
+        <Typography variant="body1">Тема вопроса: {message?.question}</Typography>
+        <Button variant="outlined" onClick={() => handleDeleteClick(message!.id)} color="warning">
+          Удалить
+        </Button>
+      </Container>
+    </>
   );
 };
 

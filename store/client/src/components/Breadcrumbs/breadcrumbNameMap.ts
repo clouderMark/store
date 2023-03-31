@@ -30,6 +30,8 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
     [EPath.AdminMessages]: 'Сообщения пользователей',
     [EPath.AdminSubscriptions]: 'Подписки',
     [EPath.Branches]: 'Области',
+    [EPath.Signup]: 'Регистрация',
+    [EPath.Login]: 'Войти',
   },
 
   getName(name, product) {

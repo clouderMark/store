@@ -4,13 +4,14 @@ import {Board} from '../components/Board';
 import Progress from '../components/LinearDeterminate';
 import {adminGetAllSubscriptions, adminDeleteSubscription} from '../http/subscription';
 import {ISubscribe} from '../types/types';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const content: IContent = {
   tableHead: ['№', 'Подписавшиеся', 'Дата подписки'],
 };
 
 interface IContent {
-  tableHead: string[],
+  tableHead: string[];
 }
 
 const AdminSubscription = () => {
@@ -67,10 +68,13 @@ const AdminSubscription = () => {
   }
 
   return (
-    <Container sx={{mt: 2}} maxWidth={false}>
-      <Typography variant="h4">Все подписки</Typography>
-      <Board tableHeadCells={TableHeadCells} tableBodyCells={BodyCells} />
-    </Container>
+    <>
+      <Breadcrumbs />
+      <Container sx={{mt: 2}} maxWidth={false}>
+        <Typography variant="h4">Все подписки</Typography>
+        <Board tableHeadCells={TableHeadCells} tableBodyCells={BodyCells} />
+      </Container>
+    </>
   );
 };
 

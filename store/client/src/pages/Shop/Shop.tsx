@@ -15,6 +15,7 @@ import Shipping from '../../components/Shipping/Shipping';
 import Contact from '../../components/Contact/Contact';
 import Newsletter from '../../components/Newsletter/Newsletter';
 import Footer from '../../components/Footer/Footer';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const getSearchParams = (
   searchParams: URLSearchParams,
@@ -175,6 +176,7 @@ const Shop = observer(() => {
 
   return (
     <>
+      <Breadcrumbs/>
       <Container maxWidth={false} sx={{paddingBottom: '100px'}}>
         {!barQueryDesctop ? (
           <Button onClick={openDrawer} sx={button.filters} startIcon={<TuneRoundedIcon />}>

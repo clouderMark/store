@@ -3,6 +3,7 @@ import React, {useEffect, FormEvent} from 'react';
 import {Button, Card, Container, Form, Row} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../components/AppContext';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 import {login} from '../http/userAPI';
 
 const Login = observer(() => {
@@ -29,30 +30,25 @@ const Login = observer(() => {
   };
 
   return (
-    <Container className="d-flex justify-content-center">
-      <Card style={{width: '50%'}} className="p-2 mt-5 bg-light">
-        <h3 className="m-auto">Авторизация</h3>
-        <Form className="d-flex flex-column" onSubmit={handleSubmit}>
-          <Form.Control
-            name="email"
-            className="mt-3"
-            placeholder="Введите ваш email..."
-          />
-          <Form.Control
-            name="password"
-            className="mt-3"
-            placeholder="Введите ваш пароль..."
-          />
-          <Row className="d-flex justify-content-between mt-2 mb-2 p-3">
-            <Button type="submit">Войти</Button>
-            <p>
-              Нет аккаунта?
-              <Link to="/signup">Зарегистрируйтесь!</Link>
-            </p>
-          </Row>
-        </Form>
-      </Card>
-    </Container>
+    <>
+      <Breadcrumbs />
+      <Container className="d-flex justify-content-center">
+        <Card style={{width: '50%'}} className="p-2 mt-5 bg-light">
+          <h3 className="m-auto">Авторизация</h3>
+          <Form className="d-flex flex-column" onSubmit={handleSubmit}>
+            <Form.Control name="email" className="mt-3" placeholder="Введите ваш email..." />
+            <Form.Control name="password" className="mt-3" placeholder="Введите ваш пароль..." />
+            <Row className="d-flex justify-content-between mt-2 mb-2 p-3">
+              <Button type="submit">Войти</Button>
+              <p>
+                Нет аккаунта?
+                <Link to="/signup">Зарегистрируйтесь!</Link>
+              </p>
+            </Row>
+          </Form>
+        </Card>
+      </Container>
+    </>
   );
 });
 

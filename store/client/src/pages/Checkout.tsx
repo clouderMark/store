@@ -6,6 +6,7 @@ import {useAppContext} from '../components/AppContext';
 import {check as checkAuth} from '../http/userAPI';
 import {guestCreate, userCreate} from '../http/orderAPI';
 import {IOrderWithItems} from '../types/types';
+import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
 
 const isValid = (input: HTMLInputElement): boolean => {
   let pattern;
@@ -25,14 +26,20 @@ const isValid = (input: HTMLInputElement): boolean => {
       return pattern.test(input.value.trim());
     case 'address':
       return input.value.trim() !== '';
-    default: return false;
+    default:
+      return false;
   }
 };
 
 const defaultValid = {name: null, email: null, phone: null, address: null};
 const defaultValue = {name: '', email: '', phone: '', address: ''};
 
-interface IDefaultValid {name: null | boolean, email: null | boolean, phone: null | boolean, address: null | boolean}
+interface IDefaultValid {
+  name: null | boolean;
+  email: null | boolean;
+  phone: null | boolean;
+  address: null | boolean;
+}
 
 const Checkout = () => {
   const {user, basket} = useAppContext();
@@ -46,7 +53,9 @@ const Checkout = () => {
   useEffect(() => {
     // если корзина пуста тут делать нечего
     fetchBasket()
-      .then((data) => { basket.products = data.products; })
+      .then((data) => {
+        basket.products = data.products;
+      })
       .finally(() => setFetching(false));
     checkAuth()
       .then((data) => {
@@ -115,50 +124,53 @@ const Checkout = () => {
   };
 
   return (
-    <Container>
-      {basket.count === 0 && <Navigate to="/basket" replace={true} />}
-      <h1 className="mb-4 mt-4">Оформление заказа</h1>
-      <Form noValidate onSubmit={handleSubmit}>
-        <Form.Control
-          name="name"
-          value={value.name}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-          isValid={valid.name === true}
-          isInvalid={valid.name === false}
-          placeholder="Петров Петр"
-          className="mb-3"
-        />
-        <Form.Control
-          name="email"
-          value={value.email}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-          isValid={valid.email === true}
-          isInvalid={valid.email === false}
-          placeholder="example@mail.by"
-          className="mb-3"
-        />
-        <Form.Control
-          name="phone"
-          value={value.phone}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-          isValid={valid.phone === true}
-          isInvalid={valid.phone === false}
-          placeholder="+375(25) 123-45-67"
-          className="mb-3"
-        />
-        <Form.Control
-          name="address"
-          value={value.address}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-          isValid={valid.address === true}
-          isInvalid={valid.address === false}
-          placeholder="Введите адрес доставки..."
-          className="mb-3"
-        />
-        <Form.Control name="comment" className="mb-3" placeholder="Комментрарии к заказу" />
-        <Button type="submit">Отправить</Button>
-      </Form>
-    </Container>
+    <>
+      <Breadcrumbs />
+      <Container>
+        {basket.count === 0 && <Navigate to="/basket" replace={true} />}
+        <h1 className="mb-4 mt-4">Оформление заказа</h1>
+        <Form noValidate onSubmit={handleSubmit}>
+          <Form.Control
+            name="name"
+            value={value.name}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
+            isValid={valid.name === true}
+            isInvalid={valid.name === false}
+            placeholder="Петров Петр"
+            className="mb-3"
+          />
+          <Form.Control
+            name="email"
+            value={value.email}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
+            isValid={valid.email === true}
+            isInvalid={valid.email === false}
+            placeholder="example@mail.by"
+            className="mb-3"
+          />
+          <Form.Control
+            name="phone"
+            value={value.phone}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
+            isValid={valid.phone === true}
+            isInvalid={valid.phone === false}
+            placeholder="+375(25) 123-45-67"
+            className="mb-3"
+          />
+          <Form.Control
+            name="address"
+            value={value.address}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
+            isValid={valid.address === true}
+            isInvalid={valid.address === false}
+            placeholder="Введите адрес доставки..."
+            className="mb-3"
+          />
+          <Form.Control name="comment" className="mb-3" placeholder="Комментрарии к заказу" />
+          <Button type="submit">Отправить</Button>
+        </Form>
+      </Container>
+    </>
   );
 };
 
