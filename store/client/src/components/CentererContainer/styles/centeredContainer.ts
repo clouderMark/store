@@ -29,6 +29,7 @@ export const centeredContainer = {
     justifyContent: 'center',
     '& img': {
       margin: '16px',
+      height: '83px',
     },
   },
 };
