@@ -1,6 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {observer} from 'mobx-react-lite';
-import {AppBar, Toolbar, Container, Box, Button, Divider} from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  Container,
+  Box,
+  Button,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {NavLink} from 'react-router-dom';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
@@ -16,15 +27,38 @@ import {dFlex, justifySB, alignC} from '../../styles/flex';
 import {ReactComponent as Icon} from '../../image/Logo.svg';
 import {StyledBadge} from './StyledBadge';
 import {NavBarButton} from './NavBarButton';
-import {ArticlesMenu} from './ArticlesMenu';
+import TabletMenu from './TabletMenu';
 import {IconTextField} from '../IconTextField';
 import {container} from './styles/container';
-import {queryMenu} from './queryMenu';
+import {queryTablet} from '../commonContent/queryTablet';
+import {queryMobile} from './query';
+import {list} from './styles/list';
+import DesctopSubMenu from './DesctopSubMenu';
+import {EPath} from '../../enums/EPath';
 
 const NavBar = observer(() => {
   const {user, basket} = useAppContext();
-  const matchesMenu = useMediaQuery(`(min-width:${queryMenu}px)`, {noSsr: true});
+  const matchesMenu = useMediaQuery(`(min-width:${queryTablet}px)`, {noSsr: true});
   const matchesNews = useMediaQuery('(min-width:830px)', {noSsr: true});
+  const matchesMobile = useMediaQuery(`(min-width:${queryMobile}px)`, {noSsr: true});
+  const [anchorElListItem, setAnchorListItem] = useState<null | HTMLElement>(null);
+  const [link, setLink] = useState('');
+  const [items, setItems] = useState<IItems[]>([]);
+
+  interface IItems {
+    link: string;
+    content: string;
+  }
+
+  const handleClickDesctopMenu = (event: React.MouseEvent<HTMLElement>, to: string, items: IItems[]) => {
+    setAnchorListItem(event.currentTarget);
+    setLink(to);
+    setItems(items);
+  };
+
+  const handleCloseDesctopMenu = () => {
+    setAnchorListItem(null);
+  };
 
   return (
     <>
@@ -32,7 +66,7 @@ const NavBar = observer(() => {
         <AppBar color="inherit">
           <Toolbar>
             <Box sx={[dFlex, justifySB, alignC, {width: '100%'}]}>
-              <Button component={NavLink} to="/" sx={{color: 'inherit'}}>
+              <Button component={NavLink} to={EPath.Main} sx={{color: 'inherit'}}>
                 <Icon className={styles.logo} />
               </Button>
               <Box sx={dFlex}>
@@ -43,7 +77,9 @@ const NavBar = observer(() => {
                 ) : (
                   <NavBarButton title="Войти" route="login" icon={<PersonOutlineOutlinedIcon />} />
                 )}
-                {user.isAdmin && <NavBarButton title="Управление" route="admin" icon={<AnchorIcon />} />}
+                {user.isAdmin && matchesMobile ? (
+                  <NavBarButton title="Управление" route="admin" icon={<AnchorIcon />} />
+                ) : null}
                 <NavBarButton
                   title="Корзина"
                   route="basket"
@@ -53,24 +89,27 @@ const NavBar = observer(() => {
                     </StyledBadge>
                   }
                 />
-                {!matchesMenu ? <ArticlesMenu /> : null}
+                {!matchesMenu ? <TabletMenu /> : null}
               </Box>
             </Box>
             {matchesMenu ? (
               <Box sx={[{mt: 1.2}, dFlex, justifySB, alignC, {width: '100%'}]}>
-                <Box>
+                <List sx={list}>
                   {articles.map((article) => (
-                    <Button component={NavLink} to={`/${article.link}`} key={article.link}>
-                      {article.title}
-                    </Button>
+                    <ListItem key={article.link} sx={list.item}>
+                      <ListItemButton onClick={(e) => handleClickDesctopMenu(e, article.link, article.list)}>
+                        <ListItemText primary={article.title} />
+                      </ListItemButton>
+                    </ListItem>
                   ))}
-                </Box>
+                </List>
                 <IconTextField
                   label="Введите строку поиска"
                   variant="standard"
                   sx={{width: 410, height: 63}}
                   icon={<SearchIcon />}
                 />
+                <DesctopSubMenu anchor={anchorElListItem} close={handleCloseDesctopMenu} to={link} items={items} />
               </Box>
             ) : null}
           </Toolbar>

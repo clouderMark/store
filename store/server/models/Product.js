@@ -5,6 +5,7 @@ import FileService from '../services/File.js'
 import { Solution as SolutionMapping } from './mapping.js'
 import { Industry as IndustryMapping } from './mapping.js'
 import { Area as AreaMapping } from './mapping.js'
+import sequelize from '../sequelize.js';
 
 class Product {
     async getAll(options) {
@@ -26,6 +27,16 @@ class Product {
             ]
         })
         return products
+    }
+
+    async getForSlider(limit) {
+        const products = await ProductMapping.findAll({
+            attributes: ['id', 'name', 'image'],
+            order: sequelize.random(),
+            limit,
+        });
+
+        return products;
     }
 
     async getOne(id) {

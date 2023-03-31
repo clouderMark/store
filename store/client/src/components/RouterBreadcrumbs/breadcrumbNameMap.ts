@@ -1,4 +1,5 @@
 import CurrentProductStore from '../../store/ProductItemStore';
+import {EPath} from '../../enums/EPath';
 
 interface IBreadcrumbNameMap {
   allNames: {[key: string]: string};
@@ -7,38 +8,38 @@ interface IBreadcrumbNameMap {
 
 const breadcrumbNameMap: IBreadcrumbNameMap = {
   allNames: {
-    '/shop': 'Магазин',
+    [EPath.Shop]: 'Магазин',
     '/shop/ ': 'Продукт',
-    '/basket': 'Корзина',
-    '/checkout': 'Оформление',
-    '/delivery': 'Доставка',
-    '/contacts': 'Контакты',
-    '*': 'Страница не найдена',
-    '/user': 'Кабинет',
-    '/user/orders': 'Заказы',
-    '/news': 'Новости',
-    '/about': 'О нас',
-    '/admin': 'Управление',
-    '/admin/orders': 'Заказы',
-    '/admin/industries': 'Индустрии',
-    '/admin/solutions': 'Решения',
-    '/admin/areas': 'Области',
-    '/admin/products': 'Товары',
-    '/services': 'Сервисы',
-    '/areas': 'Области',
-    '/admin/messages': 'Сообщения пользователей',
-    '/admin/subscriptions': 'Подписки',
+    [EPath.Basket]: 'Корзина',
+    [EPath.Checkout]: 'Оформление',
+    [EPath.Delivery]: 'Доставка',
+    [EPath.Contacts]: 'Контакты',
+    [EPath.NotFound]: 'Страница не найдена',
+    [EPath.User]: 'Кабинет',
+    [EPath.UserOrders]: 'Заказы',
+    [EPath.News]: 'Новости',
+    [EPath.About]: 'О нас',
+    [EPath.Admin]: 'Управление',
+    [EPath.AdminOrders]: 'Заказы',
+    [EPath.AdminIndustries]: 'Индустрии',
+    [EPath.AdminSolutions]: 'Решения',
+    [EPath.AdminAreas]: 'Области',
+    [EPath.AdminProducts]: 'Товары',
+    [EPath.Services]: 'Сервисы',
+    [EPath.Areas]: 'Области',
+    [EPath.AdminMessages]: 'Сообщения пользователей',
+    [EPath.AdminSubscriptions]: 'Подписки',
   },
 
   getName(name, product) {
     let crumb;
     const path = name.split('/');
 
-    if (path.includes('shop') && +path.slice(-1) >= 0) {
+    if (path.includes(EPath.Shop.slice(1)) && +path.slice(-1) >= 0) {
       crumb = product.name.charAt(0).toUpperCase() + product.name.slice(1);
-    } else if (path.includes('messages') && +path.slice(-1) >= 0) {
+    } else if (path.includes(EPath.AdminMessages.split('/').at(-1)!) && +path.slice(-1) >= 0) {
       crumb = `Сообщение №${path.slice(-1)}`;
-    } else if (path.includes('orders') && +path.slice(-1) >= 0) {
+    } else if (path.includes(EPath.AdminOrders.split('/').at(-1)!) && +path.slice(-1) >= 0) {
       crumb = `Заказ №${path.slice(-1)}`;
     } else {
       crumb = this.allNames[name];

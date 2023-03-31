@@ -102,7 +102,7 @@ const Contact = () => {
               />
             ))}
           </Box>
-          <Button type="submit" sx={form.button}>
+          <Button type="submit" sx={form.button} variant='contained' color='third'>
             {formContent.button}
           </Button>
         </Box>

@@ -45,20 +45,7 @@ export const form = {
     },
   },
   button: {
-    height: '54px',
-    padding: '25px',
     marginTop: '50px',
-    backgroundColor: 'white',
-    borderRadius: 0,
-    color: '#008f38',
-    '&:hover': {
-      backgroundColor: 'rgba(255, 255, 255, 0.6)',
-      color: '#008f38',
-    },
-    '&:active': {
-      backgroundColor: 'white',
-      color: '#008f38',
-    },
   },
   control: {
     display: 'block',
