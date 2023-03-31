@@ -10,6 +10,9 @@ import LinkToContactUs from '../../components/LinkToContactUs/LinkToContactUs';
 import CenteredContainer from '../../components/CentererContainer/CentererContainer';
 import {quality} from '../../components/commonContent/quality';
 import {partnership} from '../../components/commonContent/partnerships';
+import Contact from '../../components/Contact/Contact';
+import Newsletter from '../../components/Newsletter/Newsletter';
+import Footer from '../../components/Footer/Footer';
 
 const Main = () => (
   <>
@@ -26,6 +29,9 @@ const Main = () => (
     <CenteredContainer content={quality} />
     <LinkToContactUs />
     <CenteredContainer content={partnership} />
+    <Contact />
+    <Newsletter />
+    <Footer />
   </>
 );
 
