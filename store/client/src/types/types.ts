@@ -190,3 +190,16 @@ export interface ITwoColumnContent {
     buttons: IButtons[];
   },
 }
+
+export interface ICentererContainer {
+  title: string;
+  header: string;
+  content: string;
+  images: IImages[]
+}
+
+interface IImages {
+  // eslint-disable-next-line
+  img: any;
+  alt: string;
+}

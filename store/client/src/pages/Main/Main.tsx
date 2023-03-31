@@ -6,8 +6,9 @@ import LinkToProducts from '../../components/LinkToProducts/LinkToProducts';
 import Slider from '../../components/Slider/Slider';
 import LinkToServices from '../../components/LinkToServices/LinkToServices';
 import {EPath} from '../../enums/EPath';
-import Quality from '../../components/Quality/Quality';
 import LinkToContactUs from '../../components/LinkToContactUs/LinkToContactUs';
+import CenteredContainer from '../../components/CentererContainer/CentererContainer';
+import {quality} from '../../components/commonContent/quality';
 
 const Main = () => (
   <>
@@ -21,7 +22,7 @@ const Main = () => (
       </Button>
     </Box>
     <LinkToServices />
-    <Quality />
+    <CenteredContainer content={quality} />
     <LinkToContactUs/>
   </>
 );

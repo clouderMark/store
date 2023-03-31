@@ -1,8 +1,9 @@
 import img1 from '../../image/TUeV_Sued_logo-100x100.png';
 import img2 from '../../image/abz.png';
 import img3 from '../../image/hy.png';
+import {ICentererContainer} from '../../types/types';
 
-export const content = {
+export const quality: ICentererContainer = {
   title: 'Quality',
   header: 'DIAMANT – Manufacturer with certification',
   content:

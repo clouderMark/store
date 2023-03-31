@@ -1,29 +1,26 @@
 import {Container, Box, Typography} from '@mui/material';
 import {centeredContainer} from './styles/centeredContainer';
 import {h6} from '../../styles/h6';
-
-interface IImages {
-  img: any; //eslint-disable-line
-  alt: string;
-}
+import {ICentererContainer} from '../../types/types';
 
 interface IProps {
-  title: string;
-  header: string;
-  content: string;
-  images: IImages[];
+  content: ICentererContainer
 }
 
-const CenteredContainer = (props: IProps) => (
+const CentererContainer = (props: IProps) => (
   <Box component="section" sx={centeredContainer}>
     <Container sx={centeredContainer.container}>
       <Typography component="p" sx={h6}>
-        {props.title}
+        {props.content.title}
       </Typography>
-      <Typography component="h3" sx={centeredContainer.header}>{props.header}</Typography>
-      <Typography component="p" sx={centeredContainer.content}>{props.content}</Typography>
+      <Typography component="h3" sx={centeredContainer.header}>
+        {props.content.header}
+      </Typography>
+      <Typography component="p" sx={centeredContainer.content}>
+        {props.content.content}
+      </Typography>
       <Typography component="p" sx={centeredContainer.images}>
-        {props.images.map((img, i) => (
+        {props.content.images.map((img, i) => (
           <Box component="img" src={img.img} alt={img.alt} key={i} />
         ))}
       </Typography>
@@ -32,4 +29,4 @@ const CenteredContainer = (props: IProps) => (
   </Box>
 );
 
-export default CenteredContainer;
+export default CentererContainer;
