@@ -1,10 +1,68 @@
-import {createTheme} from '@mui/material/styles';
+import {createTheme, PaletteColorOptions, PaletteColor, lighten} from '@mui/material/styles';
+
+declare module '@mui/material/styles' {
+  interface PaletteOptions {
+    first?: PaletteColorOptions;
+    second?: PaletteColorOptions;
+    third?: PaletteColorOptions;
+  }
+
+  interface Palette {
+    first: PaletteColor;
+    second: PaletteColor;
+    third: PaletteColor;
+  }
+
+  interface ButtonPropsColorOverrides {
+    first: true;
+    second: true;
+    third: true;
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    first: true;
+    second: true;
+    third: true;
+  }
+}
+
+const globalTheme = createTheme({
+  palette: {
+    first: {
+      main: '#008f38',
+    },
+    second: {
+      main: '#a3d8dd',
+    },
+    third: {
+      main: '#fff',
+      light: lighten('#fff', 0.6),
+    },
+  },
+});
 
 export const theme = createTheme({
+  palette: {
+    first: {
+      main: globalTheme.palette.first.main,
+    },
+    second: {
+      main: globalTheme.palette.second.main,
+    },
+    third: {
+      main: globalTheme.palette.third.main,
+      light: globalTheme.palette.third.light,
+    },
+  },
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
+          height: '54px',
+          padding: '25px',
+          borderRadius: 0,
           color: '#6f6f6f',
           fontWeight: 400,
           fontSize: '1.125rem',
@@ -15,6 +73,58 @@ export const theme = createTheme({
           },
         },
       },
+      variants: [
+        {
+          props: {variant: 'contained', color: 'first'},
+          style: {
+            backgroundColor: globalTheme.palette.first.main,
+            color: globalTheme.palette.third.main,
+
+            '&:hover': {
+              backgroundColor: '#007146',
+              color: globalTheme.palette.third.main,
+            },
+          },
+        },
+        {
+          props: {variant: 'contained', color: 'second'},
+          style: {
+            backgroundColor: globalTheme.palette.second.main,
+            color: '#292929',
+
+            '&:hover': {
+              backgroundColor: globalTheme.palette.third.main,
+            },
+          },
+        },
+        {
+          props: {variant: 'contained', color: 'third'},
+          style: {
+            backgroundColor: globalTheme.palette.third.main,
+            color: globalTheme.palette.first.main,
+            '&:hover': {
+              backgroundColor: globalTheme.palette.third.light,
+              color: globalTheme.palette.first.main,
+            },
+            '&:active': {
+              backgroundColor: globalTheme.palette.third.main,
+              color: globalTheme.palette.first.main,
+            },
+          },
+        },
+        {
+          props: {variant: 'outlined', color: 'first'},
+          style: {
+            backgroundColor: globalTheme.palette.third.main,
+            borderColor: globalTheme.palette.first.main,
+            color: globalTheme.palette.first.main,
+
+            '&:hover': {
+              backgroundColor: globalTheme.palette.third.light,
+            },
+          },
+        },
+      ],
     },
     MuiAppBar: {
       styleOverrides: {

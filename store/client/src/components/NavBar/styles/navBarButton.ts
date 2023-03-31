@@ -1,4 +1,5 @@
-import {queryMenu} from '../queryMenu';
+import {queryTablet} from '../../commonContent/queryTablet';
+import {queryMobile} from '../query';
 
 export const button = {
   display: 'flex',
@@ -21,11 +22,18 @@ export const button = {
       color: 'white',
     },
   },
-  [`@media (max-width: ${queryMenu}px)`]: {
+  [`@media (max-width: ${queryTablet}px)`]: {
     fontSize: 0,
     height: '55px',
     padding: '5px',
   },
+
+  [`@media (max-width: ${queryMobile}px)`]: {
+    paddingLeft: 0,
+    paddingRight: 0,
+    marginLeft: 0,
+  },
+
   '&.active': {
     '.box': {
       backgroundColor: '#008f38',

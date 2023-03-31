@@ -106,17 +106,6 @@ export const box = {
   },
 
   button: {
-    height: `${height}px`,
-    paddingLeft: '30px',
-    paddingRight: '30px',
-    backgroundColor: colorButton,
-    borderRadius: 0,
-    color: color,
-    '&:hover': {
-      color: color,
-      backgroundColor: colorButtonHover,
-    },
-
     [`@media (max-width: ${tabletSize}px)`]: {
       marginLeft: '-10px',
       marginTop: '40px',

@@ -58,7 +58,7 @@ const Newsletter = () => {
             error={valid === false}
             onChange={(e: ChangeEvent<HTMLInputElement>) => handleInputChange(e)}
           />
-          <Button type="submit" sx={box.button}>
+          <Button type="submit" sx={box.button} variant='contained' color='first'>
             {content.button}
           </Button>
         </Box>

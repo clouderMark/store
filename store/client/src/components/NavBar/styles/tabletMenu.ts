@@ -1,4 +1,4 @@
-import {queryMenu} from '../queryMenu';
+import {queryTablet} from '../../commonContent/queryTablet';
 
 export const tabletMenu = {
   paper: {
@@ -10,7 +10,7 @@ export const tabletMenu = {
 
   box: {
     pt: 0.7,
-    [`@media (max-width: ${queryMenu}px)`]: {
+    [`@media (max-width: ${queryTablet}px)`]: {
       pt: 0,
     },
   },

@@ -1,4 +1,5 @@
-import {aboutList} from '../../commonContent/aboutList';
+import {aboutList} from '../commonContent/aboutList';
+import {EPath} from '../../enums/EPath';
 
 interface IArticle {
   link: string;
@@ -13,37 +14,37 @@ interface IList {
 
 export const articles: IArticle[] = [
   {
-    link: 'branches',
+    link: EPath.Branches,
     title: 'Отрасли',
     list: [],
   },
   {
-    link: 'areas',
+    link: EPath.Areas,
     title: 'Области',
     list: [],
   },
   {
-    link: 'shop',
+    link: EPath.Shop,
     title: 'Продукты',
     list: [],
   },
   {
-    link: 'services',
+    link: EPath.Services,
     title: 'Наши сервисы',
     list: [],
   },
   {
-    link: 'delivery',
+    link: EPath.Delivery,
     title: 'Доставка',
     list: [],
   },
   {
-    link: 'about',
+    link: EPath.About,
     title: 'О нас',
     list: aboutList,
   },
   {
-    link: 'contacts',
+    link: EPath.Contacts,
     title: 'Контакты',
     list: [],
   },

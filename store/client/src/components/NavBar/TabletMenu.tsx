@@ -69,7 +69,7 @@ const TabletMenu = () => {
                 {article.list.map((el, i) => (
                   <ListItemButton
                     component={NavLink}
-                    to={`/${el.link}`}
+                    to={el.link}
                     onClick={handleCloseNavMenu}
                     key={i}
                     sx={tabletMenu.submenu.item}

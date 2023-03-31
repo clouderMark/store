@@ -18,3 +18,9 @@ declare module '*.png' {
   const value: any;
   export = value;
 }
+
+declare module '*.jpg' {
+  // eslint-disable-next-line
+  const value: any;
+  export = value;
+}
