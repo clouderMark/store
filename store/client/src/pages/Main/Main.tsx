@@ -9,6 +9,7 @@ import {EPath} from '../../enums/EPath';
 import LinkToContactUs from '../../components/LinkToContactUs/LinkToContactUs';
 import CenteredContainer from '../../components/CentererContainer/CentererContainer';
 import {quality} from '../../components/commonContent/quality';
+import {partnership} from '../../components/commonContent/partnerships';
 
 const Main = () => (
   <>
@@ -23,7 +24,8 @@ const Main = () => (
     </Box>
     <LinkToServices />
     <CenteredContainer content={quality} />
-    <LinkToContactUs/>
+    <LinkToContactUs />
+    <CenteredContainer content={partnership} />
   </>
 );
 
