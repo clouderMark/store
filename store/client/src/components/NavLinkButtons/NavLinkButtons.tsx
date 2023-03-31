@@ -10,8 +10,8 @@ interface IProps {
 
 const NavLinkButtons = (props: IProps) => (
   <>
-    {props.buttons.map((el) => (
-      <Button component={NavLink} to={el.to} variant={el.variant} color={el.color} sx={props.sx}>
+    {props.buttons.map((el, i) => (
+      <Button component={NavLink} to={el.to} variant={el.variant} color={el.color} sx={props.sx} key={i}>
         {el.content}
       </Button>
     ))}
