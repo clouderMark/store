@@ -13,7 +13,7 @@ const LinkList = () => (
       <List sx={linkList.list}>
         {content.list.map((item, i) => (
           <ListItem sx={linkList.item} key={i}>
-            <ListItemButton component={NavLink} to={`/${item.to}`} sx={linkList.itemButton}>
+            <ListItemButton component={NavLink} to={item.to} sx={linkList.itemButton}>
               <Typography sx={linkList.title} component="h2">
                 <Typography component="span" sx={h6}>
                   {item.content.top}
