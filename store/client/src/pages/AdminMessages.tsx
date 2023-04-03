@@ -30,30 +30,27 @@ const AdminMessages = () => {
 
   const BodyCells = () => (
     <>
-      <Breadcrumbs />
-      <>
-        {messages?.map((item) => (
-          <TableRow key={item.id} hover>
-            <TableCell scope="row">{item.id}</TableCell>
-            <TableCell>{item.company}</TableCell>
-            <TableCell>{item.name}</TableCell>
-            <TableCell>{item.email}</TableCell>
-            <TableCell>{item.phone}</TableCell>
-            <TableCell>{item.question}</TableCell>
-            <TableCell>{item.type}</TableCell>
-            <TableCell>
-              <Button component={Link} to={`/admin/messages/${item.id}`} variant="outlined">
-                Подробнее
-              </Button>
-            </TableCell>
-            <TableCell>
-              <Button variant="outlined" onClick={() => handleDeleteClick(item.id)} color="warning">
-                Удалить
-              </Button>
-            </TableCell>
-          </TableRow>
-        ))}
-      </>
+      {messages?.map((item) => (
+        <TableRow key={item.id} hover>
+          <TableCell scope="row">{item.id}</TableCell>
+          <TableCell>{item.company}</TableCell>
+          <TableCell>{item.name}</TableCell>
+          <TableCell>{item.email}</TableCell>
+          <TableCell>{item.phone}</TableCell>
+          <TableCell>{item.question}</TableCell>
+          <TableCell>{item.type}</TableCell>
+          <TableCell>
+            <Button component={Link} to={`/admin/messages/${item.id}`} variant="outlined">
+              Подробнее
+            </Button>
+          </TableCell>
+          <TableCell>
+            <Button variant="outlined" onClick={() => handleDeleteClick(item.id)} color="warning">
+              Удалить
+            </Button>
+          </TableCell>
+        </TableRow>
+      ))}
     </>
   );
 
@@ -62,10 +59,13 @@ const AdminMessages = () => {
   }
 
   return (
-    <Container sx={{mt: 2}} maxWidth={false}>
-      <Typography variant="h4">Все сообщения</Typography>
-      <Board tableHeadCells={<TableCells cells={adminMessagesCells} />} tableBodyCells={BodyCells} />
-    </Container>
+    <>
+      <Breadcrumbs />
+      <Container sx={{mt: 2}} maxWidth={false}>
+        <Typography variant="h4">Все сообщения</Typography>
+        <Board tableHeadCells={<TableCells cells={adminMessagesCells} />} tableBodyCells={BodyCells} />
+      </Container>
+    </>
   );
 };
 
