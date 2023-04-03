@@ -12,13 +12,46 @@ const content = {
   title: 'Find the right product for your application',
 };
 
+const content1 = [
+  {
+    image: false,
+    to: '/asdf',
+    name: '123',
+  },
+  {
+    image: false,
+    to: '/asdf',
+    name: '123',
+  },
+  {
+    image: false,
+    to: '/asdf',
+    name: '123',
+  },
+  {
+    image: false,
+    to: '/asdf',
+    name: '123',
+  },
+  {
+    image: false,
+    to: '/asdf',
+    name: '123',
+  },
+  {
+    image: false,
+    to: '/asdf',
+    name: '123',
+  },
+];
+
 const Branches = () => (
   <>
     <CentererImage img={img} />
     <Breadcrumbs />
     <Container maxWidth={false}>
       <StrongWithTitle content={content} />
-      <BranchesList />
+      <BranchesList data={content1}/>
     </Container>
     <Newsletter />
     <Footer />

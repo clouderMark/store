@@ -2,47 +2,20 @@ import {Box, List, ListItem} from '@mui/material';
 import CardItem from '../CardItem/CardItem';
 import {branchesList as styles} from './styles/branchesList';
 
-const content = [
-  {
-    image: false,
-    to: '/asdf',
-    name: '123',
-  },
-  {
-    image: false,
-    to: '/asdf',
-    name: '123',
-  },
-  {
-    image: false,
-    to: '/asdf',
-    name: '123',
-  },
-  {
-    image: false,
-    to: '/asdf',
-    name: '123',
-  },
-  {
-    image: false,
-    to: '/asdf',
-    name: '123',
-  },
-  {
-    image: false,
-    to: '/asdf',
-    name: '123',
-  },
-];
+interface IProps {
+  data: {
+    to: string;
+    // eslint-disable-next-line
+    image: any;
+    name: string;
+  }[];
+}
 
-const BranchesList = () => (
+const BranchesList = (props: IProps) => (
   <Box sx={styles}>
     <List sx={styles.list}>
-      {content.map((el, i) => (
-        <ListItem
-          sx={styles.list.item}
-          key={i}
-        >
+      {props.data.map((el, i) => (
+        <ListItem sx={styles.list.item} key={i}>
           <CardItem to={el.to} image={el.image} name={el.name} />
         </ListItem>
       ))}
