@@ -1,6 +1,6 @@
 import {Route, Routes} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
-import Admin from '../pages/Admin';
+import Admin from '../pages/Admin/Admin';
 import Basket from '../pages/Basket';
 import Product from '../pages/Product';
 import Contacts from '../pages/Contacts';
@@ -25,6 +25,7 @@ import AdminMessage from '../pages/AdminMessage';
 import AdminSubscriptions from '../pages/AdminSubscriptions';
 import Main from '../pages/Main/Main';
 import Branches from '../pages/Branches/Branches';
+import AdminBranches from '../pages/AdminBranches';
 import {EPath} from '../enums/EPath';
 
 const publicRoutes = [
@@ -58,6 +59,7 @@ const adminRoutes = [
   {path: EPath.AdminMessages, Component: AdminMessages},
   {path: EPath.AdminMessage, Component: AdminMessage},
   {path: EPath.AdminSubscriptions, Component: AdminSubscriptions},
+  {path: EPath.AdminBranches, Component: AdminBranches},
 ];
 
 const AppRouter = observer(() => {

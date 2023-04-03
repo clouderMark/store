@@ -23,6 +23,7 @@ export enum EPath {
   AdminMessage = '/admin/messages/:id',
   AdminSubscriptions = '/admin/subscriptions',
   Branches = '/branches',
+  AdminBranches = '/admin/branches',
   Areas = '/areas',
   Services = '/services',
   About = '/about',
