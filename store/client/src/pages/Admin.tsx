@@ -3,6 +3,7 @@ import {Link, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../components/AppContext';
 import {logout} from '../http/userAPI';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import {EPath} from '../enums/EPath';
 
 interface ILinks {
   address: string;
@@ -11,31 +12,31 @@ interface ILinks {
 
 const links: ILinks[] = [
   {
-    address: '/admin/orders',
+    address: EPath.AdminOrders,
     content: 'Заказы в магазине',
   },
   {
-    address: '/admin/industries',
+    address: EPath.AdminIndustries,
     content: 'Индустрии каталога',
   },
   {
-    address: '/admin/solutions',
+    address: EPath.AdminSolutions,
     content: 'Решения каталога',
   },
   {
-    address: '/admin/areas',
+    address: EPath.AdminAreas,
     content: 'Области применения',
   },
   {
-    address: '/admin/products',
+    address: EPath.AdminProducts,
     content: 'Товары каталога',
   },
   {
-    address: '/admin/messages',
+    address: EPath.AdminMessages,
     content: 'Сообщения пользователей',
   },
   {
-    address: '/admin/subscriptions',
+    address: EPath.AdminSubscriptions,
     content: 'Подписки',
   },
 ];
@@ -47,7 +48,7 @@ const Admin = () => {
   const handleLogout = (): void => {
     logout();
     user.logout();
-    navigate('/login', {replace: true});
+    navigate(EPath.Login, {replace: true});
   };
 
   return (
