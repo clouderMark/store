@@ -1,12 +1,12 @@
 import {Navigate} from 'react-router-dom';
 import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import {Container, Form, Button, Spinner} from 'react-bootstrap';
-import {fetchBasket} from '../http/basketAPI';
-import {useAppContext} from '../components/AppContext';
-import {check as checkAuth} from '../http/userAPI';
-import {guestCreate, userCreate} from '../http/orderAPI';
-import {IOrderWithItems} from '../types/types';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import {fetchBasket} from '../../http/basketAPI';
+import {useAppContext} from '../../components/AppContext';
+import {check as checkAuth} from '../../http/userAPI';
+import {guestCreate, userCreate} from '../../http/orderAPI';
+import {IOrderWithItems} from '../../types/types';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const isValid = (input: HTMLInputElement): boolean => {
   let pattern;

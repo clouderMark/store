@@ -1,13 +1,13 @@
 import {useEffect, useState} from 'react';
 import {Pagination, Stack} from '@mui/material';
-import CreateProduct from '../components/CreateUpdateProduct/CreateProduct';
-import UpdateProduct from '../components/CreateUpdateProduct/UpdateProduct';
-import {deleteProduct, fetchAllProducts} from '../http/catalogAPI';
-import {IAllProducts, IProductWithProps, IProduct} from '../types/types.js';
-import Progress from '../components/LinearDeterminate';
-import {AdminTable} from '../components/AdminTable/AdminTable';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import {productsCells} from '../components/TableCells/cells';
+import CreateProduct from '../../components/CreateUpdateProduct/CreateProduct';
+import UpdateProduct from '../../components/CreateUpdateProduct/UpdateProduct';
+import {deleteProduct, fetchAllProducts} from '../../http/catalogAPI';
+import {IAllProducts, IProductWithProps, IProduct} from '../../types/types.js';
+import Progress from '../../components/LinearDeterminate';
+import {AdminTable} from '../../components/AdminTable/AdminTable';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import {productsCells} from '../../components/TableCells/cells';
 
 // количество товаров на страницу
 const ADMIN_PER_PAGE = 6;

@@ -4,18 +4,18 @@ import {useLocation, useSearchParams, createSearchParams, useNavigate} from 'rea
 import {Container, Box, CircularProgress, Button} from '@mui/material';
 import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import ProductList from '../../components/ProductList';
-import {useAppContext} from '../../components/AppContext';
-import {fetchAllProducts, fetchIndustries, fetchSolutions, fetchAreas} from '../../http/catalogAPI';
+import ProductList from '../../../components/ProductList';
+import {useAppContext} from '../../../components/AppContext';
+import {fetchAllProducts, fetchIndustries, fetchSolutions, fetchAreas} from '../../../http/catalogAPI';
 import {button} from './styles/button';
-import {SearchBar} from '../../components/Bar/SearchBar/SearchBar';
-import {FiltersBar} from '../../components/Bar/FiltersBar/FiltersBar';
-import IndividualProduct from '../../components/IndividualProduct/IndividualProduct';
-import Shipping from '../../components/Shipping/Shipping';
-import Contact from '../../components/Contact/Contact';
-import Newsletter from '../../components/Newsletter/Newsletter';
-import Footer from '../../components/Footer/Footer';
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import {SearchBar} from '../../../components/Bar/SearchBar/SearchBar';
+import {FiltersBar} from '../../../components/Bar/FiltersBar/FiltersBar';
+import IndividualProduct from '../../../components/IndividualProduct/IndividualProduct';
+import Shipping from '../../../components/Shipping/Shipping';
+import Contact from '../../../components/Contact/Contact';
+import Newsletter from '../../../components/Newsletter/Newsletter';
+import Footer from '../../../components/Footer/Footer';
+import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 
 const getSearchParams = (
   searchParams: URLSearchParams,

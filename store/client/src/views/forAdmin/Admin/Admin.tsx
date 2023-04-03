@@ -1,9 +1,9 @@
 import {Container, Button, List, ListItem, ListItemButton, ListItemText, Typography} from '@mui/material';
 import {Link, useNavigate} from 'react-router-dom';
-import {useAppContext} from '../../components/AppContext';
-import {logout} from '../../http/userAPI';
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
-import {EPath} from '../../enums/EPath';
+import {useAppContext} from '../../../components/AppContext';
+import {logout} from '../../../http/userAPI';
+import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
+import {EPath} from '../../../enums/EPath';
 import {links} from './links';
 
 const Admin = () => {

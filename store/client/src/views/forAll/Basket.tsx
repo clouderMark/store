@@ -1,8 +1,8 @@
 import {useState} from 'react';
 import {Container, Typography} from '@mui/material';
-import Progress from '../components/LinearDeterminate';
-import {BasketCardList} from '../components/BasketCardList/BasketCardList/BasketCardList';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import Progress from '../../components/LinearDeterminate';
+import {BasketCardList} from '../../components/BasketCardList/BasketCardList/BasketCardList';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const Basket = () => {
   const [fetching, setFetching] = useState(false);

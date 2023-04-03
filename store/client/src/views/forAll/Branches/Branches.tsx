@@ -1,11 +1,11 @@
 import {Container} from '@mui/material';
-import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import img from './images/branche-header.webp';
-import CentererImage from '../../components/CentererImage/CentererImage';
-import StrongWithTitle from '../../components/StrongWithTitle/StrongWithTitle';
-import BranchesList from '../../components/BranchesList/BranchesList';
-import Newsletter from '../../components/Newsletter/Newsletter';
-import Footer from '../../components/Footer/Footer';
+import CentererImage from '../../../components/CentererImage/CentererImage';
+import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
+import BranchesList from '../../../components/BranchesList/BranchesList';
+import Newsletter from '../../../components/Newsletter/Newsletter';
+import Footer from '../../../components/Footer/Footer';
 
 const content = {
   p: 'Отрасли',

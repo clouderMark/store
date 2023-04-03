@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
-import {deleteArea, fetchAreas} from '../http/catalogAPI';
-import EditArea from '../components/EditArea';
-import {ICatalogItem} from '../types/types';
-import Propgress from '../components/LinearDeterminate';
-import {AdminTable} from '../components/AdminTable/AdminTable';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import {areaCells} from '../components/TableCells/cells';
+import {deleteArea, fetchAreas} from '../../http/catalogAPI';
+import EditArea from '../../components/EditArea';
+import {ICatalogItem} from '../../types/types';
+import Propgress from '../../components/LinearDeterminate';
+import {AdminTable} from '../../components/AdminTable/AdminTable';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import {areaCells} from '../../components/TableCells/cells';
 
 const AdminAreas = () => {
   const [areas, setAreas] = useState<ICatalogItem[] | null>(null);

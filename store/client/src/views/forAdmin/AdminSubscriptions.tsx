@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react';
 import {Container, Typography, TableCell, Button, TableRow} from '@mui/material';
-import {Board} from '../components/Board';
-import Progress from '../components/LinearDeterminate';
-import {adminGetAllSubscriptions, adminDeleteSubscription} from '../http/subscription';
-import {ISubscribe} from '../types/types';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import TableCells from '../components/TableCells/TableCells';
-import {adminSubscriptionCells} from '../components/TableCells/cells';
+import {Board} from '../../components/Board';
+import Progress from '../../components/LinearDeterminate';
+import {adminGetAllSubscriptions, adminDeleteSubscription} from '../../http/subscription';
+import {ISubscribe} from '../../types/types';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import TableCells from '../../components/TableCells/TableCells';
+import {adminSubscriptionCells} from '../../components/TableCells/cells';
 
 const AdminSubscription = () => {
   const [subscriptions, setSubscriptions] = useState<null | ISubscribe[]>(null);

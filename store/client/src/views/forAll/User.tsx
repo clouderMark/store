@@ -1,8 +1,8 @@
 import {Button, Container} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
-import {useAppContext} from '../components/AppContext';
-import {logout} from '../http/userAPI';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import {useAppContext} from '../../components/AppContext';
+import {logout} from '../../http/userAPI';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const User = () => {
   const {user} = useAppContext();

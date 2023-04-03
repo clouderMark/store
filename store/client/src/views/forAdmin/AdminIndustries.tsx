@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
-import {deleteIndustry, fetchIndustries} from '../http/catalogAPI';
-import EditIndustry from '../components/EditIndustry';
-import {ICatalogItem} from '../types/types';
-import Propgress from '../components/LinearDeterminate';
-import {AdminTable} from '../components/AdminTable/AdminTable';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import {areaCells} from '../components/TableCells/cells';
+import {deleteIndustry, fetchIndustries} from '../../http/catalogAPI';
+import EditIndustry from '../../components/EditIndustry';
+import {ICatalogItem} from '../../types/types';
+import Propgress from '../../components/LinearDeterminate';
+import {AdminTable} from '../../components/AdminTable/AdminTable';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import {areaCells} from '../../components/TableCells/cells';
 
 const AdminIndustries = () => {
   const [industries, setIndustries] = useState<null | ICatalogItem[]>(null); // список загруженных индустрий

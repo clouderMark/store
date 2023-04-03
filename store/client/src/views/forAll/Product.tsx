@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
 import {Button, Col, Container, Image, Row, Spinner, Table} from 'react-bootstrap';
 import {useParams} from 'react-router-dom';
-import {useAppContext} from '../components/AppContext';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import {append} from '../http/basketAPI';
-import {fetchOneProduct, fetchProdRating} from '../http/catalogAPI';
-import {IProductWithProps, IRating} from '../types/types';
+import {useAppContext} from '../../components/AppContext';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import {append} from '../../http/basketAPI';
+import {fetchOneProduct, fetchProdRating} from '../../http/catalogAPI';
+import {IProductWithProps, IRating} from '../../types/types';
 
 const Product = () => {
   const id: number = Number(useParams().id);

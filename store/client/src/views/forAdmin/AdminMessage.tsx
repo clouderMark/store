@@ -1,10 +1,10 @@
 import {useEffect, useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
 import {Container, Typography, Button} from '@mui/material';
-import Propgress from '../components/LinearDeterminate';
-import {adminGetOneMessage, adminDelete} from '../http/contactAPI';
-import {IMessage} from '../types/types';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import Propgress from '../../components/LinearDeterminate';
+import {adminGetOneMessage, adminDelete} from '../../http/contactAPI';
+import {IMessage} from '../../types/types';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const AdminMessage = () => {
   const {id} = useParams();

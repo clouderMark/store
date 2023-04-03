@@ -5,7 +5,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import IndustryBar from '../IndustryBar';
 import AreaBar from '../AreaBar';
 import SolutionBar from '../SolutionBar';
-import {button, mockHeight} from '../../../views/Shop/styles/button';
+import {button, mockHeight} from '../../../views/forAll/Shop/styles/button';
 import {IconTextField} from '../../IconTextField';
 
 interface IProps {

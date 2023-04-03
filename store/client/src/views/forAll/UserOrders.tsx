@@ -1,9 +1,9 @@
 import {Container, Spinner} from 'react-bootstrap';
 import {useState, useEffect} from 'react';
-import {userGetAll as getAllOrders} from '../http/orderAPI';
-import Orders from '../components/Orders/Orders';
-import {IOrder} from '../types/types';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import {userGetAll as getAllOrders} from '../../http/orderAPI';
+import Orders from '../../components/Orders/Orders';
+import {IOrder} from '../../types/types';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const UserOrders = () => {
   const [orders, setOrders] = useState<IOrder[] | null>(null);

@@ -1,11 +1,11 @@
 import {useEffect, useState} from 'react';
-import {deleteSolution, fetchSolutions} from '../http/catalogAPI';
-import EditSolution from '../components/EditSolution';
-import {ICatalogItem} from '../types/types';
-import Propgress from '../components/LinearDeterminate';
-import {AdminTable} from '../components/AdminTable/AdminTable';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import {areaCells} from '../components/TableCells/cells';
+import {deleteSolution, fetchSolutions} from '../../http/catalogAPI';
+import EditSolution from '../../components/EditSolution';
+import {ICatalogItem} from '../../types/types';
+import Propgress from '../../components/LinearDeterminate';
+import {AdminTable} from '../../components/AdminTable/AdminTable';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import {areaCells} from '../../components/TableCells/cells';
 
 const AdminSolutions = () => {
   const [solutions, setSolutions] = useState<ICatalogItem[] | null>(null); // список загруженных решений

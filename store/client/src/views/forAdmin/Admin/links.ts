@@ -1,4 +1,4 @@
-import {EPath} from '../../enums/EPath';
+import {EPath} from '../../../enums/EPath';
 
 interface ILinks {
   address: string;

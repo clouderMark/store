@@ -1,10 +1,10 @@
 import {Container, Typography} from '@mui/material';
 import {useState, useEffect} from 'react';
-import {adminGetAll as getAllOrders} from '../http/orderAPI';
-import Progress from '../components/LinearDeterminate';
-import Orders from '../components/Orders/Orders';
-import {IOrder} from '../types/types';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import {adminGetAll as getAllOrders} from '../../http/orderAPI';
+import Progress from '../../components/LinearDeterminate';
+import Orders from '../../components/Orders/Orders';
+import {IOrder} from '../../types/types';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState<IOrder[] | null>(null);

@@ -2,9 +2,9 @@ import {observer} from 'mobx-react-lite';
 import React, {useEffect, FormEvent} from 'react';
 import {Button, Card, Container, Form, Row} from 'react-bootstrap';
 import {Link, useNavigate} from 'react-router-dom';
-import {useAppContext} from '../components/AppContext';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import {login} from '../http/userAPI';
+import {useAppContext} from '../../components/AppContext';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import {login} from '../../http/userAPI';
 
 const Login = observer(() => {
   const {user} = useAppContext();

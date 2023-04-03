@@ -1,13 +1,13 @@
 import {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import {Container, Typography, TableCell, TableRow, Button} from '@mui/material';
-import {adminGetAllMessages, adminDelete} from '../http/contactAPI';
-import {IMessage} from '../types/types';
-import Progress from '../components/LinearDeterminate';
-import {Board} from '../components/Board';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import TableCells from '../components/TableCells/TableCells';
-import {adminMessagesCells} from '../components/TableCells/cells';
+import {adminGetAllMessages, adminDelete} from '../../http/contactAPI';
+import {IMessage} from '../../types/types';
+import Progress from '../../components/LinearDeterminate';
+import {Board} from '../../components/Board';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import TableCells from '../../components/TableCells/TableCells';
+import {adminMessagesCells} from '../../components/TableCells/cells';
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState<null | IMessage[]>(null);
