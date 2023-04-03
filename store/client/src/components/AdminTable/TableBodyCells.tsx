@@ -3,7 +3,7 @@ import {
   TableRow,
   TableCell,
 } from '@mui/material';
-import {buttonText} from './cells';
+import {buttonText} from '../TableCells/cells';
 import {ITableBodyCells} from './types';
 
 export const TableBodyCells = (props: ITableBodyCells): JSX.Element => (

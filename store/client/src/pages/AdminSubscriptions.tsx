@@ -5,14 +5,8 @@ import Progress from '../components/LinearDeterminate';
 import {adminGetAllSubscriptions, adminDeleteSubscription} from '../http/subscription';
 import {ISubscribe} from '../types/types';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-
-const content: IContent = {
-  tableHead: ['№', 'Подписавшиеся', 'Дата подписки'],
-};
-
-interface IContent {
-  tableHead: string[];
-}
+import TableCells from '../components/TableCells/TableCells';
+import {adminSubscriptionCells} from '../components/TableCells/cells';
 
 const AdminSubscription = () => {
   const [subscriptions, setSubscriptions] = useState<null | ISubscribe[]>(null);
@@ -37,14 +31,6 @@ const AdminSubscription = () => {
       .catch(console.error)
       .finally(() => setFetching(false));
   }, []);
-
-  const TableHeadCells = () => (
-    <>
-      {content.tableHead.map((el, i) => (
-        <TableCell key={i}>{el}</TableCell>
-      ))}
-    </>
-  );
 
   const BodyCells = () => (
     <>
@@ -72,7 +58,7 @@ const AdminSubscription = () => {
       <Breadcrumbs />
       <Container sx={{mt: 2}} maxWidth={false}>
         <Typography variant="h4">Все подписки</Typography>
-        <Board tableHeadCells={TableHeadCells} tableBodyCells={BodyCells} />
+        <Board tableHeadCells={<TableCells cells={adminSubscriptionCells} />} tableBodyCells={BodyCells} />
       </Container>
     </>
   );

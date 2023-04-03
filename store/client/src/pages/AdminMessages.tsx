@@ -6,36 +6,8 @@ import {IMessage} from '../types/types';
 import Progress from '../components/LinearDeterminate';
 import {Board} from '../components/Board';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-
-const headCells = [
-  {
-    label: '№',
-  },
-  {
-    label: 'Компания',
-  },
-  {
-    label: 'Имя',
-  },
-  {
-    label: 'Email',
-  },
-  {
-    label: 'Телефон',
-  },
-  {
-    label: 'Вопрос',
-  },
-  {
-    label: 'Тип обращения',
-  },
-  {
-    label: 'Подробнее',
-  },
-  {
-    label: 'Удалить',
-  },
-];
+import TableCells from '../components/TableCells/TableCells';
+import {adminMessagesCells} from '../components/TableCells/cells';
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState<null | IMessage[]>(null);
@@ -55,14 +27,6 @@ const AdminMessages = () => {
       .then((data) => setMessages(data))
       .finally(() => setFetching(false));
   }, []);
-
-  const TableHeadCells = () => (
-    <>
-      {headCells.map((headCell, i) => (
-        <TableCell key={i}>{headCell.label}</TableCell>
-      ))}
-    </>
-  );
 
   const BodyCells = () => (
     <>
@@ -100,7 +64,7 @@ const AdminMessages = () => {
   return (
     <Container sx={{mt: 2}} maxWidth={false}>
       <Typography variant="h4">Все сообщения</Typography>
-      <Board tableHeadCells={TableHeadCells} tableBodyCells={BodyCells} />
+      <Board tableHeadCells={<TableCells cells={adminMessagesCells} />} tableBodyCells={BodyCells} />
     </Container>
   );
 };

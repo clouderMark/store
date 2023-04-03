@@ -5,6 +5,7 @@ import {ICatalogItem} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
 import {AdminTable} from '../components/AdminTable/AdminTable';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import {areaCells} from '../components/TableCells/cells';
 
 const AdminAreas = () => {
   const [areas, setAreas] = useState<ICatalogItem[] | null>(null);
@@ -49,6 +50,7 @@ const AdminAreas = () => {
       <Breadcrumbs />
       <AdminTable
         title={'area'}
+        headCells={areaCells}
         children={[Edit]}
         handleCreateClick={handleCreateClick}
         handleUpdateClick={handleUpdateClick}

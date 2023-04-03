@@ -5,6 +5,7 @@ import {ICatalogItem} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
 import {AdminTable} from '../components/AdminTable/AdminTable';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import {areaCells} from '../components/TableCells/cells';
 
 const AdminSolutions = () => {
   const [solutions, setSolutions] = useState<ICatalogItem[] | null>(null); // список загруженных решений
@@ -51,6 +52,7 @@ const AdminSolutions = () => {
       <Breadcrumbs />
       <AdminTable
         title={'solution'}
+        headCells={areaCells}
         children={[Edit]}
         handleCreateClick={handleCreateClick}
         handleUpdateClick={handleUpdateClick}

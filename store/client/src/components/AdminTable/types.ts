@@ -18,9 +18,10 @@ export interface IProps extends ITableBodyCells {
     totalPages: number;
     pagination(): JSX.Element;
   };
+  headCells: ICells[];
 }
 
 export interface ICells {
   field: string;
-  headerName: string;
+  value: string;
 }

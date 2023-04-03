@@ -7,6 +7,7 @@ import {IAllProducts, IProductWithProps, IProduct} from '../types/types.js';
 import Progress from '../components/LinearDeterminate';
 import {AdminTable} from '../components/AdminTable/AdminTable';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import {productsCells} from '../components/TableCells/cells';
 
 // количество товаров на страницу
 const ADMIN_PER_PAGE = 6;
@@ -94,6 +95,7 @@ const AdminProducts = () => {
       <Breadcrumbs />
       <AdminTable
         title="goods"
+        headCells={productsCells}
         children={[CreateProd, UpdateProd]}
         handleCreateClick={handleCreateClick}
         items={products!}

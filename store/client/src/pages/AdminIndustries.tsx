@@ -5,6 +5,7 @@ import {ICatalogItem} from '../types/types';
 import Propgress from '../components/LinearDeterminate';
 import {AdminTable} from '../components/AdminTable/AdminTable';
 import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
+import {areaCells} from '../components/TableCells/cells';
 
 const AdminIndustries = () => {
   const [industries, setIndustries] = useState<null | ICatalogItem[]>(null); // список загруженных индустрий
@@ -51,6 +52,7 @@ const AdminIndustries = () => {
       <Breadcrumbs />
       <AdminTable
         title={'industry'}
+        headCells={areaCells}
         children={[Edit]}
         handleCreateClick={handleCreateClick}
         handleUpdateClick={handleUpdateClick}
