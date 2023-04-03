@@ -1,6 +1,6 @@
 import CurrentProductStore from '../../store/ProductItemStore';
 import {EPath} from '../../enums/EPath';
-import {links} from '../../pages/Admin/links';
+import {links} from '../../views/Admin/links';
 
 interface IBreadcrumbNameMap {
   allNames: {[key: string]: string};
