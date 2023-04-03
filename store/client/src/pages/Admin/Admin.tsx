@@ -1,45 +1,10 @@
 import {Container, Button, List, ListItem, ListItemButton, ListItemText, Typography} from '@mui/material';
 import {Link, useNavigate} from 'react-router-dom';
-import {useAppContext} from '../components/AppContext';
-import {logout} from '../http/userAPI';
-import Breadcrumbs from '../components/Breadcrumbs/Breadcrumbs';
-import {EPath} from '../enums/EPath';
-
-interface ILinks {
-  address: string;
-  content: string;
-}
-
-const links: ILinks[] = [
-  {
-    address: EPath.AdminOrders,
-    content: 'Заказы в магазине',
-  },
-  {
-    address: EPath.AdminIndustries,
-    content: 'Индустрии каталога',
-  },
-  {
-    address: EPath.AdminSolutions,
-    content: 'Решения каталога',
-  },
-  {
-    address: EPath.AdminAreas,
-    content: 'Области применения',
-  },
-  {
-    address: EPath.AdminProducts,
-    content: 'Товары каталога',
-  },
-  {
-    address: EPath.AdminMessages,
-    content: 'Сообщения пользователей',
-  },
-  {
-    address: EPath.AdminSubscriptions,
-    content: 'Подписки',
-  },
-];
+import {useAppContext} from '../../components/AppContext';
+import {logout} from '../../http/userAPI';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import {EPath} from '../../enums/EPath';
+import {links} from './links';
 
 const Admin = () => {
   const {user} = useAppContext();

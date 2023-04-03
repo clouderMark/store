@@ -1,5 +1,6 @@
 import CurrentProductStore from '../../store/ProductItemStore';
 import {EPath} from '../../enums/EPath';
+import {links} from '../../pages/Admin/links';
 
 interface IBreadcrumbNameMap {
   allNames: {[key: string]: string};
@@ -19,19 +20,12 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
     [EPath.UserOrders]: 'Заказы',
     [EPath.News]: 'Новости',
     [EPath.About]: 'О нас',
-    [EPath.Admin]: 'Управление',
-    [EPath.AdminOrders]: 'Заказы',
-    [EPath.AdminIndustries]: 'Индустрии',
-    [EPath.AdminSolutions]: 'Решения',
-    [EPath.AdminAreas]: 'Области',
-    [EPath.AdminProducts]: 'Товары',
     [EPath.Services]: 'Сервисы',
     [EPath.Areas]: 'Области',
-    [EPath.AdminMessages]: 'Сообщения пользователей',
-    [EPath.AdminSubscriptions]: 'Подписки',
-    [EPath.Branches]: 'Области',
+    [EPath.Branches]: 'Отрасли',
     [EPath.Signup]: 'Регистрация',
     [EPath.Login]: 'Войти',
+    [EPath.Admin]: 'Управление',
   },
 
   getName(name, product) {
@@ -51,5 +45,13 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
     return crumb;
   },
 };
+
+const adminNameMap: {[key: string]: string} = {};
+
+for (const item of links) {
+  adminNameMap[item.address] = item.content;
+}
+
+Object.assign(breadcrumbNameMap.allNames, adminNameMap);
 
 export default breadcrumbNameMap;
