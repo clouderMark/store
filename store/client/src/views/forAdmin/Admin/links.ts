@@ -34,8 +34,4 @@ export const links: ILinks[] = [
     address: EPath.AdminSubscriptions,
     content: 'Подписки',
   },
-  {
-    address: EPath.AdminBranches,
-    content: 'Отрасли',
-  },
 ];

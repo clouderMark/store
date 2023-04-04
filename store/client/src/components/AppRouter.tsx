@@ -25,7 +25,6 @@ import AdminMessage from '../views/forAdmin/AdminMessage';
 import AdminSubscriptions from '../views/forAdmin/AdminSubscriptions';
 import Main from '../views/forAll/Main/Main';
 import Branches from '../views/forAll/Branches/Branches';
-import AdminBranches from '../views/forAdmin/AdminBranches';
 import {EPath} from '../enums/EPath';
 
 const publicRoutes = [
@@ -59,7 +58,6 @@ const adminRoutes = [
   {path: EPath.AdminMessages, Component: AdminMessages},
   {path: EPath.AdminMessage, Component: AdminMessage},
   {path: EPath.AdminSubscriptions, Component: AdminSubscriptions},
-  {path: EPath.AdminBranches, Component: AdminBranches},
 ];
 
 const AppRouter = observer(() => {
