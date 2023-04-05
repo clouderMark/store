@@ -4,6 +4,8 @@ import {ICatalogItem, IProductWithProps, IFetchIndystry} from '../types/types';
 class CatalogStore {
   private _industries: IFetchIndystry[] = [];
 
+  private _industriesFetching = true;
+
   private _solutions: ICatalogItem[] = [];
 
   private _areas: ICatalogItem[] = [];
@@ -32,6 +34,14 @@ class CatalogStore {
 
   set industries(industries: IFetchIndystry[]) {
     this._industries = industries;
+  }
+
+  get industriesFetching() {
+    return this._industriesFetching;
+  }
+
+  set industriesFetching(is: boolean) {
+    this._industriesFetching = is;
   }
 
   get solutions() {

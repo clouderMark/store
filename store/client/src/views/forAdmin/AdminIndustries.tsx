@@ -1,15 +1,14 @@
-import {useEffect, useState} from 'react';
-import {deleteIndustry, fetchIndustries} from '../../http/catalogAPI';
+import {useState} from 'react';
+import {deleteIndustry} from '../../http/catalogAPI';
 import EditIndustry from '../../components/EditIndustry';
-import {ICatalogItem} from '../../types/types';
 import Propgress from '../../components/LinearDeterminate';
 import {AdminTable} from '../../components/AdminTable/AdminTable';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {areaCells} from '../../components/TableCells/cells';
+import {useAppContext} from '../../components/AppContext';
 
 const AdminIndustries = () => {
-  const [industries, setIndustries] = useState<null | ICatalogItem[]>(null); // список загруженных индустрий
-  const [fetching, setFetching] = useState(true); // загрузка индустрий с сервера
+  const {catalog} = useAppContext();
   const [show, setShow] = useState(false); // модальное окно создания-редактирования индустрии
   // для добавления списка после добавления-редактирования, нужно изменить состояние
   const [change, setChange] = useState(false);
@@ -31,19 +30,14 @@ const AdminIndustries = () => {
       .then((data) => {
         setChange(!change);
         alert(`Индустрия "${data.name}"удалена`);
+        catalog.industries = catalog.industries.filter((el) => el.id !== data.id);
       })
       .catch((error) => console.error(error));
   };
 
   const Edit = () => <EditIndustry id={industryId} show={show} setShow={setShow} setChange={setChange} key={1} />;
 
-  useEffect(() => {
-    fetchIndustries()
-      .then((data) => setIndustries(data))
-      .finally(() => setFetching(false));
-  }, [change]);
-
-  if (fetching) {
+  if (catalog.industriesFetching) {
     return <Propgress />;
   }
 
@@ -57,7 +51,7 @@ const AdminIndustries = () => {
         handleCreateClick={handleCreateClick}
         handleUpdateClick={handleUpdateClick}
         handleDeleteClick={handleDeleteClick}
-        items={industries!}
+        items={catalog.industries}
       />
     </>
   );

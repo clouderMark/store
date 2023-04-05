@@ -6,7 +6,7 @@ import TuneRoundedIcon from '@mui/icons-material/TuneRounded';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import ProductList from '../../../components/ProductList';
 import {useAppContext} from '../../../components/AppContext';
-import {fetchAllProducts, fetchIndustries, fetchSolutions, fetchAreas} from '../../../http/catalogAPI';
+import {fetchAllProducts, fetchSolutions, fetchAreas} from '../../../http/catalogAPI';
 import {button} from './styles/button';
 import {SearchBar} from '../../../components/Bar/SearchBar/SearchBar';
 import {FiltersBar} from '../../../components/Bar/FiltersBar/FiltersBar';
@@ -64,7 +64,6 @@ const getSearchParams = (
 const Shop = observer(() => {
   const {catalog} = useAppContext();
 
-  const [industriesFetching, setIndustriesFetching] = useState(true);
   const [solutionsFetching, setSolutionsFetching] = useState(true);
   const [areasFetching, setAreasFetching] = useState(true);
   const [productsFetching, setProductsFetching] = useState(true);
@@ -95,11 +94,6 @@ const Shop = observer(() => {
   };
 
   useEffect(() => {
-    fetchIndustries()
-      .then((data) => {
-        catalog.industries = data;
-      })
-      .finally(() => setIndustriesFetching(false));
     fetchSolutions()
       .then((data) => {
         catalog.solutions = data;
@@ -187,7 +181,7 @@ const Shop = observer(() => {
         <SearchBar matches={barQueryDesctop} />
         <Box sx={{display: 'flex'}}>
           <FiltersBar
-            industriesFetching={industriesFetching}
+            industriesFetching={catalog.industriesFetching}
             areasFetching={areasFetching}
             solutionsFetching={solutionsFetching}
             resetFilters={resetFilters}

@@ -12,15 +12,16 @@ import {check as checkAuth} from './http/userAPI';
 import {fetchBasket} from './http/basketAPI';
 import Loader from './components/Loader';
 import {theme} from './styles/theme';
+import {fetchIndustries} from './http/catalogAPI';
 
 const App = observer(() => {
-  const {user, basket} = useAppContext();
+  const {user, basket, catalog} = useAppContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([checkAuth(), fetchBasket()])
+    Promise.all([checkAuth(), fetchBasket(), fetchIndustries()])
       .then(
-        axios.spread((userData, basketData) => {
+        axios.spread((userData, basketData, industriesData) => {
           if (userData && 'email' in userData) {
             user.login(userData);
           }
@@ -28,9 +29,16 @@ const App = observer(() => {
           if (basketData && 'products' in basketData) {
             basket.products = basketData.products;
           }
+
+          if (Array.isArray(industriesData)) {
+            catalog.industries = industriesData;
+          }
         }),
       )
-      .finally(() => setLoading(false));
+      .finally(() => {
+        setLoading(false);
+        catalog.industriesFetching = false;
+      });
   }, []);
 
   if (loading) {

@@ -1,6 +1,7 @@
 import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent, useRef} from 'react';
 import {createIndustry, fetchIndustry, updateIndustry} from '../http/catalogAPI';
 import PopUpForIndystry from './PopUpForIndustry/PopUpForIndustry';
+import {useAppContext} from './AppContext';
 
 interface IProps {
   id: number | null;
@@ -10,6 +11,7 @@ interface IProps {
 }
 
 const EditIndustry = (props: IProps) => {
+  const {catalog} = useAppContext();
   const {id, show, setShow, setChange} = props;
 
   const [name, setName] = useState('');
@@ -89,11 +91,15 @@ const EditIndustry = (props: IProps) => {
           .then((data) => {
             success();
             setFetchedCardImage(data.cardImage);
+            catalog.industries = [...catalog.industries.filter((el) => el.id !== data.id), data];
           })
           .catch((error) => console.error(error));
       } else {
         createIndustry(data)
-          .then(success)
+          .then((data) => {
+            success();
+            catalog.industries = [...catalog.industries, data];
+          })
           .catch((error) => console.error(error));
       }
     }
