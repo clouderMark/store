@@ -4,8 +4,7 @@ import {cardItem as styles} from './styles/cardItem';
 import Arrow from '../Arrow/Arrow';
 
 interface IProps {
-  // eslint-disable-next-line
-  image?: any;
+  image?: string | null;
   to: string
   name: string;
 }
