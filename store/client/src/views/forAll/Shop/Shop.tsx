@@ -16,6 +16,7 @@ import Contact from '../../../components/Contact/Contact';
 import Newsletter from '../../../components/Newsletter/Newsletter';
 import Footer from '../../../components/Footer/Footer';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
+import {EPath} from '../../../enums/EPath';
 
 const getSearchParams = (
   searchParams: URLSearchParams,
@@ -84,7 +85,7 @@ const Shop = observer(() => {
     catalog.area = [];
 
     navigate({
-      pathname: '/shop',
+      pathname: EPath.Shop,
       search: `?${createSearchParams('')}`,
     });
   };
@@ -176,7 +177,7 @@ const Shop = observer(() => {
 
   return (
     <>
-      <Breadcrumbs/>
+      <Breadcrumbs />
       <Container maxWidth={false} sx={{paddingBottom: '100px'}}>
         {!barQueryDesctop ? (
           <Button onClick={openDrawer} sx={button.filters} startIcon={<TuneRoundedIcon />}>
