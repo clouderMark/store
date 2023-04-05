@@ -25,6 +25,7 @@ import AdminMessage from '../views/forAdmin/AdminMessage';
 import AdminSubscriptions from '../views/forAdmin/AdminSubscriptions';
 import Main from '../views/forAll/Main/Main';
 import Branches from '../views/forAll/Branches/Branches';
+import SubBranches from '../views/forAll/Branches/SubBranches';
 import {EPath} from '../enums/EPath';
 
 const publicRoutes = [
@@ -39,6 +40,7 @@ const publicRoutes = [
   {path: EPath.NotFound, Component: NotFound},
   {path: EPath.Main, Component: Main},
   {path: EPath.Branches, Component: Branches},
+  {path: EPath.SubBranches, Component: SubBranches},
 ];
 
 const authRoutes = [
