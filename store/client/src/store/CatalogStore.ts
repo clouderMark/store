@@ -1,8 +1,8 @@
 import {makeAutoObservable} from 'mobx';
-import {ICatalogItem, IProductWithProps} from '../types/types';
+import {ICatalogItem, IProductWithProps, IFetchIndystry} from '../types/types';
 
 class CatalogStore {
-  private _industries: ICatalogItem[] = [];
+  private _industries: IFetchIndystry[] = [];
 
   private _solutions: ICatalogItem[] = [];
 
@@ -30,7 +30,7 @@ class CatalogStore {
     return this._industries;
   }
 
-  set industries(industries: ICatalogItem[]) {
+  set industries(industries: IFetchIndystry[]) {
     this._industries = industries;
   }
 

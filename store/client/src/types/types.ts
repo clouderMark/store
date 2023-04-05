@@ -203,3 +203,7 @@ interface IImages {
   img: any;
   alt: string;
 }
+
+export interface IFetchIndystry extends ICatalogItem {
+  cardImage: string | null;
+}

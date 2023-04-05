@@ -1,5 +1,6 @@
 import { Industry as IndustryMapping } from './mapping.js'
 import AppError from '../errors/AppError.js'
+import FileService from '../services/File.js';
 
 class Industry {
     async getAll() {
@@ -15,19 +16,28 @@ class Industry {
         return industry
     }
 
-    async create(data) {
+    async create(data, cardImg) {
+        const cardImage = FileService.save(cardImg) ?? '';
         const {name} = data
-        const industry = await IndustryMapping.create({name})
+        const industry = await IndustryMapping.create({name, cardImage})
         return industry
     }
 
-    async update(id, data) {
+    async update(id, data, cardImg) {
         const industry = await IndustryMapping.findByPk(id)
         if (!industry) {
             throw new Error('Индустрия не найдена в БД')
         }
-        const {name = industry.name} = data
-        await industry.update({name})
+        const file = FileService.save(cardImg)
+        if (file && industry.cardImage) {
+            FileService.delete(industry.cardImage)
+        }
+        const {
+            name = industry.name,
+            cardImage = file ? file : industry.cardImage,
+        } = data
+        await industry.update({name, cardImage})
+        await industry.reload()
         return industry
     }
 
@@ -36,7 +46,10 @@ class Industry {
         if(!industry) {
             throw new Error('Индустрия не найдена в БД')
         }
-        await industry.destroy()
+        if (industry.cardImage) {
+            FileService.delete(industry.cardImage)
+        }
+        await industry.destroy();
         return industry
     }
 }

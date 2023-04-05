@@ -1,6 +1,6 @@
 import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent, useRef} from 'react';
 import {createIndustry, fetchIndustry, updateIndustry} from '../http/catalogAPI';
-import {PopUp} from './PopUp';
+import PopUpForIndystry from './PopUpForIndustry/PopUpForIndustry';
 
 interface IProps {
   id: number | null;
@@ -13,6 +13,17 @@ const EditIndustry = (props: IProps) => {
   const {id, show, setShow, setChange} = props;
 
   const [name, setName] = useState('');
+  const [cardImage, setCardImage] = useState<File | null>(null);
+  const [fetchedCardImage, setFetchedCardImage] = useState<string | null>(null);
+  // const [viewImage, setViewImage] = useState<File | null>(null);
+  // const [title, setTitle] = useState('');
+  // const [paragraph, setParagraph] = useState('');
+
+  // const [listImage, setListImage] = useState<File | null>(null);
+  // const [listTitle, setListTitle] = useState('');
+  // const [listParagraph, setListParagraph] = useState('');
+  // const [listItems, setListItems] = useState<string[]>([]);
+
   const [valid, setValid] = useState<null | boolean>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -29,17 +40,27 @@ const EditIndustry = (props: IProps) => {
         .then((data) => {
           setName(data.name);
           setValid(data.name !== '');
+          setFetchedCardImage(data.cardImage);
         })
         .catch((error) => console.log(error));
     } else {
       setName('');
       setValid(null);
+      setFetchedCardImage('');
     }
   }, [id]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
     setValid(event.target.value.trim() !== '');
+  };
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+
+      setCardImage(file);
+    }
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -49,9 +70,13 @@ const EditIndustry = (props: IProps) => {
 
     setValid(correct);
     if (correct) {
-      const data = {
-        name: name.trim(),
-      };
+      const data = new FormData();
+
+      data.append('name', name.trim());
+      if (cardImage) {
+        data.append('cardImage', cardImage, cardImage.name);
+      }
+
       const success = () => {
         // закрываем модальное окно
         setShow(false);
@@ -61,7 +86,10 @@ const EditIndustry = (props: IProps) => {
 
       if (id) {
         updateIndustry(id, data)
-          .then(success)
+          .then((data) => {
+            success();
+            setFetchedCardImage(data.cardImage);
+          })
           .catch((error) => console.error(error));
       } else {
         createIndustry(data)
@@ -72,12 +100,14 @@ const EditIndustry = (props: IProps) => {
   };
 
   return (
-    <PopUp
+    <PopUpForIndystry
       title="индустрии"
       show={show}
       setShow={setShow}
       id={id}
       name={name}
+      fetchedCardImage={fetchedCardImage}
+      handleImageChange={handleImageChange}
       valid={valid}
       inputRef={inputRef}
       handleSubmit={handleSubmit}

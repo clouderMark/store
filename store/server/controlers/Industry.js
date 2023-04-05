@@ -25,10 +25,10 @@ class Industry {
 
     async create(req, res, next) {
         try {
-            if (!req.body.name) {
-                throw new Error('Нет названия индустрии')
+            if (Object.keys(req.body).length === 0) {
+                throw new Error('Нет данных для создания')
             }
-            const industry = await IndustryModel.create(req.body)
+            const industry = await IndustryModel.create(req.body, req.files?.cardImage)
             res.json(industry)
         } catch(e) {
             next(AppError.badRequest(e.message))
@@ -40,10 +40,10 @@ class Industry {
             if (!req.params.id) {
                 throw new Error('Не указан id индустрии')
             }
-            if (!req.body.name) {
-                throw new Error('Нет названия индустрии')
+            if (Object.keys(req.body).length === 0) {
+                throw new Error('Нет данных для обновления')
             }
-            const industry = await IndustryModel.update(req.params.id, req.body)
+            const industry = await IndustryModel.update(req.params.id, req.body, req.files?.cardImage)
             res.json(industry)
         } catch(e) {
             next(AppError.badRequest(e.message))
