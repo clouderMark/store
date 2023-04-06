@@ -14,6 +14,7 @@ const CentererImage = (props: IProps) => (
         width: '100%',
         maxWidth: '1920px',
         objectFit: 'cover',
+        maxHeight: '560px',
       }}
     />
   </Box>
