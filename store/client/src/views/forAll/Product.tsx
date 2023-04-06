@@ -9,14 +9,14 @@ import {IProductWithProps, IRating} from '../../types/types';
 
 const Product = () => {
   const id: number = Number(useParams().id);
-  const {basket, productItem} = useAppContext();
+  const {basket, currentItem} = useAppContext();
   const [product, setProduct] = useState<IProductWithProps | null>(null);
   const [rating, setRating] = useState<IRating | null>(null);
 
   useEffect(() => {
     fetchOneProduct(id).then((data) => {
       setProduct(data);
-      productItem.name = data.name;
+      currentItem.productName = data.name;
     });
     fetchProdRating(id).then((data) => setRating(data));
   }, [id]);

@@ -1,4 +1,4 @@
-import CurrentProductStore from '../../store/ProductItemStore';
+import CurrentProductStore from '../../store/CurrentItemStore';
 import {EPath} from '../../enums/EPath';
 import {links} from '../../views/forAdmin/Admin/links';
 
@@ -33,7 +33,7 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
     const path = name.split('/');
 
     if (path.includes(EPath.Shop.slice(1)) && +path.slice(-1) >= 0) {
-      crumb = product.name.charAt(0).toUpperCase() + product.name.slice(1);
+      crumb = product.productName.charAt(0).toUpperCase() + product.productName.slice(1);
     } else if (path.includes(EPath.AdminMessages.split('/').at(-1)!) && +path.slice(-1) >= 0) {
       crumb = `Сообщение №${path.slice(-1)}`;
     } else if (path.includes(EPath.AdminOrders.split('/').at(-1)!) && +path.slice(-1) >= 0) {

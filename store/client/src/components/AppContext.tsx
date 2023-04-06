@@ -2,13 +2,13 @@ import React from 'react';
 import UserStore from '../store/UserStore';
 import CatalogStore from '../store/CatalogStore';
 import BasketStore from '../store/BasketStore';
-import ProductItemStore from '../store/ProductItemStore';
+import CurrentItemStore from '../store/CurrentItemStore';
 
 interface IContext {
   user: UserStore,
   catalog: CatalogStore,
   basket: BasketStore,
-  productItem: ProductItemStore,
+  currentItem: CurrentItemStore,
 }
 
 interface IProps {
@@ -21,7 +21,7 @@ const context = {
   user: new UserStore(),
   catalog: new CatalogStore(),
   basket: new BasketStore(),
-  productItem: new ProductItemStore(),
+  currentItem: new CurrentItemStore(),
 };
 
 const AppContextProvider = (props: IProps) => (

@@ -9,7 +9,7 @@ import {useAppContext} from '../AppContext';
 import {styles} from './styles';
 
 const Page = observer(() => {
-  const {productItem} = useAppContext();
+  const {currentItem} = useAppContext();
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
@@ -24,11 +24,11 @@ const Page = observer(() => {
 
         return last ? (
           <Typography key={to} sx={styles.last}>
-            {breadcrumbNameMap.getName(to, productItem)}
+            {breadcrumbNameMap.getName(to, currentItem)}
           </Typography>
         ) : (
           <LinkRouter underline="hover" sx={styles.notLast} to={to} key={to}>
-            {breadcrumbNameMap.getName(to, productItem)}
+            {breadcrumbNameMap.getName(to, currentItem)}
           </LinkRouter>
         );
       })}
