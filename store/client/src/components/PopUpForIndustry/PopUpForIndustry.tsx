@@ -1,22 +1,11 @@
-import React, {ChangeEvent, Dispatch, SetStateAction, FormEvent} from 'react';
+import React, {ChangeEvent} from 'react';
 import {Dialog, DialogContent, DialogTitle, Box, TextField, DialogActions, Button} from '@mui/material';
 import {popUpForIndystry as styles} from './styles/popUpForIndystry';
+import InputFileButton from './InputFileButton';
+import BranchItem from './BranchItem';
+import {IPopUpForIndystry} from './types/IPopUpForIndystry';
 
-interface IProps {
-  title: string;
-  show: boolean;
-  setShow: Dispatch<SetStateAction<boolean>>;
-  id: number | null;
-  name: string;
-  fetchedCardImage: string | null;
-  handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
-  valid: boolean | null;
-  inputRef: React.RefObject<HTMLInputElement>;
-  handleSubmit(event: FormEvent<HTMLFormElement>): void;
-  handleChange(event: ChangeEvent<HTMLInputElement>): void;
-}
-
-export const PopUpForIndystry = (props: IProps) => (
+export const PopUpForIndystry = (props: IPopUpForIndystry) => (
   <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {width: '60%', minWidth: '1000px'}}}>
     <DialogTitle>
       {props.id ? 'Редактирование' : 'Создание'} {props.title}
@@ -26,29 +15,13 @@ export const PopUpForIndystry = (props: IProps) => (
       <Box component="form" noValidate onSubmit={props.handleSubmit}>
         <Box sx={styles.box}>
           <Box sx={styles.card}>
-            {props.fetchedCardImage ? (
-              <Box sx={styles.card.img} component="img" src={process.env.REACT_APP_IMG_URL + props.fetchedCardImage} />
-            ) : (
-              <Box sx={styles.card.img} component="img" src="http://via.placeholder.com/335" />
-            )}
-            <Button
-              sx={styles.card.button}
-              aria-label="upload picture"
-              component="label"
-              color="first"
-              variant="contained"
-            >
-              <input
-                name="cardImage"
-                type="file"
-                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleImageChange(e)}
-                placeholder="Фото товара..."
-                hidden
-                accept="image/*"
-                aria-label="upload picture"
-              />
-              Изменить фото
-            </Button>
+            <Box sx={styles.img} component="img" src={props.cardImage ? props.cardImage : ''} />
+            <InputFileButton
+              styles={styles.card.button}
+              id={props.id}
+              name="cardImage"
+              handleImageChange={props.handleImageChange}
+            />
           </Box>
           <TextField
             autoFocus={true}
@@ -64,6 +37,7 @@ export const PopUpForIndystry = (props: IProps) => (
             sx={styles.name}
           />
         </Box>
+        <BranchItem handleImageChange={props.handleImageChange} headerImage={props.headerImage} id={props.id} />
         <DialogActions>
           <Button type="submit" variant="outlined">
             Сохранить

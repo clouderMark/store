@@ -28,7 +28,7 @@ class Industry {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для создания')
             }
-            const industry = await IndustryModel.create(req.body, req.files?.cardImage)
+            const industry = await IndustryModel.create(req.body, req.files?.cardImage, req.files?.headerImage)
             res.json(industry)
         } catch(e) {
             next(AppError.badRequest(e.message))
@@ -43,7 +43,7 @@ class Industry {
             if (Object.keys(req.body).length === 0) {
                 throw new Error('Нет данных для обновления')
             }
-            const industry = await IndustryModel.update(req.params.id, req.body, req.files?.cardImage)
+            const industry = await IndustryModel.update(req.params.id, req.body, req.files?.cardImage, req.files?.headerImage)
             res.json(industry)
         } catch(e) {
             next(AppError.badRequest(e.message))

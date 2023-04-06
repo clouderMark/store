@@ -5,6 +5,7 @@ import {useAppContext} from './AppContext';
 
 interface IProps {
   id: number | null;
+  setId: Dispatch<SetStateAction<number | null>>;
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   setChange: Dispatch<SetStateAction<boolean>>;
@@ -12,12 +13,16 @@ interface IProps {
 
 const EditIndustry = (props: IProps) => {
   const {catalog} = useAppContext();
-  const {id, show, setShow, setChange} = props;
+  const {id, show, setShow, setChange, setId} = props;
 
   const [name, setName] = useState('');
+
   const [cardImage, setCardImage] = useState<File | null>(null);
-  const [fetchedCardImage, setFetchedCardImage] = useState<string | null>(null);
-  // const [viewImage, setViewImage] = useState<File | null>(null);
+  const [cardImageUrl, setCardImageUrl] = useState<string | null>(null);
+
+  const [headerImage, setHeaderImage] = useState<File | null>(null);
+  const [headerImageUrl, setHeaderImageUrl] = useState<string | null>(null);
+
   // const [title, setTitle] = useState('');
   // const [paragraph, setParagraph] = useState('');
 
@@ -42,15 +47,42 @@ const EditIndustry = (props: IProps) => {
         .then((data) => {
           setName(data.name);
           setValid(data.name !== '');
-          setFetchedCardImage(data.cardImage);
+          setCardImageUrl(data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '');
+          setHeaderImageUrl(data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : '');
         })
         .catch((error) => console.log(error));
     } else {
       setName('');
       setValid(null);
-      setFetchedCardImage('');
+      setCardImageUrl(null);
+      setHeaderImageUrl(null);
     }
   }, [id]);
+
+  useEffect(() => {
+    if (headerImage) {
+      const newImageUrl = URL.createObjectURL(headerImage);
+
+      setHeaderImageUrl(newImageUrl);
+    }
+  }, [headerImage]);
+
+  useEffect(() => {
+    if (cardImage) {
+      const newImageUrl = URL.createObjectURL(cardImage);
+
+      setCardImageUrl(newImageUrl);
+    }
+  }, [cardImage]);
+
+  useEffect(() => {
+    if (!show) {
+      setCardImageUrl(null);
+      setHeaderImageUrl(null);
+      setId(null);
+      setName('');
+    }
+  }, [show]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
@@ -60,8 +92,13 @@ const EditIndustry = (props: IProps) => {
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
       const file = event.target.files[0];
+      const inputName = event.target.name;
 
-      setCardImage(file);
+      if (inputName === 'cardImage') {
+        setCardImage(file);
+      } else if (inputName === 'headerImage') {
+        setHeaderImage(file);
+      }
     }
   };
 
@@ -79,6 +116,10 @@ const EditIndustry = (props: IProps) => {
         data.append('cardImage', cardImage, cardImage.name);
       }
 
+      if (headerImage) {
+        data.append('headerImage', headerImage, headerImage.name);
+      }
+
       const success = () => {
         // закрываем модальное окно
         setShow(false);
@@ -90,7 +131,8 @@ const EditIndustry = (props: IProps) => {
         updateIndustry(id, data)
           .then((data) => {
             success();
-            setFetchedCardImage(data.cardImage);
+            setCardImageUrl(data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : null);
+            setHeaderImageUrl(data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : null);
             catalog.industries = [...catalog.industries.filter((el) => el.id !== data.id), data];
           })
           .catch((error) => console.error(error));
@@ -112,7 +154,8 @@ const EditIndustry = (props: IProps) => {
       setShow={setShow}
       id={id}
       name={name}
-      fetchedCardImage={fetchedCardImage}
+      cardImage={cardImageUrl}
+      headerImage={headerImageUrl}
       handleImageChange={handleImageChange}
       valid={valid}
       inputRef={inputRef}

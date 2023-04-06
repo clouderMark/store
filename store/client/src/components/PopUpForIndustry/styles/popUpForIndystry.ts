@@ -8,11 +8,7 @@ export const popUpForIndystry = {
 
   card: {
     position: 'relative',
-    img: {
-      width: '335px',
-      height: '335px',
-      backgroundSize: 'cover',
-    },
+
     button: {
       position: 'absolute',
       top: 0,
@@ -20,8 +16,21 @@ export const popUpForIndystry = {
     },
 
   },
+
+  img: {
+    width: '335px',
+    height: '335px',
+    backgroundSize: 'cover',
+    backgroundColor: '#707070',
+  },
+
   name: {
     width: '335px',
+  },
+
+  headerImage: {
+    width: '100%',
+    height: '400px',
   },
 
 };

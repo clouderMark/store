@@ -16,7 +16,7 @@ const AdminIndustries = () => {
   const [industryId, setIndustryId] = useState<null | number>(null);
 
   const handleCreateClick = () => {
-    setIndustryId(0);
+    setIndustryId(null);
     setShow(true);
   };
 
@@ -35,7 +35,9 @@ const AdminIndustries = () => {
       .catch((error) => console.error(error));
   };
 
-  const Edit = () => <EditIndustry id={industryId} show={show} setShow={setShow} setChange={setChange} key={1} />;
+  const Edit = () => (
+    <EditIndustry id={industryId} setId={setIndustryId} show={show} setShow={setShow} setChange={setChange} key={1} />
+  );
 
   if (catalog.industriesFetching) {
     return <Propgress />;
