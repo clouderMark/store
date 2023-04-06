@@ -8,7 +8,7 @@ import {IPopUpForIndystry} from './types/IPopUpForIndystry';
 export const PopUpForIndystry = (props: IPopUpForIndystry) => (
   <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {width: '60%', minWidth: '1000px'}}}>
     <DialogTitle>
-      {props.id ? 'Редактирование' : 'Создание'} {props.title}
+      {props.id ? 'Редактирование' : 'Создание'} {props.cardTitle}
     </DialogTitle>
 
     <DialogContent>
@@ -25,19 +25,25 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
           </Box>
           <TextField
             autoFocus={true}
-            inputRef={props.inputRef}
+            // inputRef={props.inputRef}
             name="name"
             value={props.name}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
             required
             error={props.valid === false}
             color={props.valid ? 'success' : 'primary'}
-            placeholder={`Название ${props.title}...`}
+            placeholder={`Название ${props.cardTitle}...`}
             className="mb-3"
             sx={styles.name}
           />
         </Box>
-        <BranchItem handleImageChange={props.handleImageChange} headerImage={props.headerImage} id={props.id} />
+        <BranchItem
+          handleImageChange={props.handleImageChange}
+          headerImage={props.headerImage}
+          id={props.id}
+          title={props.title}
+          handleChange={props.handleChange}
+        />
         <DialogActions>
           <Button type="submit" variant="outlined">
             Сохранить

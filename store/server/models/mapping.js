@@ -33,6 +33,7 @@ const Industry = sequelize.define('industry', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     cardImage: {type: DataTypes.STRING, allowNull: false},
     headerImage: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.STRING, unique: true, allowNull: false},
 })
 
 const Solution = sequelize.define('solution', {

@@ -1,4 +1,6 @@
-import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent, useRef} from 'react';
+import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent,
+  //  useRef
+} from 'react';
 import {createIndustry, fetchIndustry, updateIndustry} from '../http/catalogAPI';
 import PopUpForIndystry from './PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from './AppContext';
@@ -23,7 +25,7 @@ const EditIndustry = (props: IProps) => {
   const [headerImage, setHeaderImage] = useState<File | null>(null);
   const [headerImageUrl, setHeaderImageUrl] = useState<string | null>(null);
 
-  // const [title, setTitle] = useState('');
+  const [title, setTitle] = useState('');
   // const [paragraph, setParagraph] = useState('');
 
   // const [listImage, setListImage] = useState<File | null>(null);
@@ -33,13 +35,13 @@ const EditIndustry = (props: IProps) => {
 
   const [valid, setValid] = useState<null | boolean>(null);
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  // const inputRef = useRef<HTMLInputElement>(null);
 
-  if (show) {
-    if (inputRef && inputRef.current) {
-      setTimeout(() => inputRef.current?.focus(), 100);
-    }
-  }
+  // if (show) {
+  //   if (inputRef && inputRef.current) {
+  //     setTimeout(() => inputRef.current?.focus(), 100);
+  //   }
+  // }
 
   useEffect(() => {
     if (id) {
@@ -49,6 +51,7 @@ const EditIndustry = (props: IProps) => {
           setValid(data.name !== '');
           setCardImageUrl(data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '');
           setHeaderImageUrl(data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : '');
+          setTitle(data.title);
         })
         .catch((error) => console.log(error));
     } else {
@@ -56,6 +59,7 @@ const EditIndustry = (props: IProps) => {
       setValid(null);
       setCardImageUrl(null);
       setHeaderImageUrl(null);
+      setTitle('');
     }
   }, [id]);
 
@@ -81,12 +85,17 @@ const EditIndustry = (props: IProps) => {
       setHeaderImageUrl(null);
       setId(null);
       setName('');
+      setTitle('');
     }
   }, [show]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
-    setValid(event.target.value.trim() !== '');
+    if (event.target.name === 'name') {
+      setName(event.target.value);
+      setValid(event.target.value.trim() !== '');
+    } else if (event.target.name === 'title') {
+      setTitle(event.target.value);
+    }
   };
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -112,6 +121,7 @@ const EditIndustry = (props: IProps) => {
       const data = new FormData();
 
       data.append('name', name.trim());
+      data.append('title', title.trim());
       if (cardImage) {
         data.append('cardImage', cardImage, cardImage.name);
       }
@@ -149,7 +159,7 @@ const EditIndustry = (props: IProps) => {
 
   return (
     <PopUpForIndystry
-      title="индустрии"
+      cardTitle="индустрии"
       show={show}
       setShow={setShow}
       id={id}
@@ -158,9 +168,10 @@ const EditIndustry = (props: IProps) => {
       headerImage={headerImageUrl}
       handleImageChange={handleImageChange}
       valid={valid}
-      inputRef={inputRef}
+      // inputRef={inputRef}
       handleSubmit={handleSubmit}
       handleChange={handleChange}
+      title={title}
     />
   );
 };

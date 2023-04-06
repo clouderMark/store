@@ -21,7 +21,7 @@ const BranchesItem = () => {
       <ContainerWithTwoColumns
         firstColumn={
           <StrongWithTitle
-            content={{p: currentItem.branchName, title: 'here will be title'}}
+            content={{p: currentItem.branchName, title: branch?.title!}}
           />
         }
         secondColumn={

@@ -19,8 +19,8 @@ class Industry {
     async create(data, cardImg, headerImg) {
         const cardImage = FileService.save(cardImg) ?? '';
         const headerImage = FileService.save(headerImg) ?? '';
-        const {name} = data
-        const industry = await IndustryMapping.create({name, cardImage, headerImage})
+        const {name, title} = data
+        const industry = await IndustryMapping.create({name, cardImage, headerImage, title})
         return industry
     }
 
@@ -39,10 +39,11 @@ class Industry {
         }
         const {
             name = industry.name,
+            title = industry.title,
             cardImage = file1 ? file1 : industry.cardImage,
             headerImage = file2 ? file2 : industry.headerImage,
         } = data
-        await industry.update({name, cardImage, headerImage})
+        await industry.update({name, cardImage, headerImage, title})
         await industry.reload()
         return industry
     }

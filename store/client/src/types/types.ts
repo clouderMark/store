@@ -207,4 +207,5 @@ interface IImages {
 export interface IFetchIndystry extends ICatalogItem {
   cardImage: string | null;
   headerImage: string | null;
+  title: string;
 }
