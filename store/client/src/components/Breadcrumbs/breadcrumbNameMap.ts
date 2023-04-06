@@ -38,6 +38,8 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
       crumb = `Сообщение №${path.slice(-1)}`;
     } else if (path.includes(EPath.AdminOrders.split('/').at(-1)!) && +path.slice(-1) >= 0) {
       crumb = `Заказ №${path.slice(-1)}`;
+    } else if (path.includes(EPath.Branches.slice(1)) && +path.slice(-1) >= 0) {
+      crumb = product.branchName;
     } else {
       crumb = this.allNames[name];
     }
