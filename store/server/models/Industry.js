@@ -1,4 +1,5 @@
 import { Industry as IndustryMapping } from './mapping.js'
+import { IndustryParagraph as IndustryParagraphMapping } from './mapping.js'
 import AppError from '../errors/AppError.js'
 import FileService from '../services/File.js';
 
@@ -9,7 +10,11 @@ class Industry {
     }
 
     async getOne(id) {
-        const industry = await IndustryMapping.findByPk(id)
+        const industry = await IndustryMapping.findByPk(id, {
+            include: [
+                {model: IndustryParagraphMapping, as: 'paragraphs'}
+            ]
+        })
         if (!industry) {
             throw new Error('Индустрия не найдена в БД')
         }
@@ -21,6 +26,15 @@ class Industry {
         const headerImage = FileService.save(headerImg) ?? '';
         const {name, title} = data
         const industry = await IndustryMapping.create({name, cardImage, headerImage, title})
+        if (data.paragraphs) {
+            const paragraphs = JSON.parse(data.paragraphs)
+            for (let paragraph of paragraphs) {
+                await IndustryParagraphMapping.create({
+                    value: paragraph.value,
+                    industryId: industry.id,
+                })
+            }
+        }
         return industry
     }
 

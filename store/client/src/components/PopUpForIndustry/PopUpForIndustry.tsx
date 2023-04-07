@@ -43,6 +43,8 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
           id={props.id}
           title={props.title}
           handleChange={props.handleChange}
+          paragraphs={props.paragraphs}
+          setParagraphs={props.setParagraphs}
         />
         <DialogActions>
           <Button type="submit" variant="outlined">

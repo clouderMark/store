@@ -1,4 +1,5 @@
 import {ChangeEvent, Dispatch, SetStateAction, FormEvent} from 'react';
+import {IParagraphs} from '../../../types/types';
 
 export interface IPopUpForIndystry {
   cardTitle: string;
@@ -14,4 +15,6 @@ export interface IPopUpForIndystry {
   handleSubmit(event: FormEvent<HTMLFormElement>): void;
   handleChange(event: ChangeEvent<HTMLInputElement>): void;
   title: string;
+  paragraphs: IParagraphs[];
+  setParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
 }

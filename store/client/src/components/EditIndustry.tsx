@@ -1,9 +1,16 @@
-import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent,
+import React, {
+  useEffect,
+  useState,
+  Dispatch,
+  SetStateAction,
+  ChangeEvent,
+  FormEvent,
   //  useRef
 } from 'react';
 import {createIndustry, fetchIndustry, updateIndustry} from '../http/catalogAPI';
 import PopUpForIndystry from './PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from './AppContext';
+import {IParagraphs} from '../types/types';
 
 interface IProps {
   id: number | null;
@@ -26,7 +33,7 @@ const EditIndustry = (props: IProps) => {
   const [headerImageUrl, setHeaderImageUrl] = useState<string | null>(null);
 
   const [title, setTitle] = useState('');
-  // const [paragraph, setParagraph] = useState('');
+  const [paragraphs, setParagraphs] = useState<IParagraphs[]>([]);
 
   // const [listImage, setListImage] = useState<File | null>(null);
   // const [listTitle, setListTitle] = useState('');
@@ -52,6 +59,7 @@ const EditIndustry = (props: IProps) => {
           setCardImageUrl(data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '');
           setHeaderImageUrl(data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : '');
           setTitle(data.title);
+          console.log(data);
         })
         .catch((error) => console.log(error));
     } else {
@@ -130,6 +138,14 @@ const EditIndustry = (props: IProps) => {
         data.append('headerImage', headerImage, headerImage.name);
       }
 
+      if (paragraphs.length) {
+        const items = paragraphs.filter((item) => item.value.trim() !== '');
+
+        if (items.length) {
+          data.append('paragraphs', JSON.stringify(items));
+        }
+      }
+
       const success = () => {
         // закрываем модальное окно
         setShow(false);
@@ -151,6 +167,7 @@ const EditIndustry = (props: IProps) => {
           .then((data) => {
             success();
             catalog.industries = [...catalog.industries, data];
+            setParagraphs([]);
           })
           .catch((error) => console.error(error));
       }
@@ -172,6 +189,8 @@ const EditIndustry = (props: IProps) => {
       handleSubmit={handleSubmit}
       handleChange={handleChange}
       title={title}
+      paragraphs={paragraphs}
+      setParagraphs={setParagraphs}
     />
   );
 };
