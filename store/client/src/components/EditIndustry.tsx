@@ -7,6 +7,7 @@ import React, {
   FormEvent,
   //  useRef
 } from 'react';
+import uuid from 'react-uuid';
 import {createIndustry, fetchIndustry, updateIndustry} from '../http/catalogAPI';
 import PopUpForIndystry from './PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from './AppContext';
@@ -59,7 +60,9 @@ const EditIndustry = (props: IProps) => {
           setCardImageUrl(data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '');
           setHeaderImageUrl(data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : '');
           setTitle(data.title);
-          console.log(data);
+          setParagraphs(
+            data.paragraphs.map((item) => ({...item, unique: uuid()})),
+          );
         })
         .catch((error) => console.log(error));
     } else {
@@ -94,6 +97,7 @@ const EditIndustry = (props: IProps) => {
       setId(null);
       setName('');
       setTitle('');
+      setParagraphs([]);
     }
   }, [show]);
 

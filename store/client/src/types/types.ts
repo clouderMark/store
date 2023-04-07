@@ -215,5 +215,4 @@ export interface IParagraphs {
   id: null | number;
   value: string;
   unique: string;
-  append: boolean;
 }

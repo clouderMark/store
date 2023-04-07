@@ -39,7 +39,9 @@ class Industry {
     }
 
     async update(id, data, cardImg, headerImg) {
-        const industry = await IndustryMapping.findByPk(id)
+        const industry = await IndustryMapping.findByPk(id, {
+            include: [{model: IndustryParagraphMapping, as: 'paragraphs'}]
+        })
         if (!industry) {
             throw new Error('Индустрия не найдена в БД')
         }
@@ -58,6 +60,16 @@ class Industry {
             headerImage = file2 ? file2 : industry.headerImage,
         } = data
         await industry.update({name, cardImage, headerImage, title})
+        if (data.paragraphs) {
+            await IndustryParagraphMapping.destroy({where: {industryId: id}})
+            const paragraphs = JSON.parse(data.paragraphs)
+            for (let paragraph of paragraphs) {
+                await IndustryParagraphMapping.create({
+                    value: paragraph.value,
+                    industryId: industry.id,
+                })
+            }
+        }
         await industry.reload()
         return industry
     }

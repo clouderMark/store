@@ -20,24 +20,16 @@ interface IProps {
 const BranchItem = (props: IProps) => {
   const {paragraphs, setParagraphs} = props;
   const append = () => {
-    setParagraphs([...paragraphs, {id: null, value: '', unique: uuid(), append: true}]);
+    setParagraphs([...paragraphs, {id: null, value: '', unique: uuid()}]);
   };
 
   const remove = (unique: string) => {
-    const item = paragraphs.find((elem) => elem.unique === unique);
-
-    if (item?.id) {
-      // старая хар-ка
-      setParagraphs(paragraphs.map((elem) => (elem.unique === unique ? {...elem, change: false, remove: true} : elem)));
-    } else {
-      // новая хар-ка
-      setParagraphs(paragraphs.filter((elem) => elem.unique === unique));
-    }
+    setParagraphs(paragraphs.filter((elem) => elem.unique !== unique));
   };
 
   const change = (key: string, value: string, unique: string) => {
     setParagraphs(
-      paragraphs.map((item) => (item.unique === unique ? {...item, [key]: value, change: !item.append} : item)),
+      paragraphs.map((item) => (item.unique === unique ? {...item, [key]: value} : item)),
     );
   };
 
@@ -73,7 +65,6 @@ const BranchItem = (props: IProps) => {
         <Box key={item.unique} sx={{display: 'flex', alignItems: 'flex-start', mt: '30px'}}>
           <TextField
             name={`value_${item.unique}`}
-            // value={props.paragraph}
             value={item.value}
             onChange={(e) => change('value', e.target.value, item.unique)}
             multiline
