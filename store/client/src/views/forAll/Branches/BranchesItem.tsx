@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {Typography} from '@mui/material';
+import {Typography, Box} from '@mui/material';
 import {useAppContext} from '../../../components/AppContext';
 import CentererImage from '../../../components/CentererImage/CentererImage';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
@@ -19,7 +19,11 @@ const BranchesItem = () => {
       <CentererImage img={branch?.headerImage ? process.env.REACT_APP_IMG_URL + branch.headerImage : ''} />
       <Breadcrumbs />
       <ContainerWithTwoColumns
-        firstColumn={<StrongWithTitle content={{p: currentItem.branchName, title: branch?.title!}} />}
+        firstColumn={
+          <Box sx={{'& div': {pt: 0}}}>
+            <StrongWithTitle content={{p: currentItem.branchName, title: branch?.title!}} />
+          </Box>
+        }
         secondColumn={
           <>
             {branch?.paragraphs.map((el) => (
