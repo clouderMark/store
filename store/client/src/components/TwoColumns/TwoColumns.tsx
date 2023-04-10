@@ -26,30 +26,30 @@ interface IProps {
   buttons: JSX.Element;
 }
 
-const TwoColumns = (props: IProps) => {
-  const firstColumn = () => <Box component="img" src={props.content.column1.image} sx={styles.image} alt="" />;
-
-  const secondColumn = () => (
-    <>
-      <Typography component="h2" sx={styles.title}>
-        <Typography component="span" sx={h6}>
-          {props.content.column2.title.top}
+const TwoColumns = (props: IProps) => (
+  <ContainerWithTwoColumns
+    firstColumn={<Box component="img" src={props.content.column1.image} sx={styles.image} alt="" />}
+    secondColumn={
+      <>
+        <Typography component="h2" sx={styles.title}>
+          <Typography component="span" sx={h6}>
+            {props.content.column2.title.top}
+          </Typography>
+          {props.content.column2.title.bottom}
         </Typography>
-        {props.content.column2.title.bottom}
-      </Typography>
-      {props.content.column2.paragraph ? (
+        {props.content.column2.paragraph ? (
+          <Typography component="p" sx={styles.p}>
+            {props.content.column2.paragraph}
+          </Typography>
+        ) : null}
+        <ListWithSubheader subheader={props.content.column2.list.header} items={props.content.column2.list.items} />
         <Typography component="p" sx={styles.p}>
-          {props.content.column2.paragraph}
+          {props.content.column2.p}
         </Typography>
-      ) : null}
-      <ListWithSubheader subheader={props.content.column2.list.header} items={props.content.column2.list.items} />
-      <Typography component="p" sx={styles.p}>
-        {props.content.column2.p}
-      </Typography>
-    </>
-  );
-
-  return <ContainerWithTwoColumns firstColumn={firstColumn} secondColumn={secondColumn} buttons={props.buttons} />;
-};
+      </>
+    }
+    buttons={props.buttons}
+  />
+);
 
 export default TwoColumns;

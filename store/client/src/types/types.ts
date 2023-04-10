@@ -203,3 +203,16 @@ interface IImages {
   img: any;
   alt: string;
 }
+
+export interface IFetchIndystry extends ICatalogItem {
+  cardImage: string | null;
+  headerImage: string | null;
+  title: string;
+  paragraphs: IParagraphs[];
+}
+
+export interface IParagraphs {
+  id: null | number;
+  value: string;
+  unique: string;
+}

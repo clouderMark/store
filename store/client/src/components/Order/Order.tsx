@@ -2,8 +2,9 @@ import {IOrderWithItems} from '../../types/types';
 import {Board} from '../Board';
 import {ListInfo} from './ListInfo';
 import {StatusList} from '../Order/StatusList';
-import {TableHeadCells} from './TableHeadCells';
 import {TableBodyCells} from './TableBodyCells';
+import TableCells from '../TableCells/TableCells';
+import {orderCells} from '../TableCells/cells';
 
 interface IProps {
   data: IOrderWithItems;
@@ -15,16 +16,9 @@ const Order = (props: IProps) => {
 
   return (
     <>
-      <StatusList
-        data={props.data}
-      />
-      <ListInfo
-        data={props.data}
-      />
-      <Board
-        tableHeadCells={TableHeadCells}
-        tableBodyCells={BodyCells}
-      />
+      <StatusList data={props.data} />
+      <ListInfo data={props.data} />
+      <Board tableHeadCells={<TableCells cells={orderCells} />} tableBodyCells={BodyCells} />
     </>
   );
 };

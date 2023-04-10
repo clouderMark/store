@@ -1,18 +1,12 @@
-import {
-  Container,
-  Typography,
-  Button,
-} from '@mui/material';
+import {Container, Typography, Button} from '@mui/material';
 import {IProps} from './types';
 import {titles} from './titles';
 import {Board} from '../Board';
-import {TableHeadCells} from './TableHeadCells';
 import {TableBodyCells} from './TableBodyCells';
+import TableCells from '../TableCells/TableCells';
 
 export const AdminTable = (props: IProps) => {
-  const HeadCells = () => TableHeadCells(props);
-
-  const TableCells = () => TableBodyCells(props);
+  const TableBody = () => TableBodyCells(props);
 
   return (
     <Container sx={{mt: 2}}>
@@ -25,7 +19,9 @@ export const AdminTable = (props: IProps) => {
       {props.children.map((child) => child())}
       {props.items.length > 0 ? (
         <>
-          <Board tableHeadCells={HeadCells} tableBodyCells={TableCells} />
+          <Board
+            tableHeadCells={<TableCells cells={props.headCells} />}
+            tableBodyCells={TableBody} />
           {props.pagination?.pagination && props.pagination.totalPages > 1 ? props.pagination.pagination() : null}
         </>
       ) : (

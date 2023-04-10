@@ -30,7 +30,15 @@ const Product = sequelize.define('product', {
 
 const Industry = sequelize.define('industry', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false}
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    cardImage: {type: DataTypes.STRING, allowNull: false},
+    headerImage: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.STRING, allowNull: false},
+})
+
+const IndustryParagraph = sequelize.define('industry_paragraph', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
 })
 
 const Solution = sequelize.define('solution', {
@@ -122,6 +130,9 @@ BasketProduct.belongsTo(Product)
 Industry.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Industry)
 
+Industry.hasMany(IndustryParagraph, {as: 'paragraphs', onDelete: 'CASCADE'})
+IndustryParagraph.belongsTo(Industry);
+
 Solution.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Solution)
 
@@ -150,6 +161,7 @@ export {
     Basket,
     Product,
     Industry,
+    IndustryParagraph,
     Solution,
     Area,
     Rating,

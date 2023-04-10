@@ -1,12 +1,13 @@
 import {MouseEvent, useState, createRef, useEffect} from 'react';
-import {useNavigate} from 'react-router-dom';
-import {Container, Box, Typography, IconButton, List, ListItem, Card, CardMedia, CardContent} from '@mui/material';
+import {Container, Box, Typography, IconButton, List, ListItem} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {fetchProductsForSlider} from '../../http/catalogAPI';
 import {slider} from './styles/slider';
 import Arrow from '../Arrow/Arrow';
 import {ISlider} from '../../types/types';
 import {queryTablet, queryMobile} from './query';
+import CardItem from '../CardItem/CardItem';
+import {EPath} from '../../enums/EPath';
 
 const content = {
   title: {
@@ -16,7 +17,6 @@ const content = {
 };
 
 const Slider = () => {
-  const navigate = useNavigate();
   const matchesTablet = useMediaQuery(`(min-width: ${queryTablet}px)`, {noSsr: true});
   const matchesMobile = useMediaQuery(`(min-width: ${queryMobile}px)`, {noSsr: true});
   const amountOfProducts = 9;
@@ -42,7 +42,7 @@ const Slider = () => {
     if (refComponent.current) {
       const {width} = refComponent.current.getBoundingClientRect();
       const margin = parseInt(getComputedStyle(refComponent.current).marginLeft);
-      const translate = matchesMobile ? (width + margin) * 2 : (width + margin);
+      const translate = matchesMobile ? (width + margin) * 2 : width + margin;
 
       setTranslateTo(translate);
     }
@@ -130,30 +130,11 @@ const Slider = () => {
           >
             {products?.map((item, i) => (
               <ListItem
-                sx={[
-                  slider.list.item,
-                  getOpacity(i, count, matchesTablet, matchesMobile),
-                ]}
+                sx={[slider.list.item, getOpacity(i, count, matchesTablet, matchesMobile)]}
                 key={i}
                 ref={refComponent}
               >
-                <Card sx={slider.list.card} onClick={() => navigate(`/shop/${item.id}`)}>
-                  {item.image ? (
-                    <CardMedia
-                      sx={slider.list.image}
-                      component="img"
-                      image={process.env.REACT_APP_IMG_URL + item.image}
-                    />
-                  ) : (
-                    <CardMedia sx={slider.list.image} component="img" image="http://via.placeholder.com/335" />
-                  )}
-                  <CardContent sx={slider.list.content}>
-                    <Typography sx={slider.list.title} component="p">
-                      {item.name}
-                    </Typography>
-                    <Arrow color={'#008f38'} direction={'right'} size={31} />
-                  </CardContent>
-                </Card>
+                <CardItem image={item.image} to={`${EPath.Shop}/${item.id}`} name={item.name} />
               </ListItem>
             ))}
           </List>

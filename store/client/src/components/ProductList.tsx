@@ -42,7 +42,7 @@ const ProductList = observer(() => {
         {catalog.products.length ? (
           catalog.products.map((item: IProductWithProps) => <ProductItem key={item.id} data={item} />)
         ) : (
-          <Typography component="p">По вашему запросу ничего не найдено</Typography>
+          <Typography component="p" sx={{mb: 10}}>По вашему запросу ничего не найдено</Typography>
         )}
       </Box>
       {catalog.page > 1 && <Pagination>{pages}</Pagination>}

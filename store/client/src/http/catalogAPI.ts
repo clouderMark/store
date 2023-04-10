@@ -9,35 +9,36 @@ import {
   IProperty,
   IProductProp,
   ISlider,
+  IFetchIndystry,
 } from '../types/types';
 
 // Создание, обновление, удаление индустрии, получение списка всех индустрий
 
-export const createIndustry = async (industry: {name: string}): Promise<ICatalogItem> => {
+export const createIndustry = async (industry: FormData): Promise<IFetchIndystry> => {
   const {data} = await authInstance.post('industry/create', industry);
 
   return data;
 };
 
-export const updateIndustry = async (id: number, industry: {name: string}): Promise<ICatalogItem> => {
+export const updateIndustry = async (id: number, industry: FormData): Promise<IFetchIndystry> => {
   const {data} = await authInstance.put(`industry/update/${id}`, industry);
 
   return data;
 };
 
-export const deleteIndustry = async (id: number): Promise<ICatalogItem> => {
+export const deleteIndustry = async (id: number): Promise<IFetchIndystry> => {
   const {data} = await authInstance.delete(`industry/delete/${id}`);
 
   return data;
 };
 
-export const fetchIndustries = async (): Promise<ICatalogItem[]> => {
+export const fetchIndustries = async (): Promise<IFetchIndystry[]> => {
   const {data} = await guestInstance.get('industry/getall');
 
   return data;
 };
 
-export const fetchIndustry = async (id: number): Promise<ICatalogItem> => {
+export const fetchIndustry = async (id: number): Promise<IFetchIndystry> => {
   const {data} = await guestInstance.get(`industry/getone/${id}`);
 
   return data;

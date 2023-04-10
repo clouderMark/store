@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 
 interface IProps {
-  tableHeadCells?(): JSX.Element;
+  tableHeadCells?: JSX.Element;
   tableBodyCells(): JSX.Element;
 }
 
@@ -18,7 +18,7 @@ export const Board = (props: IProps) => (
       {props.tableHeadCells ? (
         <TableHead>
           <TableRow>
-            {props.tableHeadCells()}
+            {props.tableHeadCells}
           </TableRow>
         </TableHead>
       ) : null}

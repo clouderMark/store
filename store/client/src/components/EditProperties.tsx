@@ -28,7 +28,7 @@ const EditProperties = (props: IProps) => {
       setProperties(properties.map((elem) => (elem.unique === unique ? {...elem, change: false, remove: true} : elem)));
     } else {
       // новая хар-ка
-      setProperties(properties.filter((elem) => elem.unique === unique));
+      setProperties(properties.filter((elem) => elem.unique !== unique));
     }
   };
 

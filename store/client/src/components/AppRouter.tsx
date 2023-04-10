@@ -1,29 +1,32 @@
 import {Route, Routes} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
-import Admin from '../pages/Admin';
-import Basket from '../pages/Basket';
-import Product from '../pages/Product';
-import Contacts from '../pages/Contacts';
-import Delivery from '../pages/Delivery';
-import Login from '../pages/Login';
-import NotFound from '../pages/NotFound';
-import Shop from '../pages/Shop/Shop';
-import Signup from '../pages/Signup';
-import User from '../pages/User';
+import Admin from '../views/forAdmin/Admin/Admin';
+import Basket from '../views/forAll/Basket';
+import Product from '../views/forAll/Product';
+import Contacts from '../views/forAll/Contacts';
+import Delivery from '../views/forAll/Delivery';
+import Login from '../views/forAll/Login';
+import NotFound from '../views/forAll/NotFound';
+import Shop from '../views/forAll/Shop/Shop';
+import Signup from '../views/forAll/Signup';
+import User from '../views/forAll/User';
 import {useAppContext} from './AppContext';
-import Checkout from '../pages/Checkout';
-import UserOrders from '../pages/UserOrders';
-import UserOrder from '../pages/UserOrder';
-import AdminOrders from '../pages/AdminOrders';
-import AdminOrder from '../pages/AdminOrder';
-import AdminIndustries from '../pages/AdminIndustries';
-import AdminSolutions from '../pages/AdminSolutions';
-import AdminAreas from '../pages/AdminAreas';
-import AdminProducts from '../pages/AdminProducts';
-import AdminMessages from '../pages/AdminMessages';
-import AdminMessage from '../pages/AdminMessage';
-import AdminSubscriptions from '../pages/AdminSubscriptions';
-import Main from '../pages/Main/Main';
+import Checkout from '../views/forAll/Checkout';
+import UserOrders from '../views/forAll/UserOrders';
+import UserOrder from '../views/forAll/UserOrder';
+import AdminOrders from '../views/forAdmin/AdminOrders';
+import AdminOrder from '../views/forAdmin/AdminOrder';
+import AdminIndustries from '../views/forAdmin/AdminIndustries';
+import AdminSolutions from '../views/forAdmin/AdminSolutions';
+import AdminAreas from '../views/forAdmin/AdminAreas';
+import AdminProducts from '../views/forAdmin/AdminProducts';
+import AdminMessages from '../views/forAdmin/AdminMessages';
+import AdminMessage from '../views/forAdmin/AdminMessage';
+import AdminSubscriptions from '../views/forAdmin/AdminSubscriptions';
+import Main from '../views/forAll/Main/Main';
+import Branches from '../views/forAll/Branches/Branches';
+import BranchesItem from '../views/forAll/Branches/BranchesItem';
+import BranchesSubItem from '../views/forAll/Branches/BranchesSubItem';
 import {EPath} from '../enums/EPath';
 
 const publicRoutes = [
@@ -37,6 +40,9 @@ const publicRoutes = [
   {path: EPath.Contacts, Component: Contacts},
   {path: EPath.NotFound, Component: NotFound},
   {path: EPath.Main, Component: Main},
+  {path: EPath.Branches, Component: Branches},
+  {path: EPath.BranchesItem, Component: BranchesItem},
+  {path: EPath.BranchesSubItem, Component: BranchesSubItem},
 ];
 
 const authRoutes = [
