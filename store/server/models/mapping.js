@@ -38,7 +38,7 @@ const Industry = sequelize.define('industry', {
 
 const IndustryParagraph = sequelize.define('industry_paragraph', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    value: {type: DataTypes.STRING, allowNull: false}
+    value: {type: DataTypes.TEXT, allowNull: false}
 })
 
 const Solution = sequelize.define('solution', {
