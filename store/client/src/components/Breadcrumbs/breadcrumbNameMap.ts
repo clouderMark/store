@@ -1,10 +1,11 @@
 import CurrentProductStore from '../../store/CurrentItemStore';
 import {EPath} from '../../enums/EPath';
 import {links} from '../../views/forAdmin/Admin/links';
+import {IFetchIndystry} from '../../types/types';
 
 interface IBreadcrumbNameMap {
   allNames: {[key: string]: string};
-  getName(name: string, product: CurrentProductStore): string | undefined;
+  getName(name: string, product: CurrentProductStore, industries?: IFetchIndystry[]): string | undefined;
 }
 
 const breadcrumbNameMap: IBreadcrumbNameMap = {
@@ -28,18 +29,24 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
     [EPath.Admin]: 'Управление',
   },
 
-  getName(name, product) {
+  getName(name, item, industries) {
     let crumb;
     const path = name.split('/');
 
     if (path.includes(EPath.Shop.slice(1)) && +path.slice(-1) >= 0) {
-      crumb = product.productName.charAt(0).toUpperCase() + product.productName.slice(1);
+      crumb = item.productName.charAt(0).toUpperCase() + item.productName.slice(1);
     } else if (path.includes(EPath.AdminMessages.split('/').at(-1)!) && +path.slice(-1) >= 0) {
       crumb = `Сообщение №${path.slice(-1)}`;
     } else if (path.includes(EPath.AdminOrders.split('/').at(-1)!) && +path.slice(-1) >= 0) {
       crumb = `Заказ №${path.slice(-1)}`;
     } else if (path.includes(EPath.Branches.slice(1)) && +path.slice(-1) >= 0) {
-      crumb = product.branchName;
+      if (industries) {
+        crumb = (industries.find((el) => el.id === +path[2])?.name);
+      }
+
+      if (path.length === 4) {
+        crumb = item.subBranchName;
+      }
     } else {
       crumb = this.allNames[name];
     }

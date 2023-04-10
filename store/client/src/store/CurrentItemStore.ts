@@ -3,7 +3,7 @@ import {makeAutoObservable} from 'mobx';
 class CurrentItemStore {
   private _productName = '';
 
-  private _branchName = '';
+  private _subBranchName = '';
 
   constructor() {
     makeAutoObservable(this);
@@ -17,12 +17,12 @@ class CurrentItemStore {
     this._productName = name;
   }
 
-  get branchName() {
-    return this._branchName;
+  get subBranchName() {
+    return this._subBranchName;
   }
 
-  set branchName(name) {
-    this._branchName = name;
+  set subBranchName(name) {
+    this._subBranchName = name;
   }
 }
 

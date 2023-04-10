@@ -5,14 +5,31 @@ import CentererImage from '../../../components/CentererImage/CentererImage';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import ContainerWithTwoColumns from '../../../components/ContainerWithTwoColumns/ContainerWithTwoColumns';
 import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
+import BranchesList from '../../../components/BranchesList/BranchesList';
 
 const BranchesItem = () => {
   const id: number = Number(useParams().id);
-  const {catalog, currentItem} = useAppContext();
+  const {catalog} = useAppContext();
 
   const branch = catalog.industries.find((el) => el.id === id);
 
-  currentItem.branchName = branch!.name;
+  const data = [
+    {
+      id: 1,
+      cardImage: '',
+      name: 'first',
+    },
+    {
+      id: 2,
+      cardImage: '',
+      name: 'second',
+    },
+    {
+      id: 3,
+      cardImage: '',
+      name: 'third',
+    },
+  ];
 
   return (
     <>
@@ -21,7 +38,9 @@ const BranchesItem = () => {
       <ContainerWithTwoColumns
         firstColumn={
           <Box sx={{'& div': {pt: 0}}}>
-            <StrongWithTitle content={{p: currentItem.branchName, title: branch?.title!}} />
+            <StrongWithTitle
+              content={{p: catalog.industries.find((el) => el.id === id)!.name, title: branch?.title!}}
+            />
           </Box>
         }
         secondColumn={
@@ -35,6 +54,7 @@ const BranchesItem = () => {
           </>
         }
       />
+      <BranchesList data={data} />
     </>
   );
 };
