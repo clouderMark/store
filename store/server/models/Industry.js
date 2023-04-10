@@ -5,7 +5,11 @@ import FileService from '../services/File.js';
 
 class Industry {
     async getAll() {
-        const industries = await IndustryMapping.findAll()
+        const industries = await IndustryMapping.findAll({
+            include: [
+                {model: IndustryParagraphMapping, as: 'paragraphs'}
+            ]}
+        )
         return industries
     }
 

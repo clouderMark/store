@@ -19,14 +19,15 @@ const BranchesItem = () => {
       <CentererImage img={branch?.headerImage ? process.env.REACT_APP_IMG_URL + branch.headerImage : ''} />
       <Breadcrumbs />
       <ContainerWithTwoColumns
-        firstColumn={
-          <StrongWithTitle
-            content={{p: currentItem.branchName, title: branch?.title!}}
-          />
-        }
+        firstColumn={<StrongWithTitle content={{p: currentItem.branchName, title: branch?.title!}} />}
         secondColumn={
           <>
-            <Typography></Typography>
+            {branch?.paragraphs.map((el) => (
+              <Typography key={el.id} sx={{mb: '10px'}}>
+                {el.value}
+              </Typography>
+            ))}
+            <Typography />
           </>
         }
       />
