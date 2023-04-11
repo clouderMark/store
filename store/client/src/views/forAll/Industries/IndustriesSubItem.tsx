@@ -8,11 +8,9 @@ import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle
 
 const IndustriesSubItem = () => {
   const id: number = Number(useParams().role);
-  const {currentItem, catalog} = useAppContext();
+  const {catalog} = useAppContext();
 
   const item = catalog.subIndustries.find((el) => el.id === id);
-
-  currentItem.subBranchName = `${id}`;
 
   return (
     <>
