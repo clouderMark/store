@@ -27,17 +27,17 @@ const IndustriesItem = () => {
         }
         secondColumn={
           <>
-            {item?.paragraphs.map((el) => (
+            {item?.paragraphs ? item?.paragraphs.map((el) => (
               <Typography key={el.id} sx={{mb: '10px'}}>
                 {el.value}
               </Typography>
-            ))}
+            )) : null}
             <Typography />
           </>
         }
       />
       <Container maxWidth={false}>
-        <CardList data={catalog.subIndustries} />
+        <CardList data={catalog.subIndustries.filter((el) => el.industryId === id)} />
       </Container>
     </>
   );
