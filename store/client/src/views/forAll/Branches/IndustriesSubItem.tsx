@@ -3,7 +3,7 @@ import {useAppContext} from '../../../components/AppContext';
 import CentererImage from '../../../components/CentererImage/CentererImage';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 
-const BranchesSubItem = () => {
+const IndustriesSubItem = () => {
   const id: number = Number(useParams().role);
   const {currentItem, catalog} = useAppContext();
 
@@ -19,4 +19,4 @@ const BranchesSubItem = () => {
   );
 };
 
-export default BranchesSubItem;
+export default IndustriesSubItem;

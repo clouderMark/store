@@ -26,7 +26,7 @@ import AdminSubscriptions from '../views/forAdmin/AdminSubscriptions';
 import Main from '../views/forAll/Main/Main';
 import Industries from '../views/forAll/Branches/Industries';
 import IndustriesItem from '../views/forAll/Branches/IndustriesItem';
-import BranchesSubItem from '../views/forAll/Branches/BranchesSubItem';
+import IndustriesSubItem from '../views/forAll/Branches/IndustriesSubItem';
 import AdminSubIndustries from '../views/forAdmin/AdminSubIndustries';
 import {EPath} from '../enums/EPath';
 
@@ -43,7 +43,7 @@ const publicRoutes = [
   {path: EPath.Main, Component: Main},
   {path: EPath.Industries, Component: Industries},
   {path: EPath.IndustriesItem, Component: IndustriesItem},
-  {path: EPath.BranchesSubItem, Component: BranchesSubItem},
+  {path: EPath.IndustriesSubItem, Component: IndustriesSubItem},
 ];
 
 const authRoutes = [
