@@ -5,6 +5,9 @@ import CentererImage from '../../../components/CentererImage/CentererImage';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import ContainerWithTwoColumns from '../../../components/ContainerWithTwoColumns/ContainerWithTwoColumns';
 import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
+import Contact from '../../../components/Contact/Contact';
+import Newsletter from '../../../components/Newsletter/Newsletter';
+import Footer from '../../../components/Footer/Footer';
 
 const IndustriesSubItem = () => {
   const id: number = Number(useParams().role);
@@ -35,6 +38,9 @@ const IndustriesSubItem = () => {
           </>
         }
       />
+      <Contact />
+      <Newsletter />
+      <Footer />
     </>
   );
 };
