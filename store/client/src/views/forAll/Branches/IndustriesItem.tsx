@@ -7,27 +7,27 @@ import ContainerWithTwoColumns from '../../../components/ContainerWithTwoColumns
 import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
 import CardList from '../../../components/CardList/CardList';
 
-const BranchesItem = () => {
+const IndustriesItem = () => {
   const id: number = Number(useParams().id);
   const {catalog} = useAppContext();
 
-  const branch = catalog.industries.find((el) => el.id === id);
+  const item = catalog.industries.find((el) => el.id === id);
 
   return (
     <>
-      <CentererImage img={branch?.headerImage ? process.env.REACT_APP_IMG_URL + branch.headerImage : ''} />
+      <CentererImage img={item?.headerImage ? process.env.REACT_APP_IMG_URL + item.headerImage : ''} />
       <Breadcrumbs />
       <ContainerWithTwoColumns
         firstColumn={
           <Box sx={{'& div': {pt: 0}}}>
             <StrongWithTitle
-              content={{p: catalog.industries.find((el) => el.id === id)!.name, title: branch?.title!}}
+              content={{p: catalog.industries.find((el) => el.id === id)!.name, title: item?.title!}}
             />
           </Box>
         }
         secondColumn={
           <>
-            {branch?.paragraphs.map((el) => (
+            {item?.paragraphs.map((el) => (
               <Typography key={el.id} sx={{mb: '10px'}}>
                 {el.value}
               </Typography>
@@ -43,4 +43,4 @@ const BranchesItem = () => {
   );
 };
 
-export default BranchesItem;
+export default IndustriesItem;

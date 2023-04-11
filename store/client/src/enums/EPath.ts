@@ -23,7 +23,7 @@ export enum EPath {
   AdminMessage = '/admin/messages/:id',
   AdminSubscriptions = '/admin/subscriptions',
   Industries = '/branches',
-  BranchesItem = '/branches/:id',
+  IndustriesItem = '/branches/:id',
   BranchesSubItem = '/branches/:id/:role',
   AdminBranches = '/admin/branches',
   AdminSubIndustries = '/admin/subindustries',
