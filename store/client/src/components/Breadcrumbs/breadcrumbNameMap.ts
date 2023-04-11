@@ -23,7 +23,7 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
     [EPath.About]: 'О нас',
     [EPath.Services]: 'Сервисы',
     [EPath.Areas]: 'Области',
-    [EPath.Branches]: 'Отрасли',
+    [EPath.Industries]: 'Отрасли',
     [EPath.Signup]: 'Регистрация',
     [EPath.Login]: 'Войти',
     [EPath.Admin]: 'Управление',
@@ -39,7 +39,7 @@ const breadcrumbNameMap: IBreadcrumbNameMap = {
       crumb = `Сообщение №${path.slice(-1)}`;
     } else if (path.includes(EPath.AdminOrders.split('/').at(-1)!) && +path.slice(-1) >= 0) {
       crumb = `Заказ №${path.slice(-1)}`;
-    } else if (path.includes(EPath.Branches.slice(1)) && +path.slice(-1) >= 0) {
+    } else if (path.includes(EPath.Industries.slice(1)) && +path.slice(-1) >= 0) {
       if (industries) {
         crumb = (industries.find((el) => el.id === +path[2])?.name);
       }

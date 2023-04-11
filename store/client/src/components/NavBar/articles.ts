@@ -14,7 +14,7 @@ interface IList {
 
 export const articles: IArticle[] = [
   {
-    link: EPath.Branches,
+    link: EPath.Industries,
     title: 'Отрасли',
     list: [],
   },

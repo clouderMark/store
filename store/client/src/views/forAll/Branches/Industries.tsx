@@ -15,13 +15,13 @@ const content = {
   title: 'Find the right product for your application',
 };
 
-const Branches = () => {
-  const [branches, setBranches] = useState<IFetchIndystry[] | null>(null);
+const Industries = () => {
+  const [industries, setIndustries] = useState<IFetchIndystry[] | null>(null);
   const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
     fetchIndustries()
-      .then((data) => setBranches(data))
+      .then((data) => setIndustries(data))
       .finally(() => setFetching(false));
   }, []);
 
@@ -32,7 +32,7 @@ const Branches = () => {
       <Container maxWidth={false}>
         <StrongWithTitle content={content} />
         {fetching ? null : (
-          <BranchesList data={branches!} />
+          <BranchesList data={industries!} />
         )}
       </Container>
       <Newsletter />
@@ -41,4 +41,4 @@ const Branches = () => {
   );
 };
 
-export default Branches;
+export default Industries;
