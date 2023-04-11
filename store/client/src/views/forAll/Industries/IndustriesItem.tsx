@@ -30,7 +30,7 @@ const IndustriesItem = () => {
         }
         secondColumn={
           <>
-            {item?.paragraphs ? item?.paragraphs.map((el) => (
+            {item?.paragraphs ? item.paragraphs.map((el) => (
               <Typography key={el.id} sx={{mb: '10px'}}>
                 {el.value}
               </Typography>
