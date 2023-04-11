@@ -4,7 +4,7 @@ import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import img from './images/branche-header.webp';
 import CentererImage from '../../../components/CentererImage/CentererImage';
 import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
-import BranchesList from '../../../components/BranchesList/BranchesList';
+import CardList from '../../../components/CardList/CardList';
 import Newsletter from '../../../components/Newsletter/Newsletter';
 import Footer from '../../../components/Footer/Footer';
 import {fetchIndustries} from '../../../http/catalogAPI';
@@ -32,7 +32,7 @@ const Industries = () => {
       <Container maxWidth={false}>
         <StrongWithTitle content={content} />
         {fetching ? null : (
-          <BranchesList data={industries!} />
+          <CardList data={industries!} />
         )}
       </Container>
       <Newsletter />

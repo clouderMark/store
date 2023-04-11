@@ -5,7 +5,7 @@ import CentererImage from '../../../components/CentererImage/CentererImage';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import ContainerWithTwoColumns from '../../../components/ContainerWithTwoColumns/ContainerWithTwoColumns';
 import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
-import BranchesList from '../../../components/BranchesList/BranchesList';
+import CardList from '../../../components/CardList/CardList';
 
 const BranchesItem = () => {
   const id: number = Number(useParams().id);
@@ -37,7 +37,7 @@ const BranchesItem = () => {
         }
       />
       <Container maxWidth={false}>
-        <BranchesList data={catalog.subIndustries} />
+        <CardList data={catalog.subIndustries} />
       </Container>
     </>
   );

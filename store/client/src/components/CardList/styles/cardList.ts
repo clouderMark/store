@@ -1,4 +1,4 @@
-export const branchesList = {
+export const cardList = {
   pb: '130px',
 
   list: {
