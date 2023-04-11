@@ -24,9 +24,9 @@ import AdminMessages from '../views/forAdmin/AdminMessages';
 import AdminMessage from '../views/forAdmin/AdminMessage';
 import AdminSubscriptions from '../views/forAdmin/AdminSubscriptions';
 import Main from '../views/forAll/Main/Main';
-import Industries from '../views/forAll/Branches/Industries';
-import IndustriesItem from '../views/forAll/Branches/IndustriesItem';
-import IndustriesSubItem from '../views/forAll/Branches/IndustriesSubItem';
+import Industries from '../views/forAll/Industries/Industries';
+import IndustriesItem from '../views/forAll/Industries/IndustriesItem';
+import IndustriesSubItem from '../views/forAll/Industries/IndustriesSubItem';
 import AdminSubIndustries from '../views/forAdmin/AdminSubIndustries';
 import {EPath} from '../enums/EPath';
 
