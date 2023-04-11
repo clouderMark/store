@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {deleteIndustry} from '../../http/catalogAPI';
+import {deleteIndustry, createIndustry, fetchIndustry, updateIndustry} from '../../http/catalogAPI';
 import EditIndustry from '../../components/EditIndustry';
 import Propgress from '../../components/LinearDeterminate';
 import {AdminTable} from '../../components/AdminTable/AdminTable';
@@ -36,7 +36,17 @@ const AdminIndustries = () => {
   };
 
   const Edit = () => (
-    <EditIndustry id={industryId} setId={setIndustryId} show={show} setShow={setShow} setChange={setChange} key={1} />
+    <EditIndustry
+      id={industryId}
+      setId={setIndustryId}
+      show={show}
+      setShow={setShow}
+      setChange={setChange}
+      key={1}
+      fetch={fetchIndustry}
+      create={createIndustry}
+      updata={updateIndustry}
+    />
   );
 
   if (catalog.industriesFetching) {

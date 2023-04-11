@@ -1,5 +1,5 @@
 import {useParams} from 'react-router-dom';
-import {Typography, Box} from '@mui/material';
+import {Typography, Box, Container} from '@mui/material';
 import {useAppContext} from '../../../components/AppContext';
 import CentererImage from '../../../components/CentererImage/CentererImage';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
@@ -12,24 +12,6 @@ const BranchesItem = () => {
   const {catalog} = useAppContext();
 
   const branch = catalog.industries.find((el) => el.id === id);
-
-  const data = [
-    {
-      id: 1,
-      cardImage: '',
-      name: 'first',
-    },
-    {
-      id: 2,
-      cardImage: '',
-      name: 'second',
-    },
-    {
-      id: 3,
-      cardImage: '',
-      name: 'third',
-    },
-  ];
 
   return (
     <>
@@ -54,7 +36,9 @@ const BranchesItem = () => {
           </>
         }
       />
-      <BranchesList data={data} />
+      <Container maxWidth={false}>
+        <BranchesList data={catalog.subIndustries} />
+      </Container>
     </>
   );
 };

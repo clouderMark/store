@@ -44,6 +44,36 @@ export const fetchIndustry = async (id: number): Promise<IFetchIndystry> => {
   return data;
 };
 
+export const createSubIndustry = async (industry: FormData): Promise<IFetchIndystry> => {
+  const {data} = await authInstance.post('subindustry/create', industry);
+
+  return data;
+};
+
+export const updateSubIndustry = async (id: number, industry: FormData): Promise<IFetchIndystry> => {
+  const {data} = await authInstance.put(`subindustry/update/${id}`, industry);
+
+  return data;
+};
+
+export const deleteSubIndustry = async (id: number): Promise<IFetchIndystry> => {
+  const {data} = await authInstance.delete(`subindustry/delete/${id}`);
+
+  return data;
+};
+
+export const fetchSubIndustries = async (): Promise<IFetchIndystry[]> => {
+  const {data} = await guestInstance.get('subindustry/getall');
+
+  return data;
+};
+
+export const fetchSubIndustry = async (id: number): Promise<IFetchIndystry> => {
+  const {data} = await guestInstance.get(`subindustry/getone/${id}`);
+
+  return data;
+};
+
 // Создание, обновление, удаление решений, получение списка всех решений
 
 export const createSolution = async (solution: {name: string}): Promise<ICatalogItem> => {

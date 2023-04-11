@@ -6,6 +6,8 @@ class CatalogStore {
 
   private _industriesFetching = true;
 
+  private _subIndustries: IFetchIndystry[] = [];
+
   private _solutions: ICatalogItem[] = [];
 
   private _areas: ICatalogItem[] = [];
@@ -42,6 +44,14 @@ class CatalogStore {
 
   set industriesFetching(is: boolean) {
     this._industriesFetching = is;
+  }
+
+  get subIndustries() {
+    return this._subIndustries;
+  }
+
+  set subIndustries(industries: IFetchIndystry[]) {
+    this._subIndustries = industries;
   }
 
   get solutions() {

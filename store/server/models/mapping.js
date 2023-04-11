@@ -41,6 +41,19 @@ const IndustryParagraph = sequelize.define('industry_paragraph', {
     value: {type: DataTypes.TEXT, allowNull: false}
 })
 
+const SubIndustry = sequelize.define('subindustry', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    cardImage: {type: DataTypes.STRING, allowNull: false},
+    headerImage: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.STRING, allowNull: false},
+})
+
+const SubIndustryParagraph = sequelize.define('subindustry_paragraph', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+})
+
 const Solution = sequelize.define('solution', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
@@ -133,6 +146,13 @@ Product.belongsTo(Industry)
 Industry.hasMany(IndustryParagraph, {as: 'paragraphs', onDelete: 'CASCADE'})
 IndustryParagraph.belongsTo(Industry);
 
+Industry.hasMany(SubIndustry, {as: 'subindustries', onDelete: 'CASCADE'})
+SubIndustry.belongsTo(Industry)
+
+SubIndustry.hasMany(SubIndustryParagraph, {as: 'paragraphs', onDelete: 'CASCADE'})
+SubIndustryParagraph.belongsTo(SubIndustry);
+
+
 Solution.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Solution)
 
@@ -162,6 +182,8 @@ export {
     Product,
     Industry,
     IndustryParagraph,
+    SubIndustry,
+    SubIndustryParagraph,
     Solution,
     Area,
     Rating,

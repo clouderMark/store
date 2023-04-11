@@ -15,6 +15,10 @@ export const links: ILinks[] = [
     content: 'Индустрии',
   },
   {
+    address: EPath.AdminSubIndustries,
+    content: 'Подиндустрии',
+  },
+  {
     address: EPath.AdminSolutions,
     content: 'Решения',
   },

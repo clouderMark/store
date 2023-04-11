@@ -209,6 +209,7 @@ export interface IFetchIndystry extends ICatalogItem {
   headerImage: string | null;
   title: string;
   paragraphs: IParagraphs[];
+  industryId?: number;
 }
 
 export interface IParagraphs {

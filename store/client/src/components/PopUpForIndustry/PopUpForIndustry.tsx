@@ -13,6 +13,7 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
 
     <DialogContent>
       <Box component="form" noValidate onSubmit={props.handleSubmit}>
+        {props.child?.component ? props.child.component : null}
         <Box sx={styles.box}>
           <Box sx={styles.card}>
             <Box sx={styles.img} component="img" src={props.cardImage ? props.cardImage : ''} />
@@ -25,7 +26,6 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
           </Box>
           <TextField
             autoFocus={true}
-            // inputRef={props.inputRef}
             name="name"
             value={props.name}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}

@@ -26,6 +26,7 @@ export enum EPath {
   BranchesItem = '/branches/:id',
   BranchesSubItem = '/branches/:id/:role',
   AdminBranches = '/admin/branches',
+  AdminSubIndustries = '/admin/subindustries',
   Areas = '/areas',
   Services = '/services',
   About = '/about',

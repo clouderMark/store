@@ -5,13 +5,11 @@ import React, {
   SetStateAction,
   ChangeEvent,
   FormEvent,
-  //  useRef
 } from 'react';
 import uuid from 'react-uuid';
-import {createIndustry, fetchIndustry, updateIndustry} from '../http/catalogAPI';
 import PopUpForIndystry from './PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from './AppContext';
-import {IParagraphs} from '../types/types';
+import {IParagraphs, IFetchIndystry} from '../types/types';
 
 interface IProps {
   id: number | null;
@@ -19,6 +17,10 @@ interface IProps {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   setChange: Dispatch<SetStateAction<boolean>>;
+  fetch(id: number): Promise<IFetchIndystry>;
+  create(data: FormData): Promise<IFetchIndystry>;
+  updata(id: number, industry: FormData): Promise<IFetchIndystry>;
+  child?: {component: JSX.Element, value: string, setValue: Dispatch<SetStateAction<string>>};
 }
 
 const EditIndustry = (props: IProps) => {
@@ -43,17 +45,9 @@ const EditIndustry = (props: IProps) => {
 
   const [valid, setValid] = useState<null | boolean>(null);
 
-  // const inputRef = useRef<HTMLInputElement>(null);
-
-  // if (show) {
-  //   if (inputRef && inputRef.current) {
-  //     setTimeout(() => inputRef.current?.focus(), 100);
-  //   }
-  // }
-
   useEffect(() => {
     if (id) {
-      fetchIndustry(id)
+      props.fetch(id)
         .then((data) => {
           setName(data.name);
           setValid(data.name !== '');
@@ -63,6 +57,9 @@ const EditIndustry = (props: IProps) => {
           setParagraphs(
             data.paragraphs.map((item) => ({...item, unique: uuid()})),
           );
+          if (props.child) {
+            props.child.setValue(`${data.industryId}`);
+          }
         })
         .catch((error) => console.log(error));
     } else {
@@ -132,6 +129,10 @@ const EditIndustry = (props: IProps) => {
     if (correct) {
       const data = new FormData();
 
+      if (props.child) {
+        data.append('industryId', props.child.value.trim());
+      }
+
       data.append('name', name.trim());
       data.append('title', title.trim());
       if (cardImage) {
@@ -158,19 +159,28 @@ const EditIndustry = (props: IProps) => {
       };
 
       if (id) {
-        updateIndustry(id, data)
+        props.updata(id, data)
           .then((data) => {
             success();
             setCardImageUrl(data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : null);
             setHeaderImageUrl(data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : null);
-            catalog.industries = [...catalog.industries.filter((el) => el.id !== data.id), data];
+            if (props.child) {
+              catalog.subIndustries = [...catalog.subIndustries.filter((el) => el.id !== data.id), data];
+            } else {
+              catalog.industries = [...catalog.industries.filter((el) => el.id !== data.id), data];
+            }
           })
           .catch((error) => console.error(error));
       } else {
-        createIndustry(data)
+        props.create(data)
           .then((data) => {
             success();
-            catalog.industries = [...catalog.industries, data];
+            if (props.child) {
+              catalog.subIndustries = [...catalog.subIndustries, data];
+            } else {
+              catalog.industries = [...catalog.industries, data];
+            }
+
             setParagraphs([]);
           })
           .catch((error) => console.error(error));
@@ -189,12 +199,12 @@ const EditIndustry = (props: IProps) => {
       headerImage={headerImageUrl}
       handleImageChange={handleImageChange}
       valid={valid}
-      // inputRef={inputRef}
       handleSubmit={handleSubmit}
       handleChange={handleChange}
       title={title}
       paragraphs={paragraphs}
       setParagraphs={setParagraphs}
+      child={props.child}
     />
   );
 };
