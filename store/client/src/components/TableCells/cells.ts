@@ -138,3 +138,22 @@ export const adminSubscriptionCells = [
     value: 'Дата подписки',
   },
 ];
+
+export const areaRelatedCells: ICells[] = [
+  {
+    field: 'name',
+    value: ECell.Name,
+  },
+  {
+    field: 'related',
+    value: 'относящаяся к',
+  },
+  {
+    field: 'edit',
+    value: ECell.Edit,
+  },
+  {
+    field: 'delte',
+    value: ECell.Delete,
+  },
+];

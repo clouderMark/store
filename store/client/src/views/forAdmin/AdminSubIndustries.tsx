@@ -4,7 +4,7 @@ import {deleteSubIndustry, createSubIndustry, fetchSubIndustry, updateSubIndustr
 import {useAppContext} from '../../components/AppContext';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {AdminTable} from '../../components/AdminTable/AdminTable';
-import {areaCells} from '../../components/TableCells/cells';
+import {areaRelatedCells} from '../../components/TableCells/cells';
 import EditIndustry from '../../components/EditIndustry';
 
 const AdminSubIndustries = () => {
@@ -79,7 +79,7 @@ const AdminSubIndustries = () => {
       <Breadcrumbs />
       <AdminTable
         title={'subindustry'}
-        headCells={areaCells}
+        headCells={areaRelatedCells}
         children={[Edit]}
         handleCreateClick={handleCreateClick}
         handleUpdateClick={handleUpdateClick}

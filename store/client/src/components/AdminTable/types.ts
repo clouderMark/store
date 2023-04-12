@@ -1,11 +1,11 @@
-import {ICatalogItem, IProductWithProps} from '../../types/types';
+import {ICatalogItem, IProductWithProps, IFetchIndystry} from '../../types/types';
 
 export interface ITitle {
   title: 'solution' | 'industry' | 'goods' | 'area' | 'subindustry';
 }
 
 export interface ITableBodyCells extends ITitle {
-  items: Array<ICatalogItem | IProductWithProps>;
+  items: Array<ICatalogItem | IProductWithProps | IFetchIndystry>;
   handleUpdateClick(id: number): void;
   handleDeleteClick(id: number): void;
 }
