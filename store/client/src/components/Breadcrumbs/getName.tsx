@@ -16,9 +16,11 @@ const getName = (name: string): string | undefined => {
     } else {
       crumb = 'Самый лучший';
     }
-  } else if (path.includes(EPath.AdminMessages.split('/').at(-1)!) && +path.slice(-1) >= 0) {
+  } else if (path.includes(EPath.AdminMessages.split('/')[1]!) && +path.slice(-1) >= 0) {
+    // EPath.AdminMessages.split('/').at(-1)!
     crumb = `Сообщение №${path.slice(-1)}`;
-  } else if (path.includes(EPath.AdminOrders.split('/').at(-1)!) && +path.slice(-1) >= 0) {
+  } else if (path.includes(EPath.AdminOrders.split('/')[1]!) && +path.slice(-1) >= 0) {
+    // EPath.AdminOrders.split('/').at(-1)!
     crumb = `Заказ №${path.slice(-1)}`;
   } else if (path.includes(EPath.Industries.slice(1)) && +path.slice(-1) >= 0) {
     crumb = catalog.industries.find((el) => el.id === +path[2])?.name;
