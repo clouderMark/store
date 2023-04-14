@@ -15,7 +15,7 @@ const InputFileButton = (props: IProps) => (
       name={props.name}
       type="file"
       onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleImageChange(e)}
-      placeholder="Фото товара..."
+      placeholder="Фото ..."
       hidden
       accept="image/*"
       aria-label="upload picture"

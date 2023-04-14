@@ -38,7 +38,8 @@ const EditIndustry = (props: IProps) => {
   const [title, setTitle] = useState('');
   const [paragraphs, setParagraphs] = useState<IParagraphs[]>([]);
 
-  // const [listImage, setListImage] = useState<File | null>(null);
+  const [infoImage, setInfoImage] = useState<File | null>(null);
+  const [infoImageUrl, setInfoImageUrl] = useState<string | null>(null);
   // const [listTitle, setListTitle] = useState('');
   // const [listParagraph, setListParagraph] = useState('');
   // const [listItems, setListItems] = useState<string[]>([]);
@@ -53,6 +54,7 @@ const EditIndustry = (props: IProps) => {
           setValid(data.name !== '');
           setCardImageUrl(data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '');
           setHeaderImageUrl(data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : '');
+          setInfoImageUrl(data.info.image ? process.env.REACT_APP_IMG_URL + data.info.image : '');
           setTitle(data.title);
           setParagraphs(
             data.paragraphs.map((item) => ({...item, unique: uuid()})),
@@ -67,6 +69,7 @@ const EditIndustry = (props: IProps) => {
       setValid(null);
       setCardImageUrl(null);
       setHeaderImageUrl(null);
+      setInfoImageUrl(null);
       setTitle('');
     }
   }, [id]);
@@ -88,9 +91,18 @@ const EditIndustry = (props: IProps) => {
   }, [cardImage]);
 
   useEffect(() => {
+    if (infoImage) {
+      const newImageUrl = URL.createObjectURL(infoImage);
+
+      setInfoImageUrl(newImageUrl);
+    }
+  }, [infoImage]);
+
+  useEffect(() => {
     if (!show) {
       setCardImageUrl(null);
       setHeaderImageUrl(null);
+      setInfoImageUrl(null);
       setId(null);
       setName('');
       setTitle('');
@@ -116,6 +128,8 @@ const EditIndustry = (props: IProps) => {
         setCardImage(file);
       } else if (inputName === 'headerImage') {
         setHeaderImage(file);
+      } else if (inputName === 'infoImage') {
+        setInfoImage(file);
       }
     }
   };
@@ -149,6 +163,10 @@ const EditIndustry = (props: IProps) => {
         if (items.length) {
           data.append('paragraphs', JSON.stringify(items));
         }
+      }
+
+      if (infoImage) {
+        data.append('infoImage', infoImage, infoImage.name);
       }
 
       const success = () => {
@@ -197,6 +215,7 @@ const EditIndustry = (props: IProps) => {
       name={name}
       cardImage={cardImageUrl}
       headerImage={headerImageUrl}
+      infoImage={infoImageUrl}
       handleImageChange={handleImageChange}
       valid={valid}
       handleSubmit={handleSubmit}

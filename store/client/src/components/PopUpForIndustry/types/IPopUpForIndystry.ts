@@ -9,6 +9,7 @@ export interface IPopUpForIndystry {
   name: string;
   cardImage: string | null;
   headerImage: string | null;
+  infoImage: string | null;
   handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
   valid: boolean | null;
   handleSubmit(event: FormEvent<HTMLFormElement>): void;

@@ -1,9 +1,9 @@
 import React, {ChangeEvent} from 'react';
-import {Dialog, DialogContent, DialogTitle, Box, TextField, DialogActions, Button} from '@mui/material';
-import {popUpForIndystry as styles} from './styles/popUpForIndystry';
-import InputFileButton from './InputFileButton';
+import {Dialog, DialogContent, DialogTitle, Box, DialogActions, Button, TextField} from '@mui/material';
 import {IPopUpForIndystry} from './types/IPopUpForIndystry';
 import AddTextField from './AddTextField';
+import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwoColumns';
+import CardInputImage from './CardInputImage';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => (
   <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {width: '60%', minWidth: '1000px'}}}>
@@ -14,16 +14,13 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
     <DialogContent>
       <Box component="form" noValidate onSubmit={props.handleSubmit}>
         {props.child?.component ? props.child.component : null}
-        <Box sx={styles.box}>
-          <Box sx={styles.card}>
-            <Box sx={styles.img} component="img" src={props.cardImage ? props.cardImage : ''} />
-            <InputFileButton
-              styles={styles.card.button}
-              id={props.id}
-              name="cardImage"
-              handleImageChange={props.handleImageChange}
-            />
-          </Box>
+        <Box sx={{width: '335px'}}>
+          <CardInputImage
+            id={props.id}
+            image={props.cardImage}
+            imageInputName={'cardImage'}
+            handleImageChange={props.handleImageChange}
+          />
           <TextField
             autoFocus={true}
             name="name"
@@ -34,30 +31,36 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
             color={props.valid ? 'success' : 'primary'}
             placeholder={`Название ${props.cardTitle}...`}
             className="mb-3"
-            sx={styles.name}
+            sx={{width: '100%'}}
           />
         </Box>
-        <Box sx={styles.card}>
-          <Box
-            component="img"
-            src={props.headerImage ? props.headerImage : ''}
-            sx={[styles.headerImage, {backgroundColor: '#707070', backgroundSize: 'cover'}]}
-          />
-          <InputFileButton
-            styles={styles.card.button}
+        <Box>
+          <CardInputImage
             id={props.id}
-            name="headerImage"
+            image={props.headerImage}
+            imageInputName={'headerImage'}
             handleImageChange={props.handleImageChange}
           />
+          <TextField
+            name="title"
+            value={props.title}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+            placeholder="Заголовок индустрии"
+            sx={{width: '100%', mt: '30px'}}
+          />
         </Box>
-        <TextField
-          name="title"
-          value={props.title}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
-          placeholder="Заголовок индустрии"
-          sx={{width: '100%', mt: '30px'}}
-        />
         <AddTextField paragraphs={props.paragraphs} setParagraphs={props.setParagraphs} />
+        <ContainerWithTwoColumns
+          firstColumn={
+            <CardInputImage
+              id={props.id}
+              image={props.infoImage}
+              imageInputName={'infoImage'}
+              handleImageChange={props.handleImageChange}
+            />
+          }
+          secondColumn={<></>}
+        />
         <DialogActions>
           <Button type="submit" variant="outlined">
             Сохранить
