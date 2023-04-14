@@ -1,4 +1,4 @@
-import SubIndustryModel from '../models/SubIndustry.js';
+import SubIndustryModel from '../models/SubIndustry/SubIndustry.js';
 import AppError from '../errors/AppError.js';
 
 class SubIndustry {
@@ -35,7 +35,8 @@ class SubIndustry {
       const subIndustry = await SubIndustryModel.create(
         req.body,
         req.files?.cardImage,
-        req.files?.headerImage
+        req.files?.headerImage,
+        req.files?.infoImage,
       );
 
       res.json(subIndustry);
@@ -55,7 +56,8 @@ class SubIndustry {
       req.params.id,
       req.body,
       req.files?.cardImage,
-      req.files?.headerImage
+      req.files?.headerImage,
+      req.files?.infoImage,
     );
 
     res.json(subIndustry);
