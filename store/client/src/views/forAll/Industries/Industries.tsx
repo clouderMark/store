@@ -8,7 +8,7 @@ import CardList from '../../../components/CardList/CardList';
 import Newsletter from '../../../components/Newsletter/Newsletter';
 import Footer from '../../../components/Footer/Footer';
 import {fetchIndustries} from '../../../http/catalogAPI';
-import {IFetchIndystry} from '../../../types/types';
+import {IAreaResponse} from '../../../types/types';
 
 const content = {
   p: 'Отрасли',
@@ -16,7 +16,7 @@ const content = {
 };
 
 const Industries = () => {
-  const [industries, setIndustries] = useState<IFetchIndystry[] | null>(null);
+  const [industries, setIndustries] = useState<IAreaResponse[] | null>(null);
   const [fetching, setFetching] = useState(true);
 
   useEffect(() => {

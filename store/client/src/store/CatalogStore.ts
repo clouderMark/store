@@ -1,12 +1,12 @@
 import {makeAutoObservable} from 'mobx';
-import {ICatalogItem, IProductWithProps, IFetchIndystry} from '../types/types';
+import {ICatalogItem, IProductWithProps, IAreaResponse} from '../types/types';
 
 class CatalogStore {
-  private _industries: IFetchIndystry[] = [];
+  private _industries: IAreaResponse[] = [];
 
   private _industriesFetching = true;
 
-  private _subIndustries: IFetchIndystry[] = [];
+  private _subIndustries: IAreaResponse[] = [];
 
   private _solutions: ICatalogItem[] = [];
 
@@ -34,7 +34,7 @@ class CatalogStore {
     return this._industries;
   }
 
-  set industries(industries: IFetchIndystry[]) {
+  set industries(industries: IAreaResponse[]) {
     this._industries = industries;
   }
 
@@ -50,7 +50,7 @@ class CatalogStore {
     return this._subIndustries;
   }
 
-  set subIndustries(industries: IFetchIndystry[]) {
+  set subIndustries(industries: IAreaResponse[]) {
     this._subIndustries = industries;
   }
 

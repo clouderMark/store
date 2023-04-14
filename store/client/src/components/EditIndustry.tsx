@@ -9,7 +9,7 @@ import React, {
 import uuid from 'react-uuid';
 import PopUpForIndystry from './PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from './AppContext';
-import {IParagraphs, IFetchIndystry} from '../types/types';
+import {IParagraphs, IAreaResponse} from '../types/types';
 
 interface IProps {
   id: number | null;
@@ -17,9 +17,9 @@ interface IProps {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   setChange: Dispatch<SetStateAction<boolean>>;
-  fetch(id: number): Promise<IFetchIndystry>;
-  create(data: FormData): Promise<IFetchIndystry>;
-  updata(id: number, industry: FormData): Promise<IFetchIndystry>;
+  fetch(id: number): Promise<IAreaResponse>;
+  create(data: FormData): Promise<IAreaResponse>;
+  updata(id: number, industry: FormData): Promise<IAreaResponse>;
   child?: {component: JSX.Element, value: string, setValue: Dispatch<SetStateAction<string>>};
 }
 
