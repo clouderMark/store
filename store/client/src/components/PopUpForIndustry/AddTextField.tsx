@@ -8,10 +8,12 @@ import {IParagraphs} from '../../types/types';
 interface IProps {
   paragraphs: IParagraphs[];
   setParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
+  title: string;
+  listItem: string;
 }
 
 const AddTextField = (props: IProps) => {
-  const {paragraphs, setParagraphs} = props;
+  const {paragraphs, setParagraphs, title, listItem} = props;
   const append = () => {
     setParagraphs([...paragraphs, {id: null, value: '', unique: uuid()}]);
   };
@@ -27,7 +29,7 @@ const AddTextField = (props: IProps) => {
   return (
     <>
       <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: '30px'}}>
-        <Typography component="span">Добавить абзац</Typography>
+        <Typography component="span">{title}</Typography>
         <IconButton color="secondary" aria-label="add" onClick={append}>
           <AddIcon />
         </IconButton>
@@ -40,7 +42,7 @@ const AddTextField = (props: IProps) => {
             onChange={(e) => change('value', e.target.value, item.unique)}
             multiline
             rows={4}
-            placeholder="Параграф индустрии"
+            placeholder={listItem}
             sx={{width: '100%'}}
           />
           <IconButton color="warning" aria-label="delete" onClick={() => remove(item.unique)}>

@@ -64,10 +64,10 @@ const SubInfo = sequelize.define('sub_info', {
 
 const SubListItem = sequelize.define('sub_list_item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    item: {type: DataTypes.STRING, allowNull: false},
+    value: {type: DataTypes.STRING, allowNull: false},
 })
 
-const SubInfoParagraph = sequelize.define('paragraphs', {
+const SubInfoParagraph = sequelize.define('sub_paragraphs', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     value: {type: DataTypes.TEXT, allowNull: false}
 })
@@ -198,7 +198,7 @@ SubIndustry.hasOne(SubInfo, {as: 'info', onDelete: 'CASCADE',})
 SubInfo.belongsTo(SubIndustry)
 SubInfo.hasMany(SubListItem, {as: 'listItems', onDelete: 'CASCADE',})
 SubListItem.belongsTo(SubInfo)
-SubInfo.hasMany(SubInfoParagraph)
+SubInfo.hasMany(SubInfoParagraph, {as: 'paragraphs', onDelete: 'CASCADE',})
 SubInfoParagraph.belongsTo(SubInfo)
 
 export {

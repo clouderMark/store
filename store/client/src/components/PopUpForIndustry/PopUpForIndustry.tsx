@@ -49,7 +49,12 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
             sx={{width: '100%', mt: '30px'}}
           />
         </Box>
-        <AddTextField paragraphs={props.paragraphs} setParagraphs={props.setParagraphs} />
+        <AddTextField
+          paragraphs={props.paragraphs}
+          setParagraphs={props.setParagraphs}
+          title={'Добавить абзац'}
+          listItem={'Параграф индустрии'}
+        />
         <ContainerWithTwoColumns
           firstColumn={
             <CardInputImage
@@ -59,7 +64,45 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
               handleImageChange={props.handleImageChange}
             />
           }
-          secondColumn={<></>}
+          secondColumn={
+            <>
+              <TextField
+                name="infoTitle"
+                value={props.infoTitle}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+                placeholder="Заголовок"
+                sx={{width: '100%', mt: '30px'}}
+              />
+              <TextField
+                name="infoHeader"
+                value={props.infoHeader}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+                placeholder="Подзаголовок"
+                sx={{width: '100%', mt: '30px'}}
+              />
+              <TextField
+                name="listTitle"
+                multiline
+                rows={4}
+                value={props.infoListTitle}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+                placeholder="Заголовок списка"
+                sx={{width: '100%', mt: '30px'}}
+              />
+              <AddTextField
+                paragraphs={props.infoListItems}
+                setParagraphs={props.setInfoListItems}
+                title={'Добавить пункт'}
+                listItem={'Пункт списка'}
+              />
+              <AddTextField
+                paragraphs={props.infoParagraphs}
+                setParagraphs={props.setInfoParagraphs}
+                title={'Добавить параграф'}
+                listItem={'Параграф'}
+              />
+            </>
+          }
         />
         <DialogActions>
           <Button type="submit" variant="outlined">

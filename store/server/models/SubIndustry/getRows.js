@@ -15,7 +15,7 @@ export const rows = {
         {
           model: ListItemMapping,
           as: 'listItems',
-          attributes: ['id', 'item'],
+          attributes: ['id', 'value'],
         },
         {
           model: InfoParagraphMapping,
@@ -43,7 +43,7 @@ export const rowsWithParagraphs = {
         {
           model: ListItemMapping,
           as: 'listItems',
-          attributes: ['id', 'item'],
+          attributes: ['id', 'value'],
         },
         {
           model: InfoParagraphMapping,

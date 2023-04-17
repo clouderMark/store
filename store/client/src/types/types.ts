@@ -221,13 +221,20 @@ export interface IAreaResponse extends ICatalogItem {
     header: string;
     listItems: {
       id: number;
-      item: string;
+      value: string;
+    }[];
+    paragraphs: {
+      id: number;
+      value: string;
     }[];
   }
 }
 
-export interface IParagraphs {
+export interface IParagraphs extends IFilteredParagraphs {
+  unique: string;
+}
+
+export interface IFilteredParagraphs {
   id: null | number;
   value: string;
-  unique: string;
 }

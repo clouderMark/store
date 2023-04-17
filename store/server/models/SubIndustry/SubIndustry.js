@@ -67,7 +67,7 @@ class SubIndustry {
       const listItems = JSON.parse(data.listItems);
       for (let item of listItems) {
         await ListItemMapping.create({
-          item: item.value,
+          value: item.value,
           subInfoId: subIndustry.id,
         });
       }
@@ -123,6 +123,8 @@ class SubIndustry {
       listTitle = subIndustry.info.listHeader,
     } = data;
 
+    console.log(data);
+
     await subIndustry.update({
       industryId,
       name,
@@ -159,7 +161,7 @@ class SubIndustry {
       const listItems = JSON.parse(data.listItems);
       for (let item of listItems) {
         await ListItemMapping.create({
-          item: item.value,
+          value: item.value,
           subInfoId: subIndustry.id,
         });
       }
