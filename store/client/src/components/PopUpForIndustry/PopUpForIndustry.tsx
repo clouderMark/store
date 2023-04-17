@@ -6,7 +6,7 @@ import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwo
 import CardInputImage from './CardInputImage';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => (
-  <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {width: '60%', minWidth: '1000px'}}}>
+  <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {minWidth: '94%'}}}>
     <DialogTitle>
       {props.id ? 'Редактирование' : 'Создание'} {props.cardTitle}
     </DialogTitle>
