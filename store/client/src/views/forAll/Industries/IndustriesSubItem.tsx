@@ -8,6 +8,7 @@ import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle
 import Contact from '../../../components/Contact/Contact';
 import Newsletter from '../../../components/Newsletter/Newsletter';
 import Footer from '../../../components/Footer/Footer';
+import Info from '../../../components/Info';
 
 const IndustriesSubItem = () => {
   const id: number = Number(useParams().role);
@@ -15,6 +16,7 @@ const IndustriesSubItem = () => {
 
   const item = catalog.subIndustries.find((el) => el.id === id);
 
+  // prettier-ignore
   return (
     <>
       <CentererImage img={item?.headerImage ? process.env.REACT_APP_IMG_URL + item.headerImage : ''} />
@@ -29,15 +31,18 @@ const IndustriesSubItem = () => {
         }
         secondColumn={
           <>
-            {item?.paragraphs ? item.paragraphs.map((el) => (
-              <Typography key={el.id} sx={{mb: '10px'}}>
-                {el.value}
-              </Typography>
-            )) : null}
+            {item?.paragraphs
+              ? item.paragraphs.map((el) => (
+                <Typography key={el.id} sx={{mb: '10px'}}>
+                  {el.value}
+                </Typography>
+              ))
+              : null}
             <Typography />
           </>
         }
       />
+      {item ? <Info item={item.info} /> : null}
       <Contact />
       <Newsletter />
       <Footer />
