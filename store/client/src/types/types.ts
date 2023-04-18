@@ -174,28 +174,28 @@ export interface ITwoColumnContent {
   column1: {
     // eslint-disable-next-line
     image: any;
-  },
+  };
 
   column2: {
     title: {
       top: string;
       bottom: string;
-    },
+    };
     paragraph?: string;
     list: {
       header: string;
       items: string[];
-    },
-    p: string,
+    };
+    p: string;
     buttons: IButtons[];
-  },
+  };
 }
 
 export interface ICentererContainer {
   title: string;
   header: string;
   content: string;
-  images: IImages[]
+  images: IImages[];
 }
 
 interface IImages {
@@ -213,21 +213,23 @@ export interface IAreaResponse extends ICatalogItem {
     value: string;
   }[];
   industryId?: number;
-  info: {
+  info: IInfo;
+}
+
+export interface IInfo {
+  id: number;
+  image: string;
+  listTitle: string;
+  title: string;
+  header: string;
+  listItems: {
     id: number;
-    image: string;
-    listTitle: string;
-    title: string;
-    header: string;
-    listItems: {
-      id: number;
-      value: string;
-    }[];
-    paragraphs: {
-      id: number;
-      value: string;
-    }[];
-  }
+    value: string;
+  }[];
+  paragraphs: {
+    id: number;
+    value: string;
+  }[];
 }
 
 export interface IParagraphs extends IFilteredParagraphs {
