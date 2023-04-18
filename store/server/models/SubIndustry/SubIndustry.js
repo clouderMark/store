@@ -123,8 +123,6 @@ class SubIndustry {
       listTitle = subIndustry.info.listHeader,
     } = data;
 
-    console.log(data);
-
     await subIndustry.update({
       industryId,
       name,
@@ -133,13 +131,12 @@ class SubIndustry {
       title,
     });
 
-    const info = await InfoMapping.findOne({ where: { infoId: id } });
-    await info.update({
+    await InfoMapping.update({
       image: infoImage,
       title: infoTitle,
       header: infoHeader,
       listTitle,
-    });
+    }, { where: { infoId: id } });
 
     if (data.paragraphs) {
       await SubIndustryParagraphMapping.destroy({
@@ -168,7 +165,7 @@ class SubIndustry {
     }
 
     if (data.infoParagraphs) {
-      await InfoParagraphMapping({
+      await InfoParagraphMapping.destroy({
         where: { subInfoId: id },
       });
       const paragraphs = JSON.parse(data.infoParagraphs);
