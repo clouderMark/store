@@ -4,6 +4,7 @@ import {IPopUpForIndystry} from './types/IPopUpForIndystry';
 import AddTextField from './AddTextField';
 import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import CardInputImage from './CardInputImage';
+import {EType} from '../EditIndustry/EType';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => (
   <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {minWidth: '94%'}}}>
@@ -17,14 +18,14 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
         <Box sx={{width: '335px'}}>
           <CardInputImage
             id={props.id}
-            image={props.cardImage}
-            imageInputName={'cardImage'}
+            image={props.value.cardImageUrl}
+            imageInputName={EType.cardImage}
             handleImageChange={props.handleImageChange}
           />
           <TextField
             autoFocus={true}
-            name="name"
-            value={props.name}
+            name={EType.name}
+            value={props.value.name}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
             required
             error={props.valid === false}
@@ -37,13 +38,13 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
         <Box>
           <CardInputImage
             id={props.id}
-            image={props.headerImage}
-            imageInputName={'headerImage'}
+            image={props.value.headerImageUrl}
+            imageInputName={EType.headerImage}
             handleImageChange={props.handleImageChange}
           />
           <TextField
-            name="title"
-            value={props.title}
+            name={EType.title}
+            value={props.value.title}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
             placeholder="Заголовок индустрии"
             sx={{width: '100%', mt: '30px'}}
@@ -59,32 +60,32 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
           firstColumn={
             <CardInputImage
               id={props.id}
-              image={props.infoImage}
-              imageInputName={'infoImage'}
+              image={props.value.infoImageUrl}
+              imageInputName={EType.infoImage}
               handleImageChange={props.handleImageChange}
             />
           }
           secondColumn={
             <>
               <TextField
-                name="infoTitle"
-                value={props.infoTitle}
+                name={EType.infoTitle}
+                value={props.value.infoTitle}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
                 placeholder="Заголовок"
                 sx={{width: '100%', mt: '30px'}}
               />
               <TextField
-                name="infoHeader"
-                value={props.infoHeader}
+                name={EType.infoHeader}
+                value={props.value.infoHeader}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
                 placeholder="Подзаголовок"
                 sx={{width: '100%', mt: '30px'}}
               />
               <TextField
-                name="listTitle"
+                name={EType.infoListTitle}
                 multiline
                 rows={4}
-                value={props.infoListTitle}
+                value={props.value.infoListTitle}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
                 placeholder="Заголовок списка"
                 sx={{width: '100%', mt: '30px'}}

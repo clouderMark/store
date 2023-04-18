@@ -1,9 +1,11 @@
-import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent} from 'react';
+import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent, useReducer} from 'react';
 import uuid from 'react-uuid';
-import PopUpForIndystry from './PopUpForIndustry/PopUpForIndustry';
-import {useAppContext} from './AppContext';
-import {IParagraphs, IAreaResponse} from '../types/types';
-import filterParagraphs from './EditIndustry/filterParagraphs';
+import PopUpForIndystry from '../PopUpForIndustry/PopUpForIndustry';
+import {useAppContext} from '../AppContext';
+import {IParagraphs, IAreaResponse} from '../../types/types';
+import filterParagraphs from './filterParagraphs';
+import {reducer, IDefaultValue, initState} from './reducer';
+import {EType} from './EType';
 
 interface IProps {
   id: number | null;
@@ -17,28 +19,29 @@ interface IProps {
   child?: {component: JSX.Element; value: string; setValue: Dispatch<SetStateAction<string>>};
 }
 
+const defaultValue: IDefaultValue = {
+  name: '',
+  cardImage: null,
+  cardImageUrl: '',
+  headerImage: null,
+  headerImageUrl: '',
+  title: '',
+  infoImage: null,
+  infoImageUrl: '',
+  infoTitle: '',
+  infoHeader: '',
+  infoListTitle: '',
+};
+
 const EditIndustry = (props: IProps) => {
   const {catalog} = useAppContext();
   const {id, show, setShow, setChange, setId} = props;
 
-  const [name, setName] = useState('');
-
-  const [cardImage, setCardImage] = useState<File | null>(null);
-  const [cardImageUrl, setCardImageUrl] = useState('');
-
-  const [headerImage, setHeaderImage] = useState<File | null>(null);
-  const [headerImageUrl, setHeaderImageUrl] = useState('');
-
-  const [title, setTitle] = useState('');
   const [paragraphs, setParagraphs] = useState<IParagraphs[]>([]);
-
-  const [infoImage, setInfoImage] = useState<File | null>(null);
-  const [infoImageUrl, setInfoImageUrl] = useState('');
-  const [infoTitle, setInfoTitle] = useState('');
-  const [infoHeader, setInfoHeader] = useState('');
-  const [infoListTitle, setInfoListTitle] = useState('');
   const [infoListItems, setInfoListItems] = useState<IParagraphs[]>([]);
   const [infoParagraphs, setInfoParagraphs] = useState<IParagraphs[]>([]);
+
+  const [value, dispatch] = useReducer(reducer, defaultValue, initState);
 
   const [valid, setValid] = useState<null | boolean>(null);
 
@@ -47,20 +50,32 @@ const EditIndustry = (props: IProps) => {
       props
         .fetch(id)
         .then((data) => {
-          setName(data.name);
+          dispatch({type: EType.name, payload: data.name});
           setValid(data.name !== '');
-          setCardImageUrl(data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '');
-          setHeaderImageUrl(data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : '');
-          setTitle(data.title);
+          dispatch({
+            type: EType.cardImageUrl,
+            payload: data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '',
+          });
+          dispatch({
+            type: EType.headerImageUrl,
+            payload: data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : '',
+          });
+          dispatch({
+            type: EType.title,
+            payload: data.title,
+          });
           setParagraphs(data.paragraphs.map((item) => ({...item, unique: uuid()})));
           if (props.child) {
             props.child.setValue(`${data.industryId}`);
           }
 
-          setInfoImageUrl(data.info.image ? process.env.REACT_APP_IMG_URL + data.info.image : '');
-          setInfoTitle(data.info.title);
-          setInfoHeader(data.info.header);
-          setInfoListTitle(data.info.listTitle);
+          dispatch({
+            type: EType.infoImageUrl,
+            payload: data.info.image ? process.env.REACT_APP_IMG_URL + data.info.image : '',
+          });
+          dispatch({type: EType.infoTitle, payload: data.info.title});
+          dispatch({type: EType.infoHeader, payload: data.info.header});
+          dispatch({type: EType.infoListTitle, payload: data.info.listTitle});
           setInfoListItems(data.info.listItems.map((item) => ({...item, unique: uuid()})));
           setInfoParagraphs(data.info.paragraphs.map((item) => ({...item, unique: uuid()})));
         })
@@ -69,40 +84,34 @@ const EditIndustry = (props: IProps) => {
   }, [id]);
 
   useEffect(() => {
-    if (headerImage) {
-      const newImageUrl = URL.createObjectURL(headerImage);
+    if (value.headerImage) {
+      const newImageUrl = URL.createObjectURL(value.headerImage);
 
-      setHeaderImageUrl(newImageUrl);
+      dispatch({type: EType.headerImageUrl, payload: newImageUrl});
     }
-  }, [headerImage]);
+  }, [value.headerImage]);
 
   useEffect(() => {
-    if (cardImage) {
-      const newImageUrl = URL.createObjectURL(cardImage);
+    if (value.cardImage) {
+      const newImageUrl = URL.createObjectURL(value.cardImage);
 
-      setCardImageUrl(newImageUrl);
+      dispatch({type: EType.cardImageUrl, payload: newImageUrl});
     }
-  }, [cardImage]);
+  }, [value.cardImage]);
 
   useEffect(() => {
-    if (infoImage) {
-      const newImageUrl = URL.createObjectURL(infoImage);
+    if (value.infoImage) {
+      const newImageUrl = URL.createObjectURL(value.infoImage);
 
-      setInfoImageUrl(newImageUrl);
+      dispatch({type: EType.infoImageUrl, payload: newImageUrl});
     }
-  }, [infoImage]);
+  }, [value.infoImage]);
 
   useEffect(() => {
     if (!show) {
-      setCardImageUrl('');
-      setHeaderImageUrl('');
       setId(null);
-      setName('');
-      setTitle('');
+      dispatch({type: EType.reset, payload: defaultValue});
       setParagraphs([]);
-      setInfoImageUrl('');
-      setInfoTitle('');
-      setInfoListTitle('');
       setInfoListItems([]);
       setInfoParagraphs([]);
       props.child?.setValue('');
@@ -110,18 +119,11 @@ const EditIndustry = (props: IProps) => {
   }, [show]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.name === 'name') {
-      setName(event.target.value);
+    if (event.target.name === EType.name) {
       setValid(event.target.value.trim() !== '');
-    } else if (event.target.name === 'title') {
-      setTitle(event.target.value);
-    } else if (event.target.name === 'infoTitle') {
-      setInfoTitle(event.target.value);
-    } else if (event.target.name === 'infoHeader') {
-      setInfoHeader(event.target.value);
-    } else if (event.target.name === 'listTitle') {
-      setInfoListTitle(event.target.value);
     }
+
+    dispatch({type: event.target.name, payload: event.target.value});
   };
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -129,20 +131,14 @@ const EditIndustry = (props: IProps) => {
       const file = event.target.files[0];
       const inputName = event.target.name;
 
-      if (inputName === 'cardImage') {
-        setCardImage(file);
-      } else if (inputName === 'headerImage') {
-        setHeaderImage(file);
-      } else if (inputName === 'infoImage') {
-        setInfoImage(file);
-      }
+      dispatch({type: inputName, payload: file});
     }
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const correct = name.trim() !== '';
+    const correct = value.name.trim() !== '';
 
     setValid(correct);
     if (correct) {
@@ -152,14 +148,14 @@ const EditIndustry = (props: IProps) => {
         data.append('industryId', props.child.value.trim());
       }
 
-      data.append('name', name.trim());
-      data.append('title', title.trim());
-      if (cardImage) {
-        data.append('cardImage', cardImage, cardImage.name);
+      data.append(EType.name, value.name.trim());
+      data.append(EType.title, value.title.trim());
+      if (value.cardImage) {
+        data.append(EType.cardImage, value.cardImage, value.cardImage.name);
       }
 
-      if (headerImage) {
-        data.append('headerImage', headerImage, headerImage.name);
+      if (value.headerImage) {
+        data.append(EType.headerImage, value.headerImage, value.headerImage.name);
       }
 
       if (paragraphs.length) {
@@ -170,13 +166,13 @@ const EditIndustry = (props: IProps) => {
         }
       }
 
-      if (infoImage) {
-        data.append('infoImage', infoImage, infoImage.name);
+      if (value.infoImage) {
+        data.append(EType.infoImage, value.infoImage, value.infoImage.name);
       }
 
-      data.append('infoTitle', infoTitle.trim());
-      data.append('infoHeader', infoHeader.trim());
-      data.append('listTitle', infoListTitle.trim());
+      data.append(EType.infoTitle, value.infoTitle.trim());
+      data.append(EType.infoHeader, value.infoHeader.trim());
+      data.append('listTitle', value.infoListTitle.trim());
 
       if (infoListItems.length) {
         const items = filterParagraphs(infoListItems);
@@ -235,25 +231,18 @@ const EditIndustry = (props: IProps) => {
       show={show}
       setShow={setShow}
       id={id}
-      name={name}
-      cardImage={cardImageUrl}
-      headerImage={headerImageUrl}
       handleImageChange={handleImageChange}
       valid={valid}
       handleSubmit={handleSubmit}
       handleChange={handleChange}
-      title={title}
       paragraphs={paragraphs}
       setParagraphs={setParagraphs}
-      infoImage={infoImageUrl}
-      infoTitle={infoTitle}
-      infoHeader={infoHeader}
-      infoListTitle={infoListTitle}
       infoListItems={infoListItems}
       setInfoListItems={setInfoListItems}
       infoParagraphs={infoParagraphs}
       setInfoParagraphs={setInfoParagraphs}
       child={props.child}
+      value={value}
     />
   );
 };

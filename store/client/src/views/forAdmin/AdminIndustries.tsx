@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {deleteIndustry, createIndustry, fetchIndustry, updateIndustry} from '../../http/catalogAPI';
-import EditIndustry from '../../components/EditIndustry';
+import EditIndustry from '../../components/EditIndustry/EditIndustry';
 import Propgress from '../../components/LinearDeterminate';
 import {AdminTable} from '../../components/AdminTable/AdminTable';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';

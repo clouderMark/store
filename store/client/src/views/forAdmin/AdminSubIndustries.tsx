@@ -5,7 +5,7 @@ import {useAppContext} from '../../components/AppContext';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {AdminTable} from '../../components/AdminTable/AdminTable';
 import {areaRelatedCells} from '../../components/TableCells/cells';
-import EditIndustry from '../../components/EditIndustry';
+import EditIndustry from '../../components/EditIndustry/EditIndustry';
 
 const AdminSubIndustries = () => {
   const {catalog} = useAppContext();
