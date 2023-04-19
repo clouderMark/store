@@ -6,6 +6,7 @@ import {IInfo} from '../types/types';
 
 interface IProps {
   item: IInfo;
+  buttons: JSX.Element;
 }
 
 const Info = (props: IProps) => {
@@ -14,31 +15,22 @@ const Info = (props: IProps) => {
   return (
     <ContainerWithTwoColumns
       firstColumn={
-        <Box
-          component="img"
-          src={image ? process.env.REACT_APP_IMG_URL + image : ''}
-          sx={{width: '100%'}}
-        />
+        <Box component="img" src={image} sx={{width: '100%', mt: '30px', mb: '30px'}} />
       }
       secondColumn={
         <>
           <Box sx={{'& div': {pt: 0, pb: '10px'}}}>
-            <StrongWithTitle
-              content={{p: title, title: header}}
-              titleComponent={'h2'}
-            />
+            <StrongWithTitle content={{p: title, title: header}} titleComponent={'h2'} />
           </Box>
-          <ListWithSubheader
-            subheader={listTitle}
-            items={listItems.map((el) => el.value)}
-          />
+          <ListWithSubheader subheader={listTitle} items={listItems.map((el) => el.value)} />
           {paragraphs.map((el) => (
-            <Typography component="p" key={el.id}>
+            <Typography component="p" key={el.id} sx={{mb: '20px'}}>
               {el.value}
             </Typography>
           ))}
         </>
       }
+      buttons={props.buttons}
     />
   );
 };
