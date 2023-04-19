@@ -170,27 +170,6 @@ export interface IButtons {
   to: string;
 }
 
-export interface ITwoColumnContent {
-  column1: {
-    // eslint-disable-next-line
-    image: any;
-  };
-
-  column2: {
-    title: {
-      top: string;
-      bottom: string;
-    };
-    paragraph?: string;
-    list: {
-      header: string;
-      items: string[];
-    };
-    p: string;
-    buttons: IButtons[];
-  };
-}
-
 export interface ICentererContainer {
   title: string;
   header: string;

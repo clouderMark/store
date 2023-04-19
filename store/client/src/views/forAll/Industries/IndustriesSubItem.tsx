@@ -9,12 +9,20 @@ import Contact from '../../../components/Contact/Contact';
 import Newsletter from '../../../components/Newsletter/Newsletter';
 import Footer from '../../../components/Footer/Footer';
 import Info from '../../../components/Info';
+import NavLinkButtons from '../../../components/NavLinkButtons/NavLinkButtons';
+import {EPath} from '../../../enums/EPath';
 
 const IndustriesSubItem = () => {
   const id: number = Number(useParams().role);
   const {catalog} = useAppContext();
 
   const item = catalog.subIndustries.find((el) => el.id === id);
+
+  if (item?.info.image) {
+    const src = process.env.REACT_APP_IMG_URL + item.info.image.replace(`${process.env.REACT_APP_IMG_URL}`, '');
+
+    item.info.image = src;
+  }
 
   // prettier-ignore
   return (
@@ -42,7 +50,14 @@ const IndustriesSubItem = () => {
           </>
         }
       />
-      {item ? <Info item={item.info} /> : null}
+      {item ?
+        <Info
+          item={item.info}
+          buttons={<NavLinkButtons
+            buttons={[{content: 'contact us', color: 'first', variant: 'contained', to: EPath.Contacts}]}
+            sx={{mt: '40px', textTransform: 'capitalize'}}
+          />}
+        /> : null}
       <Contact />
       <Newsletter />
       <Footer />
