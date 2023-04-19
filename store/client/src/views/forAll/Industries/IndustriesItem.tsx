@@ -9,12 +9,21 @@ import CardList from '../../../components/CardList/CardList';
 import Contact from '../../../components/Contact/Contact';
 import Newsletter from '../../../components/Newsletter/Newsletter';
 import Footer from '../../../components/Footer/Footer';
+import Info from '../../../components/Info';
+import NavLinkButtons from '../../../components/NavLinkButtons/NavLinkButtons';
+import {EPath} from '../../../enums/EPath';
 
 const IndustriesItem = () => {
   const id: number = Number(useParams().id);
   const {catalog} = useAppContext();
 
   const item = catalog.industries.find((el) => el.id === id);
+
+  if (item?.info.image) {
+    const src = process.env.REACT_APP_IMG_URL + item.info.image.replace(`${process.env.REACT_APP_IMG_URL}`, '');
+
+    item.info.image = src;
+  }
 
   return (
     <>
@@ -24,24 +33,39 @@ const IndustriesItem = () => {
         firstColumn={
           <Box sx={{'& div': {pt: 0}}}>
             <StrongWithTitle
-              content={{p: catalog.industries.find((el) => el.id === id)!.name, title: item?.title!}}
+              content={{p: catalog.industries.find((el) => el.id === id)?.name ?? '', title: item?.title ?? ''}}
             />
           </Box>
         }
         secondColumn={
           <>
-            {item?.paragraphs ? item.paragraphs.map((el) => (
-              <Typography key={el.id} sx={{mb: '10px'}}>
-                {el.value}
-              </Typography>
-            )) : null}
+            {item?.paragraphs
+              ? item.paragraphs.map((el) => (
+                <Typography key={el.id} sx={{mb: '10px'}}>
+                  {el.value}
+                </Typography>
+              ))
+              : null}
             <Typography />
           </>
         }
       />
-      <Container maxWidth={false}>
-        <CardList data={catalog.subIndustries.filter((el) => el.industryId === id)} />
-      </Container>
+      {catalog.subIndustries.length ? (
+        <Container maxWidth={false}>
+          <CardList data={catalog.subIndustries.filter((el) => el.industryId === id)} />
+        </Container>
+      ) : null}
+      {item?.info ? (
+        <Info
+          item={item?.info}
+          buttons={
+            <NavLinkButtons
+              buttons={[{content: 'contact us', color: 'first', variant: 'contained', to: EPath.Contacts}]}
+              sx={{mt: '40px', textTransform: 'capitalize'}}
+            />
+          }
+        />
+      ) : null}
       <Contact />
       <Newsletter />
       <Footer />

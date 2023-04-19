@@ -41,6 +41,24 @@ const IndustryParagraph = sequelize.define('industry_paragraph', {
     value: {type: DataTypes.TEXT, allowNull: false}
 })
 
+const IndustryInfo = sequelize.define('ind_info', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+    header: {type: DataTypes.STRING, allowNull: false},
+    listTitle: {type: DataTypes.TEXT, allowNull: false},
+    image: {type: DataTypes.STRING, allowNull: false},
+})
+
+const IndustryListItem = sequelize.define('ind_list_item', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.STRING, allowNull: false},
+})
+
+const IndustryInfoParagraph = sequelize.define('ind_paragraphs', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+})
+
 const SubIndustry = sequelize.define('subindustry', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
@@ -201,6 +219,13 @@ SubListItem.belongsTo(SubInfo)
 SubInfo.hasMany(SubInfoParagraph, {as: 'paragraphs', onDelete: 'CASCADE',})
 SubInfoParagraph.belongsTo(SubInfo)
 
+Industry.hasOne(IndustryInfo, {as: 'info', onDelete: 'CASCADE',})
+IndustryInfo.belongsTo(Industry);
+IndustryInfo.hasMany(IndustryListItem, {as: 'listItems', onDelete: 'CASCADE',})
+IndustryListItem.belongsTo(IndustryInfo)
+IndustryInfo.hasMany(IndustryInfoParagraph, {as: 'paragraphs', onDelete: 'CASCADE',})
+IndustryInfoParagraph.belongsTo(IndustryInfo)
+
 export {
     User,
     Basket,
@@ -221,4 +246,7 @@ export {
     SubInfo,
     SubListItem,
     SubInfoParagraph,
+    IndustryInfo,
+    IndustryListItem,
+    IndustryInfoParagraph,
 }
