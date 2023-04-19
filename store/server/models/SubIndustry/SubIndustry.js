@@ -131,12 +131,15 @@ class SubIndustry {
       title,
     });
 
-    await InfoMapping.update({
-      image: infoImage,
-      title: infoTitle,
-      header: infoHeader,
-      listTitle,
-    }, { where: { infoId: id } });
+    await InfoMapping.update(
+      {
+        image: infoImage,
+        title: infoTitle,
+        header: infoHeader,
+        listTitle,
+      },
+      { where: { infoId: id } }
+    );
 
     if (data.paragraphs) {
       await SubIndustryParagraphMapping.destroy({
@@ -187,7 +190,13 @@ class SubIndustry {
   }
 
   async delete(id) {
-    const subIndustry = await SubIndustryMapping.findByPk(id);
+    const subIndustry = await SubIndustryMapping.findByPk(id, {
+      include: {
+        model: InfoMapping,
+        as: 'info',
+        attributes: ['image'],
+      },
+    });
     if (!subIndustry) {
       throw new Error('Подиндустрия не найдена в БД');
     }
@@ -197,6 +206,10 @@ class SubIndustry {
     if (subIndustry.headerImage) {
       FileService.delete(subIndustry.headerImage);
     }
+    if (subIndustry.info.image) {
+      FileService.delete(subIndustry.info.image);
+    }
+
     await subIndustry.destroy();
     return subIndustry;
   }
