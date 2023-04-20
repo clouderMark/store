@@ -59,6 +59,27 @@ const IndustryInfoParagraph = sequelize.define('ind_paragraphs', {
     value: {type: DataTypes.TEXT, allowNull: false}
 })
 
+const IndustryOpinion = sequelize.define('ind_opinion', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+    listTitle: {type: DataTypes.TEXT, allowNull: false},
+    name: {type: DataTypes.STRING, allowNull: false},
+    image: {type: DataTypes.STRING, allowNull: false},
+    phone: {type: DataTypes.STRING, allowNull: false},
+    fax: {type: DataTypes.STRING, allowNull: false},
+    email: {type: DataTypes.STRING, allowNull: false},
+})
+
+const IndustryOpinionParagraph = sequelize.define('ind_op_paragraphs', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+})
+
+const IndustryOpinionItem = sequelize.define('ind_op_list_item', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.STRING, allowNull: false},
+})
+
 const SubIndustry = sequelize.define('subindustry', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
@@ -226,6 +247,13 @@ IndustryListItem.belongsTo(IndustryInfo)
 IndustryInfo.hasMany(IndustryInfoParagraph, {as: 'paragraphs', onDelete: 'CASCADE',})
 IndustryInfoParagraph.belongsTo(IndustryInfo)
 
+Industry.hasOne(IndustryOpinion, {as: 'opinion', onDelete: 'CASCADE'},);
+IndustryOpinion.belongsTo(Industry);
+IndustryOpinion.hasMany(IndustryOpinionParagraph, {as: 'paragraphs', onDelete: 'CASCADE'});
+IndustryOpinionParagraph.belongsTo(IndustryOpinion);
+IndustryOpinion.hasMany(IndustryOpinionItem, {as: 'listItems', onDelete: 'CASCADE'});
+IndustryOpinionItem.belongsTo(IndustryOpinion);
+
 export {
     User,
     Basket,
@@ -249,4 +277,7 @@ export {
     IndustryInfo,
     IndustryListItem,
     IndustryInfoParagraph,
+    IndustryOpinion,
+    IndustryOpinionItem,
+    IndustryOpinionParagraph,
 }

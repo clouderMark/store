@@ -33,6 +33,7 @@ class Industry {
                 req.files?.cardImage,
                 req.files?.headerImage,
                 req.files?.infoImage,
+                req.files?.opinionImage,
             );
             res.json(industry)
         } catch(e) {
@@ -54,6 +55,7 @@ class Industry {
                 req.files?.cardImage,
                 req.files?.headerImage,
                 req.files?.infoImage,
+                req.files?.opinionImage,
             );
             res.json(industry)
         } catch(e) {
