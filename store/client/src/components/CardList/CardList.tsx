@@ -1,6 +1,6 @@
 import {Box, List, ListItem} from '@mui/material';
 import CardItem from '../CardItem/CardItem';
-import {branchesList as styles} from './styles/branchesList';
+import {cardList as styles} from './styles/cardList';
 
 interface IProps {
   data: {
@@ -10,7 +10,7 @@ interface IProps {
   }[];
 }
 
-const BranchesList = (props: IProps) => (
+const CardList = (props: IProps) => (
   <Box sx={styles}>
     <List sx={styles.list}>
       {props.data.map((el, i) => (
@@ -26,4 +26,4 @@ const BranchesList = (props: IProps) => (
   </Box>
 );
 
-export default BranchesList;
+export default CardList;

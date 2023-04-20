@@ -4,12 +4,10 @@ import {observer} from 'mobx-react-lite';
 import {Typography, Breadcrumbs} from '@mui/material';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import LinkRouter from './LinkRouter';
-import breadcrumbNameMap from './breadcrumbNameMap';
-import {useAppContext} from '../AppContext';
 import {styles} from './styles';
+import getName from './getName';
 
 const Page = observer(() => {
-  const {currentItem, catalog} = useAppContext();
   const location = useLocation();
   const pathnames = location.pathname.split('/').filter((x) => x);
 
@@ -18,17 +16,17 @@ const Page = observer(() => {
       <LinkRouter underline="hover" sx={styles.notLast} color="inherit" to="/">
         Главная
       </LinkRouter>
-      {pathnames.map((value, index) => {
+      {pathnames.map((_, index) => {
         const last = index === pathnames.length - 1;
         const to = `/${pathnames.slice(0, index + 1).join('/')}`;
 
         return last ? (
           <Typography key={to} sx={styles.last}>
-            {breadcrumbNameMap.getName(to, currentItem, catalog.industries)}
+            {getName(to)}
           </Typography>
         ) : (
           <LinkRouter underline="hover" sx={styles.notLast} to={to} key={to}>
-            {breadcrumbNameMap.getName(to, currentItem, catalog.industries)}
+            {getName(to)}
           </LinkRouter>
         );
       })}

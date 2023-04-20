@@ -9,37 +9,67 @@ import {
   IProperty,
   IProductProp,
   ISlider,
-  IFetchIndystry,
+  IAreaResponse,
 } from '../types/types';
 
 // Создание, обновление, удаление индустрии, получение списка всех индустрий
 
-export const createIndustry = async (industry: FormData): Promise<IFetchIndystry> => {
+export const createIndustry = async (industry: FormData): Promise<IAreaResponse> => {
   const {data} = await authInstance.post('industry/create', industry);
 
   return data;
 };
 
-export const updateIndustry = async (id: number, industry: FormData): Promise<IFetchIndystry> => {
+export const updateIndustry = async (id: number, industry: FormData): Promise<IAreaResponse> => {
   const {data} = await authInstance.put(`industry/update/${id}`, industry);
 
   return data;
 };
 
-export const deleteIndustry = async (id: number): Promise<IFetchIndystry> => {
+export const deleteIndustry = async (id: number): Promise<IAreaResponse> => {
   const {data} = await authInstance.delete(`industry/delete/${id}`);
 
   return data;
 };
 
-export const fetchIndustries = async (): Promise<IFetchIndystry[]> => {
+export const fetchIndustries = async (): Promise<IAreaResponse[]> => {
   const {data} = await guestInstance.get('industry/getall');
 
   return data;
 };
 
-export const fetchIndustry = async (id: number): Promise<IFetchIndystry> => {
+export const fetchIndustry = async (id: number): Promise<IAreaResponse> => {
   const {data} = await guestInstance.get(`industry/getone/${id}`);
+
+  return data;
+};
+
+export const createSubIndustry = async (industry: FormData): Promise<IAreaResponse> => {
+  const {data} = await authInstance.post('subindustry/create', industry);
+
+  return data;
+};
+
+export const updateSubIndustry = async (id: number, industry: FormData): Promise<IAreaResponse> => {
+  const {data} = await authInstance.put(`subindustry/update/${id}`, industry);
+
+  return data;
+};
+
+export const deleteSubIndustry = async (id: number): Promise<IAreaResponse> => {
+  const {data} = await authInstance.delete(`subindustry/delete/${id}`);
+
+  return data;
+};
+
+export const fetchSubIndustries = async (): Promise<IAreaResponse[]> => {
+  const {data} = await guestInstance.get('subindustry/getall');
+
+  return data;
+};
+
+export const fetchSubIndustry = async (id: number): Promise<IAreaResponse> => {
+  const {data} = await guestInstance.get(`subindustry/getone/${id}`);
 
   return data;
 };

@@ -15,8 +15,8 @@ export interface IBasket extends IId {
 
 export interface ICatalogItem extends IId {
   name: string;
-  updatedAt: string;
-  createdAt: string;
+  // updatedAt: string;
+  // createdAt: string;
 }
 
 export interface IProduct extends ICatalogItem {
@@ -170,32 +170,11 @@ export interface IButtons {
   to: string;
 }
 
-export interface ITwoColumnContent {
-  column1: {
-    // eslint-disable-next-line
-    image: any;
-  },
-
-  column2: {
-    title: {
-      top: string;
-      bottom: string;
-    },
-    paragraph?: string;
-    list: {
-      header: string;
-      items: string[];
-    },
-    p: string,
-    buttons: IButtons[];
-  },
-}
-
 export interface ICentererContainer {
   title: string;
   header: string;
   content: string;
-  images: IImages[]
+  images: IImages[];
 }
 
 interface IImages {
@@ -204,15 +183,39 @@ interface IImages {
   alt: string;
 }
 
-export interface IFetchIndystry extends ICatalogItem {
-  cardImage: string | null;
-  headerImage: string | null;
+export interface IAreaResponse extends ICatalogItem {
+  cardImage: string;
+  headerImage: string;
   title: string;
-  paragraphs: IParagraphs[];
+  paragraphs: {
+    id: number;
+    value: string;
+  }[];
+  industryId?: number;
+  info: IInfo;
 }
 
-export interface IParagraphs {
+export interface IInfo {
+  id: number;
+  image: string;
+  listTitle: string;
+  title: string;
+  header: string;
+  listItems: {
+    id: number;
+    value: string;
+  }[];
+  paragraphs: {
+    id: number;
+    value: string;
+  }[];
+}
+
+export interface IParagraphs extends IFilteredParagraphs {
+  unique: string;
+}
+
+export interface IFilteredParagraphs {
   id: null | number;
   value: string;
-  unique: string;
 }

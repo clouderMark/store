@@ -41,6 +41,55 @@ const IndustryParagraph = sequelize.define('industry_paragraph', {
     value: {type: DataTypes.TEXT, allowNull: false}
 })
 
+const IndustryInfo = sequelize.define('ind_info', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+    header: {type: DataTypes.STRING, allowNull: false},
+    listTitle: {type: DataTypes.TEXT, allowNull: false},
+    image: {type: DataTypes.STRING, allowNull: false},
+})
+
+const IndustryListItem = sequelize.define('ind_list_item', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.STRING, allowNull: false},
+})
+
+const IndustryInfoParagraph = sequelize.define('ind_paragraphs', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+})
+
+const SubIndustry = sequelize.define('subindustry', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    cardImage: {type: DataTypes.STRING, allowNull: false},
+    headerImage: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.STRING, allowNull: false},
+})
+
+const SubIndustryParagraph = sequelize.define('subindustry_paragraph', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+})
+
+const SubInfo = sequelize.define('sub_info', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+    header: {type: DataTypes.STRING, allowNull: false},
+    listTitle: {type: DataTypes.TEXT, allowNull: false},
+    image: {type: DataTypes.STRING, allowNull: false},
+})
+
+const SubListItem = sequelize.define('sub_list_item', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.STRING, allowNull: false},
+})
+
+const SubInfoParagraph = sequelize.define('sub_paragraphs', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+})
+
 const Solution = sequelize.define('solution', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
@@ -133,6 +182,13 @@ Product.belongsTo(Industry)
 Industry.hasMany(IndustryParagraph, {as: 'paragraphs', onDelete: 'CASCADE'})
 IndustryParagraph.belongsTo(Industry);
 
+Industry.hasMany(SubIndustry, {as: 'subindustries', onDelete: 'CASCADE'})
+SubIndustry.belongsTo(Industry)
+
+SubIndustry.hasMany(SubIndustryParagraph, {as: 'paragraphs', onDelete: 'CASCADE'})
+SubIndustryParagraph.belongsTo(SubIndustry);
+
+
 Solution.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Solution)
 
@@ -156,12 +212,28 @@ OrderItem.belongsTo(Order)
 User.hasMany(Order, {as: 'orders', onDelete: 'SET NULL'})
 Order.belongsTo(User)
 
+SubIndustry.hasOne(SubInfo, {as: 'info', onDelete: 'CASCADE',})
+SubInfo.belongsTo(SubIndustry)
+SubInfo.hasMany(SubListItem, {as: 'listItems', onDelete: 'CASCADE',})
+SubListItem.belongsTo(SubInfo)
+SubInfo.hasMany(SubInfoParagraph, {as: 'paragraphs', onDelete: 'CASCADE',})
+SubInfoParagraph.belongsTo(SubInfo)
+
+Industry.hasOne(IndustryInfo, {as: 'info', onDelete: 'CASCADE',})
+IndustryInfo.belongsTo(Industry);
+IndustryInfo.hasMany(IndustryListItem, {as: 'listItems', onDelete: 'CASCADE',})
+IndustryListItem.belongsTo(IndustryInfo)
+IndustryInfo.hasMany(IndustryInfoParagraph, {as: 'paragraphs', onDelete: 'CASCADE',})
+IndustryInfoParagraph.belongsTo(IndustryInfo)
+
 export {
     User,
     Basket,
     Product,
     Industry,
     IndustryParagraph,
+    SubIndustry,
+    SubIndustryParagraph,
     Solution,
     Area,
     Rating,
@@ -171,4 +243,10 @@ export {
     OrderItem,
     Message,
     Subscription,
+    SubInfo,
+    SubListItem,
+    SubInfoParagraph,
+    IndustryInfo,
+    IndustryListItem,
+    IndustryInfoParagraph,
 }

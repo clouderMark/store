@@ -1,50 +1,109 @@
 import React, {ChangeEvent} from 'react';
-import {Dialog, DialogContent, DialogTitle, Box, TextField, DialogActions, Button} from '@mui/material';
-import {popUpForIndystry as styles} from './styles/popUpForIndystry';
-import InputFileButton from './InputFileButton';
-import BranchItem from './BranchItem';
+import {Dialog, DialogContent, DialogTitle, Box, DialogActions, Button, TextField} from '@mui/material';
 import {IPopUpForIndystry} from './types/IPopUpForIndystry';
+import AddTextField from './AddTextField';
+import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwoColumns';
+import CardInputImage from './CardInputImage';
+import {EType} from '../EditIndustry/EType';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => (
-  <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {width: '60%', minWidth: '1000px'}}}>
+  <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {minWidth: '94%'}}}>
     <DialogTitle>
       {props.id ? 'Редактирование' : 'Создание'} {props.cardTitle}
     </DialogTitle>
 
     <DialogContent>
       <Box component="form" noValidate onSubmit={props.handleSubmit}>
-        <Box sx={styles.box}>
-          <Box sx={styles.card}>
-            <Box sx={styles.img} component="img" src={props.cardImage ? props.cardImage : ''} />
-            <InputFileButton
-              styles={styles.card.button}
-              id={props.id}
-              name="cardImage"
-              handleImageChange={props.handleImageChange}
-            />
-          </Box>
+        {props.child?.component ? props.child.component : null}
+        <Box sx={{width: '335px'}}>
+          <CardInputImage
+            id={props.id}
+            image={props.value.cardImageUrl}
+            imageInputName={EType.cardImage}
+            handleImageChange={props.handleImageChange}
+          />
           <TextField
             autoFocus={true}
-            // inputRef={props.inputRef}
-            name="name"
-            value={props.name}
+            name={EType.name}
+            value={props.value.name}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
             required
             error={props.valid === false}
             color={props.valid ? 'success' : 'primary'}
             placeholder={`Название ${props.cardTitle}...`}
             className="mb-3"
-            sx={styles.name}
+            sx={{width: '100%'}}
           />
         </Box>
-        <BranchItem
-          handleImageChange={props.handleImageChange}
-          headerImage={props.headerImage}
-          id={props.id}
-          title={props.title}
-          handleChange={props.handleChange}
+        <Box>
+          <CardInputImage
+            id={props.id}
+            image={props.value.headerImageUrl}
+            imageInputName={EType.headerImage}
+            handleImageChange={props.handleImageChange}
+          />
+          <TextField
+            name={EType.title}
+            value={props.value.title}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+            placeholder="Заголовок индустрии"
+            sx={{width: '100%', mt: '30px'}}
+          />
+        </Box>
+        <AddTextField
           paragraphs={props.paragraphs}
           setParagraphs={props.setParagraphs}
+          title={'Добавить абзац'}
+          listItem={'Параграф индустрии'}
+        />
+        <ContainerWithTwoColumns
+          firstColumn={
+            <CardInputImage
+              id={props.id}
+              image={props.value.infoImageUrl}
+              imageInputName={EType.infoImage}
+              handleImageChange={props.handleImageChange}
+            />
+          }
+          secondColumn={
+            <>
+              <TextField
+                name={EType.infoTitle}
+                value={props.value.infoTitle}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+                placeholder="Заголовок"
+                sx={{width: '100%', mt: '30px'}}
+              />
+              <TextField
+                name={EType.infoHeader}
+                value={props.value.infoHeader}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+                placeholder="Подзаголовок"
+                sx={{width: '100%', mt: '30px'}}
+              />
+              <TextField
+                name={EType.infoListTitle}
+                multiline
+                rows={4}
+                value={props.value.infoListTitle}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+                placeholder="Заголовок списка"
+                sx={{width: '100%', mt: '30px'}}
+              />
+              <AddTextField
+                paragraphs={props.infoListItems}
+                setParagraphs={props.setInfoListItems}
+                title={'Добавить пункт'}
+                listItem={'Пункт списка'}
+              />
+              <AddTextField
+                paragraphs={props.infoParagraphs}
+                setParagraphs={props.setInfoParagraphs}
+                title={'Добавить параграф'}
+                listItem={'Параграф'}
+              />
+            </>
+          }
         />
         <DialogActions>
           <Button type="submit" variant="outlined">

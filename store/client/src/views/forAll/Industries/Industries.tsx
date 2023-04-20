@@ -4,24 +4,24 @@ import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import img from './images/branche-header.webp';
 import CentererImage from '../../../components/CentererImage/CentererImage';
 import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
-import BranchesList from '../../../components/BranchesList/BranchesList';
+import CardList from '../../../components/CardList/CardList';
 import Newsletter from '../../../components/Newsletter/Newsletter';
 import Footer from '../../../components/Footer/Footer';
 import {fetchIndustries} from '../../../http/catalogAPI';
-import {IFetchIndystry} from '../../../types/types';
+import {IAreaResponse} from '../../../types/types';
 
 const content = {
   p: 'Отрасли',
   title: 'Find the right product for your application',
 };
 
-const Branches = () => {
-  const [branches, setBranches] = useState<IFetchIndystry[] | null>(null);
+const Industries = () => {
+  const [industries, setIndustries] = useState<IAreaResponse[] | null>(null);
   const [fetching, setFetching] = useState(true);
 
   useEffect(() => {
     fetchIndustries()
-      .then((data) => setBranches(data))
+      .then((data) => setIndustries(data))
       .finally(() => setFetching(false));
   }, []);
 
@@ -32,7 +32,7 @@ const Branches = () => {
       <Container maxWidth={false}>
         <StrongWithTitle content={content} />
         {fetching ? null : (
-          <BranchesList data={branches!} />
+          <CardList data={industries!} />
         )}
       </Container>
       <Newsletter />
@@ -41,4 +41,4 @@ const Branches = () => {
   );
 };
 
-export default Branches;
+export default Industries;

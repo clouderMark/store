@@ -24,9 +24,10 @@ import AdminMessages from '../views/forAdmin/AdminMessages';
 import AdminMessage from '../views/forAdmin/AdminMessage';
 import AdminSubscriptions from '../views/forAdmin/AdminSubscriptions';
 import Main from '../views/forAll/Main/Main';
-import Branches from '../views/forAll/Branches/Branches';
-import BranchesItem from '../views/forAll/Branches/BranchesItem';
-import BranchesSubItem from '../views/forAll/Branches/BranchesSubItem';
+import Industries from '../views/forAll/Industries/Industries';
+import IndustriesItem from '../views/forAll/Industries/IndustriesItem';
+import IndustriesSubItem from '../views/forAll/Industries/IndustriesSubItem';
+import AdminSubIndustries from '../views/forAdmin/AdminSubIndustries';
 import {EPath} from '../enums/EPath';
 
 const publicRoutes = [
@@ -40,9 +41,9 @@ const publicRoutes = [
   {path: EPath.Contacts, Component: Contacts},
   {path: EPath.NotFound, Component: NotFound},
   {path: EPath.Main, Component: Main},
-  {path: EPath.Branches, Component: Branches},
-  {path: EPath.BranchesItem, Component: BranchesItem},
-  {path: EPath.BranchesSubItem, Component: BranchesSubItem},
+  {path: EPath.Industries, Component: Industries},
+  {path: EPath.IndustriesItem, Component: IndustriesItem},
+  {path: EPath.IndustriesSubItem, Component: IndustriesSubItem},
 ];
 
 const authRoutes = [
@@ -62,6 +63,7 @@ const adminRoutes = [
   {path: EPath.AdminMessages, Component: AdminMessages},
   {path: EPath.AdminMessage, Component: AdminMessage},
   {path: EPath.AdminSubscriptions, Component: AdminSubscriptions},
+  {path: EPath.AdminSubIndustries, Component: AdminSubIndustries},
 ];
 
 const AppRouter = observer(() => {
