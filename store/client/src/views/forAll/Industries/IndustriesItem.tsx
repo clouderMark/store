@@ -1,4 +1,5 @@
 import {useParams} from 'react-router-dom';
+import {useState, useEffect} from 'react';
 import {Typography, Box, Container} from '@mui/material';
 import {useAppContext} from '../../../components/AppContext';
 import CentererImage from '../../../components/CentererImage/CentererImage';
@@ -12,52 +13,56 @@ import Footer from '../../../components/Footer/Footer';
 import Info from '../../../components/Info';
 import NavLinkButtons from '../../../components/NavLinkButtons/NavLinkButtons';
 import {EPath} from '../../../enums/EPath';
+import {IAreaResponse} from '../../../types/types';
 
 const IndustriesItem = () => {
   const id: number = Number(useParams().id);
   const {catalog} = useAppContext();
-
-  const item = catalog.industries.find((el) => el.id === id);
+  const [item, setItem] = useState<IAreaResponse | undefined>(catalog.industries.find((el) => el.id === id));
+  const [subIndustries] = useState(catalog.subIndustries.filter((el) => el.industryId === id));
 
   if (item?.info.image) {
-    const src = process.env.REACT_APP_IMG_URL + item.info.image.replace(`${process.env.REACT_APP_IMG_URL}`, '');
-
-    item.info.image = src;
+    useEffect(() => {
+      setItem({
+        ...item,
+        info: {
+          ...item.info,
+          image: process.env.REACT_APP_IMG_URL + item.info.image,
+        },
+      });
+    }, []);
   }
 
   return (
     <>
       <CentererImage img={item?.headerImage ? process.env.REACT_APP_IMG_URL + item.headerImage : ''} />
       <Breadcrumbs />
-      <ContainerWithTwoColumns
-        firstColumn={
-          <Box sx={{'& div': {pt: 0}}}>
-            <StrongWithTitle
-              content={{p: catalog.industries.find((el) => el.id === id)?.name ?? '', title: item?.title ?? ''}}
-            />
-          </Box>
-        }
-        secondColumn={
-          <>
-            {item?.paragraphs
-              ? item.paragraphs.map((el) => (
+      {item ? (
+        <ContainerWithTwoColumns
+          firstColumn={
+            <Box sx={{'& div': {pt: 0}}}>
+              <StrongWithTitle content={{p: item.name ?? '', title: item.title ?? ''}} />
+            </Box>
+          }
+          secondColumn={
+            <>
+              {item.paragraphs.map((el) => (
                 <Typography key={el.id} sx={{mb: '10px'}}>
                   {el.value}
                 </Typography>
-              ))
-              : null}
-            <Typography />
-          </>
-        }
-      />
-      {catalog.subIndustries.length ? (
+              ))}
+            </>
+          }
+        />
+      ) : null}
+      {subIndustries.length ? (
         <Container maxWidth={false}>
-          <CardList data={catalog.subIndustries.filter((el) => el.industryId === id)} />
+          <CardList data={subIndustries} />
         </Container>
       ) : null}
       {item?.info ? (
         <Info
-          item={item?.info}
+          item={item.info}
           buttons={
             <NavLinkButtons
               buttons={[{content: 'contact us', color: 'first', variant: 'contained', to: EPath.Contacts}]}
