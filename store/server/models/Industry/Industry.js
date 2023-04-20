@@ -100,8 +100,8 @@ class Industry {
     if (file2 && industry.headerImage) {
       FileService.delete(industry.headerImage);
     }
-    if (file3 && subIndustry.info.image) {
-      FileService.delete(subIndustry.info.image);
+    if (file3 && industry.info.image) {
+      FileService.delete(industry.info.image);
     }
 
     const {
