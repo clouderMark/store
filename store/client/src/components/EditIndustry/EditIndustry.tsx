@@ -20,17 +20,25 @@ interface IProps {
 }
 
 const defaultValue: IDefaultValue = {
-  name: '',
-  cardImage: null,
-  cardImageUrl: '',
-  headerImage: null,
-  headerImageUrl: '',
-  title: '',
-  infoImage: null,
-  infoImageUrl: '',
-  infoTitle: '',
-  infoHeader: '',
-  infoListTitle: '',
+  [EType.name]: '',
+  [EType.cardImage]: null,
+  [EType.cardImageUrl]: '',
+  [EType.headerImage]: null,
+  [EType.headerImageUrl]: '',
+  [EType.title]: '',
+  [EType.infoImage]: null,
+  [EType.infoImageUrl]: '',
+  [EType.infoTitle]: '',
+  [EType.infoHeader]: '',
+  [EType.infoListTitle]: '',
+  [EType.opinionTitle]: '',
+  [EType.opinionListTitle]: '',
+  [EType.opinionName]: '',
+  [EType.opinionPhone]: '',
+  [EType.opinionFax]: '',
+  [EType.opinionEmail]: '',
+  [EType.opinionImage]: null,
+  [EType.opinionImageUrl]: '',
 };
 
 const EditIndustry = (props: IProps) => {
@@ -40,6 +48,8 @@ const EditIndustry = (props: IProps) => {
   const [paragraphs, setParagraphs] = useState<IParagraphs[]>([]);
   const [infoListItems, setInfoListItems] = useState<IParagraphs[]>([]);
   const [infoParagraphs, setInfoParagraphs] = useState<IParagraphs[]>([]);
+  const [opinionParagraphs, setOpinionParagraphs] = useState<IParagraphs[]>([]);
+  const [opinionListItems, setOpinionListItems] = useState<IParagraphs[]>([]);
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
 
@@ -76,36 +86,56 @@ const EditIndustry = (props: IProps) => {
           dispatch({type: EType.infoTitle, payload: data.info.title});
           dispatch({type: EType.infoHeader, payload: data.info.header});
           dispatch({type: EType.infoListTitle, payload: data.info.listTitle});
+          dispatch({type: EType.opinionTitle, payload: data.opinion.title});
+          dispatch({type: EType.opinionListTitle, payload: data.opinion.listTitle});
+          dispatch({type: EType.opinionName, payload: data.opinion.name});
+          dispatch({type: EType.opinionPhone, payload: data.opinion.phone});
+          dispatch({type: EType.opinionFax, payload: data.opinion.fax});
+          dispatch({type: EType.opinionEmail, payload: data.opinion.email});
+          dispatch({
+            type: EType.opinionImageUrl,
+            payload: data.opinion.image ? process.env.REACT_APP_IMG_URL + data.opinion.image : '',
+          });
           setInfoListItems(data.info.listItems.map((item) => ({...item, unique: uuid()})));
           setInfoParagraphs(data.info.paragraphs.map((item) => ({...item, unique: uuid()})));
+          setOpinionParagraphs(data.opinion.paragraphs.map((item) => ({...item, unique: uuid()})));
+          setOpinionListItems(data.opinion.listItems.map((item) => ({...item, unique: uuid()})));
         })
         .catch((error) => console.log(error));
     }
   }, [id]);
 
   useEffect(() => {
-    if (value.headerImage) {
-      const newImageUrl = URL.createObjectURL(value.headerImage);
+    if (value[EType.headerImage]) {
+      const newImageUrl = URL.createObjectURL(value[EType.headerImage]);
 
       dispatch({type: EType.headerImageUrl, payload: newImageUrl});
     }
-  }, [value.headerImage]);
+  }, [value[EType.headerImage]]);
 
   useEffect(() => {
-    if (value.cardImage) {
-      const newImageUrl = URL.createObjectURL(value.cardImage);
+    if (value[EType.cardImage]) {
+      const newImageUrl = URL.createObjectURL(value[EType.cardImage]);
 
       dispatch({type: EType.cardImageUrl, payload: newImageUrl});
     }
-  }, [value.cardImage]);
+  }, [value[EType.cardImage]]);
 
   useEffect(() => {
-    if (value.infoImage) {
-      const newImageUrl = URL.createObjectURL(value.infoImage);
+    if (value[EType.infoImage]) {
+      const newImageUrl = URL.createObjectURL(value[EType.infoImage]);
 
       dispatch({type: EType.infoImageUrl, payload: newImageUrl});
     }
-  }, [value.infoImage]);
+  }, [value[EType.infoImage]]);
+
+  useEffect(() => {
+    if (value[EType.opinionImage]) {
+      const newImageUrl = URL.createObjectURL(value[EType.opinionImage]);
+
+      dispatch({type: EType.opinionImageUrl, payload: newImageUrl});
+    }
+  }, [value[EType.opinionImage]]);
 
   useEffect(() => {
     if (!show) {
@@ -114,6 +144,8 @@ const EditIndustry = (props: IProps) => {
       setParagraphs([]);
       setInfoListItems([]);
       setInfoParagraphs([]);
+      setOpinionParagraphs([]);
+      setOpinionListItems([]);
       props.child?.setValue('');
     }
   }, [show]);
@@ -138,7 +170,7 @@ const EditIndustry = (props: IProps) => {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const correct = value.name.trim() !== '';
+    const correct = value[EType.name].trim() !== '';
 
     setValid(correct);
     if (correct) {
@@ -148,14 +180,14 @@ const EditIndustry = (props: IProps) => {
         data.append('industryId', props.child.value.trim());
       }
 
-      data.append(EType.name, value.name.trim());
-      data.append(EType.title, value.title.trim());
-      if (value.cardImage) {
-        data.append(EType.cardImage, value.cardImage, value.cardImage.name);
+      data.append(EType.name, value[EType.name].trim());
+      data.append(EType.title, value[EType.title].trim());
+      if (value[EType.cardImage]) {
+        data.append(EType.cardImage, value[EType.cardImage], value[EType.cardImage].name);
       }
 
-      if (value.headerImage) {
-        data.append(EType.headerImage, value.headerImage, value.headerImage.name);
+      if (value[EType.headerImage]) {
+        data.append(EType.headerImage, value[EType.headerImage], value[EType.headerImage].name);
       }
 
       if (paragraphs.length) {
@@ -166,12 +198,12 @@ const EditIndustry = (props: IProps) => {
         }
       }
 
-      if (value.infoImage) {
-        data.append(EType.infoImage, value.infoImage, value.infoImage.name);
+      if (value[EType.infoImage]) {
+        data.append(EType.infoImage, value[EType.infoImage], value[EType.infoImage].name);
       }
 
-      data.append(EType.infoTitle, value.infoTitle.trim());
-      data.append(EType.infoHeader, value.infoHeader.trim());
+      data.append(EType.infoTitle, value[EType.infoTitle].trim());
+      data.append(EType.infoHeader, value[EType.infoHeader].trim());
       data.append('listTitle', value.infoListTitle.trim());
 
       if (infoListItems.length) {
@@ -188,6 +220,35 @@ const EditIndustry = (props: IProps) => {
         if (items.length) {
           data.append('infoParagraphs', JSON.stringify(items));
         }
+      }
+
+      data.append(EType.opinionTitle, value[EType.opinionTitle].trim());
+
+      if (opinionParagraphs.length) {
+        const items = filterParagraphs(opinionParagraphs);
+
+        if (items.length) {
+          data.append('opinionParagraphs', JSON.stringify(items));
+        }
+      }
+
+      data.append(EType.opinionListTitle, value[EType.opinionListTitle].trim());
+
+      if (opinionListItems.length) {
+        const items = filterParagraphs(opinionListItems);
+
+        if (items.length) {
+          data.append('opinionListItems', JSON.stringify(items));
+        }
+      }
+
+      data.append(EType.opinionName, value[EType.opinionName].trim());
+      data.append(EType.opinionPhone, value[EType.opinionPhone].trim());
+      data.append(EType.opinionFax, value[EType.opinionFax].trim());
+      data.append(EType.opinionEmail, value[EType.opinionEmail].trim());
+
+      if (value[EType.opinionImage]) {
+        data.append(EType.opinionImage, value[EType.opinionImage], value[EType.opinionImage].name);
       }
 
       const success = () => {
@@ -241,6 +302,10 @@ const EditIndustry = (props: IProps) => {
       setInfoListItems={setInfoListItems}
       infoParagraphs={infoParagraphs}
       setInfoParagraphs={setInfoParagraphs}
+      opinionParagraphs={opinionParagraphs}
+      setOpinionParagraphs={setOpinionParagraphs}
+      opinionListItems={opinionListItems}
+      setOpinionListItems={setOpinionListItems}
       child={props.child}
       value={value}
     />

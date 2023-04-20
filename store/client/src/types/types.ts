@@ -187,12 +187,10 @@ export interface IAreaResponse extends ICatalogItem {
   cardImage: string;
   headerImage: string;
   title: string;
-  paragraphs: {
-    id: number;
-    value: string;
-  }[];
+  paragraphs: IListItem[];
   industryId?: number;
   info: IInfo;
+  opinion: IOpinion;
 }
 
 export interface IInfo {
@@ -201,14 +199,25 @@ export interface IInfo {
   listTitle: string;
   title: string;
   header: string;
-  listItems: {
-    id: number;
-    value: string;
-  }[];
-  paragraphs: {
-    id: number;
-    value: string;
-  }[];
+  listItems: IListItem[];
+  paragraphs: IListItem[];
+}
+
+interface IListItem extends IId {
+  value: string;
+}
+
+interface IOpinion {
+  id: number;
+  title: string;
+  name: string;
+  image: string;
+  email: string;
+  fax: string;
+  listTitle: string;
+  phone: string;
+  listItems: IListItem[];
+  paragraphs: IListItem[];
 }
 
 export interface IParagraphs extends IFilteredParagraphs {
