@@ -12,7 +12,7 @@ export const popUpForIndystry = {
   img: {
     height: '335px',
     width: '100%',
-    backgroundSize: 'cover',
     backgroundColor: '#707070',
+    objectFit: 'cover',
   },
 };
