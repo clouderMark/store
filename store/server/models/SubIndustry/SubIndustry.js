@@ -4,6 +4,9 @@ import {
   SubInfo as InfoMapping,
   SubListItem as ListItemMapping,
   SubInfoParagraph as InfoParagraphMapping,
+  SubOpinion as OpinionMapping,
+  SubOpinionItem as OpinionItemMapping,
+  SubOpinionParagraph as OpinionParagraphMapping,
 } from '../mapping.js';
 import AppError from '../../errors/AppError.js';
 import FileService from '../../services/File.js';
@@ -26,10 +29,11 @@ class SubIndustry {
     return subIndustry;
   }
 
-  async create(data, cardImg, headerImg, infoImg) {
+  async create(data, cardImg, headerImg, infoImg, opinionImg) {
     const cardImage = FileService.save(cardImg) ?? '';
     const headerImage = FileService.save(headerImg) ?? '';
     const infoImage = FileService.save(infoImg) ?? '';
+    const opinionImage = FileService.save(opinionImg) ?? '';
     const {
       name,
       title,
@@ -37,6 +41,12 @@ class SubIndustry {
       infoTitle = '',
       infoHeader = '',
       listTitle = '',
+      opinionTitle = '',
+      opinionListTitle = '',
+      opinionName = '',
+      opinionPhone = '',
+      opinionFax = '',
+      opinionEmail = '',
     } = data;
 
     const subIndustry = await SubIndustryMapping.create({
@@ -82,6 +92,38 @@ class SubIndustry {
         });
       }
     }
+
+    OpinionMapping.create({
+      title: opinionTitle,
+      listTitle: opinionListTitle,
+      name: opinionName,
+      image: opinionImage,
+      phone: opinionPhone,
+      fax: opinionFax,
+      email: opinionEmail,
+      opinionId: subIndustry.id,
+    });
+
+    if (data.opinionListItems) {
+      const listItems = JSON.parse(data.opinionListItems);
+      for (let item of listItems) {
+        await OpinionItemMapping.create({
+          value: item.value,
+          subOpinionId: subIndustry.id,
+        });
+      }
+    }
+
+    if (data.opinionParagraphs) {
+      const paragraphs = JSON.parse(data.opinionParagraphs);
+      for (let paragraph of paragraphs) {
+        await OpinionParagraphMapping.create({
+          value: paragraph.value,
+          subOpinionId: subIndustry.id,
+        });
+      }
+    }
+
     await subIndustry.reload();
 
     const created = await SubIndustryMapping.findByPk(
@@ -92,7 +134,7 @@ class SubIndustry {
     return created;
   }
 
-  async update(id, data, cardImg, headerImg, infoImg) {
+  async update(id, data, cardImg, headerImg, infoImg, opinionImg) {
     const subIndustry = await SubIndustryMapping.findByPk(id, rows);
     if (!subIndustry) {
       throw new Error('подиндустрия не найдена в БД');
@@ -101,6 +143,7 @@ class SubIndustry {
     const file1 = FileService.save(cardImg);
     const file2 = FileService.save(headerImg);
     const file3 = FileService.save(infoImg);
+    const file4 = FileService.save(opinionImg);
     if (file1 && subIndustry.cardImage) {
       FileService.delete(subIndustry.cardImage);
     }
@@ -109,6 +152,9 @@ class SubIndustry {
     }
     if (file3 && subIndustry.info.image) {
       FileService.delete(subIndustry.info.image);
+    }
+    if (file4 && subIndustry.opinion.image) {
+      FileService.delete(subIndustry.opinion.image);
     }
 
     const {
@@ -121,6 +167,13 @@ class SubIndustry {
       infoTitle = subIndustry.info.title,
       infoHeader = subIndustry.info.header,
       listTitle = subIndustry.info.listHeader,
+      opinionTitle = subIndustry.opinion.title,
+      opinionListTitle = subIndustry.opinion.listTitle,
+      opinionName = subIndustry.opinion.name,
+      opinionImage = file4 ? file4 : subIndustry.opinion.image,
+      opinionPhone = subIndustry.opinion.phone,
+      opinionFax = subIndustry.opinion.fax,
+      opinionEmail = subIndustry.opinion.email,
     } = data;
 
     await subIndustry.update({
@@ -179,6 +232,42 @@ class SubIndustry {
         });
       }
     }
+
+    await OpinionMapping.update(
+      {
+        title: opinionTitle,
+        listTitle: opinionListTitle,
+        name: opinionName,
+        image: opinionImage,
+        phone: opinionPhone,
+        fax: opinionFax,
+        email: opinionEmail,
+      },
+      { where: { opinionId: id } }
+    );
+
+    if (data.opinionListItems) {
+      await OpinionItemMapping.destroy({ where: { subOpinionId: id } });
+      const listItems = JSON.parse(data.opinionListItems);
+      for (let item of listItems) {
+        await OpinionItemMapping.create({
+          value: item.value,
+          subOpinionId: subIndustry.id,
+        });
+      }
+    }
+
+    if (data.opinionParagraphs) {
+      await OpinionParagraphMapping.destroy({ where: { subOpinionId: id } });
+      const paragraphs = JSON.parse(data.opinionParagraphs);
+      for (let paragraph of paragraphs) {
+        await OpinionParagraphMapping.create({
+          value: paragraph.value,
+          subOpinionId: subIndustry.id,
+        });
+      }
+    }
+
     await subIndustry.reload();
 
     const created = await SubIndustryMapping.findByPk(
@@ -191,11 +280,18 @@ class SubIndustry {
 
   async delete(id) {
     const subIndustry = await SubIndustryMapping.findByPk(id, {
-      include: {
-        model: InfoMapping,
-        as: 'info',
-        attributes: ['image'],
-      },
+      include: [
+        {
+          model: InfoMapping,
+          as: 'info',
+          attributes: ['image'],
+        },
+        {
+          model: OpinionMapping,
+          as: 'opinion',
+          attributes: ['image'],
+        },
+      ],
     });
     if (!subIndustry) {
       throw new Error('Подиндустрия не найдена в БД');
@@ -208,6 +304,9 @@ class SubIndustry {
     }
     if (subIndustry.info.image) {
       FileService.delete(subIndustry.info.image);
+    }
+    if (subIndustry.opinion.image) {
+      FileService.delete(subIndustry.opinion.image);
     }
 
     await subIndustry.destroy();

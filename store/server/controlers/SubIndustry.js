@@ -37,6 +37,7 @@ class SubIndustry {
         req.files?.cardImage,
         req.files?.headerImage,
         req.files?.infoImage,
+        req.files?.opinionImage,
       );
 
       res.json(subIndustry);
@@ -58,6 +59,7 @@ class SubIndustry {
       req.files?.cardImage,
       req.files?.headerImage,
       req.files?.infoImage,
+      req.files?.opinionImage,
     );
 
     res.json(subIndustry);

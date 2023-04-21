@@ -13,6 +13,7 @@ import Info from '../../../components/Info';
 import NavLinkButtons from '../../../components/NavLinkButtons/NavLinkButtons';
 import {EPath} from '../../../enums/EPath';
 import {IAreaResponse} from '../../../types/types';
+import Opinion from '../../../components/Opinion/Opinion';
 
 const IndustriesSubItem = () => {
   const id: number = Number(useParams().role);
@@ -65,6 +66,7 @@ const IndustriesSubItem = () => {
           />
         </>
       ) : null}
+      {item?.opinion.name && item.opinion.phone ? <Opinion item={item.opinion} /> : null}
       <Contact />
       <Newsletter />
       <Footer />
