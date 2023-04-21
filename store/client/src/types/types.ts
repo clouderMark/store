@@ -207,7 +207,7 @@ interface IListItem extends IId {
   value: string;
 }
 
-interface IOpinion {
+export interface IOpinion {
   id: number;
   title: string;
   name: string;
