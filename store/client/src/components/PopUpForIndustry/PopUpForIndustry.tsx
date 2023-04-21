@@ -174,6 +174,7 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
               />
             </>
           }
+          firstColumnWidth={70}
         />
         <DialogActions>
           <Button type="submit" variant="outlined">
