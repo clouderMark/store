@@ -8,13 +8,14 @@ interface IProps {
   image: string | null;
   imageInputName: string;
   handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
+  sx?: any; // eslint-disable-line
 }
 
 const CardInputImage = (props: IProps) => {
   const {id, image, handleImageChange, imageInputName} = props;
 
   return (
-    <Box sx={styles.card}>
+    <Box sx={[styles.card, props.sx]}>
       <Box sx={styles.img} component="img" src={image || ''} />
       <InputFileButton
         styles={styles.card.button}

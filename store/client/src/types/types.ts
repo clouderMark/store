@@ -191,6 +191,7 @@ export interface IAreaResponse extends ICatalogItem {
   industryId?: number;
   info: IInfo;
   opinion: IOpinion;
+  sliderImage?: string;
 }
 
 export interface IInfo {

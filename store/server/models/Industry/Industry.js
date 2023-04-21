@@ -26,11 +26,12 @@ class Industry {
     return industry;
   }
 
-  async create(data, cardImg, headerImg, infoImg, opinionImg) {
+  async create(data, cardImg, headerImg, infoImg, opinionImg, sliderImg) {
     const cardImage = FileService.save(cardImg) ?? '';
     const headerImage = FileService.save(headerImg) ?? '';
     const infoImage = FileService.save(infoImg) ?? '';
     const opinionImage = FileService.save(opinionImg) ?? '';
+    const sliderImage = FileService.save(sliderImg) ?? '';
     const {
       name,
       title,
@@ -49,6 +50,7 @@ class Industry {
       cardImage,
       headerImage,
       title,
+      sliderImage,
     });
     if (data.paragraphs) {
       const paragraphs = JSON.parse(data.paragraphs);
@@ -128,7 +130,7 @@ class Industry {
     return created;
   }
 
-  async update(id, data, cardImg, headerImg, infoImg, opinionImg) {
+  async update(id, data, cardImg, headerImg, infoImg, opinionImg, sliderImg) {
     const industry = await IndustryMapping.findByPk(id, rows);
     if (!industry) {
       throw new Error('Индустрия не найдена в БД');
@@ -137,6 +139,7 @@ class Industry {
     const file2 = FileService.save(headerImg);
     const file3 = FileService.save(infoImg);
     const file4 = FileService.save(opinionImg);
+    const file5 = FileService.save(sliderImg);
     if (file1 && industry.cardImage) {
       FileService.delete(industry.cardImage);
     }
@@ -149,6 +152,9 @@ class Industry {
     if (file4 && industry.opinion.image) {
       FileService.delete(industry.opinion.image);
     }
+    if (file5 && industry.sliderImage) {
+        FileService.delete(industry.sliderImage);
+      }
 
     const {
       name = industry.name,
@@ -166,6 +172,7 @@ class Industry {
       opinionPhone = industry.opinion.phone,
       opinionFax = industry.opinion.fax,
       opinionEmail = industry.opinion.email,
+      sliderImage = file5 ? file5 : industry.sliderImage,
     } = data;
 
     await industry.update({
@@ -173,6 +180,7 @@ class Industry {
       cardImage,
       headerImage,
       title,
+      sliderImage,
     });
 
     await InfoMapping.update(
@@ -295,6 +303,9 @@ class Industry {
     }
     if (industry.opinion.image) {
       FileService.delete(industry.opinion.image);
+    }
+    if (industry.sliderImage) {
+        FileService.delete(industry.sliderImage);
     }
 
     await industry.destroy();

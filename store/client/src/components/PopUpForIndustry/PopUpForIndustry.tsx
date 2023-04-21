@@ -15,25 +15,36 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
     <DialogContent>
       <Box component="form" noValidate onSubmit={props.handleSubmit}>
         {props.child?.component ? props.child.component : null}
-        <Box sx={{width: '335px'}}>
-          <CardInputImage
-            id={props.id}
-            image={props.value[EType.cardImageUrl]}
-            imageInputName={EType.cardImage}
-            handleImageChange={props.handleImageChange}
-          />
-          <TextField
-            autoFocus={true}
-            name={EType.name}
-            value={props.value[EType.name]}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
-            required
-            error={props.valid === false}
-            color={props.valid ? 'success' : 'primary'}
-            placeholder={`Название ${props.cardTitle}...`}
-            className="mb-3"
-            sx={{width: '100%'}}
-          />
+        <Box sx={{display: 'flex'}}>
+          <Box sx={{width: '335px'}}>
+            <CardInputImage
+              id={props.id}
+              image={props.value[EType.cardImageUrl]}
+              imageInputName={EType.cardImage}
+              handleImageChange={props.handleImageChange}
+            />
+            <TextField
+              autoFocus={true}
+              name={EType.name}
+              value={props.value[EType.name]}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+              required
+              error={props.valid === false}
+              color={props.valid ? 'success' : 'primary'}
+              placeholder={`Название ${props.cardTitle}...`}
+              className="mb-3"
+              sx={{width: '100%'}}
+            />
+          </Box>
+          {!props.child ? (
+            <CardInputImage
+              id={props.id}
+              image={props.value[EType.sliderImageUrl]}
+              imageInputName={EType.sliderImage}
+              handleImageChange={props.handleImageChange}
+              sx={{flexGrow: 1, ml: '30px'}}
+            />
+          ) : null}
         </Box>
         <Box>
           <CardInputImage

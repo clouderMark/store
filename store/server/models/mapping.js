@@ -34,6 +34,7 @@ const Industry = sequelize.define('industry', {
     cardImage: {type: DataTypes.STRING, allowNull: false},
     headerImage: {type: DataTypes.STRING, allowNull: false},
     title: {type: DataTypes.STRING, allowNull: false},
+    sliderImage: {type: DataTypes.STRING, allowNull: false},
 })
 
 const IndustryParagraph = sequelize.define('industry_paragraph', {
