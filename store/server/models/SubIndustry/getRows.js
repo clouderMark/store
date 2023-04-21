@@ -3,6 +3,9 @@ import {
   SubListItem as ListItemMapping,
   SubInfoParagraph as InfoParagraphMapping,
   SubIndustryParagraph as SubIndustryParagraphMapping,
+  SubOpinion as OpinionMapping,
+  SubOpinionParagraph as OpinionParagraphMapping,
+  SubOpinionItem as OpinionItemMapping,
 } from '../mapping.js';
 
 export const rows = {
@@ -20,6 +23,23 @@ export const rows = {
         {
           model: InfoParagraphMapping,
           as: 'paragraphs',
+          attributes: ['id', 'value'],
+        },
+      ],
+    },
+    {
+      model: OpinionMapping,
+      as: 'opinion',
+      attributes: ['id', 'title', 'name', 'image', 'listTitle', 'phone', 'fax', 'email'],
+      include: [
+        {
+          model: OpinionParagraphMapping,
+          as: 'paragraphs',
+          attributes: ['id', 'value'],
+        },
+        {
+          model: OpinionItemMapping,
+          as: 'listItems',
           attributes: ['id', 'value'],
         },
       ],
@@ -48,6 +68,23 @@ export const rowsWithParagraphs = {
         {
           model: InfoParagraphMapping,
           as: 'paragraphs',
+          attributes: ['id', 'value'],
+        },
+      ],
+    },
+    {
+      model: OpinionMapping,
+      as: 'opinion',
+      attributes: ['id', 'title', 'name', 'image', 'listTitle', 'phone', 'fax', 'email'],
+      include: [
+        {
+          model: OpinionParagraphMapping,
+          as: 'paragraphs',
+          attributes: ['id', 'value'],
+        },
+        {
+          model: OpinionItemMapping,
+          as: 'listItems',
           attributes: ['id', 'value'],
         },
       ],

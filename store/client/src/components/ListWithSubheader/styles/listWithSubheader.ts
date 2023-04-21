@@ -9,5 +9,6 @@ export const listWithSubheader = {
     padding: 0,
     color: color,
     lineHeight: 1.2,
+    backgroundColor: 'inherit',
   },
 };

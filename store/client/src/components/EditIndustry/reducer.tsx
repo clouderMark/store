@@ -1,17 +1,25 @@
 import {EType} from './EType';
 
 export interface IDefaultValue {
-  name: string;
-  cardImage: File | null;
-  cardImageUrl: string;
-  headerImage: File | null;
-  headerImageUrl: string;
-  title: string;
-  infoImage: File | null;
-  infoImageUrl: string;
-  infoTitle: string;
-  infoHeader: string;
-  infoListTitle: string;
+  [EType.name]: string;
+  [EType.cardImage]: File | null;
+  [EType.cardImageUrl]: string;
+  [EType.headerImage]: File | null;
+  [EType.headerImageUrl]: string;
+  [EType.title]: string;
+  [EType.infoImage]: File | null;
+  [EType.infoImageUrl]: string;
+  [EType.infoTitle]: string;
+  [EType.infoHeader]: string;
+  [EType.infoListTitle]: string;
+  [EType.opinionTitle]: string;
+  [EType.opinionListTitle]: string;
+  [EType.opinionName]: string;
+  [EType.opinionPhone]: string;
+  [EType.opinionFax]: string;
+  [EType.opinionEmail]: string;
+  [EType.opinionImage]: File | null;
+  [EType.opinionImageUrl]: string;
 }
 
 // eslint-disable-next-line
@@ -20,77 +28,133 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
     case EType.name: {
       return {
         ...state,
-        name: action.payload,
+        [EType.name]: action.payload,
       };
     }
 
     case EType.cardImage: {
       return {
         ...state,
-        cardImage: action.payload,
+        [EType.cardImage]: action.payload,
       };
     }
 
     case EType.cardImageUrl: {
       return {
         ...state,
-        cardImageUrl: action.payload,
+        [EType.cardImageUrl]: action.payload,
       };
     }
 
     case EType.headerImage: {
       return {
         ...state,
-        headerImage: action.payload,
+        [EType.headerImage]: action.payload,
       };
     }
 
     case EType.headerImageUrl: {
       return {
         ...state,
-        headerImageUrl: action.payload,
+        [EType.headerImageUrl]: action.payload,
       };
     }
 
     case EType.title: {
       return {
         ...state,
-        title: action.payload,
+        [EType.title]: action.payload,
       };
     }
 
     case EType.infoImage: {
       return {
         ...state,
-        infoImage: action.payload,
+        [EType.infoImage]: action.payload,
       };
     }
 
     case EType.infoImageUrl: {
       return {
         ...state,
-        infoImageUrl: action.payload,
+        [EType.infoImageUrl]: action.payload,
       };
     }
 
     case EType.infoTitle: {
       return {
         ...state,
-        infoTitle: action.payload,
+        [EType.infoTitle]: action.payload,
       };
     }
 
     case EType.infoHeader: {
       return {
         ...state,
-        infoHeader: action.payload,
+        [EType.infoHeader]: action.payload,
       };
     }
 
     case EType.infoListTitle: {
       return {
         ...state,
-        infoListTitle: action.payload,
+        [EType.infoListTitle]: action.payload,
+      };
+    }
+
+    case EType.opinionTitle: {
+      return {
+        ...state,
+        [EType.opinionTitle]: action.payload,
+      };
+    }
+
+    case EType.opinionListTitle: {
+      return {
+        ...state,
+        [EType.opinionListTitle]: action.payload,
+      };
+    }
+
+    case EType.opinionName: {
+      return {
+        ...state,
+        [EType.opinionName]: action.payload,
+      };
+    }
+
+    case EType.opinionPhone: {
+      return {
+        ...state,
+        [EType.opinionPhone]: action.payload,
+      };
+    }
+
+    case EType.opinionFax: {
+      return {
+        ...state,
+        [EType.opinionFax]: action.payload,
+      };
+    }
+
+    case EType.opinionEmail: {
+      return {
+        ...state,
+        [EType.opinionEmail]: action.payload,
+      };
+    }
+
+    case EType.opinionImage: {
+      return {
+        ...state,
+        [EType.opinionImage]: action.payload,
+      };
+    }
+
+    case EType.opinionImageUrl: {
+      return {
+        ...state,
+        [EType.opinionImageUrl]: action.payload,
       };
     }
 

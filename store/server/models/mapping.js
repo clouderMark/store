@@ -59,6 +59,27 @@ const IndustryInfoParagraph = sequelize.define('ind_paragraphs', {
     value: {type: DataTypes.TEXT, allowNull: false}
 })
 
+const IndustryOpinion = sequelize.define('ind_opinion', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+    listTitle: {type: DataTypes.TEXT, allowNull: false},
+    name: {type: DataTypes.STRING, allowNull: false},
+    image: {type: DataTypes.STRING, allowNull: false},
+    phone: {type: DataTypes.STRING, allowNull: false},
+    fax: {type: DataTypes.STRING, allowNull: false},
+    email: {type: DataTypes.STRING, allowNull: false},
+})
+
+const IndustryOpinionParagraph = sequelize.define('ind_op_paragraphs', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+})
+
+const IndustryOpinionItem = sequelize.define('ind_op_list_item', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.STRING, allowNull: false},
+})
+
 const SubIndustry = sequelize.define('subindustry', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
@@ -88,6 +109,27 @@ const SubListItem = sequelize.define('sub_list_item', {
 const SubInfoParagraph = sequelize.define('sub_paragraphs', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     value: {type: DataTypes.TEXT, allowNull: false}
+})
+
+const SubOpinion = sequelize.define('sub_opinion', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+    listTitle: {type: DataTypes.TEXT, allowNull: false},
+    name: {type: DataTypes.STRING, allowNull: false},
+    image: {type: DataTypes.STRING, allowNull: false},
+    phone: {type: DataTypes.STRING, allowNull: false},
+    fax: {type: DataTypes.STRING, allowNull: false},
+    email: {type: DataTypes.STRING, allowNull: false},
+})
+
+const SubOpinionParagraph = sequelize.define('sub_op_paragraphs', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+})
+
+const SubOpinionItem = sequelize.define('sub_op_list_item', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.STRING, allowNull: false},
 })
 
 const Solution = sequelize.define('solution', {
@@ -226,6 +268,20 @@ IndustryListItem.belongsTo(IndustryInfo)
 IndustryInfo.hasMany(IndustryInfoParagraph, {as: 'paragraphs', onDelete: 'CASCADE',})
 IndustryInfoParagraph.belongsTo(IndustryInfo)
 
+Industry.hasOne(IndustryOpinion, {as: 'opinion', onDelete: 'CASCADE'},);
+IndustryOpinion.belongsTo(Industry);
+IndustryOpinion.hasMany(IndustryOpinionParagraph, {as: 'paragraphs', onDelete: 'CASCADE'});
+IndustryOpinionParagraph.belongsTo(IndustryOpinion);
+IndustryOpinion.hasMany(IndustryOpinionItem, {as: 'listItems', onDelete: 'CASCADE'});
+IndustryOpinionItem.belongsTo(IndustryOpinion);
+
+SubIndustry.hasOne(SubOpinion, {as: 'opinion', onDelete: 'CASCADE'},);
+SubOpinion.belongsTo(SubIndustry);
+SubOpinion.hasMany(SubOpinionParagraph, {as: 'paragraphs', onDelete: 'CASCADE'});
+SubOpinionParagraph.belongsTo(SubOpinion);
+SubOpinion.hasMany(SubOpinionItem, {as: 'listItems', onDelete: 'CASCADE'});
+SubOpinionItem.belongsTo(SubOpinion);
+
 export {
     User,
     Basket,
@@ -249,4 +305,10 @@ export {
     IndustryInfo,
     IndustryListItem,
     IndustryInfoParagraph,
+    IndustryOpinion,
+    IndustryOpinionItem,
+    IndustryOpinionParagraph,
+    SubOpinion,
+    SubOpinionItem,
+    SubOpinionParagraph,
 }
