@@ -267,7 +267,8 @@ const EditIndustry = (props: IProps) => {
         data.append(EType.opinionImage, value[EType.opinionImage], value[EType.opinionImage].name);
       }
 
-      if (!props.child) {
+      if (!props.child && value.sliderImage) {
+        console.log(value.sliderImage);
         data.append(EType.sliderImage, value[EType.sliderImage], value[EType.sliderImage].name);
       }
 
