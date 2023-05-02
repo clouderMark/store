@@ -45,7 +45,7 @@ export const rows = {
       ],
     },
   ],
-  attributes: ['cardImage', 'headerImage', 'title', 'id', 'name'],
+  attributes: ['cardImage', 'headerImage', 'title', 'id', 'name', 'sliderImage'],
 };
 
 export const rowsWithParagraphs = {
@@ -90,5 +90,5 @@ export const rowsWithParagraphs = {
       ],
     },
   ],
-  attributes: ['cardImage', 'headerImage', 'title', 'id', 'name'],
+  attributes: ['cardImage', 'headerImage', 'title', 'id', 'name', 'sliderImage'],
 };

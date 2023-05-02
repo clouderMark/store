@@ -34,6 +34,7 @@ class Industry {
                 req.files?.headerImage,
                 req.files?.infoImage,
                 req.files?.opinionImage,
+                req.files?.sliderImage,
             );
             res.json(industry)
         } catch(e) {
@@ -56,6 +57,7 @@ class Industry {
                 req.files?.headerImage,
                 req.files?.infoImage,
                 req.files?.opinionImage,
+                req.files?.sliderImage,
             );
             res.json(industry)
         } catch(e) {

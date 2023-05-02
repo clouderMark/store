@@ -39,6 +39,8 @@ const defaultValue: IDefaultValue = {
   [EType.opinionEmail]: '',
   [EType.opinionImage]: null,
   [EType.opinionImageUrl]: '',
+  [EType.sliderImage]: null,
+  [EType.sliderImageUrl]: '',
 };
 
 const EditIndustry = (props: IProps) => {
@@ -100,6 +102,12 @@ const EditIndustry = (props: IProps) => {
           setInfoParagraphs(data.info.paragraphs.map((item) => ({...item, unique: uuid()})));
           setOpinionParagraphs(data.opinion.paragraphs.map((item) => ({...item, unique: uuid()})));
           setOpinionListItems(data.opinion.listItems.map((item) => ({...item, unique: uuid()})));
+          if (!props.child) {
+            dispatch({
+              type: EType.sliderImageUrl,
+              payload: data.sliderImage ? process.env.REACT_APP_IMG_URL + data.sliderImage : '',
+            });
+          }
         })
         .catch((error) => console.log(error));
     }
@@ -136,6 +144,14 @@ const EditIndustry = (props: IProps) => {
       dispatch({type: EType.opinionImageUrl, payload: newImageUrl});
     }
   }, [value[EType.opinionImage]]);
+
+  useEffect(() => {
+    if (value[EType.sliderImage]) {
+      const newImageUrl = URL.createObjectURL(value[EType.sliderImage]);
+
+      dispatch({type: EType.sliderImageUrl, payload: newImageUrl});
+    }
+  }, [value[EType.sliderImage]]);
 
   useEffect(() => {
     if (!show) {
@@ -249,6 +265,11 @@ const EditIndustry = (props: IProps) => {
 
       if (value[EType.opinionImage]) {
         data.append(EType.opinionImage, value[EType.opinionImage], value[EType.opinionImage].name);
+      }
+
+      if (!props.child && value.sliderImage) {
+        console.log(value.sliderImage);
+        data.append(EType.sliderImage, value[EType.sliderImage], value[EType.sliderImage].name);
       }
 
       const success = () => {

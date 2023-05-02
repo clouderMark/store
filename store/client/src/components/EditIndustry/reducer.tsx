@@ -20,6 +20,8 @@ export interface IDefaultValue {
   [EType.opinionEmail]: string;
   [EType.opinionImage]: File | null;
   [EType.opinionImageUrl]: string;
+  [EType.sliderImage]: File | null;
+  [EType.sliderImageUrl]: string;
 }
 
 // eslint-disable-next-line
@@ -155,6 +157,20 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       return {
         ...state,
         [EType.opinionImageUrl]: action.payload,
+      };
+    }
+
+    case EType.sliderImage: {
+      return {
+        ...state,
+        [EType.sliderImage]: action.payload,
+      };
+    }
+
+    case EType.sliderImageUrl: {
+      return {
+        ...state,
+        [EType.sliderImageUrl]: action.payload,
       };
     }
 

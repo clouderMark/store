@@ -19,4 +19,6 @@ export enum EType {
   opinionEmail = 'opinionEmail',
   opinionImage = 'opinionImage',
   opinionImageUrl = 'opinionImageUrl',
+  sliderImage = 'sliderImage',
+  sliderImageUrl = 'sliderImageUrl',
 }
