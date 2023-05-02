@@ -29,13 +29,14 @@ export const sliderIndustries = {
     display: 'flex',
     flexDirection: 'column',
     zIndex: 1,
-    height: '100%',
+    minHeight: '621px',
     width: '336px',
     padding: '55px 10px 3vw 0',
     backgroundColor: slider.color2,
 
     [`@media (max-width: ${queryTablet}px)`]: {
       paddingTop: '4vw',
+      minHeight: '40vw',
     },
 
     [`@media (max-width: ${querySmallTablet}px)`]: {
@@ -83,6 +84,7 @@ export const sliderIndustries = {
       alignItems: 'center',
       justifyContent: 'space-between',
       width: '120px',
+      marginTop: 'auto',
     },
   },
 
