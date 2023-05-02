@@ -26,7 +26,7 @@ import styles from './styles/logo.module.css';
 import {dFlex, justifySB, alignC} from '../../styles/flex';
 import {ReactComponent as Icon} from '../../image/Logo.svg';
 import {StyledBadge} from './StyledBadge';
-import {NavBarButton} from './NavBarButton';
+import NavBarButton from './NavBarButton';
 import TabletMenu from './TabletMenu';
 import {IconTextField} from '../IconTextField';
 import {container} from './styles/container';
@@ -35,6 +35,7 @@ import {queryMobile} from './query';
 import {list} from './styles/list';
 import DesctopSubMenu from './DesctopSubMenu';
 import {EPath} from '../../enums/EPath';
+import {IArticle} from './types';
 
 const NavBar = observer(() => {
   const {user, basket} = useAppContext();
@@ -42,18 +43,11 @@ const NavBar = observer(() => {
   const matchesNews = useMediaQuery('(min-width:830px)', {noSsr: true});
   const matchesMobile = useMediaQuery(`(min-width:${queryMobile}px)`, {noSsr: true});
   const [anchorElListItem, setAnchorListItem] = useState<null | HTMLElement>(null);
-  const [link, setLink] = useState('');
-  const [items, setItems] = useState<IItems[]>([]);
+  const [item, setItem] = useState<IArticle>();
 
-  interface IItems {
-    link: string;
-    content: string;
-  }
-
-  const handleClickDesctopMenu = (event: React.MouseEvent<HTMLElement>, to: string, items: IItems[]) => {
+  const handleClickDesctopMenu = (event: React.MouseEvent<HTMLElement>, elNumber: number) => {
     setAnchorListItem(event.currentTarget);
-    setLink(to);
-    setItems(items);
+    setItem(articles[elNumber]);
   };
 
   const handleCloseDesctopMenu = () => {
@@ -70,19 +64,19 @@ const NavBar = observer(() => {
                 <Icon className={styles.logo} />
               </Button>
               <Box sx={dFlex}>
-                <NavBarButton title="Магазин" route="shop" icon={<ShoppingCartOutlinedIcon />} />
-                {matchesNews ? <NavBarButton title="Новости" route="news" icon={<NewspaperIcon />} /> : null}
+                <NavBarButton title="Магазин" route={EPath.Shop} icon={<ShoppingCartOutlinedIcon />} />
+                {matchesNews ? <NavBarButton title="Новости" route={EPath.News} icon={<NewspaperIcon />} /> : null}
                 {user.isAuth ? (
-                  <NavBarButton title="Кабинет" route="user" icon={<PersonOutlineOutlinedIcon />} />
+                  <NavBarButton title="Кабинет" route={EPath.User} icon={<PersonOutlineOutlinedIcon />} />
                 ) : (
-                  <NavBarButton title="Войти" route="login" icon={<PersonOutlineOutlinedIcon />} />
+                  <NavBarButton title="Войти" route={EPath.Login} icon={<PersonOutlineOutlinedIcon />} />
                 )}
                 {user.isAdmin && matchesMobile ? (
-                  <NavBarButton title="Управление" route="admin" icon={<AnchorIcon />} />
+                  <NavBarButton title="Управление" route={EPath.Admin} icon={<AnchorIcon />} />
                 ) : null}
                 <NavBarButton
                   title="Корзина"
-                  route="basket"
+                  route={EPath.Basket}
                   icon={
                     <StyledBadge badgeContent={basket.count} color="secondary">
                       <ShoppingBagOutlinedIcon />
@@ -95,9 +89,9 @@ const NavBar = observer(() => {
             {matchesMenu ? (
               <Box sx={[{mt: 1.2}, dFlex, justifySB, alignC, {width: '100%'}]}>
                 <List sx={list}>
-                  {articles.map((article) => (
+                  {articles.map((article, i) => (
                     <ListItem key={article.link} sx={list.item}>
-                      <ListItemButton onClick={(e) => handleClickDesctopMenu(e, article.link, article.list)}>
+                      <ListItemButton onClick={(e) => handleClickDesctopMenu(e, i)}>
                         <ListItemText primary={article.title} />
                       </ListItemButton>
                     </ListItem>
@@ -109,7 +103,9 @@ const NavBar = observer(() => {
                   sx={{width: 410, height: 63}}
                   icon={<SearchIcon />}
                 />
-                <DesctopSubMenu anchor={anchorElListItem} close={handleCloseDesctopMenu} to={link} items={items} />
+                {item && anchorElListItem ? (
+                  <DesctopSubMenu anchor={anchorElListItem} close={handleCloseDesctopMenu} item={item} />
+                ) : null}
               </Box>
             ) : null}
           </Toolbar>
