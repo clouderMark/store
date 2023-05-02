@@ -11,58 +11,57 @@ interface IProps {
 }
 
 interface IItems {
-  link: string,
-  content: string,
+  link: string;
+  content: string;
 }
 
-const DesctopSubMenu = (props: IProps) => (
-  <Menu
-    open={Boolean(props.anchor)}
-    onClose={props.close}
-    anchorEl={props.anchor}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'left',
-    }}
-    keepMounted
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'left',
-    }}
-    marginThreshold={0}
-    PaperProps={{
-      style: listItemMenu.paper,
-    }}
-    MenuListProps={{
-      'aria-labelledby': 'lock-button',
-      role: 'listbox',
-    }}
-    sx={listItemMenu.list}
-  >
-    <MenuItem onClick={props.close} sx={listItemMenu.header.wrapper(props.items.length)}>
-      <Button
-        component={NavLink}
-        to={props.to}
-        sx={listItemMenu.header}
-        endIcon={<ArrowForwardIosOutlinedIcon />}
-      >
-        {props.anchor?.textContent}
-      </Button>
-    </MenuItem>
-    {props.items.map((el, i) => (
-      <MenuItem key={i} sx={listItemMenu.item.wrapper}>
-        <Button
-          component={NavLink}
-          to={`/${el.link}`}
-          onClick={props.close}
-          sx={listItemMenu.item}
-          endIcon={<ArrowForwardIosOutlinedIcon />}
-        >
-          {el.content}
+const DesctopSubMenu = (props: IProps) => {
+  const {anchor, to, items} = props;
+
+  return (
+    <Menu
+      open={Boolean(anchor)}
+      onClose={props.close}
+      anchorEl={anchor}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
+      keepMounted
+      transformOrigin={{
+        vertical: 'top',
+        horizontal: 'left',
+      }}
+      marginThreshold={0}
+      PaperProps={{
+        style: listItemMenu.paper,
+      }}
+      MenuListProps={{
+        'aria-labelledby': 'lock-button',
+        role: 'listbox',
+      }}
+      sx={listItemMenu.list}
+    >
+      <MenuItem onClick={props.close} sx={listItemMenu.header.wrapper(items.length)}>
+        <Button component={NavLink} to={to} sx={listItemMenu.header} endIcon={<ArrowForwardIosOutlinedIcon />}>
+          {anchor?.textContent}
         </Button>
       </MenuItem>
-    ))}
-  </Menu>
-);
+      {items.map((el, i) => (
+        <MenuItem key={i} sx={listItemMenu.item.wrapper}>
+          <Button
+            component={NavLink}
+            to={`/${el.link}`}
+            onClick={props.close}
+            sx={listItemMenu.item}
+            endIcon={<ArrowForwardIosOutlinedIcon />}
+          >
+            {el.content}
+          </Button>
+        </MenuItem>
+      ))}
+    </Menu>
+  );
+};
 
 export default DesctopSubMenu;
