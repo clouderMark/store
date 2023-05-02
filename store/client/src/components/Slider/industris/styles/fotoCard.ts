@@ -1,3 +1,5 @@
+import {queryTablet, querySmallTablet} from '../../query';
+
 const color1 = 'white';
 const color2 = '#008f38';
 
@@ -7,6 +9,8 @@ export const fotoCard = {
     alignItems: 'flex-end',
     padding: '45px 45px 44px 55px',
     backgroundRepeat: 'no-repeat',
+    backgroundPosition: '50% 50%',
+    backgroundSize: 'cover',
     width: '100%',
     height: '100%',
   },
@@ -15,10 +19,6 @@ export const fotoCard = {
     display: 'flex',
     justifyContent: 'space-between',
     width: '100%',
-    '@media (max-width: 1300px)': {
-      flexDirection: 'column',
-      alignItems: 'flex-start',
-    },
   },
 
   buttonsBox: {
@@ -37,6 +37,14 @@ export const fotoCard = {
       background: 'transparent',
       color: color2,
     },
+
+    [`@media (max-width: ${queryTablet}px)`]: {
+      fontSize: '2.1vw',
+    },
+
+    [`@media (max-width: ${querySmallTablet}px)`]: {
+      fontSize: '20px',
+    },
   },
 
   button: {
@@ -53,6 +61,10 @@ export const fotoCard = {
           background: color2,
         },
       },
+    },
+
+    [`@media (max-width: ${queryTablet}px)`]: {
+      fontSize: '1.3vw',
     },
   },
 };

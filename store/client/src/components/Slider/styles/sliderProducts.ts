@@ -3,7 +3,14 @@ import {queryTablet, querySmallTablet, queryMobile} from '../query';
 export const sliderProducts = {
   container: {
     display: 'flex',
-    height: '621px',
+    minHeight: '621px',
+
+    [`@media (max-width: ${queryTablet}px)`]: {
+      minHeight: '40vw',
+    },
+    [`@media (max-width: ${queryMobile}px)`]: {
+      minHeight: '55vw',
+    },
   },
 
   square: {
@@ -23,16 +30,15 @@ export const sliderProducts = {
     zIndex: 1,
     height: '100%',
     width: '336px',
-    padding: '55px 10px 67px 0',
+    padding: '55px 10px 3vw 0',
     backgroundColor: '#008f38',
 
-    // [`@media (max-width: ${queryTablet}px)`]: {
-    //   padding: '40px 40px 37px',
-    // },
+    [`@media (max-width: ${queryTablet}px)`]: {
+      paddingTop: '4vw',
+    },
 
     [`@media (max-width: ${querySmallTablet}px)`]: {
       width: '50%',
-      padding: '55px 40px 37px',
     },
 
     button: {
@@ -59,7 +65,7 @@ export const sliderProducts = {
     },
 
     list: {
-      marginBottom: 'auto',
+      marginBottom: '30px',
       padding: '0',
       borderLeft: '1px solid rgba(255,255,255,.27)',
 
@@ -74,7 +80,8 @@ export const sliderProducts = {
         },
 
         [`@media (max-width: ${queryTablet}px)`]: {
-          fontSize: '18px',
+          height: '2vw',
+          padding: '2vw',
         },
       },
     },
@@ -109,6 +116,10 @@ export const sliderProducts = {
     padding: '0 0 1px',
     transitionDuration: '.5s',
     transitionProperty: 'transform',
+
+    [`@media (max-width: ${queryMobile}px)`]: {
+      marginLeft: '-24px',
+    },
 
     item: {
       flexGrow: 1,

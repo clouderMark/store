@@ -3,12 +3,13 @@ import useMediaQuery from '@mui/material/useMediaQuery';
 import {Box, Container, IconButton, Typography, List, ListItem, Button} from '@mui/material';
 import {sliderProducts as styles} from '../styles/sliderProducts';
 import {useAppContext} from '../../AppContext';
-import {queryMobile} from '../query';
+import {queryMobile, querySmallTablet} from '../query';
 import Arrow from '../../Arrow/Arrow';
 import FotoCard from './FotoCard';
 
 const SliderIndustries = () => {
   const {catalog} = useAppContext();
+  const matchesSmallTablet = useMediaQuery(`(max-width: ${querySmallTablet}px)`, {noSsr: true});
   const matchesMobile = useMediaQuery(`(min-width: ${queryMobile}px)`, {noSsr: true});
   const [count, setCount] = useState(1);
   const [translateTo, setTranslateTo] = useState(0);
@@ -62,7 +63,6 @@ const SliderIndustries = () => {
     }
   };
 
-  console.log(onTouchStart, onTouchMove, onTouchEnd); //
   const getActive = (position: number) => {
     const key = `li:nth-of-type(${position})`;
     const result: {[key: string]: any} = {}; // eslint-disable-line
@@ -73,6 +73,16 @@ const SliderIndustries = () => {
 
     return result;
   };
+
+  let listWidth = `${65 * catalog.industries.length}vw`;
+
+  if (matchesSmallTablet) {
+    listWidth = `${48.8 * catalog.industries.length}vw`;
+  }
+
+  if (!matchesMobile) {
+    listWidth = `${98 * catalog.industries.length}vw`;
+  }
 
   return (
     <Box sx={styles.wrapper}>
@@ -111,7 +121,7 @@ const SliderIndustries = () => {
               styles.list,
               {
                 transform: `translate3d(-${(count - 1) * translateTo}px, 0px, 0px)`,
-                width: `${65 * catalog.industries.length}vw`,
+                width: listWidth,
               },
             ]}
           >
