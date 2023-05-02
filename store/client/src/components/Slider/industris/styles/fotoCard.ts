@@ -1,7 +1,5 @@
 import {queryTablet, querySmallTablet} from '../../query';
-
-const color1 = 'white';
-const color2 = '#008f38';
+import {slider} from '../../styles/slider';
 
 export const fotoCard = {
   card: {
@@ -30,12 +28,12 @@ export const fotoCard = {
   toParrentButton: {
     marginBottom: '50px',
     fontSize: '30px',
-    color: color1,
+    color: slider.color1,
     borderBottom: '1px solid rgba(255,255,255,.3)',
     padding: 0,
     '&:hover': {
       background: 'transparent',
-      color: color2,
+      color: slider.color2,
     },
 
     [`@media (max-width: ${queryTablet}px)`]: {
@@ -48,17 +46,17 @@ export const fotoCard = {
   },
 
   button: {
-    color: color1,
+    color: slider.color1,
     borderBottom: '1px solid rgba(255,255,255,.3)',
     padding: 0,
     '&:hover': {
       background: 'transparent',
-      color: color2,
+      color: slider.color2,
 
       '& i': {
         '&::before': {
-          borderColor: color2,
-          background: color2,
+          borderColor: slider.color2,
+          background: slider.color2,
         },
       },
     },

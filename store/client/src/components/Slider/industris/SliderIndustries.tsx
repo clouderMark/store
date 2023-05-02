@@ -1,23 +1,24 @@
-import {MouseEvent, useState, createRef, useEffect} from 'react';
+import {useState, createRef, useEffect} from 'react';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import {Box, Container, IconButton, Typography, List, ListItem, Button} from '@mui/material';
-import {sliderProducts as styles} from '../styles/sliderProducts';
+import {sliderIndustries as styles} from './styles/sliderIndustries';
 import {useAppContext} from '../../AppContext';
 import {queryMobile, querySmallTablet} from '../query';
 import Arrow from '../../Arrow/Arrow';
 import FotoCard from './FotoCard';
+import {onTouchStart, onTouchMove, onTouchEnd, handleClick} from '../onTouch';
 
 const SliderIndustries = () => {
   const {catalog} = useAppContext();
   const matchesSmallTablet = useMediaQuery(`(max-width: ${querySmallTablet}px)`, {noSsr: true});
   const matchesMobile = useMediaQuery(`(min-width: ${queryMobile}px)`, {noSsr: true});
+  const [quantitySteps] = useState(catalog.industries.length);
   const [count, setCount] = useState(1);
   const [translateTo, setTranslateTo] = useState(0);
   const refComponent = createRef<HTMLLIElement>();
 
   const [touchStart, setTouchStart] = useState<number | null>(null);
   const [touchEnd, setTouchEnd] = useState<number | null>(null);
-  const minSwipeDistance = 50;
 
   useEffect(() => {
     if (refComponent.current) {
@@ -28,40 +29,6 @@ const SliderIndustries = () => {
       setTranslateTo(translate);
     }
   }, [refComponent]);
-
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
-    const {name} = event.currentTarget;
-
-    if (name === 'next') {
-      setCount(count <= catalog.industries.length - 1 ? count + 1 : 1);
-    } else if (name === 'back') {
-      setCount(count >= 2 ? count - 1 : catalog.industries.length);
-    } else {
-      setCount(+name + 1);
-    }
-  };
-
-  const onTouchStart = (e: React.TouchEvent) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-  };
-
-  const onTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX);
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      setCount(count <= catalog.industries.length - 1 ? count + 1 : 1);
-    }
-
-    if (isRightSwipe) {
-      setCount(count >= 2 ? count - 1 : catalog.industries.length);
-    }
-  };
 
   const getActive = (position: number) => {
     const key = `li:nth-of-type(${position})`;
@@ -74,14 +41,14 @@ const SliderIndustries = () => {
     return result;
   };
 
-  let listWidth = `${65 * catalog.industries.length}vw`;
+  let listWidth = `${65 * quantitySteps}vw`;
 
   if (matchesSmallTablet) {
-    listWidth = `${48.8 * catalog.industries.length}vw`;
+    listWidth = `${48.8 * quantitySteps}vw`;
   }
 
   if (!matchesMobile) {
-    listWidth = `${98 * catalog.industries.length}vw`;
+    listWidth = `${98 * quantitySteps}vw`;
   }
 
   return (
@@ -96,17 +63,31 @@ const SliderIndustries = () => {
             <List sx={[styles.info.list, getActive(count)]}>
               {catalog.industries.map((el, i) => (
                 <ListItem disablePadding key={el.id}>
-                  <Button name={`${i}`} onClick={handleClick} sx={styles.info.list.button}>
+                  <Button
+                    name={`${i}`}
+                    onClick={(e) => handleClick(e, setCount, count, quantitySteps)}
+                    sx={styles.info.list.button}
+                  >
                     {el.name}
                   </Button>
                 </ListItem>
               ))}
             </List>
             <Box sx={styles.info.navigation}>
-              <IconButton onClick={handleClick} name="back" sx={styles.info.button} aria-label="previous-industry">
+              <IconButton
+                onClick={(e) => handleClick(e, setCount, count, quantitySteps)}
+                name="back"
+                sx={styles.info.button}
+                aria-label="previous-industry"
+              >
                 <Arrow color={'white'} direction={'left'} size={31} />
               </IconButton>
-              <IconButton onClick={handleClick} name="next" sx={styles.info.button} aria-label="next-industry">
+              <IconButton
+                onClick={(e) => handleClick(e, setCount, count, quantitySteps)}
+                name="next"
+                sx={styles.info.button}
+                aria-label="next-industry"
+              >
                 <Arrow color={'white'} direction={'right'} size={31} />
               </IconButton>
             </Box>
@@ -114,9 +95,9 @@ const SliderIndustries = () => {
         ) : null}
         <Box sx={styles.box}>
           <List
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
+            onTouchStart={(e) => onTouchStart(e, setTouchStart, setTouchEnd)}
+            onTouchMove={(e) => onTouchMove(e, setTouchEnd)}
+            onTouchEnd={() => onTouchEnd(touchStart, touchEnd, setCount, count, quantitySteps)}
             sx={[
               styles.list,
               {

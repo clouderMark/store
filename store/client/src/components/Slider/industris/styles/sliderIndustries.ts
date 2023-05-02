@@ -1,6 +1,7 @@
-import {queryTablet, querySmallTablet, queryMobile} from '../query';
+import {queryTablet, querySmallTablet, queryMobile} from '../../query';
+import {slider} from '../../styles/slider';
 
-export const sliderProducts = {
+export const sliderIndustries = {
   container: {
     display: 'flex',
     minHeight: '621px',
@@ -16,7 +17,7 @@ export const sliderProducts = {
   square: {
     position: 'absolute',
     content: '""',
-    backgroundColor: '#008f38',
+    backgroundColor: slider.color2,
     width: '200%',
     top: 0,
     bottom: 0,
@@ -31,7 +32,7 @@ export const sliderProducts = {
     height: '100%',
     width: '336px',
     padding: '55px 10px 3vw 0',
-    backgroundColor: '#008f38',
+    backgroundColor: slider.color2,
 
     [`@media (max-width: ${queryTablet}px)`]: {
       paddingTop: '4vw',
@@ -41,19 +42,10 @@ export const sliderProducts = {
       width: '50%',
     },
 
-    button: {
-      '&:hover': {
-        '& i::before': {
-          backgroundColor: 'white',
-        },
-        '& i::after': {
-          borderColor: '#008f38',
-        },
-      },
-    },
+    button: slider.button,
 
     title: {
-      color: 'white',
+      color: slider.color1,
       fontWeight: 500,
       fontSize: '18px',
       textTransform: 'uppercase',
@@ -70,12 +62,12 @@ export const sliderProducts = {
       borderLeft: '1px solid rgba(255,255,255,.27)',
 
       button: {
-        color: 'white',
+        color: slider.color1,
         fontSize: '22px',
         fontWeight: 300,
 
         '&:hover': {
-          color: 'white',
+          color: slider.color1,
           backgroundColor: 'rgba(255,255,255, .3)',
         },
 
@@ -106,9 +98,7 @@ export const sliderProducts = {
     },
   },
 
-  wrapper: {
-    overflow: 'hidden',
-  },
+  wrapper: slider.wrapper,
 
   list: {
     display: 'flex',
@@ -126,7 +116,7 @@ export const sliderProducts = {
       height: '100%',
       marginLeft: '18px',
       padding: 0,
-      color: 'white',
+      color: slider.color1,
       transitionDuration: '.5s',
       transitionProperty: 'opacity',
     },
