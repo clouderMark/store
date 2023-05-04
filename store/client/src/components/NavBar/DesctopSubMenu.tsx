@@ -11,12 +11,12 @@ interface IProps {
 }
 
 const DesctopSubMenu = (props: IProps) => {
-  const {anchor, item} = props;
+  const {anchor, item, close} = props;
 
   return (
     <Menu
       open={Boolean(anchor)}
-      onClose={props.close}
+      onClose={close}
       anchorEl={anchor}
       anchorOrigin={{
         vertical: 'bottom',
@@ -37,7 +37,7 @@ const DesctopSubMenu = (props: IProps) => {
       }}
       sx={listItemMenu.list}
     >
-      <MenuItem onClick={props.close} sx={listItemMenu.header.wrapper(item.list.length)}>
+      <MenuItem onClick={close} sx={listItemMenu.header.wrapper(item.list.length)}>
         <Button component={NavLink} to={item.link} sx={listItemMenu.header} endIcon={<ArrowForwardIosOutlinedIcon />}>
           {anchor.textContent}
         </Button>
@@ -46,8 +46,8 @@ const DesctopSubMenu = (props: IProps) => {
         <MenuItem key={i} sx={listItemMenu.item.wrapper}>
           <Button
             component={NavLink}
-            to={`/${el.link}`}
-            onClick={props.close}
+            to={`${item.link}/${el.link}`}
+            onClick={close}
             sx={listItemMenu.item}
             endIcon={<ArrowForwardIosOutlinedIcon />}
           >

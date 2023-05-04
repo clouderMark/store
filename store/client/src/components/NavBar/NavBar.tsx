@@ -38,16 +38,22 @@ import {EPath} from '../../enums/EPath';
 import {IArticle} from './types';
 
 const NavBar = observer(() => {
-  const {user, basket} = useAppContext();
+  const {user, basket, catalog} = useAppContext();
   const matchesMenu = useMediaQuery(`(min-width:${queryTablet}px)`, {noSsr: true});
   const matchesNews = useMediaQuery('(min-width:830px)', {noSsr: true});
   const matchesMobile = useMediaQuery(`(min-width:${queryMobile}px)`, {noSsr: true});
   const [anchorElListItem, setAnchorListItem] = useState<null | HTMLElement>(null);
   const [item, setItem] = useState<IArticle>();
 
-  const handleClickDesctopMenu = (event: React.MouseEvent<HTMLElement>, elNumber: number) => {
+  const handleClickDesctopMenu = (event: React.MouseEvent<HTMLElement>, element: EPath) => {
     setAnchorListItem(event.currentTarget);
-    setItem(articles[elNumber]);
+    const item = articles.find((el) => el.link === element);
+
+    if (item?.link === EPath.Industries) {
+      setItem({...item, list: catalog.industries.map((el) => ({link: `${el.id}`, content: el.name}))});
+    } else {
+      setItem(item);
+    }
   };
 
   const handleCloseDesctopMenu = () => {
@@ -89,9 +95,9 @@ const NavBar = observer(() => {
             {matchesMenu ? (
               <Box sx={[{mt: 1.2}, dFlex, justifySB, alignC, {width: '100%'}]}>
                 <List sx={list}>
-                  {articles.map((article, i) => (
+                  {articles.map((article) => (
                     <ListItem key={article.link} sx={list.item}>
-                      <ListItemButton onClick={(e) => handleClickDesctopMenu(e, i)}>
+                      <ListItemButton onClick={(e) => handleClickDesctopMenu(e, article.link)}>
                         <ListItemText primary={article.title} />
                       </ListItemButton>
                     </ListItem>

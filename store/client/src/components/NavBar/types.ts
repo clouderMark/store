@@ -1,5 +1,7 @@
+import {EPath} from '../../enums/EPath';
+
 export interface IArticle {
-  link: string;
+  link: EPath;
   title: string;
   list: IList[];
 }

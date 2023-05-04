@@ -20,7 +20,12 @@ const IndustriesItem = () => {
   const id: number = Number(useParams().id);
   const {catalog} = useAppContext();
   const [item, setItem] = useState<IAreaResponse | undefined>(catalog.industries.find((el) => el.id === id));
-  const [subIndustries] = useState(catalog.subIndustries.filter((el) => el.industryId === id));
+  const [subIndustries, setSubIndustries] = useState(catalog.subIndustries.filter((el) => el.industryId === id));
+
+  useEffect(() => {
+    setItem(catalog.industries.find((el) => el.id === id));
+    setSubIndustries(catalog.subIndustries.filter((el) => el.industryId === id));
+  }, [id]);
 
   if (item?.info.image) {
     useEffect(() => {
