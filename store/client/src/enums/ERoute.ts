@@ -5,6 +5,15 @@ export enum ERoute {
   Area = 'area',
   Product = 'product',
   Property = 'property',
+  Basket = 'basket',
+  Message = 'message',
+  Order = 'order',
+  Subscription = 'subscription',
+
+  Admin = 'admin',
+  User = 'user',
+  Guest = 'guest',
+
   Create = 'create',
   Update = 'update',
   Delete = 'delete',

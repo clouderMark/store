@@ -1,38 +1,39 @@
 import {guestInstance} from './index';
 import {IBasket} from '../types/types';
+import {ERoute} from '../enums/ERoute';
 
 export const fetchBasket = async (): Promise<IBasket> => {
-  const {data} = await guestInstance.get('basket/getone');
+  const {data} = await guestInstance.get(`${ERoute.Basket}/${ERoute.GetOne}`);
 
   return data;
 };
 
 export const append = async (id: number): Promise<IBasket> => {
-  const {data} = await guestInstance.put(`basket/product/${id}/append/1`);
+  const {data} = await guestInstance.put(`${ERoute.Basket}/${ERoute.Product}/${id}/append/1`);
 
   return data;
 };
 
 export const increment = async (id: number): Promise<IBasket> => {
-  const {data} = await guestInstance.put(`basket/product/${id}/increment/1`);
+  const {data} = await guestInstance.put(`${ERoute.Basket}/${ERoute.Product}/${id}/increment/1`);
 
   return data;
 };
 
 export const decrement = async (id: number): Promise<IBasket> => {
-  const {data} = await guestInstance.put(`basket/product/${id}/decrement/1`);
+  const {data} = await guestInstance.put(`${ERoute.Basket}/${ERoute.Product}/${id}/decrement/1`);
 
   return data;
 };
 
 export const remove = async (id: number): Promise<IBasket> => {
-  const {data} = await guestInstance.put(`basket/product/${id}/remove`);
+  const {data} = await guestInstance.put(`${ERoute.Basket}/${ERoute.Product}/${id}/remove`);
 
   return data;
 };
 
 export const clear = async (): Promise<IBasket> => {
-  const {data} = await guestInstance.put('basket/clear');
+  const {data} = await guestInstance.put(`${ERoute.Basket}/clear`);
 
   return data;
 };
