@@ -77,31 +77,31 @@ export const fetchSubIndustry = async (id: number): Promise<IAreaResponse> => {
 // Создание, обновление, удаление решений, получение списка всех решений
 
 export const createSolution = async (solution: {name: string}): Promise<ICatalogItem> => {
-  const {data} = await authInstance.post('solution/create', solution);
+  const {data} = await authInstance.post('product-solutions/create', solution);
 
   return data;
 };
 
 export const updateSolution = async (id: number, solution: {name: string}): Promise<ICatalogItem> => {
-  const {data} = await authInstance.put(`solution/update/${id}`, solution);
+  const {data} = await authInstance.put(`product-solutions/update/${id}`, solution);
 
   return data;
 };
 
 export const deleteSolution = async (id: number): Promise<ICatalogItem> => {
-  const {data} = await authInstance.delete(`solution/delete/${id}`);
+  const {data} = await authInstance.delete(`product-solutions/delete/${id}`);
 
   return data;
 };
 
 export const fetchSolutions = async (): Promise<ICatalogItem[]> => {
-  const {data} = await guestInstance.get('solution/getall');
+  const {data} = await guestInstance.get('product-solutions/getall');
 
   return data;
 };
 
 export const fetchSolution = async (id: number): Promise<ICatalogItem> => {
-  const {data} = await guestInstance.get(`solution/getone/${id}`);
+  const {data} = await guestInstance.get(`product-solutions/getone/${id}`);
 
   return data;
 };

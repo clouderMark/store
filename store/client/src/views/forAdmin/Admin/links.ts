@@ -1,3 +1,4 @@
+import {EName} from '../../../enums/EName';
 import {EPath} from '../../../enums/EPath';
 
 interface ILinks {
@@ -20,7 +21,7 @@ export const links: ILinks[] = [
   },
   {
     address: EPath.AdminSolutions,
-    content: 'Решения',
+    content: EName.Solutions,
   },
   {
     address: EPath.AdminAreas,

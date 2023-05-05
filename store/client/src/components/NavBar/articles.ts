@@ -1,6 +1,7 @@
 import {aboutList} from '../commonContent/aboutList';
 import {EPath} from '../../enums/EPath';
 import {IArticle} from './types';
+import {EName} from '../../enums/EName';
 
 export const articles: IArticle[] = [
   {
@@ -9,8 +10,8 @@ export const articles: IArticle[] = [
     list: [],
   },
   {
-    link: EPath.Areas,
-    title: 'Области',
+    link: EPath.Solutions,
+    title: EName.Solutions,
     list: [],
   },
   {

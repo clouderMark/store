@@ -4,6 +4,8 @@ import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, Divider} 
 import {useAppContext} from '../AppContext';
 import {IObject} from '../../types/types';
 import {bar} from './styles/bar';
+import {EPath} from '../../enums/EPath';
+import {EName} from '../../enums/EName';
 
 const SolutionBar = observer(() => {
   const {catalog} = useAppContext();
@@ -26,7 +28,7 @@ const SolutionBar = observer(() => {
     if (catalog.area.length) params.area = catalog.area.join(',');
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
-      pathname: '/shop',
+      pathname: EPath.Shop,
       search: `?${createSearchParams(params)}`,
     });
   };
@@ -35,7 +37,7 @@ const SolutionBar = observer(() => {
     <>
       <FormControl component="fieldset" variant="standard" sx={bar.control}>
         <FormLabel component="legend" sx={bar.title}>
-          Решения
+          {EName.Solutions}
         </FormLabel>
         <FormGroup>
           {catalog.solutions.map((item) => (

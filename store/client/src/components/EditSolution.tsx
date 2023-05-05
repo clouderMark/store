@@ -73,7 +73,7 @@ const EditSolution = (props: IProps) => {
 
   return (
     <PopUp
-      title="решения"
+      title="продуктового решения"
       show={show}
       setShow={setShow}
       id={id}
