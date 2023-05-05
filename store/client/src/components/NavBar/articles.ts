@@ -1,16 +1,6 @@
 import {aboutList} from '../commonContent/aboutList';
 import {EPath} from '../../enums/EPath';
-
-interface IArticle {
-  link: string;
-  title: string;
-  list: IList[];
-}
-
-interface IList {
-  link: string;
-  content: string;
-}
+import {IArticle} from './types';
 
 export const articles: IArticle[] = [
   {
