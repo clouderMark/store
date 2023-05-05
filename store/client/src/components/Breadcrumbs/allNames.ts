@@ -16,7 +16,7 @@ export const allNames: {[key: string]: string} = {
   [EPath.About]: 'О нас',
   [EPath.Services]: 'Сервисы',
   [EPath.Solutions]: EName.Solutions,
-  [EPath.Industries]: 'Отрасли',
+  [EPath.Industries]: EName.Industries,
   [EPath.Signup]: 'Регистрация',
   [EPath.Login]: 'Войти',
   [EPath.Admin]: 'Управление',

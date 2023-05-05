@@ -1,4 +1,3 @@
-import {useState, useEffect} from 'react';
 import {Container} from '@mui/material';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import img from './images/branche-header.webp';
@@ -7,23 +6,16 @@ import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle
 import CardList from '../../../components/CardList/CardList';
 import Newsletter from '../../../components/Newsletter/Newsletter';
 import Footer from '../../../components/Footer/Footer';
-import {fetchIndustries} from '../../../http/catalogAPI';
-import {IAreaResponse} from '../../../types/types';
+import {useAppContext} from '../../../components/AppContext';
+import {EName} from '../../../enums/EName';
 
 const content = {
-  p: 'Отрасли',
+  p: EName.Industries,
   title: 'Find the right product for your application',
 };
 
 const Industries = () => {
-  const [industries, setIndustries] = useState<IAreaResponse[] | null>(null);
-  const [fetching, setFetching] = useState(true);
-
-  useEffect(() => {
-    fetchIndustries()
-      .then((data) => setIndustries(data))
-      .finally(() => setFetching(false));
-  }, []);
+  const {catalog} = useAppContext();
 
   return (
     <>
@@ -31,9 +23,7 @@ const Industries = () => {
       <Breadcrumbs />
       <Container maxWidth={false}>
         <StrongWithTitle content={content} />
-        {fetching ? null : (
-          <CardList data={industries!} />
-        )}
+        {catalog.industriesFetching ? null : <CardList data={catalog.industries} />}
       </Container>
       <Newsletter />
       <Footer />

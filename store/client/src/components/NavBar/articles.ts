@@ -6,7 +6,7 @@ import {EName} from '../../enums/EName';
 export const articles: IArticle[] = [
   {
     link: EPath.Industries,
-    title: 'Отрасли',
+    title: EName.Industries,
     list: [],
   },
   {
