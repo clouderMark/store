@@ -46,7 +46,7 @@ const SetOpinion = (props: IProps) => (
           paragraphs={props.opinionParagraphs}
           setParagraphs={props.setOpinionParagraphs}
           title={'Добавить абзац'}
-          listItem={'Параграф совета'}
+          placeholder={'Параграф совета'}
         />
         <TextField
           name={props.listTitleName}
@@ -59,7 +59,7 @@ const SetOpinion = (props: IProps) => (
           paragraphs={props.opinionListItems}
           setParagraphs={props.setOpinionListItems}
           title={'Добавить пункт'}
-          listItem={'пункт списка'}
+          placeholder={'пункт списка'}
         />
       </>
     }

@@ -9,11 +9,11 @@ interface IProps {
   paragraphs: IParagraphs[];
   setParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
   title: string;
-  listItem: string;
+  placeholder: string;
 }
 
 const AddTextField = (props: IProps) => {
-  const {paragraphs, setParagraphs, title, listItem} = props;
+  const {paragraphs, setParagraphs, title, placeholder} = props;
   const append = () => {
     setParagraphs([...paragraphs, {id: null, value: '', unique: uuid()}]);
   };
@@ -42,7 +42,7 @@ const AddTextField = (props: IProps) => {
             onChange={(e) => change('value', e.target.value, item.unique)}
             multiline
             rows={4}
-            placeholder={listItem}
+            placeholder={placeholder}
             sx={{width: '100%'}}
           />
           <IconButton color="warning" aria-label="delete" onClick={() => remove(item.unique)}>

@@ -66,7 +66,7 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
           paragraphs={props.paragraphs}
           setParagraphs={props.setParagraphs}
           title={'Добавить абзац'}
-          listItem={'Параграф индустрии'}
+          placeholder={'Параграф индустрии'}
         />
         <ContainerWithTwoColumns
           firstColumn={
@@ -106,13 +106,13 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
                 paragraphs={props.infoListItems}
                 setParagraphs={props.setInfoListItems}
                 title={'Добавить пункт'}
-                listItem={'Пункт списка'}
+                placeholder={'Пункт списка'}
               />
               <AddTextField
                 paragraphs={props.infoParagraphs}
                 setParagraphs={props.setInfoParagraphs}
                 title={'Добавить параграф'}
-                listItem={'Параграф'}
+                placeholder={'Параграф'}
               />
             </>
           }
