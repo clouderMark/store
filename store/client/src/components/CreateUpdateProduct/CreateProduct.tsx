@@ -1,6 +1,6 @@
 import React, {useEffect, useState, ChangeEvent, FormEvent} from 'react';
 import {SelectChangeEvent} from '@mui/material';
-import {PopUpForProduct} from '../PopUpForProduct';
+import {PopUpForProduct} from '../PopUps/PopUpForProduct';
 import {createProduct, fetchSolutions, fetchIndustries, fetchAreas} from '../../http/catalogAPI';
 import {ICatalogItem, IValid, IDefaultValid, IProductProp} from '../../types/types';
 import {IProps} from './types';

@@ -1,4 +1,4 @@
-import {IParagraphs, IFilteredParagraphs} from '../types/types';
+import {IParagraphs, IFilteredParagraphs} from '../../types/types';
 
 const filterParagraphs = (elements: IParagraphs[]): IFilteredParagraphs[] => {
   const items: IFilteredParagraphs[] = elements

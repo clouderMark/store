@@ -1,9 +1,9 @@
 import React, {ChangeEvent, Dispatch, SetStateAction, FormEvent} from 'react';
 import {Dialog, DialogContent, DialogTitle, Box, TextField, DialogActions, Button} from '@mui/material';
-import {IParagraphs} from '../../types/types';
+import {IParagraphs} from '../../../types/types';
 import SetOpinion from '../SetOpinion/SetOpinion';
-import {EType} from '../EditSolution/EType';
-import {IDefaultValue} from '../EditSolution/reducer';
+import {EType} from '../../EditSolution/EType';
+import {IDefaultValue} from '../../EditSolution/reducer';
 
 interface IProps {
   show: boolean;
@@ -25,9 +25,7 @@ const PopUpForSolutiond = (props: IProps) => {
 
   return (
     <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {minWidth: '94%'}}}>
-      <DialogTitle>
-        {props.id ? 'Редактирование' : 'Создание'} продуктового решения
-      </DialogTitle>
+      <DialogTitle>{props.id ? 'Редактирование' : 'Создание'} продуктового решения</DialogTitle>
 
       <DialogContent>
         <Box component="form" noValidate onSubmit={props.handleSubmit}>

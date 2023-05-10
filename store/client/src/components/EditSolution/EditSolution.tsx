@@ -1,10 +1,10 @@
 import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent, useReducer} from 'react';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
-import PopUpForSolutiond from '../PopUpForSolution/PopUpForSolution';
+import PopUpForSolutiond from '../PopUps/PopUpForSolution/PopUpForSolution';
 import {IParagraphs} from '../../types/types';
 import {IDefaultValue, initState, reducer} from './reducer';
 import {EType} from './EType';
-import filterParagraphs from '../filterParagraphs';
+import filterParagraphs from '../PopUps/filterParagraphs';
 import {useAppContext} from '../AppContext';
 
 interface IProps {

@@ -1,9 +1,9 @@
 import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent, useReducer} from 'react';
 import uuid from 'react-uuid';
-import PopUpForIndystry from '../PopUpForIndustry/PopUpForIndustry';
+import PopUpForIndystry from '../PopUps/PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from '../AppContext';
 import {IParagraphs, IAreaResponse} from '../../types/types';
-import filterParagraphs from '../filterParagraphs';
+import filterParagraphs from '../PopUps/filterParagraphs';
 import {reducer, IDefaultValue, initState} from './reducer';
 import {EType} from './EType';
 

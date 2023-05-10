@@ -1,9 +1,9 @@
 import React, {ChangeEvent, Dispatch, SetStateAction} from 'react';
 import {TextField} from '@mui/material';
-import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwoColumns';
-import CardInputImage from '../PopUpForIndustry/CardInputImage';
-import AddTextField from '../PopUpForIndustry/AddTextField';
-import {IParagraphs} from '../../types/types';
+import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
+import CardInputImage from '../CardInputImage';
+import AddTextField from '../AddTextField';
+import {IParagraphs} from '../../../types/types';
 
 interface IProps {
   titleName: string;

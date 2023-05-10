@@ -1,7 +1,7 @@
 import {ChangeEvent} from 'react';
 import {Box} from '@mui/material';
-import {popUpForIndystry as styles} from './styles/popUpForIndystry';
-import InputFileButton from './InputFileButton';
+import {popUpForIndystry as styles} from './PopUpForIndustry/styles/popUpForIndystry';
+import InputFileButton from './PopUpForIndustry/InputFileButton';
 
 interface IProps {
   id: number | null;

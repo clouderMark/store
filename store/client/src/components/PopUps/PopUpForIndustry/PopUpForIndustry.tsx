@@ -1,10 +1,10 @@
 import React, {ChangeEvent} from 'react';
 import {Dialog, DialogContent, DialogTitle, Box, DialogActions, Button, TextField} from '@mui/material';
 import {IPopUpForIndystry} from './types/IPopUpForIndystry';
-import AddTextField from './AddTextField';
-import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwoColumns';
-import CardInputImage from './CardInputImage';
-import {EType} from '../EditIndustry/EType';
+import AddTextField from '../AddTextField';
+import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
+import CardInputImage from '../CardInputImage';
+import {EType} from '../../EditIndustry/EType';
 import SetOpinion from '../SetOpinion/SetOpinion';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => (

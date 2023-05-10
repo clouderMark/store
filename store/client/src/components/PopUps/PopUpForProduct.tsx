@@ -14,8 +14,8 @@ import {
 } from '@mui/material';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import CreateIcon from '@mui/icons-material/Create';
-import EditProperties from './EditProperties';
-import {IDefaultValue, IDefaultValid, IValid, ICatalogItem, IProductProp} from '../types/types';
+import EditProperties from '../EditProperties';
+import {IDefaultValue, IDefaultValid, IValid, ICatalogItem, IProductProp} from '../../types/types';
 
 interface IProps {
   show: boolean;
