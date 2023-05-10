@@ -3,7 +3,7 @@ import uuid from 'react-uuid';
 import PopUpForIndystry from '../PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from '../AppContext';
 import {IParagraphs, IAreaResponse} from '../../types/types';
-import filterParagraphs from './filterParagraphs';
+import filterParagraphs from '../filterParagraphs';
 import {reducer, IDefaultValue, initState} from './reducer';
 import {EType} from './EType';
 
@@ -167,11 +167,14 @@ const EditIndustry = (props: IProps) => {
   }, [show]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.name === EType.name) {
-      setValid(event.target.value.trim() !== '');
+    const {name} = event.target;
+    const {value} = event.target;
+
+    if (name === EType.name) {
+      setValid(value.trim() !== '');
     }
 
-    dispatch({type: event.target.name, payload: event.target.value});
+    dispatch({type: name, payload: value});
   };
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
