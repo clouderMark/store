@@ -77,13 +77,13 @@ export const fetchSubIndustry = async (id: number): Promise<IAreaResponse> => {
 
 // Создание, обновление, удаление решений, получение списка всех решений
 
-export const createSolution = async (solution: {name: string}): Promise<ICatalogItem> => {
+export const createSolution = async (solution: FormData): Promise<ICatalogItem> => {
   const {data} = await authInstance.post(`${ERoute.Solutions}/${ERoute.Create}`, solution);
 
   return data;
 };
 
-export const updateSolution = async (id: number, solution: {name: string}): Promise<ICatalogItem> => {
+export const updateSolution = async (id: number, solution: FormData): Promise<ICatalogItem> => {
   const {data} = await authInstance.put(`${ERoute.Solutions}/${ERoute.Update}/${id}`, solution);
 
   return data;

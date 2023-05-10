@@ -1,23 +1,22 @@
 import {useEffect, useState} from 'react';
 import {deleteSolution, fetchSolutions} from '../../http/catalogAPI';
-import EditSolution from '../../components/EditSolution';
-import {ICatalogItem} from '../../types/types';
+import EditSolution from '../../components/EditSolution/EditSolution';
 import Propgress from '../../components/LinearDeterminate';
 import {AdminTable} from '../../components/AdminTable/AdminTable';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {areaCells} from '../../components/TableCells/cells';
+import {useAppContext} from '../../components/AppContext';
 
 const AdminSolutions = () => {
-  const [solutions, setSolutions] = useState<ICatalogItem[] | null>(null); // список загруженных решений
+  const {catalog} = useAppContext();
   const [fetching, setFetching] = useState(true); // загрузка списка решений с сервера
   const [show, setShow] = useState(false); // модальное окно создания решения
   // для обновления списка после добавления-редактирования, удаления, нужно изменить состояние
   const [change, setChange] = useState(false);
   // id решения который буду редактировать для передачи в EditSolution
-  const [solutionId, setSolutionId] = useState(0);
+  const [solutionId, setSolutionId] = useState<null | number>(null);
 
   const handleCreateClick = () => {
-    setSolutionId(0);
     setShow(true);
   };
 
@@ -30,18 +29,27 @@ const AdminSolutions = () => {
     deleteSolution(id)
       .then((data) => {
         setChange(!change);
+        catalog.solutions = catalog.solutions.filter((el) => el.id !== data.id);
         alert(`Решение "${data.name}" удалено`);
       })
       .catch((error) => console.error(error));
   };
 
-  const Edit = () => <EditSolution id={solutionId} show={show} setShow={setShow} setChange={setChange} key={1} />;
+  const Edit = () => (
+    <EditSolution id={solutionId} setId={setSolutionId} show={show} setShow={setShow} setChange={setChange} key={1} />
+  );
 
   useEffect(() => {
-    fetchSolutions()
-      .then((data) => setSolutions(data))
-      .finally(() => setFetching(false));
-  }, [change]);
+    if (!catalog.solutions.length) {
+      fetchSolutions()
+        .then((data) => {
+          catalog.solutions = data;
+        })
+        .finally(() => setFetching(false));
+    } else {
+      setFetching(false);
+    }
+  }, []);
 
   if (fetching) {
     return <Propgress />;
@@ -57,7 +65,7 @@ const AdminSolutions = () => {
         handleCreateClick={handleCreateClick}
         handleUpdateClick={handleUpdateClick}
         handleDeleteClick={handleDeleteClick}
-        items={solutions!}
+        items={catalog.solutions!}
       />
     </>
   );
