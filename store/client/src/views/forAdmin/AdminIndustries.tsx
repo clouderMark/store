@@ -16,7 +16,7 @@ const AdminIndustries = () => {
   const [industryId, setIndustryId] = useState<null | number>(null);
 
   const handleCreateClick = () => {
-    setIndustryId(null);
+    // setIndustryId(null);
     setShow(true);
   };
 

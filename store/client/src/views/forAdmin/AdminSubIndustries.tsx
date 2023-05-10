@@ -15,7 +15,7 @@ const AdminSubIndustries = () => {
   const [parentName, setParentName] = useState('');
 
   const handleCreateClick = () => {
-    setIndustryId(null);
+    // setIndustryId(null);
     setShow(true);
   };
 
