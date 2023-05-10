@@ -29,6 +29,7 @@ import IndustriesItem from '../views/forAll/Industries/IndustriesItem';
 import IndustriesSubItem from '../views/forAll/Industries/IndustriesSubItem';
 import AdminSubIndustries from '../views/forAdmin/AdminSubIndustries';
 import Solutions from '../views/forAll/Solutions/Solutions';
+import SolutionsItem from '../views/forAll/Solutions/SolutionsItem';
 import {EPath} from '../enums/EPath';
 
 enum ERoute {
@@ -56,6 +57,7 @@ const publicRoutes: IRoute[] = [
   {[ERoute.Path]: EPath.IndustriesItem, [ERoute.Component]: IndustriesItem},
   {[ERoute.Path]: EPath.IndustriesSubItem, [ERoute.Component]: IndustriesSubItem},
   {[ERoute.Path]: EPath.Solutions, [ERoute.Component]: Solutions},
+  {[ERoute.Path]: EPath.SolutionsItem, [ERoute.Component]: SolutionsItem},
 ];
 
 const authRoutes: IRoute[] = [
