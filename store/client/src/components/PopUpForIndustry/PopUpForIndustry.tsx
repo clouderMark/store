@@ -5,6 +5,7 @@ import AddTextField from './AddTextField';
 import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import CardInputImage from './CardInputImage';
 import {EType} from '../EditIndustry/EType';
+import SetOpinion from '../SetOpinion/SetOpinion';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => (
   <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {minWidth: '94%'}}}>
@@ -116,76 +117,30 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
             </>
           }
         />
-        <ContainerWithTwoColumns
-          firstColumn={
-            <>
-              <TextField
-                name={EType.opinionTitle}
-                value={props.value[EType.opinionTitle]}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
-                placeholder="Заголовок"
-                sx={{width: '100%', mt: '30px'}}
-              />
-              <AddTextField
-                paragraphs={props.opinionParagraphs}
-                setParagraphs={props.setOpinionParagraphs}
-                title={'Добавить абзац'}
-                listItem={'Параграф совета'}
-              />
-              <TextField
-                name={EType.opinionListTitle}
-                value={props.value[EType.opinionListTitle]}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
-                placeholder="Заголовок"
-                sx={{width: '100%', mt: '30px'}}
-              />
-              <AddTextField
-                paragraphs={props.opinionListItems}
-                setParagraphs={props.setOpinionListItems}
-                title={'Добавить пункт'}
-                listItem={'пункт списка'}
-              />
-            </>
-          }
-          secondColumn={
-            <>
-              <CardInputImage
-                id={props.id}
-                image={props.value[EType.opinionImageUrl]}
-                imageInputName={EType.opinionImage}
-                handleImageChange={props.handleImageChange}
-              />
-              <TextField
-                name={EType.opinionName}
-                value={props.value[EType.opinionName]}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
-                placeholder="Имя"
-                sx={{width: '100%', mt: '30px'}}
-              />
-              <TextField
-                name={EType.opinionPhone}
-                value={props.value[EType.opinionPhone]}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
-                placeholder="Телефон"
-                sx={{width: '100%', mt: '30px'}}
-              />
-              <TextField
-                name={EType.opinionFax}
-                value={props.value[EType.opinionFax]}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
-                placeholder="Факс"
-                sx={{width: '100%', mt: '30px'}}
-              />
-              <TextField
-                name={EType.opinionEmail}
-                value={props.value[EType.opinionEmail]}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
-                placeholder="E-mail"
-                sx={{width: '100%', mt: '30px'}}
-              />
-            </>
-          }
-          firstColumnWidth={70}
+        <SetOpinion
+          titleName={EType.opinionTitle}
+          titleValue={props.value[EType.opinionTitle]}
+          handleChange={props.handleChange}
+          opinionParagraphs={props.opinionParagraphs}
+          setOpinionParagraphs={props.setOpinionParagraphs}
+          listTitleName={EType.opinionListTitle}
+          listTitleValue={props.value[EType.opinionListTitle]}
+          opinionListItems={props.opinionListItems}
+          setOpinionListItems={props.setOpinionListItems}
+          image={{
+            id: props.id,
+            image: props.value[EType.opinionImageUrl],
+            name: EType.opinionImage,
+            handleImageChange: props.handleImageChange,
+          }}
+          nameName={EType.opinionName}
+          nameValue={props.value[EType.opinionName]}
+          phoneName={EType.opinionPhone}
+          phoneValue={props.value[EType.opinionPhone]}
+          faxName={EType.opinionFax}
+          faxValue={props.value[EType.opinionFax]}
+          emailName={EType.opinionEmail}
+          emailValue={props.value[EType.opinionEmail]}
         />
         <DialogActions>
           <Button type="submit" variant="outlined">
