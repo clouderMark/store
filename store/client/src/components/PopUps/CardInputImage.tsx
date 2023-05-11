@@ -5,22 +5,22 @@ import InputFileButton from './PopUpForIndustry/InputFileButton';
 
 interface IProps {
   id: number | null;
-  image: string | null;
-  imageInputName: string;
+  value: string | null;
+  name: string;
   handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
   sx?: any; // eslint-disable-line
 }
 
 const CardInputImage = (props: IProps) => {
-  const {id, image, handleImageChange, imageInputName} = props;
+  const {id, value, handleImageChange, name} = props;
 
   return (
     <Box sx={[styles.card, props.sx]}>
-      <Box sx={styles.img} component="img" src={image || ''} />
+      <Box sx={styles.img} component="img" src={value || ''} />
       <InputFileButton
         styles={styles.card.button}
         id={id}
-        name={imageInputName}
+        name={name}
         handleImageChange={handleImageChange}
       />
     </Box>

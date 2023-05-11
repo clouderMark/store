@@ -20,8 +20,8 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
           <Box sx={{width: '335px'}}>
             <CardInputImage
               id={props.id}
-              image={props.value[EType.cardImageUrl]}
-              imageInputName={EType.cardImage}
+              value={props.value[EType.cardImageUrl]}
+              name={EType.cardImage}
               handleImageChange={props.handleImageChange}
             />
             <TextField
@@ -40,8 +40,8 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
           {!props.child ? (
             <CardInputImage
               id={props.id}
-              image={props.value[EType.sliderImageUrl]}
-              imageInputName={EType.sliderImage}
+              value={props.value[EType.sliderImageUrl]}
+              name={EType.sliderImage}
               handleImageChange={props.handleImageChange}
               sx={{flexGrow: 1, ml: '30px'}}
             />
@@ -50,8 +50,8 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
         <Box>
           <CardInputImage
             id={props.id}
-            image={props.value[EType.headerImageUrl]}
-            imageInputName={EType.headerImage}
+            value={props.value[EType.headerImageUrl]}
+            name={EType.headerImage}
             handleImageChange={props.handleImageChange}
           />
           <TextField
@@ -72,8 +72,8 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
           firstColumn={
             <CardInputImage
               id={props.id}
-              image={props.value[EType.infoImageUrl]}
-              imageInputName={EType.infoImage}
+              value={props.value[EType.infoImageUrl]}
+              name={EType.infoImage}
               handleImageChange={props.handleImageChange}
             />
           }

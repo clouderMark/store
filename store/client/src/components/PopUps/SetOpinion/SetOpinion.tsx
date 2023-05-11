@@ -67,8 +67,8 @@ const SetOpinion = (props: IProps) => (
       <>
         <CardInputImage
           id={props.image.id}
-          image={props.image.image}
-          imageInputName={props.image.name}
+          value={props.image.image}
+          name={props.image.name}
           handleImageChange={props.image.handleImageChange}
         />
         <TextField
