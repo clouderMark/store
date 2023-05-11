@@ -79,9 +79,9 @@ const EditSolution = (props: IProps) => {
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
       const file = event.target.files[0];
-      const inputName = event.target.name;
+      const {name} = event.target;
 
-      dispatch({type: inputName, payload: file});
+      dispatch({type: name, payload: file});
     }
   };
 
