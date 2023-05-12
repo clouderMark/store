@@ -22,8 +22,8 @@ const AddTextField = (props: IProps) => {
     setParagraphs(paragraphs.filter((elem) => elem.unique !== unique));
   };
 
-  const change = (key: string, value: string, unique: string) => {
-    setParagraphs(paragraphs.map((item) => (item.unique === unique ? {...item, [key]: value} : item)));
+  const change = (value: string, unique: string) => {
+    setParagraphs(paragraphs.map((item) => (item.unique === unique ? {...item, value} : item)));
   };
 
   return (
@@ -37,9 +37,8 @@ const AddTextField = (props: IProps) => {
       {paragraphs.map((item) => (
         <Box key={item.unique} sx={{display: 'flex', alignItems: 'flex-start', mt: '30px'}}>
           <TextField
-            name={`value_${item.unique}`}
             value={item.value}
-            onChange={(e) => change('value', e.target.value, item.unique)}
+            onChange={(e) => change(e.target.value, item.unique)}
             multiline
             rows={4}
             placeholder={placeholder}
