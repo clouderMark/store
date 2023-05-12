@@ -114,45 +114,45 @@ const EditIndustry = (props: IProps) => {
     }
   }, [id]);
 
-  useEffect(() => {
-    if (value[EType.headerImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.headerImage]);
+  // useEffect(() => {
+  //   if (value[EType.headerImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.headerImage]);
 
-      dispatch({type: EType.headerImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.headerImage]]);
+  //     dispatch({type: EType.headerImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.headerImage]]);
 
-  useEffect(() => {
-    if (value[EType.cardImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.cardImage]);
+  // useEffect(() => {
+  //   if (value[EType.cardImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.cardImage]);
 
-      dispatch({type: EType.cardImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.cardImage]]);
+  //     dispatch({type: EType.cardImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.cardImage]]);
 
-  useEffect(() => {
-    if (value[EType.infoImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.infoImage]);
+  // useEffect(() => {
+  //   if (value[EType.infoImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.infoImage]);
 
-      dispatch({type: EType.infoImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.infoImage]]);
+  //     dispatch({type: EType.infoImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.infoImage]]);
 
-  useEffect(() => {
-    if (value[EType.opinionImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.opinionImage]);
+  // useEffect(() => {
+  //   if (value[EType.opinionImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.opinionImage]);
 
-      dispatch({type: EType.opinionImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.opinionImage]]);
+  //     dispatch({type: EType.opinionImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.opinionImage]]);
 
-  useEffect(() => {
-    if (value[EType.sliderImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.sliderImage]);
+  // useEffect(() => {
+  //   if (value[EType.sliderImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.sliderImage]);
 
-      dispatch({type: EType.sliderImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.sliderImage]]);
+  //     dispatch({type: EType.sliderImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.sliderImage]]);
 
   useEffect(() => {
     if (!show) {
@@ -182,8 +182,10 @@ const EditIndustry = (props: IProps) => {
     if (event.target.files) {
       const file = event.target.files[0];
       const {name} = event.target;
+      const newImageUrl = URL.createObjectURL(file);
 
       dispatch({type: name, payload: file});
+      dispatch({type: `${name}Url`, payload: newImageUrl});
     }
   };
 
@@ -272,7 +274,6 @@ const EditIndustry = (props: IProps) => {
       }
 
       if (!props.child && value.sliderImage) {
-        console.log(value.sliderImage);
         data.append(EType.sliderImage, value[EType.sliderImage], value[EType.sliderImage].name);
       }
 

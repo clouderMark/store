@@ -60,13 +60,13 @@ const EditSolution = (props: IProps) => {
     }
   }, [show]);
 
-  useEffect(() => {
-    if (value[EType.opinionImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.opinionImage]);
+  // useEffect(() => {
+  //   if (value[EType.opinionImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.opinionImage]);
 
-      dispatch({type: EType.opinionImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.opinionImage]]);
+  //     dispatch({type: EType.opinionImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.opinionImage]]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const {name} = event.target;
@@ -83,8 +83,10 @@ const EditSolution = (props: IProps) => {
     if (event.target.files) {
       const file = event.target.files[0];
       const {name} = event.target;
+      const newImageUrl = URL.createObjectURL(file);
 
       dispatch({type: name, payload: file});
+      dispatch({type: `${name}Url`, payload: newImageUrl});
     }
   };
 
