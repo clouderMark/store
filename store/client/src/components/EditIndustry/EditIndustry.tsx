@@ -114,46 +114,6 @@ const EditIndustry = (props: IProps) => {
     }
   }, [id]);
 
-  // useEffect(() => {
-  //   if (value[EType.headerImage]) {
-  //     const newImageUrl = URL.createObjectURL(value[EType.headerImage]);
-
-  //     dispatch({type: EType.headerImageUrl, payload: newImageUrl});
-  //   }
-  // }, [value[EType.headerImage]]);
-
-  // useEffect(() => {
-  //   if (value[EType.cardImage]) {
-  //     const newImageUrl = URL.createObjectURL(value[EType.cardImage]);
-
-  //     dispatch({type: EType.cardImageUrl, payload: newImageUrl});
-  //   }
-  // }, [value[EType.cardImage]]);
-
-  // useEffect(() => {
-  //   if (value[EType.infoImage]) {
-  //     const newImageUrl = URL.createObjectURL(value[EType.infoImage]);
-
-  //     dispatch({type: EType.infoImageUrl, payload: newImageUrl});
-  //   }
-  // }, [value[EType.infoImage]]);
-
-  // useEffect(() => {
-  //   if (value[EType.opinionImage]) {
-  //     const newImageUrl = URL.createObjectURL(value[EType.opinionImage]);
-
-  //     dispatch({type: EType.opinionImageUrl, payload: newImageUrl});
-  //   }
-  // }, [value[EType.opinionImage]]);
-
-  // useEffect(() => {
-  //   if (value[EType.sliderImage]) {
-  //     const newImageUrl = URL.createObjectURL(value[EType.sliderImage]);
-
-  //     dispatch({type: EType.sliderImageUrl, payload: newImageUrl});
-  //   }
-  // }, [value[EType.sliderImage]]);
-
   useEffect(() => {
     if (!show) {
       setId(null);
