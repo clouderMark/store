@@ -37,6 +37,7 @@ const AdminIndustries = () => {
 
   const Edit = () => (
     <EditIndustry
+      popUpTitle='индустрии'
       id={industryId}
       setId={setIndustryId}
       show={show}

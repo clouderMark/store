@@ -8,6 +8,7 @@ import {reducer, IDefaultValue, initState} from './reducer';
 import {EType} from './EType';
 
 interface IProps {
+  popUpTitle: string;
   id: number | null;
   setId: Dispatch<SetStateAction<number | null>>;
   show: boolean;
@@ -312,7 +313,7 @@ const EditIndustry = (props: IProps) => {
 
   return (
     <PopUpForIndystry
-      cardTitle="индустрии"
+      cardTitle={props.popUpTitle}
       show={show}
       setShow={setShow}
       id={id}

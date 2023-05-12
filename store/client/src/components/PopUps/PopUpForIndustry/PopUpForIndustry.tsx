@@ -1,19 +1,24 @@
 import React, {ChangeEvent} from 'react';
-import {Dialog, DialogContent, DialogTitle, Box, DialogActions, Button, TextField} from '@mui/material';
+import {
+  Box,
+  DialogActions,
+  Button,
+  TextField,
+} from '@mui/material';
 import {IPopUpForIndystry} from './types/IPopUpForIndystry';
 import AddTextField from '../Add/AddTextField';
 import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import CardInputImage from '../CardInputImage';
 import {EType} from '../../EditIndustry/EType';
 import AddOpinion from '../Add/AddOpinion';
+import DialogWithTitle from '../DialogWithTitle';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => (
-  <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {minWidth: '94%'}}}>
-    <DialogTitle>
-      {props.id ? 'Редактирование' : 'Создание'} {props.cardTitle}
-    </DialogTitle>
-
-    <DialogContent>
+  <DialogWithTitle
+    show={props.show}
+    setShow={props.setShow}
+    title={props.id ? `Редактирование ${props.cardTitle}` : `Создание ${props.cardTitle}`}
+    child={
       <Box component="form" noValidate onSubmit={props.handleSubmit}>
         {props.child?.component ? props.child.component : null}
         <Box sx={{display: 'flex'}}>
@@ -148,8 +153,8 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
           </Button>
         </DialogActions>
       </Box>
-    </DialogContent>
-  </Dialog>
+    }
+  />
 );
 
 export default PopUpForIndystry;

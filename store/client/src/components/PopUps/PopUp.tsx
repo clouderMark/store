@@ -1,5 +1,11 @@
 import React, {ChangeEvent, Dispatch, SetStateAction, FormEvent} from 'react';
-import {Dialog, DialogContent, DialogTitle, Box, TextField, DialogActions, Button} from '@mui/material';
+import {
+  Box,
+  TextField,
+  DialogActions,
+  Button,
+} from '@mui/material';
+import DialogWithTitle from './DialogWithTitle';
 
 interface IProps {
   title: string;
@@ -13,34 +19,38 @@ interface IProps {
   handleChange(event: ChangeEvent<HTMLInputElement>): void;
 }
 
-export const PopUp = (props: IProps) => (
-  <Dialog
-    open={props.show}
-    onClose={() => props.setShow(false)}
-    PaperProps={{sx: {width: '30%', minWidth: '500px'}}}>
-    <DialogTitle>{props.id ? 'Редактирование' : 'Создание'} {props.title}</DialogTitle>
+const PopUp = (props: IProps) => {
+  const {id, title, valid, name} = props;
 
-    <DialogContent>
-      <Box component="form" noValidate onSubmit={props.handleSubmit}>
-        <TextField
-          autoFocus={true}
-          inputRef={props.inputRef}
-          name="name"
-          value={props.name}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
-          required
-          error={props.valid === false}
-          color={props.valid ? 'success' : 'primary'}
-          placeholder={`Название ${props.title}...`}
-          className="mb-3"
-          sx={{width: '100%'}}
-        />
-        <DialogActions>
-          <Button type="submit" variant="outlined">
-            Сохранить
-          </Button>
-        </DialogActions>
-      </Box>
-    </DialogContent>
-  </Dialog>
-);
+  return (
+    <DialogWithTitle
+      show={props.show}
+      setShow={props.setShow}
+      title={id ? `Редактирование ${title}` : `Создание ${title}`}
+      child={
+        <Box component="form" noValidate onSubmit={props.handleSubmit}>
+          <TextField
+            autoFocus={true}
+            inputRef={props.inputRef}
+            name="name"
+            value={name}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+            required
+            error={valid === false}
+            color={valid ? 'success' : 'primary'}
+            placeholder={`Название ${title}...`}
+            className="mb-3"
+            sx={{width: '100%'}}
+          />
+          <DialogActions>
+            <Button type="submit" variant="outlined">
+              Сохранить
+            </Button>
+          </DialogActions>
+        </Box>
+      }
+    />
+  );
+};
+
+export default PopUp;

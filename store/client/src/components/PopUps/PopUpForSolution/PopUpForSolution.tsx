@@ -1,9 +1,10 @@
 import React, {ChangeEvent, Dispatch, SetStateAction, FormEvent} from 'react';
-import {Dialog, DialogContent, DialogTitle, Box, TextField, DialogActions, Button} from '@mui/material';
+import {Box, TextField, DialogActions, Button} from '@mui/material';
 import {IParagraphs} from '../../../types/types';
 import AddOpinion from '../Add/AddOpinion';
 import {EType} from '../../EditSolution/EType';
 import {IDefaultValue} from '../../EditSolution/reducer';
+import DialogWithTitle from '../DialogWithTitle';
 
 interface IProps {
   show: boolean;
@@ -18,17 +19,18 @@ interface IProps {
   opinionListItems: IParagraphs[];
   setOpinionListItems: Dispatch<SetStateAction<IParagraphs[]>>;
   value: IDefaultValue;
-  child?: JSX.Element
+  child?: JSX.Element;
 }
 
 const PopUpForSolutiond = (props: IProps) => {
   const {value} = props;
 
   return (
-    <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {minWidth: '94%'}}}>
-      <DialogTitle>{props.id ? 'Редактирование' : 'Создание'} продуктового решения</DialogTitle>
-
-      <DialogContent>
+    <DialogWithTitle
+      show={props.show}
+      setShow={props.setShow}
+      title={props.id ? 'Редактирование продуктового решения' : 'Создание продуктового решения'}
+      child={
         <Box component="form" noValidate onSubmit={props.handleSubmit}>
           <TextField
             autoFocus={true}
@@ -74,8 +76,8 @@ const PopUpForSolutiond = (props: IProps) => {
             </Button>
           </DialogActions>
         </Box>
-      </DialogContent>
-    </Dialog>
+      }
+    />
   );
 };
 

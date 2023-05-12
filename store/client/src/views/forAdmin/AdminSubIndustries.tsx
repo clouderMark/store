@@ -61,6 +61,7 @@ const AdminSubIndustries = () => {
 
   const Edit = () => (
     <EditIndustry
+      popUpTitle='подиндустрии'
       id={industryId}
       setId={setIndustryId}
       show={show}

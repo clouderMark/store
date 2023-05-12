@@ -11,7 +11,7 @@ import {
   updateProduct,
   updateProperty,
 } from '../../http/catalogAPI';
-import {PopUpForProduct} from '../PopUps/PopUpForProduct';
+import PopUpForProduct from '../PopUps/PopUpForProduct';
 import {IDefaultValid, IValid, IProductProp, ICatalogItem} from '../../types/types';
 import {IPropsWithId as IProps} from './types';
 import {defaultValue, defaultValid} from './default';

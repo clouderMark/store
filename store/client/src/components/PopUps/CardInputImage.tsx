@@ -1,7 +1,7 @@
 import {ChangeEvent} from 'react';
 import {Box} from '@mui/material';
 import {popUpForIndystry as styles} from './PopUpForIndustry/styles/popUpForIndystry';
-import InputFileButton from './PopUpForIndustry/InputFileButton';
+import InputFileButton from './InputFileButton';
 
 interface IProps {
   id: number | null;
@@ -18,7 +18,7 @@ const CardInputImage = (props: IProps) => {
     <Box sx={[styles.card, props.sx]}>
       <Box sx={styles.img} component="img" src={value || ''} />
       <InputFileButton
-        styles={styles.card.button}
+        sx={styles.card.button}
         id={id}
         name={name}
         handleImageChange={handleImageChange}

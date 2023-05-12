@@ -1,6 +1,6 @@
 import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent, useRef} from 'react';
 import {fetchArea, createArea, updateArea} from '../http/catalogAPI';
-import {PopUp} from './PopUps/PopUp';
+import PopUp from './PopUps/PopUp';
 
 interface IProps {
   id: number;
