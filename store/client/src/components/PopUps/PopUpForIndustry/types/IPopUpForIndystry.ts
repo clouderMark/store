@@ -1,6 +1,6 @@
 import {ChangeEvent, Dispatch, SetStateAction, FormEvent} from 'react';
-import {IParagraphs} from '../../../types/types';
-import {IDefaultValue} from '../../EditIndustry/reducer';
+import {IParagraphs} from '../../../../types/types';
+import {IDefaultValue} from '../../../EditIndustry/reducer';
 
 export interface IPopUpForIndystry {
   cardTitle: string;

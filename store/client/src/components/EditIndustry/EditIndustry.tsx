@@ -1,13 +1,14 @@
 import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent, useReducer} from 'react';
 import uuid from 'react-uuid';
-import PopUpForIndystry from '../PopUpForIndustry/PopUpForIndustry';
+import PopUpForIndystry from '../PopUps/PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from '../AppContext';
 import {IParagraphs, IAreaResponse} from '../../types/types';
-import filterParagraphs from './filterParagraphs';
+import filterParagraphs from '../PopUps/filterParagraphs';
 import {reducer, IDefaultValue, initState} from './reducer';
 import {EType} from './EType';
 
 interface IProps {
+  popUpTitle: string;
   id: number | null;
   setId: Dispatch<SetStateAction<number | null>>;
   show: boolean;
@@ -113,45 +114,45 @@ const EditIndustry = (props: IProps) => {
     }
   }, [id]);
 
-  useEffect(() => {
-    if (value[EType.headerImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.headerImage]);
+  // useEffect(() => {
+  //   if (value[EType.headerImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.headerImage]);
 
-      dispatch({type: EType.headerImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.headerImage]]);
+  //     dispatch({type: EType.headerImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.headerImage]]);
 
-  useEffect(() => {
-    if (value[EType.cardImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.cardImage]);
+  // useEffect(() => {
+  //   if (value[EType.cardImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.cardImage]);
 
-      dispatch({type: EType.cardImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.cardImage]]);
+  //     dispatch({type: EType.cardImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.cardImage]]);
 
-  useEffect(() => {
-    if (value[EType.infoImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.infoImage]);
+  // useEffect(() => {
+  //   if (value[EType.infoImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.infoImage]);
 
-      dispatch({type: EType.infoImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.infoImage]]);
+  //     dispatch({type: EType.infoImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.infoImage]]);
 
-  useEffect(() => {
-    if (value[EType.opinionImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.opinionImage]);
+  // useEffect(() => {
+  //   if (value[EType.opinionImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.opinionImage]);
 
-      dispatch({type: EType.opinionImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.opinionImage]]);
+  //     dispatch({type: EType.opinionImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.opinionImage]]);
 
-  useEffect(() => {
-    if (value[EType.sliderImage]) {
-      const newImageUrl = URL.createObjectURL(value[EType.sliderImage]);
+  // useEffect(() => {
+  //   if (value[EType.sliderImage]) {
+  //     const newImageUrl = URL.createObjectURL(value[EType.sliderImage]);
 
-      dispatch({type: EType.sliderImageUrl, payload: newImageUrl});
-    }
-  }, [value[EType.sliderImage]]);
+  //     dispatch({type: EType.sliderImageUrl, payload: newImageUrl});
+  //   }
+  // }, [value[EType.sliderImage]]);
 
   useEffect(() => {
     if (!show) {
@@ -167,19 +168,24 @@ const EditIndustry = (props: IProps) => {
   }, [show]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.name === EType.name) {
-      setValid(event.target.value.trim() !== '');
+    const {name} = event.target;
+    const {value} = event.target;
+
+    if (name === EType.name) {
+      setValid(value.trim() !== '');
     }
 
-    dispatch({type: event.target.name, payload: event.target.value});
+    dispatch({type: name, payload: value});
   };
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
       const file = event.target.files[0];
-      const inputName = event.target.name;
+      const {name} = event.target;
+      const newImageUrl = URL.createObjectURL(file);
 
-      dispatch({type: inputName, payload: file});
+      dispatch({type: name, payload: file});
+      dispatch({type: `${name}Url`, payload: newImageUrl});
     }
   };
 
@@ -268,7 +274,6 @@ const EditIndustry = (props: IProps) => {
       }
 
       if (!props.child && value.sliderImage) {
-        console.log(value.sliderImage);
         data.append(EType.sliderImage, value[EType.sliderImage], value[EType.sliderImage].name);
       }
 
@@ -309,7 +314,7 @@ const EditIndustry = (props: IProps) => {
 
   return (
     <PopUpForIndystry
-      cardTitle="индустрии"
+      cardTitle={props.popUpTitle}
       show={show}
       setShow={setShow}
       id={id}

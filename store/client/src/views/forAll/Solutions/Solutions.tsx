@@ -1,21 +1,29 @@
 import {Container} from '@mui/material';
-import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
-import img from './images/branche-header.webp';
+import {useState} from 'react';
 import CentererImage from '../../../components/CentererImage/CentererImage';
+import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
+import img from './images/header-produktloesung-1.jpg';
 import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
 import CardList from '../../../components/CardList/CardList';
+import {EName} from '../../../enums/EName';
 import Newsletter from '../../../components/Newsletter/Newsletter';
 import Footer from '../../../components/Footer/Footer';
-import {useAppContext} from '../../../components/AppContext';
-import {EName} from '../../../enums/EName';
 
 const content = {
-  p: EName.Industries,
+  p: EName.Solutions,
   title: 'Find the right product for your application',
 };
 
-const Industries = () => {
-  const {catalog} = useAppContext();
+const solutions = [
+  {
+    id: 1,
+    cardImage: null,
+    name: 'Fillers',
+  },
+];
+
+const Solutions = () => {
+  const [fetching] = useState(false);
 
   return (
     <>
@@ -23,7 +31,7 @@ const Industries = () => {
       <Breadcrumbs />
       <Container maxWidth={false}>
         <StrongWithTitle content={content} />
-        {catalog.industriesFetching ? null : <CardList data={catalog.industries} />}
+        {fetching ? null : <CardList data={solutions!} />}
       </Container>
       <Newsletter />
       <Footer />
@@ -31,4 +39,4 @@ const Industries = () => {
   );
 };
 
-export default Industries;
+export default Solutions;

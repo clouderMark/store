@@ -1,3 +1,4 @@
+import {EName} from '../../enums/EName';
 import {EPath} from '../../enums/EPath';
 import {links} from '../../views/forAdmin/Admin/links';
 
@@ -14,8 +15,8 @@ export const allNames: {[key: string]: string} = {
   [EPath.News]: 'Новости',
   [EPath.About]: 'О нас',
   [EPath.Services]: 'Сервисы',
-  [EPath.Areas]: 'Области',
-  [EPath.Industries]: 'Отрасли',
+  [EPath.Solutions]: EName.Solutions,
+  [EPath.Industries]: EName.Industries,
   [EPath.Signup]: 'Регистрация',
   [EPath.Login]: 'Войти',
   [EPath.Admin]: 'Управление',

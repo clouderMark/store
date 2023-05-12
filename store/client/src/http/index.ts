@@ -1,4 +1,5 @@
 import axios, {InternalAxiosRequestConfig} from 'axios';
+import {EToken} from '../enums/EToken';
 
 const guestInstance = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
@@ -11,10 +12,10 @@ const authInstance = axios.create({
 });
 
 const authInterceptor = (config: InternalAxiosRequestConfig) => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem(EToken.Token);
 
   if (token) {
-    config.headers.authorization = `Bearer ${localStorage.getItem('token')}`;
+    config.headers.authorization = `Bearer ${localStorage.getItem(EToken.Token)}`;
   }
 
   return config;

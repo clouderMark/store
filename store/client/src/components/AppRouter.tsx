@@ -28,42 +28,56 @@ import Industries from '../views/forAll/Industries/Industries';
 import IndustriesItem from '../views/forAll/Industries/IndustriesItem';
 import IndustriesSubItem from '../views/forAll/Industries/IndustriesSubItem';
 import AdminSubIndustries from '../views/forAdmin/AdminSubIndustries';
+import Solutions from '../views/forAll/Solutions/Solutions';
+import SolutionsItem from '../views/forAll/Solutions/SolutionsItem';
 import {EPath} from '../enums/EPath';
 
-const publicRoutes = [
-  {path: EPath.Shop, Component: Shop},
-  {path: EPath.Login, Component: Login},
-  {path: EPath.Signup, Component: Signup},
-  {path: EPath.Product, Component: Product},
-  {path: EPath.Basket, Component: Basket},
-  {path: EPath.Checkout, Component: Checkout},
-  {path: EPath.Delivery, Component: Delivery},
-  {path: EPath.Contacts, Component: Contacts},
-  {path: EPath.NotFound, Component: NotFound},
-  {path: EPath.Main, Component: Main},
-  {path: EPath.Industries, Component: Industries},
-  {path: EPath.IndustriesItem, Component: IndustriesItem},
-  {path: EPath.IndustriesSubItem, Component: IndustriesSubItem},
+enum ERoute {
+  Path = 'path',
+  Component = 'Component',
+}
+
+interface IRoute {
+  [ERoute.Path]: EPath,
+  [ERoute.Component](): JSX.Element,
+}
+
+const publicRoutes: IRoute[] = [
+  {[ERoute.Path]: EPath.Shop, [ERoute.Component]: Shop},
+  {[ERoute.Path]: EPath.Login, [ERoute.Component]: Login},
+  {[ERoute.Path]: EPath.Signup, [ERoute.Component]: Signup},
+  {[ERoute.Path]: EPath.Product, [ERoute.Component]: Product},
+  {[ERoute.Path]: EPath.Basket, [ERoute.Component]: Basket},
+  {[ERoute.Path]: EPath.Checkout, [ERoute.Component]: Checkout},
+  {[ERoute.Path]: EPath.Delivery, [ERoute.Component]: Delivery},
+  {[ERoute.Path]: EPath.Contacts, [ERoute.Component]: Contacts},
+  {[ERoute.Path]: EPath.NotFound, [ERoute.Component]: NotFound},
+  {[ERoute.Path]: EPath.Main, [ERoute.Component]: Main},
+  {[ERoute.Path]: EPath.Industries, [ERoute.Component]: Industries},
+  {[ERoute.Path]: EPath.IndustriesItem, [ERoute.Component]: IndustriesItem},
+  {[ERoute.Path]: EPath.IndustriesSubItem, [ERoute.Component]: IndustriesSubItem},
+  {[ERoute.Path]: EPath.Solutions, [ERoute.Component]: Solutions},
+  {[ERoute.Path]: EPath.SolutionsItem, [ERoute.Component]: SolutionsItem},
 ];
 
-const authRoutes = [
-  {path: EPath.User, Component: User},
-  {path: EPath.UserOrders, Component: UserOrders},
-  {path: EPath.UserOrder, Component: UserOrder},
+const authRoutes: IRoute[] = [
+  {[ERoute.Path]: EPath.User, [ERoute.Component]: User},
+  {[ERoute.Path]: EPath.UserOrders, [ERoute.Component]: UserOrders},
+  {[ERoute.Path]: EPath.UserOrder, [ERoute.Component]: UserOrder},
 ];
 
-const adminRoutes = [
-  {path: EPath.Admin, Component: Admin},
-  {path: EPath.AdminOrders, Component: AdminOrders},
-  {path: EPath.AdminOrder, Component: AdminOrder},
-  {path: EPath.AdminIndustries, Component: AdminIndustries},
-  {path: EPath.AdminSolutions, Component: AdminSolutions},
-  {path: EPath.AdminAreas, Component: AdminAreas},
-  {path: EPath.AdminProducts, Component: AdminProducts},
-  {path: EPath.AdminMessages, Component: AdminMessages},
-  {path: EPath.AdminMessage, Component: AdminMessage},
-  {path: EPath.AdminSubscriptions, Component: AdminSubscriptions},
-  {path: EPath.AdminSubIndustries, Component: AdminSubIndustries},
+const adminRoutes: IRoute[] = [
+  {[ERoute.Path]: EPath.Admin, [ERoute.Component]: Admin},
+  {[ERoute.Path]: EPath.AdminOrders, [ERoute.Component]: AdminOrders},
+  {[ERoute.Path]: EPath.AdminOrder, [ERoute.Component]: AdminOrder},
+  {[ERoute.Path]: EPath.AdminIndustries, [ERoute.Component]: AdminIndustries},
+  {[ERoute.Path]: EPath.AdminSolutions, [ERoute.Component]: AdminSolutions},
+  {[ERoute.Path]: EPath.AdminAreas, [ERoute.Component]: AdminAreas},
+  {[ERoute.Path]: EPath.AdminProducts, [ERoute.Component]: AdminProducts},
+  {[ERoute.Path]: EPath.AdminMessages, [ERoute.Component]: AdminMessages},
+  {[ERoute.Path]: EPath.AdminMessage, [ERoute.Component]: AdminMessage},
+  {[ERoute.Path]: EPath.AdminSubscriptions, [ERoute.Component]: AdminSubscriptions},
+  {[ERoute.Path]: EPath.AdminSubIndustries, [ERoute.Component]: AdminSubIndustries},
 ];
 
 const AppRouter = observer(() => {
