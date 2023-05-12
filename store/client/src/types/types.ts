@@ -221,6 +221,10 @@ export interface IOpinion {
   paragraphs: IListItem[];
 }
 
+export interface IParagraphsRelatedTo extends IParagraphs {
+  relatedTo: string;
+}
+
 export interface IParagraphs extends IFilteredParagraphs {
   unique: string;
 }
@@ -228,4 +232,10 @@ export interface IParagraphs extends IFilteredParagraphs {
 export interface IFilteredParagraphs {
   id: null | number;
   value: string;
+}
+
+export interface IImage {
+  image: File | null;
+  imageUrl: string;
+  unique: string;
 }

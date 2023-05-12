@@ -1,11 +1,11 @@
 import React, {ChangeEvent} from 'react';
 import {Dialog, DialogContent, DialogTitle, Box, DialogActions, Button, TextField} from '@mui/material';
 import {IPopUpForIndystry} from './types/IPopUpForIndystry';
-import AddTextField from '../AddTextField';
+import AddTextField from '../Add/AddTextField';
 import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import CardInputImage from '../CardInputImage';
 import {EType} from '../../EditIndustry/EType';
-import SetOpinion from '../SetOpinion/SetOpinion';
+import AddOpinion from '../Add/AddOpinion';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => (
   <Dialog open={props.show} onClose={() => props.setShow(false)} PaperProps={{sx: {minWidth: '94%'}}}>
@@ -117,7 +117,7 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => (
             </>
           }
         />
-        <SetOpinion
+        <AddOpinion
           titleName={EType.opinionTitle}
           titleValue={props.value[EType.opinionTitle]}
           handleChange={props.handleChange}

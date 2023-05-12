@@ -1,7 +1,7 @@
 import React, {ChangeEvent, Dispatch, SetStateAction, FormEvent} from 'react';
 import {Dialog, DialogContent, DialogTitle, Box, TextField, DialogActions, Button} from '@mui/material';
 import {IParagraphs} from '../../../types/types';
-import SetOpinion from '../SetOpinion/SetOpinion';
+import AddOpinion from '../Add/AddOpinion';
 import {EType} from '../../EditSolution/EType';
 import {IDefaultValue} from '../../EditSolution/reducer';
 
@@ -42,7 +42,7 @@ const PopUpForSolutiond = (props: IProps) => {
             className="mb-3"
             sx={{width: '100%'}}
           />
-          <SetOpinion
+          <AddOpinion
             titleName={EType.opinionTitle}
             titleValue={value[EType.opinionTitle]}
             handleChange={props.handleChange}

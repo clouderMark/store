@@ -1,11 +1,12 @@
 import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent, useReducer} from 'react';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
-import PopUpForSolutiond from '../PopUps/PopUpForSolution/PopUpForSolution';
-import {IParagraphs} from '../../types/types';
+import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
+import {IParagraphs, IImage, IParagraphsRelatedTo} from '../../types/types';
 import {IDefaultValue, initState, reducer} from './reducer';
 import {EType} from './EType';
 import filterParagraphs from '../PopUps/filterParagraphs';
 import {useAppContext} from '../AppContext';
+import AddImageWithTextFiled from '../PopUps/Add/AddImageWithTextFiled';
 
 interface IProps {
   id: number | null;
@@ -36,6 +37,8 @@ const EditSolution = (props: IProps) => {
   const [opinionListItems, setOpinionListItems] = useState<IParagraphs[]>([]);
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
+  const [images, setImages] = useState<IImage[]>([]);
+  const [paragraphs, setParagraphs] = useState<IParagraphsRelatedTo[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -148,7 +151,7 @@ const EditSolution = (props: IProps) => {
   };
 
   return (
-    <PopUpForSolutiond
+    <PopUpForSolution
       show={show}
       setShow={setShow}
       id={id}
@@ -161,6 +164,14 @@ const EditSolution = (props: IProps) => {
       opinionListItems={opinionListItems}
       setOpinionListItems={setOpinionListItems}
       value={value}
+      child={
+        <AddImageWithTextFiled
+          images={images}
+          setImages={setImages}
+          paragraphs={paragraphs}
+          setParagraphs={setParagraphs}
+        />
+      }
     />
   );
 };

@@ -1,9 +1,9 @@
 import {Dispatch, SetStateAction} from 'react';
 import uuid from 'react-uuid';
-import {Box, TextField, IconButton, Typography} from '@mui/material';
+import {Box, IconButton, Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import DeleteIcon from '@mui/icons-material/Delete';
-import {IParagraphs} from '../../types/types';
+import {IParagraphs} from '../../../types/types';
+import TextFiledWithIcon from './TextFiledWithIcon';
 
 interface IProps {
   paragraphs: IParagraphs[];
@@ -35,19 +35,7 @@ const AddTextField = (props: IProps) => {
         </IconButton>
       </Box>
       {paragraphs.map((item) => (
-        <Box key={item.unique} sx={{display: 'flex', alignItems: 'flex-start', mt: '30px'}}>
-          <TextField
-            value={item.value}
-            onChange={(e) => change(e.target.value, item.unique)}
-            multiline
-            rows={4}
-            placeholder={placeholder}
-            sx={{width: '100%'}}
-          />
-          <IconButton color="warning" aria-label="delete" onClick={() => remove(item.unique)}>
-            <DeleteIcon />
-          </IconButton>
-        </Box>
+        <TextFiledWithIcon item={{...item, placeholder, onChange: change, remove}} key={item.unique} />
       ))}
     </>
   );
