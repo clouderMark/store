@@ -18,6 +18,7 @@ interface IProps {
   opinionListItems: IParagraphs[];
   setOpinionListItems: Dispatch<SetStateAction<IParagraphs[]>>;
   value: IDefaultValue;
+  child?: JSX.Element
 }
 
 const PopUpForSolutiond = (props: IProps) => {
@@ -66,6 +67,7 @@ const PopUpForSolutiond = (props: IProps) => {
             emailName={EType.opinionEmail}
             emailValue={value[EType.opinionEmail]}
           />
+          {props.child}
           <DialogActions>
             <Button type="submit" variant="outlined">
               Сохранить
