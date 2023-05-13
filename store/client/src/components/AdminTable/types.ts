@@ -11,7 +11,7 @@ export interface ITableBodyCells extends ITitle {
 }
 
 export interface IProps extends ITableBodyCells {
-  children: Array<() => JSX.Element>;
+  children: JSX.Element[];
   handleCreateClick(): void;
   pagination?: {
     totalPages: number;

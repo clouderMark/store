@@ -33,8 +33,6 @@ const AdminAreas = () => {
       .catch((error) => console.error(error));
   };
 
-  const Edit = () => <EditArea id={areaId} show={show} setShow={setShow} setChange={setChange} key={1} />;
-
   useEffect(() => {
     fetchAreas()
       .then((data) => setAreas(data))
@@ -51,7 +49,7 @@ const AdminAreas = () => {
       <AdminTable
         title={'area'}
         headCells={areaCells}
-        children={[Edit]}
+        children={[<EditArea id={areaId} show={show} setShow={setShow} setChange={setChange} key="1" />]}
         handleCreateClick={handleCreateClick}
         handleUpdateClick={handleUpdateClick}
         handleDeleteClick={handleDeleteClick}

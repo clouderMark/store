@@ -59,29 +59,27 @@ const AdminSubIndustries = () => {
     </>
   );
 
-  const Edit = () => (
-    <EditIndustry
-      popUpTitle='подиндустрии'
-      id={industryId}
-      setId={setIndustryId}
-      show={show}
-      setShow={setShow}
-      setChange={setChange}
-      key={1}
-      fetch={fetchSubIndustry}
-      create={createSubIndustry}
-      updata={updateSubIndustry}
-      child={{component: SelectComponent, value: parentName, setValue: setParentName}}
-    />
-  );
-
   return (
     <>
       <Breadcrumbs />
       <AdminTable
         title={'subindustry'}
         headCells={areaRelatedCells}
-        children={[Edit]}
+        children={[
+          <EditIndustry
+            popUpTitle="подиндустрии"
+            id={industryId}
+            setId={setIndustryId}
+            show={show}
+            setShow={setShow}
+            setChange={setChange}
+            fetch={fetchSubIndustry}
+            create={createSubIndustry}
+            updata={updateSubIndustry}
+            child={{component: SelectComponent, value: parentName, setValue: setParentName}}
+            key="1"
+          />,
+        ]}
         handleCreateClick={handleCreateClick}
         handleUpdateClick={handleUpdateClick}
         handleDeleteClick={handleDeleteClick}

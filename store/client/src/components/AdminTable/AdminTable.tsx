@@ -16,7 +16,7 @@ export const AdminTable = (props: IProps) => {
       <Button variant="outlined" onClick={() => props.handleCreateClick()}>
         Создать {titles[props.title][1]}
       </Button>
-      {props.children.map((child) => child())}
+      {props.children.map((child) => child)}
       {props.items.length > 0 ? (
         <>
           <Board

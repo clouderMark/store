@@ -35,21 +35,6 @@ const AdminIndustries = () => {
       .catch((error) => console.error(error));
   };
 
-  const Edit = () => (
-    <EditIndustry
-      popUpTitle='индустрии'
-      id={industryId}
-      setId={setIndustryId}
-      show={show}
-      setShow={setShow}
-      setChange={setChange}
-      key={1}
-      fetch={fetchIndustry}
-      create={createIndustry}
-      updata={updateIndustry}
-    />
-  );
-
   if (catalog.industriesFetching) {
     return <Propgress />;
   }
@@ -60,7 +45,20 @@ const AdminIndustries = () => {
       <AdminTable
         title={'industry'}
         headCells={areaCells}
-        children={[Edit]}
+        children={[
+          <EditIndustry
+            popUpTitle="индустрии"
+            id={industryId}
+            setId={setIndustryId}
+            show={show}
+            setShow={setShow}
+            setChange={setChange}
+            fetch={fetchIndustry}
+            create={createIndustry}
+            updata={updateIndustry}
+            key="1"
+          />,
+        ]}
         handleCreateClick={handleCreateClick}
         handleUpdateClick={handleUpdateClick}
         handleDeleteClick={handleDeleteClick}

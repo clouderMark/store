@@ -60,12 +60,6 @@ const AdminProducts = () => {
     setCreateShow(true);
   };
 
-  const CreateProd = () => <CreateProduct show={createShow} setShow={setCreateShow} setChange={setChange} key={1} />;
-
-  const UpdateProd = () => (
-    <UpdateProduct id={product!} show={updateShow} setShow={setUpdateShow} setChange={setChange} key={2} />
-  );
-
   const Paginator = () => (
     <Stack spacing={2} sx={{display: 'flex', alignItems: 'center', mt: 3}}>
       <Pagination
@@ -96,7 +90,10 @@ const AdminProducts = () => {
       <AdminTable
         title="goods"
         headCells={productsCells}
-        children={[CreateProd, UpdateProd]}
+        children={[
+          <CreateProduct show={createShow} setShow={setCreateShow} setChange={setChange} key="1" />,
+          <UpdateProduct id={product!} show={updateShow} setShow={setUpdateShow} setChange={setChange} key="2" />,
+        ]}
         handleCreateClick={handleCreateClick}
         items={products!}
         handleUpdateClick={handleUpdateClick}

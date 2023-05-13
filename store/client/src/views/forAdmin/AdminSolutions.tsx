@@ -35,10 +35,6 @@ const AdminSolutions = () => {
       .catch((error) => console.error(error));
   };
 
-  const Edit = () => (
-    <EditSolution id={solutionId} setId={setSolutionId} show={show} setShow={setShow} setChange={setChange} key={1} />
-  );
-
   useEffect(() => {
     if (!catalog.solutions.length) {
       fetchSolutions()
@@ -61,7 +57,16 @@ const AdminSolutions = () => {
       <AdminTable
         title={'solution'}
         headCells={areaCells}
-        children={[Edit]}
+        children={[
+          <EditSolution
+            id={solutionId}
+            setId={setSolutionId}
+            show={show}
+            setShow={setShow}
+            setChange={setChange}
+            key="1"
+          />,
+        ]}
         handleCreateClick={handleCreateClick}
         handleUpdateClick={handleUpdateClick}
         handleDeleteClick={handleDeleteClick}
