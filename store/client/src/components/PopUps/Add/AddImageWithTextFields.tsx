@@ -16,7 +16,7 @@ interface IProps {
   setTitle: Dispatch<SetStateAction<ITitleRelatedTo[]>>;
 }
 
-const AddImageWithTextFiled = (props: IProps) => {
+const AddImageWithTextFields = (props: IProps) => {
   const {images, setImages, paragraphs, setParagraphs, title, setTitle} = props;
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -110,4 +110,4 @@ const AddImageWithTextFiled = (props: IProps) => {
   );
 };
 
-export default AddImageWithTextFiled;
+export default AddImageWithTextFields;

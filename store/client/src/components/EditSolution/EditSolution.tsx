@@ -6,7 +6,7 @@ import {IDefaultValue, initState, reducer} from './reducer';
 import {EType} from './EType';
 import filterParagraphs from '../PopUps/filterParagraphs';
 import {useAppContext} from '../AppContext';
-import AddImageWithTextFiled from '../PopUps/Add/AddImageWithTextFiled';
+import AddImageWithTextFields from '../PopUps/Add/AddImageWithTextFields';
 
 interface IProps {
   id: number | null;
@@ -160,7 +160,7 @@ const EditSolution = (props: IProps) => {
       setOpinionListItems={setOpinionListItems}
       value={value}
       child={
-        [<AddImageWithTextFiled
+        [<AddImageWithTextFields
           images={infoImages}
           setImages={setInfoImages}
           paragraphs={infoParagraphs}
