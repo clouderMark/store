@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch, SetStateAction, FormEvent} from 'react';
+import {ChangeEvent, Dispatch, SetStateAction, FormEvent, Fragment} from 'react';
 import {Box, TextField, DialogActions, Button} from '@mui/material';
 import {IParagraphs} from '../../../types/types';
 import AddOpinion from '../Add/AddOpinion';
@@ -19,7 +19,7 @@ interface IProps {
   opinionListItems: IParagraphs[];
   setOpinionListItems: Dispatch<SetStateAction<IParagraphs[]>>;
   value: IDefaultValue;
-  child?: JSX.Element;
+  child?: JSX.Element[];
 }
 
 const PopUpForSolutiond = (props: IProps) => {
@@ -69,7 +69,11 @@ const PopUpForSolutiond = (props: IProps) => {
             emailName={EType.opinionEmail}
             emailValue={value[EType.opinionEmail]}
           />
-          {props.child}
+          {props.child?.map((el, i) => (
+            <Fragment key={i}>
+              {el}
+            </Fragment>
+          ))}
           <DialogActions>
             <Button type="submit" variant="outlined">
               Сохранить

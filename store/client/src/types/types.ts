@@ -225,6 +225,10 @@ export interface IParagraphsRelatedTo extends IParagraphs {
   relatedTo: string;
 }
 
+export interface ITitleRelatedTo extends IFilteredParagraphs {
+  relatedTo: string;
+}
+
 export interface IParagraphs extends IFilteredParagraphs {
   unique: string;
 }
@@ -238,4 +242,5 @@ export interface IImage {
   image: File | null;
   imageUrl: string;
   unique: string;
+  id: null | number;
 }

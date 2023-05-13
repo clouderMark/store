@@ -1,7 +1,7 @@
 import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent, useReducer} from 'react';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
 import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
-import {IParagraphs, IImage, IParagraphsRelatedTo} from '../../types/types';
+import {IParagraphs, IImage, IParagraphsRelatedTo, ITitleRelatedTo} from '../../types/types';
 import {IDefaultValue, initState, reducer} from './reducer';
 import {EType} from './EType';
 import filterParagraphs from '../PopUps/filterParagraphs';
@@ -37,8 +37,9 @@ const EditSolution = (props: IProps) => {
   const [opinionListItems, setOpinionListItems] = useState<IParagraphs[]>([]);
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
-  const [images, setImages] = useState<IImage[]>([]);
-  const [paragraphs, setParagraphs] = useState<IParagraphsRelatedTo[]>([]);
+  const [infoImages, setInfoImages] = useState<IImage[]>([]);
+  const [infoParagraphs, setInfoParagraphs] = useState<IParagraphsRelatedTo[]>([]);
+  const [infoTitle, setInfoTitle] = useState<ITitleRelatedTo[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -103,7 +104,7 @@ const EditSolution = (props: IProps) => {
         const items = filterParagraphs(opinionParagraphs);
 
         if (items.length) {
-          data.append('opinionParagraphs', JSON.stringify(items));
+          data.append(EType.opinionParagraphs, JSON.stringify(items));
         }
       }
 
@@ -111,7 +112,7 @@ const EditSolution = (props: IProps) => {
         const items = filterParagraphs(opinionListItems);
 
         if (items.length) {
-          data.append('opinionListItems', JSON.stringify(items));
+          data.append(EType.opinionListItems, JSON.stringify(items));
         }
       }
 
@@ -159,12 +160,15 @@ const EditSolution = (props: IProps) => {
       setOpinionListItems={setOpinionListItems}
       value={value}
       child={
-        <AddImageWithTextFiled
-          images={images}
-          setImages={setImages}
-          paragraphs={paragraphs}
-          setParagraphs={setParagraphs}
-        />
+        [<AddImageWithTextFiled
+          images={infoImages}
+          setImages={setInfoImages}
+          paragraphs={infoParagraphs}
+          setParagraphs={setInfoParagraphs}
+          title={infoTitle}
+          setTitle={setInfoTitle}
+        />,
+        ]
       }
     />
   );

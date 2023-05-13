@@ -1,10 +1,10 @@
-import React, {ChangeEvent, Dispatch, SetStateAction} from 'react';
+import {ChangeEvent, Dispatch, SetStateAction, Fragment} from 'react';
 import uuid from 'react-uuid';
-import {Box, Button, IconButton, Typography} from '@mui/material';
+import {Box, Button, IconButton, TextField, Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import CardInputImage from '../CardInputImage';
-import {IImage, IParagraphsRelatedTo} from '../../../types/types';
+import {IImage, IParagraphsRelatedTo, ITitleRelatedTo} from '../../../types/types';
 import TextFiledWithIcon from './TextFiledWithIcon';
 
 interface IProps {
@@ -12,10 +12,12 @@ interface IProps {
   setImages: Dispatch<SetStateAction<IImage[]>>;
   paragraphs: IParagraphsRelatedTo[];
   setParagraphs: Dispatch<SetStateAction<IParagraphsRelatedTo[]>>;
+  title: ITitleRelatedTo[];
+  setTitle: Dispatch<SetStateAction<ITitleRelatedTo[]>>;
 }
 
 const AddImageWithTextFiled = (props: IProps) => {
-  const {images, setImages, paragraphs, setParagraphs} = props;
+  const {images, setImages, paragraphs, setParagraphs, title, setTitle} = props;
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
@@ -27,13 +29,17 @@ const AddImageWithTextFiled = (props: IProps) => {
     }
   };
 
-  const append = () => {
-    setImages([...images, {image: null, imageUrl: '', unique: uuid()}]);
+  const appendRow = () => {
+    const unique = uuid();
+
+    setImages([...images, {image: null, imageUrl: '', unique, id: null}]);
+    setTitle([...title, {value: '', relatedTo: unique, id: null}]);
   };
 
-  const remove = (unique: string) => {
+  const removeRow = (unique: string) => {
     setImages(images.filter((el) => el.unique !== unique));
     setParagraphs(paragraphs.filter((el) => el.relatedTo !== unique));
+    setTitle(title.filter((el) => el.relatedTo !== unique));
   };
 
   const appendParagraph = (relatedTo: string) => {
@@ -48,13 +54,17 @@ const AddImageWithTextFiled = (props: IProps) => {
     setParagraphs(paragraphs.filter((elem) => elem.unique !== unique));
   };
 
+  const changeTitle = (value: string, unique: string) => {
+    setTitle(title.map((item) => (item.relatedTo === unique ? {...item, value} : item)));
+  };
+
   return (
     <>
-      <Button onClick={append} color="first" variant="contained">
+      <Button onClick={appendRow} color="first" variant="contained">
         Добавить блок с информацией
       </Button>
       {images.map((el) => (
-        <React.Fragment key={el.unique}>
+        <Fragment key={el.unique}>
           <ContainerWithTwoColumns
             firstColumn={
               <CardInputImage
@@ -66,10 +76,16 @@ const AddImageWithTextFiled = (props: IProps) => {
             }
             secondColumn={
               <>
-                <Button onClick={() => remove(el.unique)} color="warning" variant="outlined">
+                <Button onClick={() => removeRow(el.unique)} color="warning" variant="outlined">
                   Удалить
                 </Button>
                 <>
+                  <TextField
+                    value={title.find((item) => item.relatedTo === el.unique)?.value}
+                    onChange={(e) => changeTitle(e.target.value, el.unique)}
+                    placeholder='Введите заголовок'
+                    sx={{width: '100%'}}
+                  />
                   <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: '30px'}}>
                     <Typography component="span">Добавить абзац</Typography>
                     <IconButton color="secondary" aria-label="add" onClick={() => appendParagraph(el.unique)}>
@@ -88,7 +104,7 @@ const AddImageWithTextFiled = (props: IProps) => {
               </>
             }
           />
-        </React.Fragment>
+        </Fragment>
       ))}
     </>
   );
