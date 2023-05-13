@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch, SetStateAction} from 'react';
+import {ChangeEvent, Dispatch, SetStateAction, Fragment} from 'react';
 import {TextField} from '@mui/material';
 import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import CardInputImage from '../CardInputImage';
@@ -96,7 +96,7 @@ const AddOpinion = (props: IProps) => {
             handleImageChange={props.image.handleImageChange}
           />
           {column2.map((el, i) => (
-            <React.Fragment key={i}>
+            <Fragment key={i}>
               <TextField
                 name={el.name}
                 value={el.value}
@@ -104,7 +104,7 @@ const AddOpinion = (props: IProps) => {
                 placeholder={el.placeholder}
                 sx={{width: '100%', mt: '30px'}}
               />
-            </React.Fragment>
+            </Fragment>
           ))}
         </>
       }
