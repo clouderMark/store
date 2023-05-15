@@ -77,7 +77,7 @@ const AddImageWithTextFields = (props: IProps) => {
             secondColumn={
               <>
                 <Button onClick={() => removeRow(el.unique)} color="warning" variant="outlined">
-                  Удалить
+                  Удалить блок
                 </Button>
                 <>
                   <TextField
