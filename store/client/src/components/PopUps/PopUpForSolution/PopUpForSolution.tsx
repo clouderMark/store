@@ -3,8 +3,8 @@ import {Box, TextField, DialogActions, Button} from '@mui/material';
 import {IParagraphs} from '../../../types/types';
 import AddOpinion from '../Add/AddOpinion';
 import {EType} from '../../EditSolution/EType';
-import {IDefaultValue} from '../../EditSolution/reducer';
 import DialogWithTitle from '../DialogWithTitle';
+import IDefaultValue from '../../EditSolution/IDefaultValue';
 
 interface IProps {
   show: boolean;

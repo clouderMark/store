@@ -1,16 +1,5 @@
 import {EType} from './EType';
-
-export interface IDefaultValue {
-  [EType.name]: string;
-  [EType.opinionTitle]: string;
-  [EType.opinionListTitle]: string;
-  [EType.opinionName]: string;
-  [EType.opinionPhone]: string;
-  [EType.opinionFax]: string;
-  [EType.opinionEmail]: string;
-  [EType.opinionImage]: File | null;
-  [EType.opinionImageUrl]: string;
-}
+import IDefaultValue from './IDefaultValue';
 
 // eslint-disable-next-line
 export const reducer = (state: IDefaultValue, action: {type: string; payload?: any}) => {

@@ -2,7 +2,7 @@ import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormE
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
 import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
 import {IParagraphs} from '../../types/types';
-import {IDefaultValue, initState, reducer} from './reducer';
+import {initState, reducer} from './reducer';
 import {EType} from './EType';
 import filterParagraphs from '../PopUps/filterParagraphs';
 import {useAppContext} from '../AppContext';
@@ -12,6 +12,7 @@ import {
   initState as initStateInfo,
 } from '../PopUps/Add/AddImageWithTextFields/reducer';
 import defaultInfoValue from '../PopUps/Add/AddImageWithTextFields/defaultValue';
+import defaultValue from './defaultValue';
 
 interface IProps {
   id: number | null;
@@ -20,18 +21,6 @@ interface IProps {
   setShow: Dispatch<SetStateAction<boolean>>;
   setChange: Dispatch<SetStateAction<boolean>>;
 }
-
-const defaultValue: IDefaultValue = {
-  [EType.name]: '',
-  [EType.opinionTitle]: '',
-  [EType.opinionListTitle]: '',
-  [EType.opinionName]: '',
-  [EType.opinionPhone]: '',
-  [EType.opinionFax]: '',
-  [EType.opinionEmail]: '',
-  [EType.opinionImage]: null,
-  [EType.opinionImageUrl]: '',
-};
 
 const EditSolution = (props: IProps) => {
   const {catalog} = useAppContext();
@@ -147,8 +136,6 @@ const EditSolution = (props: IProps) => {
       }
     }
   };
-
-  console.log(infoValue);
 
   return (
     <PopUpForSolution
