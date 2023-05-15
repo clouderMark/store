@@ -1,23 +1,20 @@
-import {ChangeEvent, Dispatch, SetStateAction, Fragment} from 'react';
+import {ChangeEvent, Dispatch, Fragment} from 'react';
 import uuid from 'react-uuid';
 import {Box, Button, IconButton, TextField, Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
-import CardInputImage from '../CardInputImage';
-import {IImage, IParagraphsRelatedTo, ITitleRelatedTo} from '../../../types/types';
-import TextFiledWithIcon from './TextFiledWithIcon';
+import ContainerWithTwoColumns from '../../../ContainerWithTwoColumns/ContainerWithTwoColumns';
+import CardInputImage from '../../CardInputImage';
+import TextFiledWithIcon from '../TextFiledWithIcon';
+import EInfo from './EInfo';
+import IInfo from './IInfo';
 
 interface IProps {
-  images: IImage[];
-  setImages: Dispatch<SetStateAction<IImage[]>>;
-  paragraphs: IParagraphsRelatedTo[];
-  setParagraphs: Dispatch<SetStateAction<IParagraphsRelatedTo[]>>;
-  title: ITitleRelatedTo[];
-  setTitle: Dispatch<SetStateAction<ITitleRelatedTo[]>>;
+  value: IInfo;
+  dispatch: Dispatch<{type: EInfo; payload?: any}>; // eslint-disable-line
 }
 
 const AddImageWithTextFields = (props: IProps) => {
-  const {images, setImages, paragraphs, setParagraphs, title, setTitle} = props;
+  const {dispatch, value} = props;
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
     if (event.target.files) {
@@ -25,37 +22,68 @@ const AddImageWithTextFields = (props: IProps) => {
       const {name} = event.target;
       const newImageUrl = URL.createObjectURL(file);
 
-      setImages(images.map((el) => (name === el.unique ? {...el, image: file, imageUrl: newImageUrl} : el)));
+      dispatch({
+        type: EInfo.infoImages,
+        payload: value[EInfo.infoImages].map((el) => (
+          name === el.unique ? {...el, image: file, imageUrl: newImageUrl} : el)),
+      });
     }
   };
 
   const appendRow = () => {
     const unique = uuid();
 
-    setImages([...images, {image: null, imageUrl: '', unique, id: null}]);
-    setTitle([...title, {value: '', relatedTo: unique, id: null}]);
+    dispatch({
+      type: EInfo.infoImages,
+      payload: [...value[EInfo.infoImages], {image: null, imageUrl: '', unique, id: null}],
+    });
+    dispatch({
+      type: EInfo.infoTitle,
+      payload: [...value[EInfo.infoTitle], {value: '', relatedTo: unique, id: null}],
+    });
   };
 
   const removeRow = (unique: string) => {
-    setImages(images.filter((el) => el.unique !== unique));
-    setParagraphs(paragraphs.filter((el) => el.relatedTo !== unique));
-    setTitle(title.filter((el) => el.relatedTo !== unique));
+    dispatch({
+      type: EInfo.infoImages,
+      payload: value[EInfo.infoImages].filter((el) => el.unique !== unique),
+    });
+    dispatch({
+      type: EInfo.infoParagraphs,
+      payload: value[EInfo.infoParagraphs].filter((el) => el.relatedTo !== unique),
+    });
+    dispatch({
+      type: EInfo.infoTitle,
+      payload: value[EInfo.infoTitle].filter((el) => el.relatedTo !== unique),
+    });
   };
 
   const appendParagraph = (relatedTo: string) => {
-    setParagraphs([...paragraphs, {id: null, value: '', unique: uuid(), relatedTo}]);
+    dispatch({
+      type: EInfo.infoParagraphs,
+      payload: [...value[EInfo.infoParagraphs], {id: null, value: '', unique: uuid(), relatedTo}],
+    });
   };
 
-  const changeParagraph = (value: string, unique: string) => {
-    setParagraphs(paragraphs.map((item) => (item.unique === unique ? {...item, value} : item)));
+  const changeParagraph = (itemValue: string, unique: string) => {
+    dispatch({
+      type: EInfo.infoParagraphs,
+      payload: value[EInfo.infoParagraphs].map((item) => (item.unique === unique ? {...item, value: itemValue} : item)),
+    });
   };
 
   const removeParagraph = (unique: string) => {
-    setParagraphs(paragraphs.filter((elem) => elem.unique !== unique));
+    dispatch({
+      type: EInfo.infoParagraphs,
+      payload: value[EInfo.infoParagraphs].filter((elem) => elem.unique !== unique),
+    });
   };
 
-  const changeTitle = (value: string, unique: string) => {
-    setTitle(title.map((item) => (item.relatedTo === unique ? {...item, value} : item)));
+  const changeTitle = (itemValue: string, unique: string) => {
+    dispatch({
+      type: EInfo.infoTitle,
+      payload: value[EInfo.infoTitle].map((item) => (item.relatedTo === unique ? {...item, value: itemValue} : item)),
+    });
   };
 
   return (
@@ -63,7 +91,7 @@ const AddImageWithTextFields = (props: IProps) => {
       <Button onClick={appendRow} color="first" variant="contained">
         Добавить блок с информацией
       </Button>
-      {images.map((el) => (
+      {value[EInfo.infoImages].map((el) => (
         <Fragment key={el.unique}>
           <ContainerWithTwoColumns
             firstColumn={
@@ -81,9 +109,9 @@ const AddImageWithTextFields = (props: IProps) => {
                 </Button>
                 <>
                   <TextField
-                    value={title.find((item) => item.relatedTo === el.unique)?.value}
+                    value={value[EInfo.infoTitle].find((item) => item.relatedTo === el.unique)?.value}
                     onChange={(e) => changeTitle(e.target.value, el.unique)}
-                    placeholder='Введите заголовок'
+                    placeholder="Введите заголовок"
                     sx={{width: '100%'}}
                   />
                   <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: '30px'}}>
@@ -92,7 +120,7 @@ const AddImageWithTextFields = (props: IProps) => {
                       <AddIcon />
                     </IconButton>
                   </Box>
-                  {paragraphs
+                  {value[EInfo.infoParagraphs]
                     .filter((elem) => elem.relatedTo === el.unique)
                     .map((item) => (
                       <TextFiledWithIcon

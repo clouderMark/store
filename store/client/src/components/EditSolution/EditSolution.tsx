@@ -1,12 +1,17 @@
 import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent, useReducer} from 'react';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
 import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
-import {IParagraphs, IImage, IParagraphsRelatedTo, ITitleRelatedTo} from '../../types/types';
+import {IParagraphs} from '../../types/types';
 import {IDefaultValue, initState, reducer} from './reducer';
 import {EType} from './EType';
 import filterParagraphs from '../PopUps/filterParagraphs';
 import {useAppContext} from '../AppContext';
-import AddImageWithTextFields from '../PopUps/Add/AddImageWithTextFields';
+import AddImageWithTextFields from '../PopUps/Add/AddImageWithTextFields/AddImageWithTextFields';
+import {
+  reducer as imageWithTextFieldsReducer,
+  initState as initStateInfo,
+} from '../PopUps/Add/AddImageWithTextFields/reducer';
+import defaultInfoValue from '../PopUps/Add/AddImageWithTextFields/defaultValue';
 
 interface IProps {
   id: number | null;
@@ -37,9 +42,7 @@ const EditSolution = (props: IProps) => {
   const [opinionListItems, setOpinionListItems] = useState<IParagraphs[]>([]);
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
-  const [infoImages, setInfoImages] = useState<IImage[]>([]);
-  const [infoParagraphs, setInfoParagraphs] = useState<IParagraphsRelatedTo[]>([]);
-  const [infoTitle, setInfoTitle] = useState<ITitleRelatedTo[]>([]);
+  const [infoValue, dispatchInfo] = useReducer(imageWithTextFieldsReducer, defaultInfoValue, initStateInfo);
 
   useEffect(() => {
     if (id) {
@@ -145,6 +148,8 @@ const EditSolution = (props: IProps) => {
     }
   };
 
+  console.log(infoValue);
+
   return (
     <PopUpForSolution
       show={show}
@@ -159,17 +164,7 @@ const EditSolution = (props: IProps) => {
       opinionListItems={opinionListItems}
       setOpinionListItems={setOpinionListItems}
       value={value}
-      child={
-        [<AddImageWithTextFields
-          images={infoImages}
-          setImages={setInfoImages}
-          paragraphs={infoParagraphs}
-          setParagraphs={setInfoParagraphs}
-          title={infoTitle}
-          setTitle={setInfoTitle}
-        />,
-        ]
-      }
+      child={[<AddImageWithTextFields value={infoValue} dispatch={dispatchInfo} />]}
     />
   );
 };
