@@ -1,12 +1,6 @@
 export const popUpForIndystry = {
   card: {
     position: 'relative',
-
-    button: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-    },
   },
 
   img: {

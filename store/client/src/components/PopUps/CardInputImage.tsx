@@ -18,7 +18,6 @@ const CardInputImage = (props: IProps) => {
     <Box sx={[styles.card, props.sx]}>
       <Box sx={styles.img} component="img" src={value || ''} />
       <InputFileButton
-        sx={styles.card.button}
         id={id}
         name={name}
         handleImageChange={handleImageChange}
