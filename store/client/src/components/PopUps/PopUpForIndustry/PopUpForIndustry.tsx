@@ -8,7 +8,7 @@ import {
 import {IPopUpForIndystry} from './types/IPopUpForIndystry';
 import AddTextField from '../Add/AddTextField';
 import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
-import CardInputImage from '../CardInputImage';
+import CardInputImage from '../CardInputImage/CardInputImage';
 import {EType} from '../../EditIndustry/EType';
 import AddOpinion from '../Add/AddOpinion';
 import DialogWithTitle from '../DialogWithTitle';

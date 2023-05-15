@@ -3,7 +3,7 @@ import uuid from 'react-uuid';
 import {Box, Button, IconButton, TextField, Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ContainerWithTwoColumns from '../../../ContainerWithTwoColumns/ContainerWithTwoColumns';
-import CardInputImage from '../../CardInputImage';
+import CardInputImage from '../../CardInputImage/CardInputImage';
 import TextFiledWithIcon from '../TextFiledWithIcon';
 import EInfo from './EInfo';
 import IInfo from './IInfo';

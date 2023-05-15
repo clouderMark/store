@@ -1,4 +1,4 @@
-export const popUpForIndystry = {
+export const cardInputImage = {
   card: {
     position: 'relative',
   },

@@ -1,7 +1,7 @@
 import {ChangeEvent, Dispatch, SetStateAction, Fragment} from 'react';
 import {TextField} from '@mui/material';
 import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
-import CardInputImage from '../CardInputImage';
+import CardInputImage from '../CardInputImage/CardInputImage';
 import AddTextField from './AddTextField';
 import {IParagraphs} from '../../../types/types';
 
