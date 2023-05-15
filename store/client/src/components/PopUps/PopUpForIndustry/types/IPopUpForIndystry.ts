@@ -1,16 +1,13 @@
-import {ChangeEvent, Dispatch, SetStateAction, FormEvent} from 'react';
+import {Dispatch, SetStateAction, FormEvent} from 'react';
 import {IParagraphs} from '../../../../types/types';
-import {IDefaultValue} from '../../../EditIndustry/reducer';
+import IDefaultValue from '../../../EditIndustry/IDefaultValue';
 
 export interface IPopUpForIndystry {
   cardTitle: string;
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   id: number | null;
-  handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
-  valid: boolean | null;
   handleSubmit(event: FormEvent<HTMLFormElement>): void;
-  handleChange(event: ChangeEvent<HTMLInputElement>): void;
   paragraphs: IParagraphs[];
   setParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
   infoListItems: IParagraphs[];
@@ -23,4 +20,5 @@ export interface IPopUpForIndystry {
   setOpinionListItems: Dispatch<SetStateAction<IParagraphs[]>>;
   child?: {component: JSX.Element; value: string};
   value: IDefaultValue;
+  dispatch: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
 }

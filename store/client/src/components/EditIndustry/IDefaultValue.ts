@@ -1,8 +1,17 @@
-import {IParagraphs} from '../../types/types';
 import {EType} from './EType';
 
 interface IDefaultValue {
   [EType.name]: string;
+  [EType.cardImage]: File | null;
+  [EType.cardImageUrl]: string;
+  [EType.headerImage]: File | null;
+  [EType.headerImageUrl]: string;
+  [EType.title]: string;
+  [EType.infoImage]: File | null;
+  [EType.infoImageUrl]: string;
+  [EType.infoTitle]: string;
+  [EType.infoHeader]: string;
+  [EType.infoListTitle]: string;
   [EType.opinionTitle]: string;
   [EType.opinionListTitle]: string;
   [EType.opinionName]: string;
@@ -11,8 +20,8 @@ interface IDefaultValue {
   [EType.opinionEmail]: string;
   [EType.opinionImage]: File | null;
   [EType.opinionImageUrl]: string;
-  [EType.opinionParagraphs]: IParagraphs[];
-  [EType.opinionListItems]: IParagraphs[];
+  [EType.sliderImage]: File | null;
+  [EType.sliderImageUrl]: string;
   [EType.valid]: null | boolean;
 }
 

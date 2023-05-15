@@ -67,6 +67,13 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       };
     }
 
+    case EType.valid: {
+      return {
+        ...state,
+        [EType.valid]: action.payload,
+      };
+    }
+
     case EType.reset: {
       return initState(action.payload);
     }

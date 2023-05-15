@@ -1,11 +1,12 @@
-import React, {useEffect, useState, Dispatch, SetStateAction, ChangeEvent, FormEvent, useReducer} from 'react';
+import React, {useEffect, useState, Dispatch, SetStateAction, FormEvent, useReducer} from 'react';
 import uuid from 'react-uuid';
 import PopUpForIndystry from '../PopUps/PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from '../AppContext';
 import {IParagraphs, IAreaResponse} from '../../types/types';
 import filterParagraphs from '../PopUps/filterParagraphs';
-import {reducer, IDefaultValue, initState} from './reducer';
+import {reducer, initState} from './reducer';
 import {EType} from './EType';
+import defaultValue from './defaultValue';
 
 interface IProps {
   popUpTitle: string;
@@ -20,30 +21,6 @@ interface IProps {
   child?: {component: JSX.Element; value: string; setValue: Dispatch<SetStateAction<string>>};
 }
 
-const defaultValue: IDefaultValue = {
-  [EType.name]: '',
-  [EType.cardImage]: null,
-  [EType.cardImageUrl]: '',
-  [EType.headerImage]: null,
-  [EType.headerImageUrl]: '',
-  [EType.title]: '',
-  [EType.infoImage]: null,
-  [EType.infoImageUrl]: '',
-  [EType.infoTitle]: '',
-  [EType.infoHeader]: '',
-  [EType.infoListTitle]: '',
-  [EType.opinionTitle]: '',
-  [EType.opinionListTitle]: '',
-  [EType.opinionName]: '',
-  [EType.opinionPhone]: '',
-  [EType.opinionFax]: '',
-  [EType.opinionEmail]: '',
-  [EType.opinionImage]: null,
-  [EType.opinionImageUrl]: '',
-  [EType.sliderImage]: null,
-  [EType.sliderImageUrl]: '',
-};
-
 const EditIndustry = (props: IProps) => {
   const {catalog} = useAppContext();
   const {id, show, setShow, setChange, setId} = props;
@@ -56,15 +33,13 @@ const EditIndustry = (props: IProps) => {
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
 
-  const [valid, setValid] = useState<null | boolean>(null);
-
   useEffect(() => {
     if (id) {
       props
         .fetch(id)
         .then((data) => {
           dispatch({type: EType.name, payload: data.name});
-          setValid(data.name !== '');
+          dispatch({type: EType.valid, payload: data.name !== ''});
           dispatch({
             type: EType.cardImageUrl,
             payload: data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '',
@@ -127,34 +102,12 @@ const EditIndustry = (props: IProps) => {
     }
   }, [show]);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {name} = event.target;
-    const {value} = event.target;
-
-    if (name === EType.name) {
-      setValid(value.trim() !== '');
-    }
-
-    dispatch({type: name, payload: value});
-  };
-
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.files) {
-      const file = event.target.files[0];
-      const {name} = event.target;
-      const newImageUrl = URL.createObjectURL(file);
-
-      dispatch({type: name, payload: file});
-      dispatch({type: `${name}Url`, payload: newImageUrl});
-    }
-  };
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const correct = value[EType.name].trim() !== '';
 
-    setValid(correct);
+    dispatch({type: EType.valid, payload: correct});
     if (correct) {
       const data = new FormData();
 
@@ -278,10 +231,7 @@ const EditIndustry = (props: IProps) => {
       show={show}
       setShow={setShow}
       id={id}
-      handleImageChange={handleImageChange}
-      valid={valid}
       handleSubmit={handleSubmit}
-      handleChange={handleChange}
       paragraphs={paragraphs}
       setParagraphs={setParagraphs}
       infoListItems={infoListItems}
@@ -294,6 +244,7 @@ const EditIndustry = (props: IProps) => {
       setOpinionListItems={setOpinionListItems}
       child={props.child}
       value={value}
+      dispatch={dispatch}
     />
   );
 };

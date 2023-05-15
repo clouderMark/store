@@ -10,20 +10,40 @@ interface IProps {
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   id: number | null;
-  handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
-  valid: boolean | null;
   handleSubmit(event: FormEvent<HTMLFormElement>): void;
-  handleChange(event: ChangeEvent<HTMLInputElement>): void;
   opinionParagraphs: IParagraphs[];
   setOpinionParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
   opinionListItems: IParagraphs[];
   setOpinionListItems: Dispatch<SetStateAction<IParagraphs[]>>;
   value: IDefaultValue;
+  dispatch: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
   child?: JSX.Element[];
 }
 
 const PopUpForSolutiond = (props: IProps) => {
-  const {value} = props;
+  const {value, dispatch} = props;
+
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    if (event.target.files) {
+      const file = event.target.files[0];
+      const {name} = event.target;
+      const newImageUrl = URL.createObjectURL(file);
+
+      dispatch({type: name, payload: file});
+      dispatch({type: `${name}Url`, payload: newImageUrl});
+    }
+  };
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const {name} = event.target;
+    const {value} = event.target;
+
+    if (name === EType.name) {
+      dispatch({type: EType.valid, payload: value.trim() !== ''});
+    }
+
+    dispatch({type: name, payload: value});
+  };
 
   return (
     <DialogWithTitle
@@ -36,10 +56,10 @@ const PopUpForSolutiond = (props: IProps) => {
             autoFocus={true}
             name={EType.name}
             value={value[EType.name]}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
             required
-            error={props.valid === false}
-            color={props.valid ? 'success' : 'primary'}
+            error={value[EType.valid] === false}
+            color={value[EType.valid] ? 'success' : 'primary'}
             placeholder={'Название продуктового решения ...'}
             className="mb-3"
             sx={{width: '100%'}}
@@ -47,7 +67,7 @@ const PopUpForSolutiond = (props: IProps) => {
           <AddOpinion
             titleName={EType.opinionTitle}
             titleValue={value[EType.opinionTitle]}
-            handleChange={props.handleChange}
+            handleChange={handleChange}
             opinionParagraphs={props.opinionParagraphs}
             setOpinionParagraphs={props.setOpinionParagraphs}
             listTitleName={EType.opinionListTitle}
@@ -58,7 +78,7 @@ const PopUpForSolutiond = (props: IProps) => {
               id: props.id,
               image: props.value[EType.opinionImageUrl],
               name: EType.opinionImage,
-              handleImageChange: props.handleImageChange,
+              handleImageChange: handleImageChange,
             }}
             nameName={EType.opinionName}
             nameValue={value[EType.opinionName]}

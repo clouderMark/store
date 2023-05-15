@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent, useReducer} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, useState, FormEvent, useReducer} from 'react';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
 import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
 import {IParagraphs} from '../../types/types';
@@ -25,7 +25,6 @@ interface IProps {
 const EditSolution = (props: IProps) => {
   const {catalog} = useAppContext();
   const {id, show, setShow, setChange, setId} = props;
-  const [valid, setValid] = useState<null | boolean>(null);
 
   const [opinionParagraphs, setOpinionParagraphs] = useState<IParagraphs[]>([]);
   const [opinionListItems, setOpinionListItems] = useState<IParagraphs[]>([]);
@@ -38,7 +37,7 @@ const EditSolution = (props: IProps) => {
       fetchSolution(id)
         .then((data) => {
           dispatch({type: EType.name, payload: data.name});
-          setValid(data.name !== '');
+          dispatch({type: EType.valid, payload: data.name !== ''});
         })
         .catch((error) => console.error(error));
     }
@@ -53,34 +52,12 @@ const EditSolution = (props: IProps) => {
     }
   }, [show]);
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {name} = event.target;
-    const {value} = event.target;
-
-    if (name === EType.name) {
-      setValid(value.trim() !== '');
-    }
-
-    dispatch({type: name, payload: value});
-  };
-
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.files) {
-      const file = event.target.files[0];
-      const {name} = event.target;
-      const newImageUrl = URL.createObjectURL(file);
-
-      dispatch({type: name, payload: file});
-      dispatch({type: `${name}Url`, payload: newImageUrl});
-    }
-  };
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const correct = value[EType.name].trim() !== '';
 
-    setValid(correct);
+    dispatch({type: EType.valid, payload: correct});
     if (correct) {
       const data = new FormData();
 
@@ -142,15 +119,13 @@ const EditSolution = (props: IProps) => {
       show={show}
       setShow={setShow}
       id={id}
-      handleImageChange={handleImageChange}
-      valid={valid}
       handleSubmit={handleSubmit}
-      handleChange={handleChange}
       opinionParagraphs={opinionParagraphs}
       setOpinionParagraphs={setOpinionParagraphs}
       opinionListItems={opinionListItems}
       setOpinionListItems={setOpinionListItems}
       value={value}
+      dispatch={dispatch}
       child={[<AddImageWithTextFields value={infoValue} dispatch={dispatchInfo} />]}
     />
   );

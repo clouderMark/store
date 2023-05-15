@@ -3,6 +3,16 @@ import IDefaultValue from './IDefaultValue';
 
 const defaultValue: IDefaultValue = {
   [EType.name]: '',
+  [EType.cardImage]: null,
+  [EType.cardImageUrl]: '',
+  [EType.headerImage]: null,
+  [EType.headerImageUrl]: '',
+  [EType.title]: '',
+  [EType.infoImage]: null,
+  [EType.infoImageUrl]: '',
+  [EType.infoTitle]: '',
+  [EType.infoHeader]: '',
+  [EType.infoListTitle]: '',
   [EType.opinionTitle]: '',
   [EType.opinionListTitle]: '',
   [EType.opinionName]: '',
@@ -11,8 +21,8 @@ const defaultValue: IDefaultValue = {
   [EType.opinionEmail]: '',
   [EType.opinionImage]: null,
   [EType.opinionImageUrl]: '',
-  [EType.opinionParagraphs]: [],
-  [EType.opinionListItems]: [],
+  [EType.sliderImage]: null,
+  [EType.sliderImageUrl]: '',
   [EType.valid]: null,
 };
 
