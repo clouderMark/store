@@ -253,13 +253,13 @@ SubIndustryParagraph.belongsTo(SubIndustry);
 Solution.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Solution)
 
-Solution.hasOne(SolutionInfoImage, {as: 'infoImages', onDelete: 'CASCADE'})
+Solution.hasMany(SolutionInfoImage, {as: 'infoImages', onDelete: 'CASCADE'})
 SolutionInfoImage.belongsTo(Solution)
 
-Solution.hasOne(SolutionInfoParagraph, {as: 'infoParagraphs', onDelete: 'CASCADE'})
+Solution.hasMany(SolutionInfoParagraph, {as: 'infoParagraphs', onDelete: 'CASCADE'})
 SolutionInfoParagraph.belongsTo(Solution)
 
-Solution.hasOne(SolutionInfoTitle, {as: 'infoTitle', onDelete: 'CASCADE'})
+Solution.hasMany(SolutionInfoTitle, {as: 'infoTitle', onDelete: 'CASCADE'})
 SolutionInfoTitle.belongsTo(Solution)
 
 Area.hasMany(Product, {onDelete: 'RESTRICT'})

@@ -35,7 +35,7 @@ class Solution {
         await SolutionInfoImageMapping.create({
           image,
           unique,
-          infoImageId: solution.id,
+          solutionId: solution.id,
         });
       }
     }
@@ -46,7 +46,7 @@ class Solution {
         await SolutionInfoParagraphMapping.create({
           value: paragraph.value,
           relatedTo: paragraph.relatedTo,
-          infoParagraphId: solution.id,
+          solutionId: solution.id,
         });
       }
     }
@@ -55,7 +55,7 @@ class Solution {
       const titles = JSON.parse(infoTitle);
       for (let title of titles) {
         await SolutionInfoTitleMapping.create({
-          infoTitleId: solution.id,
+          solutionId: solution.id,
           relatedTo: title.relatedTo,
           value: title.value,
         });
