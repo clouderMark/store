@@ -138,6 +138,24 @@ const Solution = sequelize.define('solution', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
 })
 
+const SolutionInfoImage = sequelize.define('solution_info_image', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    image: {type: DataTypes.STRING, allowNull: false},
+    unique: {type: DataTypes.STRING, allowNull: false},
+},  { timestamps: false })
+
+const SolutionInfoParagraph = sequelize.define('solution_info_paragraph', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    relatedTo: {type: DataTypes.TEXT, allowNull: false},
+    value: {type: DataTypes.TEXT, allowNull: false},
+}, { timestamps: false })
+
+const SolutionInfoTitle = sequelize.define('solution_info_title', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    relatedTo: {type: DataTypes.TEXT, allowNull: false},
+    value: {type: DataTypes.TEXT, allowNull: false},
+}, { timestamps: false })
+
 const Area = sequelize.define('area', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
@@ -235,6 +253,15 @@ SubIndustryParagraph.belongsTo(SubIndustry);
 Solution.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Solution)
 
+Solution.hasOne(SolutionInfoImage, {as: 'images', onDelete: 'CASCADE'})
+SolutionInfoImage.belongsTo(Solution)
+
+Solution.hasOne(SolutionInfoParagraph, {as: 'paragraph', onDelete: 'CASCADE'})
+SolutionInfoParagraph.belongsTo(Solution)
+
+Solution.hasOne(SolutionInfoTitle, {as: 'title', onDelete: 'CASCADE'})
+SolutionInfoTitle.belongsTo(Solution)
+
 Area.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Area)
 
@@ -292,6 +319,9 @@ export {
     SubIndustry,
     SubIndustryParagraph,
     Solution,
+    SolutionInfoImage,
+    SolutionInfoParagraph,
+    SolutionInfoTitle,
     Area,
     Rating,
     BasketProduct,

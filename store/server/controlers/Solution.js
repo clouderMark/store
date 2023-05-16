@@ -25,8 +25,13 @@ class Solution {
 
     async create(req, res, next) {
         try {
-            const solution = await SolutionModel.create(req.body)
+            const solution = await SolutionModel.create(req.body, req.files?.infoImages)
             res.json(solution)
+
+            // console.log(req.files.infoImages);
+            // console.log(req.body.infoImagesUnique);
+            // console.log(req.body.infoParagraphs);
+            // console.log(req.body.infoTitle);
         } catch(e) {
             next(AppError.badRequest(e.message))
         }

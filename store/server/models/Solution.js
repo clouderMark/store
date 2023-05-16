@@ -1,5 +1,6 @@
-import { Solution as SolutionMapping } from './mapping.js'
+import { Solution as SolutionMapping, SolutionInfoImage as SolutionInfoImageMapping, SolutionInfoParagraph as SolutionInfoParagraphMapping, SolutionInfoTitle as SolutionInfoTitleMapping } from './mapping.js'
 import AppError from '../errors/AppError.js'
+import FileService from '../services/File.js';
 
 class Solution {
     async getAll() {
@@ -15,9 +16,46 @@ class Solution {
         return solution
     }
 
-    async create(data) {
-        const {name} = data
+    async create(data, infoImges) {
+        const {name, infoImagesUnique, infoParagraphs, infoTitle} = data
         const solution = await SolutionMapping.create({name})
+
+        if (infoImges.length) {
+            for (let i = 0; i < infoImges.length; i++) {
+                const el = infoImges[i];
+                const unique = infoImagesUnique[i];
+                const image = FileService.save(el);
+
+                await SolutionInfoImageMapping.create({
+                    image,
+                    unique,
+                    imageId: solution.id,
+                });
+            }
+        }
+
+        if (infoParagraphs) {
+            const paragraphs = JSON.parse(infoParagraphs);
+            for (let paragraph of paragraphs) {
+                await SolutionInfoParagraphMapping.create({
+                    value: paragraph.value,
+                    relatedTo: paragraph.relatedTo,
+                    paragraphId: solution.id,
+                });
+            }
+        }
+
+        if (infoTitle) {
+            const titles = JSON.parse(infoTitle);
+            for (let title of titles) {
+                await SolutionInfoTitleMapping.create({
+                    titleId: solution.id,
+                    relatedTo: title.relatedTo,
+                    value: title.value,
+                })
+            }
+        }
+
         return solution
     }
 

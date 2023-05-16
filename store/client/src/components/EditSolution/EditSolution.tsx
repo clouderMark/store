@@ -1,7 +1,7 @@
 import React, {Dispatch, SetStateAction, useEffect, useState, FormEvent, useReducer} from 'react';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
 import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
-import {IParagraphs} from '../../types/types';
+import {IParagraphs, IImage} from '../../types/types';
 import {initState, reducer} from './reducer';
 import {EType} from './EType';
 import filterParagraphs from '../PopUps/filterParagraphs';
@@ -13,6 +13,7 @@ import {
 } from '../PopUps/Add/AddImageWithTextFields/reducer';
 import defaultInfoValue from '../PopUps/Add/AddImageWithTextFields/defaultValue';
 import defaultValue from './defaultValue';
+import EInfo from '../PopUps/Add/AddImageWithTextFields/EInfo';
 
 interface IProps {
   id: number | null;
@@ -87,6 +88,27 @@ const EditSolution = (props: IProps) => {
 
       if (value[EType.opinionImage]) {
         data.append(EType.opinionImage, value[EType.opinionImage], value[EType.opinionImage].name);
+      }
+
+      if (infoValue[EInfo.infoImages].length) {
+        infoValue.infoImages.forEach((el: IImage) => {
+          if (el.image) {
+            data.append(EInfo.infoImages, el.image, el.image.name);
+            data.append(`${EInfo.infoImages}Unique`, el.unique);
+          }
+        });
+      }
+
+      if (infoValue[EInfo.infoParagraphs].length) {
+        const items = filterParagraphs(infoValue[EInfo.infoParagraphs]);
+
+        if (items.length) {
+          data.append(EInfo.infoParagraphs, JSON.stringify(items));
+        }
+      }
+
+      if (infoValue[EInfo.infoTitle].length) {
+        data.append(EInfo.infoTitle, JSON.stringify(infoValue[EInfo.infoTitle]));
       }
 
       const success = () => {
