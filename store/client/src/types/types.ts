@@ -244,3 +244,10 @@ export interface IImage {
   unique: string;
   id: null | number;
 }
+
+export interface IFetchSolution extends IId {
+  name: string;
+  infoImages: IImage[];
+  infoParagraphs: IParagraphsRelatedTo[];
+  infoTitle: ITitleRelatedTo[];
+}

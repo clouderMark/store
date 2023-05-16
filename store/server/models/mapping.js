@@ -136,7 +136,7 @@ const SubOpinionItem = sequelize.define('sub_op_list_item', {
 const Solution = sequelize.define('solution', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-})
+}, { timestamps: false })
 
 const SolutionInfoImage = sequelize.define('solution_info_image', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -253,13 +253,13 @@ SubIndustryParagraph.belongsTo(SubIndustry);
 Solution.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Solution)
 
-Solution.hasOne(SolutionInfoImage, {as: 'images', onDelete: 'CASCADE'})
+Solution.hasOne(SolutionInfoImage, {as: 'infoImages', onDelete: 'CASCADE'})
 SolutionInfoImage.belongsTo(Solution)
 
-Solution.hasOne(SolutionInfoParagraph, {as: 'paragraph', onDelete: 'CASCADE'})
+Solution.hasOne(SolutionInfoParagraph, {as: 'infoParagraphs', onDelete: 'CASCADE'})
 SolutionInfoParagraph.belongsTo(Solution)
 
-Solution.hasOne(SolutionInfoTitle, {as: 'title', onDelete: 'CASCADE'})
+Solution.hasOne(SolutionInfoTitle, {as: 'infoTitle', onDelete: 'CASCADE'})
 SolutionInfoTitle.belongsTo(Solution)
 
 Area.hasMany(Product, {onDelete: 'RESTRICT'})

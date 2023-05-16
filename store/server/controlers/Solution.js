@@ -1,4 +1,4 @@
-import SolutionModel from '../models/Solution.js'
+import SolutionModel from '../models/Solution/Solution.js'
 import AppError from '../errors/AppError.js'
 
 class Solution {
