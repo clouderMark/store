@@ -1,6 +1,7 @@
 import EInfo from './EInfo';
+import IDefaultValue from './IDefaultValue';
 
-const defaultValue = {
+const defaultValue: IDefaultValue = {
   [EInfo.infoImages]: [],
   [EInfo.infoParagraphs]: [],
   [EInfo.infoTitle]: [],

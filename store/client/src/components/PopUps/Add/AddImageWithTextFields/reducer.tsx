@@ -1,8 +1,8 @@
 import EInfo from './EInfo';
-import IInfo from './IInfo';
+import IDefaultValue from './IDefaultValue';
 
 // eslint-disable-next-line
-export const reducer = (state: IInfo, action: {type: EInfo; payload?: any}) => {
+export const reducer = (state: IDefaultValue, action: {type: EInfo; payload?: any}) => {
   switch (action.type) {
     case EInfo.infoImages: {
       return {
@@ -34,4 +34,4 @@ export const reducer = (state: IInfo, action: {type: EInfo; payload?: any}) => {
   }
 };
 
-export const initState = (init: IInfo) => init;
+export const initState = (init: IDefaultValue) => init;

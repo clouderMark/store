@@ -6,10 +6,10 @@ import ContainerWithTwoColumns from '../../../ContainerWithTwoColumns/ContainerW
 import CardInputImage from '../../CardInputImage/CardInputImage';
 import TextFiledWithIcon from '../TextFiledWithIcon';
 import EInfo from './EInfo';
-import IInfo from './IInfo';
+import IDefaultValue from './IDefaultValue';
 
 interface IProps {
-  value: IInfo;
+  value: IDefaultValue;
   dispatch: Dispatch<{type: EInfo; payload?: any}>; // eslint-disable-line
 }
 
