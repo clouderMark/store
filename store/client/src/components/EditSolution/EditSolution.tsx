@@ -1,4 +1,5 @@
 import React, {Dispatch, SetStateAction, useEffect, useState, FormEvent, useReducer} from 'react';
+import uuid from 'react-uuid';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
 import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
 import {IParagraphs, IImage} from '../../types/types';
@@ -37,8 +38,24 @@ const EditSolution = (props: IProps) => {
     if (id) {
       fetchSolution(id)
         .then((data) => {
+          console.log(data);
           dispatch({type: EType.name, payload: data.name});
           dispatch({type: EType.valid, payload: data.name !== ''});
+          dispatchInfo({
+            type: EInfo.infoImages,
+            payload: data.infoImages.map((el) => ({
+              ...el,
+              imageUrl: el.image ? process.env.REACT_APP_IMG_URL! + el.image : '',
+            })),
+          });
+          dispatchInfo({
+            type: EInfo.infoParagraphs,
+            payload: data.infoParagraphs.map((el) => ({...el, unique: uuid()})),
+          });
+          dispatchInfo({
+            type: EInfo.infoTitle,
+            payload: data.infoTitle,
+          });
         })
         .catch((error) => console.error(error));
     }
@@ -50,6 +67,7 @@ const EditSolution = (props: IProps) => {
       setOpinionParagraphs([]);
       setOpinionListItems([]);
       dispatch({type: EType.reset, payload: defaultValue});
+      dispatchInfo({type: EInfo.reset, payload: defaultInfoValue});
     }
   }, [show]);
 
