@@ -247,7 +247,11 @@ export interface IImage {
 
 export interface IFetchSolution extends IId {
   name: string;
-  infoImages: IImage[];
+  infoImages: {
+    image: File | null;
+    unique: string;
+    id: null | number;
+  }[];
   infoParagraphs: IParagraphsRelatedTo[];
   infoTitle: ITitleRelatedTo[];
 }
