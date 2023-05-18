@@ -42,7 +42,7 @@ class Solution {
             if(!req.params.id) {
                 throw new Error('Не указан id решения')
             }
-            const solution = await SolutionModel.update(req.params.id, req.body)
+            const solution = await SolutionModel.update(req.params.id, req.body, req.files?.infoImages)
             res.json(solution)
         } catch(e) {
             next(AppError.badRequest(e.message))

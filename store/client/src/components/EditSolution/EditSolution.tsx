@@ -45,6 +45,7 @@ const EditSolution = (props: IProps) => {
             type: EInfo.infoImages,
             payload: data.infoImages.map((el) => ({
               ...el,
+              image: null,
               imageUrl: el.image ? process.env.REACT_APP_IMG_URL! + el.image : '',
             })),
           });
@@ -113,6 +114,10 @@ const EditSolution = (props: IProps) => {
           if (el.image) {
             data.append(EInfo.infoImages, el.image, el.image.name);
             data.append(`${EInfo.infoImages}Unique`, el.unique);
+          } else {
+            const imageName = el.imageUrl.replace(process.env.REACT_APP_IMG_URL ?? '', '');
+
+            data.append('infoImageUrls', imageName);
           }
         });
       }

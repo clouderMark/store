@@ -7,6 +7,7 @@ import {
 import AppError from '../../errors/AppError.js';
 import FileService from '../../services/File.js';
 import { include } from './include.js';
+import saveInfoImages from './saveImages.js';
 
 class Solution {
   async getAll() {
@@ -26,19 +27,7 @@ class Solution {
     const { name, infoImagesUnique, infoParagraphs, infoTitle } = data;
     const solution = await SolutionMapping.create({ name });
 
-    if (infoImges.length) {
-      for (let i = 0; i < infoImges.length; i++) {
-        const el = infoImges[i];
-        const unique = infoImagesUnique[i];
-        const image = FileService.save(el);
-
-        await SolutionInfoImageMapping.create({
-          image,
-          unique,
-          solutionId: solution.id,
-        });
-      }
-    }
+    saveInfoImages(infoImges, infoImagesUnique, solution.id);
 
     if (infoParagraphs) {
       const paragraphs = JSON.parse(infoParagraphs);
@@ -65,22 +54,51 @@ class Solution {
     return solution;
   }
 
-  async update(id, data) {
-    const solution = await SolutionMapping.findByPk(id);
+  async update(id, data, newInfoImages) {
+    const solution = await SolutionMapping.findByPk(id, include);
     if (!solution) {
       throw new Error('Решение не найдена в БД');
     }
-    const { name = solution.name } = data;
+    const { name = solution.name, infoImageUrls, infoImagesUnique } = data;
     await solution.update({ name });
+
+    if (newInfoImages && !infoImageUrls) {
+      solution.infoImages.map((el) => FileService.delete(el.image));
+      await SolutionInfoImageMapping.destroy({
+        where: { solutionId: solution.id },
+      });
+    } else {
+      let themNeedDelete;
+      if (Array.isArray(infoImageUrls)) {
+        themNeedDelete = solution.infoImages.filter(
+          (el) => -1 == infoImageUrls.indexOf(el.image)
+        );
+      } else {
+        themNeedDelete = solution.infoImages.filter(
+          (el) => infoImageUrls !== el.image
+        );
+      }
+      themNeedDelete.map(async (el) => {
+        FileService.delete(el.image);
+        await SolutionInfoImageMapping.destroy({ where: { image: el.image } });
+      });
+    }
+
+    saveInfoImages(newInfoImages, infoImagesUnique, solution.id);
+
     return solution;
   }
 
   async delete(id) {
-    const solution = await SolutionMapping.findByPk(id);
+    const solution = await SolutionMapping.findByPk(id, include);
+
     if (!solution) {
       throw new Error('Решение не найдена в БД');
     }
+
+    solution.infoImages.map((el) => FileService.delete(el.image));
     await solution.destroy();
+
     return solution;
   }
 }
