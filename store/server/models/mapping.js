@@ -156,6 +156,27 @@ const SolutionInfoTitle = sequelize.define('solution_info_title', {
     value: {type: DataTypes.TEXT, allowNull: false},
 }, { timestamps: false })
 
+const SolutionOpinion = sequelize.define('solution_opinion', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+    listTitle: {type: DataTypes.TEXT, allowNull: false},
+    name: {type: DataTypes.STRING, allowNull: false},
+    image: {type: DataTypes.STRING, allowNull: false},
+    phone: {type: DataTypes.STRING, allowNull: false},
+    fax: {type: DataTypes.STRING, allowNull: false},
+    email: {type: DataTypes.STRING, allowNull: false},
+}, { timestamps: false })
+
+const SolutionOpinionParagraph = sequelize.define('solution_op_paragraphs', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+}, { timestamps: false })
+
+const SolutionOpinionItem = sequelize.define('solution_op_list_item', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.STRING, allowNull: false},
+}, { timestamps: false })
+
 const Area = sequelize.define('area', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
@@ -262,6 +283,13 @@ SolutionInfoParagraph.belongsTo(Solution)
 Solution.hasMany(SolutionInfoTitle, {as: 'infoTitle', onDelete: 'CASCADE'})
 SolutionInfoTitle.belongsTo(Solution)
 
+Solution.hasOne(SolutionOpinion, {as: 'opinion', onDelete: 'CASCADE'},);
+SolutionOpinion.belongsTo(Solution);
+SolutionOpinion.hasMany(SolutionOpinionParagraph, {as: 'paragraphs', onDelete: 'CASCADE'},);
+SolutionOpinionParagraph.belongsTo(SolutionOpinion);
+SolutionOpinion.hasMany(SolutionOpinionItem, {as: 'listItems', onDelete: 'CASCADE'},);
+SolutionOpinionItem.belongsTo(SolutionOpinion);
+
 Area.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Area)
 
@@ -322,6 +350,9 @@ export {
     SolutionInfoImage,
     SolutionInfoParagraph,
     SolutionInfoTitle,
+    SolutionOpinion,
+    SolutionOpinionParagraph,
+    SolutionOpinionItem,
     Area,
     Rating,
     BasketProduct,
