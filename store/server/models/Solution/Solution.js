@@ -59,7 +59,13 @@ class Solution {
     if (!solution) {
       throw new Error('Решение не найдена в БД');
     }
-    const { name = solution.name, infoImageUrls, infoImagesUnique } = data;
+    const {
+      name = solution.name,
+      infoImageUrls,
+      infoImagesUnique,
+      infoParagraphs,
+      infoTitle,
+    } = data;
     await solution.update({ name });
 
     if (newInfoImages && !infoImageUrls) {
@@ -82,6 +88,34 @@ class Solution {
         FileService.delete(el.image);
         await SolutionInfoImageMapping.destroy({ where: { image: el.image } });
       });
+    }
+
+    if (infoParagraphs) {
+      await SolutionInfoParagraphMapping.destroy({
+        where: { solutionId: solution.id },
+      });
+      const paragraphs = JSON.parse(infoParagraphs);
+      for (let paragraph of paragraphs) {
+        await SolutionInfoParagraphMapping.create({
+          value: paragraph.value,
+          relatedTo: paragraph.relatedTo,
+          solutionId: solution.id,
+        });
+      }
+    }
+
+    if (infoTitle) {
+      await SolutionInfoTitleMapping.destroy({
+        where: { solutionId: solution.id },
+      });
+      const titles = JSON.parse(infoTitle);
+      for (let title of titles) {
+        await SolutionInfoTitleMapping.create({
+          solutionId: solution.id,
+          relatedTo: title.relatedTo,
+          value: title.value,
+        });
+      }
     }
 
     saveInfoImages(newInfoImages, infoImagesUnique, solution.id);
