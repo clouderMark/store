@@ -44,7 +44,6 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
           <Box sx={{display: 'flex'}}>
             <Box sx={{width: '335px'}}>
               <CardInputImage
-                id={props.id}
                 value={value[EType.cardImageUrl]}
                 name={EType.cardImage}
                 handleImageChange={handleImageChange}
@@ -64,7 +63,6 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
             </Box>
             {!props.child ? (
               <CardInputImage
-                id={props.id}
                 value={value[EType.sliderImageUrl]}
                 name={EType.sliderImage}
                 handleImageChange={handleImageChange}
@@ -74,7 +72,6 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
           </Box>
           <Box>
             <CardInputImage
-              id={props.id}
               value={value[EType.headerImageUrl]}
               name={EType.headerImage}
               handleImageChange={handleImageChange}
@@ -96,7 +93,6 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
           <ContainerWithTwoColumns
             firstColumn={
               <CardInputImage
-                id={props.id}
                 value={value[EType.infoImageUrl]}
                 name={EType.infoImage}
                 handleImageChange={handleImageChange}
@@ -143,29 +139,16 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
             }
           />
           <AddOpinion
-            titleName={EType.opinionTitle}
-            titleValue={value[EType.opinionTitle]}
             handleChange={handleChange}
             opinionParagraphs={props.opinionParagraphs}
             setOpinionParagraphs={props.setOpinionParagraphs}
-            listTitleName={EType.opinionListTitle}
-            listTitleValue={value[EType.opinionListTitle]}
             opinionListItems={props.opinionListItems}
             setOpinionListItems={props.setOpinionListItems}
             image={{
-              id: props.id,
               image: value[EType.opinionImageUrl],
-              name: EType.opinionImage,
               handleImageChange: handleImageChange,
             }}
-            nameName={EType.opinionName}
-            nameValue={value[EType.opinionName]}
-            phoneName={EType.opinionPhone}
-            phoneValue={value[EType.opinionPhone]}
-            faxName={EType.opinionFax}
-            faxValue={value[EType.opinionFax]}
-            emailName={EType.opinionEmail}
-            emailValue={value[EType.opinionEmail]}
+            value={value}
           />
           <DialogActions>
             <Button type="submit" variant="outlined">

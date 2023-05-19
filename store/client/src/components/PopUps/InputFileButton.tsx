@@ -4,11 +4,11 @@ import {Button} from '@mui/material';
 interface IProps {
   handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
   name: string;
-  id: number | null;
+  isValue: boolean;
 }
 
 const InputFileButton = (props: IProps) => {
-  const {id, name, handleImageChange} = props;
+  const {isValue, name, handleImageChange} = props;
 
   return (
     <Button
@@ -31,7 +31,7 @@ const InputFileButton = (props: IProps) => {
         accept="image/*"
         aria-label="upload picture"
       />
-      {`${id ? 'Изменить' : 'Добавить'} фото`}
+      {`${isValue ? 'Изменить' : 'Добавить'} фото`}
     </Button>
   );
 };

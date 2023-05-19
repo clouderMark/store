@@ -65,29 +65,16 @@ const PopUpForSolutiond = (props: IProps) => {
             sx={{width: '100%'}}
           />
           <AddOpinion
-            titleName={EType.opinionTitle}
-            titleValue={value[EType.opinionTitle]}
             handleChange={handleChange}
             opinionParagraphs={props.opinionParagraphs}
             setOpinionParagraphs={props.setOpinionParagraphs}
-            listTitleName={EType.opinionListTitle}
-            listTitleValue={value[EType.opinionListTitle]}
             opinionListItems={props.opinionListItems}
             setOpinionListItems={props.setOpinionListItems}
             image={{
-              id: props.id,
               image: props.value[EType.opinionImageUrl],
-              name: EType.opinionImage,
               handleImageChange: handleImageChange,
             }}
-            nameName={EType.opinionName}
-            nameValue={value[EType.opinionName]}
-            phoneName={EType.opinionPhone}
-            phoneValue={value[EType.opinionPhone]}
-            faxName={EType.opinionFax}
-            faxValue={value[EType.opinionFax]}
-            emailName={EType.opinionEmail}
-            emailValue={value[EType.opinionEmail]}
+            value={value}
           />
           {props.child?.map((el, i) => (
             <Fragment key={i}>

@@ -96,7 +96,6 @@ const AddImageWithTextFields = (props: IProps) => {
           <ContainerWithTwoColumns
             firstColumn={
               <CardInputImage
-                id={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.imageUrl ? 1 : null}
                 value={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.imageUrl ?? ''}
                 name={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.relatedTo!}
                 handleImageChange={handleImageChange}

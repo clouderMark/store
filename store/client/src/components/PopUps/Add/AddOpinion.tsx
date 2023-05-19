@@ -5,52 +5,59 @@ import CardInputImage from '../CardInputImage/CardInputImage';
 import AddTextField from './AddTextField';
 import {IParagraphs} from '../../../types/types';
 
+enum EName {
+  opinionTitle = 'opinionTitle',
+  opinionListTitle = 'opinionListTitle',
+  opinionImage = 'opinionImage',
+  opinionName = 'opinionName',
+  opinionPhone = 'opinionPhone',
+  opinionFax = 'opinionFax',
+  opinionEmail = 'opinionEmail',
+}
+
+interface IValue {
+  [EName.opinionTitle]: string;
+  [EName.opinionListTitle]: string;
+  [EName.opinionName]: string;
+  [EName.opinionPhone]: string;
+  [EName.opinionFax]: string;
+  [EName.opinionEmail]: string;
+}
+
 interface IProps {
-  titleName: string;
-  titleValue: string;
   handleChange(event: ChangeEvent<HTMLInputElement>): void;
   opinionParagraphs: IParagraphs[];
   setOpinionParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
-  listTitleName: string;
-  listTitleValue: string;
   opinionListItems: IParagraphs[];
   setOpinionListItems: Dispatch<SetStateAction<IParagraphs[]>>;
   image: {
-    id: number | null;
     image: string;
-    name: string;
     handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
   };
-  nameName: string;
-  nameValue: string;
-  phoneName: string;
-  phoneValue: string;
-  faxName: string;
-  faxValue: string;
-  emailName: string;
-  emailValue: string;
+  value: IValue;
 }
 
 const AddOpinion = (props: IProps) => {
+  const {value} = props;
   const column2 = [
     {
-      name: props.nameName,
-      value: props.nameValue,
+      name: EName.opinionName,
+      value: value[EName.opinionName],
       placeholder: 'Имя',
     },
     {
-      name: props.phoneName,
-      value: props.phoneValue,
+      name: EName.opinionPhone,
+      value: value[EName.opinionPhone],
       placeholder: 'Телефон',
     },
     {
-      name: props.faxName,
-      value: props.faxValue,
+      name: EName.opinionFax,
+      value: value[EName.opinionFax],
       placeholder: 'Факс',
     },
     {
-      name: props.emailName,
-      value: props.emailValue,
+      name: EName.opinionEmail,
+      value: value[EName.opinionEmail],
       placeholder: 'E-mail',
     },
   ];
@@ -60,8 +67,8 @@ const AddOpinion = (props: IProps) => {
       firstColumn={
         <>
           <TextField
-            name={props.titleName}
-            value={props.titleValue}
+            name={EName.opinionTitle}
+            value={value[EName.opinionTitle]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
             placeholder="Заголовок"
             sx={{width: '100%', mt: '30px'}}
@@ -73,8 +80,8 @@ const AddOpinion = (props: IProps) => {
             placeholder={'Параграф совета'}
           />
           <TextField
-            name={props.listTitleName}
-            value={props.listTitleValue}
+            name={EName.opinionListTitle}
+            value={value[EName.opinionListTitle]}
             onChange={(e: ChangeEvent<HTMLInputElement>) => props.handleChange(e)}
             placeholder="Заголовок"
             sx={{width: '100%', mt: '30px'}}
@@ -90,9 +97,8 @@ const AddOpinion = (props: IProps) => {
       secondColumn={
         <>
           <CardInputImage
-            id={props.image.id}
             value={props.image.image}
-            name={props.image.name}
+            name={EName.opinionImage}
             handleImageChange={props.image.handleImageChange}
           />
           {column2.map((el, i) => (

@@ -4,7 +4,6 @@ import {cardInputImage as styles} from './styles/cardInputImage';
 import InputFileButton from '../InputFileButton';
 
 interface IProps {
-  id: number | null;
   value: string | null;
   name: string;
   handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
@@ -12,13 +11,13 @@ interface IProps {
 }
 
 const CardInputImage = (props: IProps) => {
-  const {id, value, handleImageChange, name} = props;
+  const {value, handleImageChange, name} = props;
 
   return (
     <Box sx={[styles.card, props.sx]}>
       <Box sx={styles.img} component="img" src={value || ''} />
       <InputFileButton
-        id={id}
+        isValue={Boolean(value)}
         name={name}
         handleImageChange={handleImageChange}
       />
