@@ -4,7 +4,7 @@ import {Box, Button, IconButton, TextField, Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import ContainerWithTwoColumns from '../../../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import CardInputImage from '../../CardInputImage/CardInputImage';
-import TextFiledWithIcon from '../TextFiledWithIcon';
+import TextFieldWithIcon from '../TextFieldWithIcon';
 import EInfo from './EInfo';
 import IDefaultValue from './IDefaultValue';
 
@@ -123,7 +123,7 @@ const AddImageWithTextFields = (props: IProps) => {
                   {value[EInfo.infoParagraphs]
                     .filter((elem) => elem.relatedTo === el.unique)
                     .map((item) => (
-                      <TextFiledWithIcon
+                      <TextFieldWithIcon
                         item={{...item, placeholder: 'параграф', onChange: changeParagraph, remove: removeParagraph}}
                         key={item.unique}
                       />

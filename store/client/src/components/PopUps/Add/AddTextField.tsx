@@ -3,7 +3,7 @@ import uuid from 'react-uuid';
 import {Box, IconButton, Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import {IParagraphs} from '../../../types/types';
-import TextFiledWithIcon from './TextFiledWithIcon';
+import TextFieldWithIcon from './TextFieldWithIcon';
 
 interface IProps {
   paragraphs: IParagraphs[];
@@ -35,7 +35,7 @@ const AddTextField = (props: IProps) => {
         </IconButton>
       </Box>
       {paragraphs.map((item) => (
-        <TextFiledWithIcon item={{...item, placeholder, onChange: change, remove}} key={item.unique} />
+        <TextFieldWithIcon item={{...item, placeholder, onChange: change, remove}} key={item.unique} />
       ))}
     </>
   );
