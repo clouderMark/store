@@ -3,28 +3,28 @@ import {
 } from '../mapping.js';
 import FileService from '../../services/File.js';
 
-const saveInfoImages = async (newImages, newImageUniques, relatedTo) => {
+const saveInfoImages = async (newImages, relatedToTitles, relatedToSoluion) => {
   if (Array.isArray(newImages)) {
     for (let i = 0; i < newImages.length; i++) {
       const el = newImages[i];
-      const unique = newImageUniques[i];
+      const relatedTo = relatedToTitles[i];
       const image = FileService.save(el);
 
       await SolutionInfoImageMapping.create({
         image,
-        unique,
-        solutionId: relatedTo,
+        relatedTo,
+        solutionId: relatedToSoluion,
       });
     }
   } else if (newImages) {
       const el = newImages;
-      const unique = newImageUniques;
+      const relatedTo = relatedToTitles;
       const image = FileService.save(el);
 
       await SolutionInfoImageMapping.create({
         image,
-        unique,
-        solutionId: relatedTo,
+        relatedTo,
+        solutionId: relatedToSoluion,
       });
   }
 }

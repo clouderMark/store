@@ -9,7 +9,7 @@ export const include = {
     {
       model: SolutionInfoImageMapping,
       as: 'infoImages',
-      attributes: ['id', 'image', 'unique'],
+      attributes: ['id', 'image', 'relatedTo'],
     },
     {
       model: SolutionInfoParagraphMapping,
@@ -19,7 +19,7 @@ export const include = {
     {
       model: SolutionInfoTitleMapping,
       as: 'infoTitle',
-      attributes: ['id', 'relatedTo', 'value'],
+      attributes: ['id', 'unique', 'value'],
     },
   ]
 }

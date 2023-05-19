@@ -113,7 +113,7 @@ const EditSolution = (props: IProps) => {
         infoValue.infoImages.forEach((el: IImage) => {
           if (el.image) {
             data.append(EInfo.infoImages, el.image, el.image.name);
-            data.append(`${EInfo.infoImages}Unique`, el.unique);
+            data.append(`${EInfo.infoImages}RelatedTo`, el.relatedTo);
           } else {
             const imageName = el.imageUrl.replace(process.env.REACT_APP_IMG_URL ?? '', '');
 

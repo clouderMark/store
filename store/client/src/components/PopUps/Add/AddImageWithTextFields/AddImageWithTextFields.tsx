@@ -25,7 +25,7 @@ const AddImageWithTextFields = (props: IProps) => {
       dispatch({
         type: EInfo.infoImages,
         payload: value[EInfo.infoImages].map((el) => (
-          name === el.unique ? {...el, image: file, imageUrl: newImageUrl} : el)),
+          name === el.relatedTo ? {...el, image: file, imageUrl: newImageUrl} : el)),
       });
     }
   };
@@ -35,18 +35,18 @@ const AddImageWithTextFields = (props: IProps) => {
 
     dispatch({
       type: EInfo.infoImages,
-      payload: [...value[EInfo.infoImages], {image: null, imageUrl: '', unique, id: null}],
+      payload: [...value[EInfo.infoImages], {image: null, imageUrl: '', relatedTo: unique, id: null}],
     });
     dispatch({
       type: EInfo.infoTitle,
-      payload: [...value[EInfo.infoTitle], {value: '', relatedTo: unique, id: null}],
+      payload: [...value[EInfo.infoTitle], {value: '', unique, id: null}],
     });
   };
 
   const removeRow = (unique: string) => {
     dispatch({
       type: EInfo.infoImages,
-      payload: value[EInfo.infoImages].filter((el) => el.unique !== unique),
+      payload: value[EInfo.infoImages].filter((el) => el.relatedTo !== unique),
     });
     dispatch({
       type: EInfo.infoParagraphs,
@@ -54,7 +54,7 @@ const AddImageWithTextFields = (props: IProps) => {
     });
     dispatch({
       type: EInfo.infoTitle,
-      payload: value[EInfo.infoTitle].filter((el) => el.relatedTo !== unique),
+      payload: value[EInfo.infoTitle].filter((el) => el.unique !== unique),
     });
   };
 
@@ -82,7 +82,7 @@ const AddImageWithTextFields = (props: IProps) => {
   const changeTitle = (itemValue: string, unique: string) => {
     dispatch({
       type: EInfo.infoTitle,
-      payload: value[EInfo.infoTitle].map((item) => (item.relatedTo === unique ? {...item, value: itemValue} : item)),
+      payload: value[EInfo.infoTitle].map((item) => (item.unique === unique ? {...item, value: itemValue} : item)),
     });
   };
 
@@ -91,14 +91,17 @@ const AddImageWithTextFields = (props: IProps) => {
       <Button onClick={appendRow} color="first" variant="contained">
         Добавить блок с информацией
       </Button>
-      {value[EInfo.infoImages].map((el) => (
+      {value[EInfo.infoTitle].map((el) => (
         <Fragment key={el.unique}>
           <ContainerWithTwoColumns
             firstColumn={
               <CardInputImage
-                id={el.image ? 1 : null}
-                value={el.imageUrl}
-                name={el.unique}
+                // id={el.image ? 1 : null}
+                id={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.imageUrl ? 1 : null}
+                // value={el.imageUrl}
+                value={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.imageUrl ?? ''}
+                // name={el.unique}
+                name={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.relatedTo!}
                 handleImageChange={handleImageChange}
               />
             }
@@ -109,7 +112,8 @@ const AddImageWithTextFields = (props: IProps) => {
                 </Button>
                 <>
                   <TextField
-                    value={value[EInfo.infoTitle].find((item) => item.relatedTo === el.unique)?.value}
+                    // value={value[EInfo.infoTitle].find((item) => item.relatedTo === el.unique)?.value}
+                    value={el.value}
                     onChange={(e) => changeTitle(e.target.value, el.unique)}
                     placeholder="Введите заголовок"
                     sx={{width: '100%'}}

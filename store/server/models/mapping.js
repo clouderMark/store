@@ -141,7 +141,7 @@ const Solution = sequelize.define('solution', {
 const SolutionInfoImage = sequelize.define('solution_info_image', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     image: {type: DataTypes.STRING, allowNull: false},
-    unique: {type: DataTypes.STRING, allowNull: false},
+    relatedTo: {type: DataTypes.STRING, allowNull: false},
 },  { timestamps: false })
 
 const SolutionInfoParagraph = sequelize.define('solution_info_paragraph', {
@@ -152,7 +152,7 @@ const SolutionInfoParagraph = sequelize.define('solution_info_paragraph', {
 
 const SolutionInfoTitle = sequelize.define('solution_info_title', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    relatedTo: {type: DataTypes.TEXT, allowNull: false},
+    unique: {type: DataTypes.TEXT, allowNull: false},
     value: {type: DataTypes.TEXT, allowNull: false},
 }, { timestamps: false })
 
