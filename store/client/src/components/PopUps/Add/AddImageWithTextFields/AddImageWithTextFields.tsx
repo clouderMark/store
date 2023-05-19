@@ -96,11 +96,8 @@ const AddImageWithTextFields = (props: IProps) => {
           <ContainerWithTwoColumns
             firstColumn={
               <CardInputImage
-                // id={el.image ? 1 : null}
                 id={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.imageUrl ? 1 : null}
-                // value={el.imageUrl}
                 value={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.imageUrl ?? ''}
-                // name={el.unique}
                 name={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.relatedTo!}
                 handleImageChange={handleImageChange}
               />
@@ -112,7 +109,6 @@ const AddImageWithTextFields = (props: IProps) => {
                 </Button>
                 <>
                   <TextField
-                    // value={value[EInfo.infoTitle].find((item) => item.relatedTo === el.unique)?.value}
                     value={el.value}
                     onChange={(e) => changeTitle(e.target.value, el.unique)}
                     placeholder="Введите заголовок"
