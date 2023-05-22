@@ -81,62 +81,6 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       };
     }
 
-    case EType.opinionTitle: {
-      return {
-        ...state,
-        [EType.opinionTitle]: action.payload,
-      };
-    }
-
-    case EType.opinionListTitle: {
-      return {
-        ...state,
-        [EType.opinionListTitle]: action.payload,
-      };
-    }
-
-    case EType.opinionName: {
-      return {
-        ...state,
-        [EType.opinionName]: action.payload,
-      };
-    }
-
-    case EType.opinionPhone: {
-      return {
-        ...state,
-        [EType.opinionPhone]: action.payload,
-      };
-    }
-
-    case EType.opinionFax: {
-      return {
-        ...state,
-        [EType.opinionFax]: action.payload,
-      };
-    }
-
-    case EType.opinionEmail: {
-      return {
-        ...state,
-        [EType.opinionEmail]: action.payload,
-      };
-    }
-
-    case EType.opinionImage: {
-      return {
-        ...state,
-        [EType.opinionImage]: action.payload,
-      };
-    }
-
-    case EType.opinionImageUrl: {
-      return {
-        ...state,
-        [EType.opinionImageUrl]: action.payload,
-      };
-    }
-
     case EType.sliderImage: {
       return {
         ...state,
@@ -176,20 +120,6 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       return {
         ...state,
         [EType.infoParagraphs]: action.payload,
-      };
-    }
-
-    case EType.opinionParagraphs: {
-      return {
-        ...state,
-        [EType.opinionParagraphs]: action.payload,
-      };
-    }
-
-    case EType.opinionListItems: {
-      return {
-        ...state,
-        [EType.opinionListItems]: action.payload,
       };
     }
 

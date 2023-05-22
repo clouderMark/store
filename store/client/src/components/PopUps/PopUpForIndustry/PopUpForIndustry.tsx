@@ -5,13 +5,13 @@ import AddTextField from '../Add/AddTextField';
 import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import CardInputImage from '../CardInputImage/CardInputImage';
 import {EType} from '../../EditIndustry/EType';
-import AddOpinion from '../Add/AddOpinion';
+import AddOpinion from '../Add/AddOpinion/AddOpinion';
 import DialogWithTitle from '../DialogWithTitle';
 import inputChange from '../handleChange';
 import imageChange from '../handleImageChange';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => {
-  const {value, dispatch} = props;
+  const {value, dispatch, opinionValue, dispatchOpinion} = props;
 
   const handleChange = inputChange(dispatch);
   const handleImageChange = imageChange(dispatch);
@@ -125,10 +125,8 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
             }
           />
           <AddOpinion
-            handleChange={handleChange}
-            handleImageChange={handleImageChange}
-            value={value}
-            dispatch={dispatch}
+            value={opinionValue}
+            dispatch={dispatchOpinion}
           />
           <DialogActions>
             <Button type="submit" variant="outlined">

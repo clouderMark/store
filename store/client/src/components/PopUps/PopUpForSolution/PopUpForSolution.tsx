@@ -1,11 +1,11 @@
 import {ChangeEvent, Dispatch, SetStateAction, FormEvent, Fragment} from 'react';
 import {Box, TextField, DialogActions, Button} from '@mui/material';
-import AddOpinion from '../Add/AddOpinion';
+import AddOpinion from '../Add/AddOpinion/AddOpinion';
 import {EType} from '../../EditSolution/EType';
 import DialogWithTitle from '../DialogWithTitle';
 import IDefaultValue from '../../EditSolution/IDefaultValue';
 import inputChange from '../handleChange';
-import imageChange from '../handleImageChange';
+import IOpinionDefaultValue from '../Add/AddOpinion/IDefaultValue';
 
 interface IProps {
   show: boolean;
@@ -14,14 +14,15 @@ interface IProps {
   handleSubmit(event: FormEvent<HTMLFormElement>): void;
   value: IDefaultValue;
   dispatch: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
+  opinionValue: IOpinionDefaultValue;
+  dispatchOpinion: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
   child?: JSX.Element[];
 }
 
 const PopUpForSolutiond = (props: IProps) => {
-  const {value, dispatch} = props;
+  const {value, dispatch, opinionValue, dispatchOpinion} = props;
 
   const handleChange = inputChange(dispatch);
-  const handleImageChange = imageChange(dispatch);
 
   return (
     <DialogWithTitle
@@ -43,10 +44,8 @@ const PopUpForSolutiond = (props: IProps) => {
             sx={{width: '100%'}}
           />
           <AddOpinion
-            handleChange={handleChange}
-            handleImageChange={handleImageChange}
-            value={value}
-            dispatch={dispatch}
+            value={opinionValue}
+            dispatch={dispatchOpinion}
           />
           {props.child?.map((el, i) => (
             <Fragment key={i}>

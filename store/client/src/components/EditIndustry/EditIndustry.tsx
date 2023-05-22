@@ -7,6 +7,9 @@ import filterParagraphs from '../PopUps/filterParagraphs';
 import {reducer, initState} from './reducer';
 import {EType} from './EType';
 import defaultValue from './defaultValue';
+import {reducer as opinionReducer, initState as opinionInitState} from '../PopUps/Add/AddOpinion/reducer';
+import defaultOpinionValue from '../PopUps/Add/AddOpinion/defaultValue';
+import EOpinion from '../PopUps/Add/AddOpinion/EOpinion';
 
 interface IProps {
   popUpTitle: string;
@@ -26,6 +29,7 @@ const EditIndustry = (props: IProps) => {
   const {id, show, setShow, setChange, setId} = props;
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
+  const [opinionValue, dispatchOpinion] = useReducer(opinionReducer, defaultOpinionValue, opinionInitState);
 
   useEffect(() => {
     if (id) {
@@ -58,14 +62,14 @@ const EditIndustry = (props: IProps) => {
           dispatch({type: EType.infoTitle, payload: data.info.title});
           dispatch({type: EType.infoHeader, payload: data.info.header});
           dispatch({type: EType.infoListTitle, payload: data.info.listTitle});
-          dispatch({type: EType.opinionTitle, payload: data.opinion.title});
-          dispatch({type: EType.opinionListTitle, payload: data.opinion.listTitle});
-          dispatch({type: EType.opinionName, payload: data.opinion.name});
-          dispatch({type: EType.opinionPhone, payload: data.opinion.phone});
-          dispatch({type: EType.opinionFax, payload: data.opinion.fax});
-          dispatch({type: EType.opinionEmail, payload: data.opinion.email});
-          dispatch({
-            type: EType.opinionImageUrl,
+          dispatchOpinion({type: EOpinion.opinionTitle, payload: data.opinion.title});
+          dispatchOpinion({type: EOpinion.opinionListTitle, payload: data.opinion.listTitle});
+          dispatchOpinion({type: EOpinion.opinionName, payload: data.opinion.name});
+          dispatchOpinion({type: EOpinion.opinionPhone, payload: data.opinion.phone});
+          dispatchOpinion({type: EOpinion.opinionFax, payload: data.opinion.fax});
+          dispatchOpinion({type: EOpinion.opinionEmail, payload: data.opinion.email});
+          dispatchOpinion({
+            type: EOpinion.opinionImageUrl,
             payload: data.opinion.image ? process.env.REACT_APP_IMG_URL + data.opinion.image : '',
           });
           dispatch({
@@ -76,12 +80,12 @@ const EditIndustry = (props: IProps) => {
             type: EType.infoParagraphs,
             payload: data.info.paragraphs.map((item) => ({...item, unique: uuid()})),
           });
-          dispatch({
-            type: EType.opinionParagraphs,
+          dispatchOpinion({
+            type: EOpinion.opinionParagraphs,
             payload: data.opinion.paragraphs.map((item) => ({...item, unique: uuid()})),
           });
-          dispatch({
-            type: EType.opinionListItems,
+          dispatchOpinion({
+            type: EOpinion.opinionListItems,
             payload: data.opinion.listItems.map((item) => ({...item, unique: uuid()})),
           });
           if (!props.child) {
@@ -99,6 +103,7 @@ const EditIndustry = (props: IProps) => {
     if (!show) {
       setId(null);
       dispatch({type: EType.reset, payload: defaultValue});
+      dispatchOpinion({type: EOpinion.reset, payload: defaultOpinionValue});
       props.child?.setValue('');
     }
   }, [show]);
@@ -158,33 +163,37 @@ const EditIndustry = (props: IProps) => {
         }
       }
 
-      data.append(EType.opinionTitle, value[EType.opinionTitle].trim());
+      data.append(EOpinion.opinionTitle, opinionValue[EOpinion.opinionTitle].trim());
 
-      if (value[EType.opinionParagraphs].length) {
-        const items = filterParagraphs(value[EType.opinionParagraphs]);
+      if (opinionValue[EOpinion.opinionParagraphs].length) {
+        const items = filterParagraphs(opinionValue[EOpinion.opinionParagraphs]);
 
         if (items.length) {
-          data.append(EType.opinionParagraphs, JSON.stringify(items));
+          data.append(EOpinion.opinionParagraphs, JSON.stringify(items));
         }
       }
 
-      data.append(EType.opinionListTitle, value[EType.opinionListTitle].trim());
+      data.append(EOpinion.opinionListTitle, opinionValue[EOpinion.opinionListTitle].trim());
 
-      if (value[EType.opinionListItems].length) {
-        const items = filterParagraphs(value[EType.opinionListItems]);
+      if (opinionValue[EOpinion.opinionListItems].length) {
+        const items = filterParagraphs(opinionValue[EOpinion.opinionListItems]);
 
         if (items.length) {
-          data.append(EType.opinionListItems, JSON.stringify(items));
+          data.append(EOpinion.opinionListItems, JSON.stringify(items));
         }
       }
 
-      data.append(EType.opinionName, value[EType.opinionName].trim());
-      data.append(EType.opinionPhone, value[EType.opinionPhone].trim());
-      data.append(EType.opinionFax, value[EType.opinionFax].trim());
-      data.append(EType.opinionEmail, value[EType.opinionEmail].trim());
+      data.append(EOpinion.opinionName, opinionValue[EOpinion.opinionName].trim());
+      data.append(EOpinion.opinionPhone, opinionValue[EOpinion.opinionPhone].trim());
+      data.append(EOpinion.opinionFax, opinionValue[EOpinion.opinionFax].trim());
+      data.append(EOpinion.opinionEmail, opinionValue[EOpinion.opinionEmail].trim());
 
-      if (value[EType.opinionImage]) {
-        data.append(EType.opinionImage, value[EType.opinionImage], value[EType.opinionImage].name);
+      if (opinionValue[EOpinion.opinionImage]) {
+        data.append(
+          EOpinion.opinionImage,
+          opinionValue[EOpinion.opinionImage],
+          opinionValue[EOpinion.opinionImage].name,
+        );
       }
 
       if (!props.child && value.sliderImage) {
@@ -236,6 +245,8 @@ const EditIndustry = (props: IProps) => {
       child={props.child}
       value={value}
       dispatch={dispatch}
+      opinionValue={opinionValue}
+      dispatchOpinion={dispatchOpinion}
     />
   );
 };

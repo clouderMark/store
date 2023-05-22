@@ -15,6 +15,9 @@ import {
 import defaultInfoValue from '../PopUps/Add/AddImageWithTextFields/defaultValue';
 import defaultValue from './defaultValue';
 import EInfo from '../PopUps/Add/AddImageWithTextFields/EInfo';
+import {reducer as opinionReducer, initState as opinionInitState} from '../PopUps/Add/AddOpinion/reducer';
+import defaultOpinionValue from '../PopUps/Add/AddOpinion/defaultValue';
+import EOpinion from '../PopUps/Add/AddOpinion/EOpinion';
 
 interface IProps {
   id: number | null;
@@ -30,6 +33,7 @@ const EditSolution = (props: IProps) => {
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
   const [infoValue, dispatchInfo] = useReducer(imageWithTextFieldsReducer, defaultInfoValue, initStateInfo);
+  const [opinionValue, dispatchOpinion] = useReducer(opinionReducer, defaultOpinionValue, opinionInitState);
 
   useEffect(() => {
     if (id) {
@@ -62,10 +66,9 @@ const EditSolution = (props: IProps) => {
   useEffect(() => {
     if (!show) {
       setId(null);
-      // setOpinionParagraphs([]);
-      // setOpinionListItems([]);
       dispatch({type: EType.reset, payload: defaultValue});
       dispatchInfo({type: EInfo.reset, payload: defaultInfoValue});
+      dispatchOpinion({type: EOpinion.reset, payload: defaultOpinionValue});
     }
   }, [show]);
 
@@ -79,31 +82,35 @@ const EditSolution = (props: IProps) => {
       const data = new FormData();
 
       data.append(EType.name, value[EType.name].trim());
-      data.append(EType.opinionTitle, value[EType.opinionTitle].trim());
-      data.append(EType.opinionListTitle, value[EType.opinionListTitle].trim());
-      data.append(EType.opinionName, value[EType.opinionName].trim());
-      data.append(EType.opinionPhone, value[EType.opinionPhone].trim());
-      data.append(EType.opinionFax, value[EType.opinionFax].trim());
-      data.append(EType.opinionEmail, value[EType.opinionEmail].trim());
+      data.append(EOpinion.opinionTitle, opinionValue[EOpinion.opinionTitle].trim());
+      data.append(EOpinion.opinionListTitle, opinionValue[EOpinion.opinionListTitle].trim());
+      data.append(EOpinion.opinionName, opinionValue[EOpinion.opinionName].trim());
+      data.append(EOpinion.opinionPhone, opinionValue[EOpinion.opinionPhone].trim());
+      data.append(EOpinion.opinionFax, opinionValue[EOpinion.opinionFax].trim());
+      data.append(EOpinion.opinionEmail, opinionValue[EOpinion.opinionEmail].trim());
 
-      if (value[EType.opinionParagraphs].length) {
-        const items = filterParagraphs(value[EType.opinionParagraphs]);
+      if (opinionValue[EOpinion.opinionParagraphs].length) {
+        const items = filterParagraphs(opinionValue[EOpinion.opinionParagraphs]);
 
         if (items.length) {
-          data.append(EType.opinionParagraphs, JSON.stringify(items));
+          data.append(EOpinion.opinionParagraphs, JSON.stringify(items));
         }
       }
 
-      if (value[EType.opinionListItems].length) {
-        const items = filterParagraphs(value[EType.opinionListItems]);
+      if (opinionValue[EOpinion.opinionListItems].length) {
+        const items = filterParagraphs(opinionValue[EOpinion.opinionListItems]);
 
         if (items.length) {
-          data.append(EType.opinionListItems, JSON.stringify(items));
+          data.append(EOpinion.opinionListItems, JSON.stringify(items));
         }
       }
 
-      if (value[EType.opinionImage]) {
-        data.append(EType.opinionImage, value[EType.opinionImage], value[EType.opinionImage].name);
+      if (opinionValue[EOpinion.opinionImage]) {
+        data.append(
+          EOpinion.opinionImage,
+          opinionValue[EOpinion.opinionImage],
+          opinionValue[EOpinion.opinionImage].name,
+        );
       }
 
       if (infoValue[EInfo.infoImages].length) {
@@ -164,6 +171,8 @@ const EditSolution = (props: IProps) => {
       handleSubmit={handleSubmit}
       value={value}
       dispatch={dispatch}
+      opinionValue={opinionValue}
+      dispatchOpinion={dispatchOpinion}
       child={[<AddImageWithTextFields value={infoValue} dispatch={dispatchInfo} />]}
     />
   );

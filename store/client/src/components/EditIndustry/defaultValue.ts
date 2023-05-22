@@ -13,22 +13,12 @@ const defaultValue: IDefaultValue = {
   [EType.infoTitle]: '',
   [EType.infoHeader]: '',
   [EType.infoListTitle]: '',
-  [EType.opinionTitle]: '',
-  [EType.opinionListTitle]: '',
-  [EType.opinionName]: '',
-  [EType.opinionPhone]: '',
-  [EType.opinionFax]: '',
-  [EType.opinionEmail]: '',
-  [EType.opinionImage]: null,
-  [EType.opinionImageUrl]: '',
   [EType.sliderImage]: null,
   [EType.sliderImageUrl]: '',
   [EType.valid]: null,
   [EType.paragraphs]: [],
   [EType.infoListItems]: [],
   [EType.infoParagraphs]: [],
-  [EType.opinionParagraphs]: [],
-  [EType.opinionListItems]: [],
 };
 
 export default defaultValue;

@@ -13,22 +13,12 @@ interface IDefaultValue {
   [EType.infoTitle]: string;
   [EType.infoHeader]: string;
   [EType.infoListTitle]: string;
-  [EType.opinionTitle]: string;
-  [EType.opinionListTitle]: string;
-  [EType.opinionName]: string;
-  [EType.opinionPhone]: string;
-  [EType.opinionFax]: string;
-  [EType.opinionEmail]: string;
-  [EType.opinionImage]: File | null;
-  [EType.opinionImageUrl]: string;
   [EType.sliderImage]: File | null;
   [EType.sliderImageUrl]: string;
   [EType.valid]: null | boolean;
   [EType.paragraphs]: IParagraphs[];
   [EType.infoListItems]: IParagraphs[];
   [EType.infoParagraphs]: IParagraphs[];
-  [EType.opinionParagraphs]: IParagraphs[];
-  [EType.opinionListItems]: IParagraphs[];
 }
 
 export default IDefaultValue;
