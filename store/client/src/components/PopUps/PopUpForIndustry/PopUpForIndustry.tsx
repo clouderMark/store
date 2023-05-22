@@ -68,8 +68,9 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
             />
           </Box>
           <AddTextField
-            paragraphs={props.paragraphs}
-            setParagraphs={props.setParagraphs}
+            name={EType.paragraphs}
+            value={value}
+            dispatch={dispatch}
             title={'Добавить абзац'}
             placeholder={'Параграф индустрии'}
           />
@@ -107,14 +108,16 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
                   sx={{width: '100%', mt: '30px'}}
                 />
                 <AddTextField
-                  paragraphs={props.infoListItems}
-                  setParagraphs={props.setInfoListItems}
+                  name={EType.infoListItems}
+                  value={value}
+                  dispatch={dispatch}
                   title={'Добавить пункт'}
                   placeholder={'Пункт списка'}
                 />
                 <AddTextField
-                  paragraphs={props.infoParagraphs}
-                  setParagraphs={props.setInfoParagraphs}
+                  name={EType.infoParagraphs}
+                  value={value}
+                  dispatch={dispatch}
                   title={'Добавить параграф'}
                   placeholder={'Параграф'}
                 />
@@ -123,12 +126,9 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
           />
           <AddOpinion
             handleChange={handleChange}
-            opinionParagraphs={props.opinionParagraphs}
-            setOpinionParagraphs={props.setOpinionParagraphs}
-            opinionListItems={props.opinionListItems}
-            setOpinionListItems={props.setOpinionListItems}
             handleImageChange={handleImageChange}
             value={value}
+            dispatch={dispatch}
           />
           <DialogActions>
             <Button type="submit" variant="outlined">

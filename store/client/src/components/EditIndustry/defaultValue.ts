@@ -24,6 +24,11 @@ const defaultValue: IDefaultValue = {
   [EType.sliderImage]: null,
   [EType.sliderImageUrl]: '',
   [EType.valid]: null,
+  [EType.paragraphs]: [],
+  [EType.infoListItems]: [],
+  [EType.infoParagraphs]: [],
+  [EType.opinionParagraphs]: [],
+  [EType.opinionListItems]: [],
 };
 
 export default defaultValue;

@@ -1,6 +1,5 @@
 import {ChangeEvent, Dispatch, SetStateAction, FormEvent, Fragment} from 'react';
 import {Box, TextField, DialogActions, Button} from '@mui/material';
-import {IParagraphs} from '../../../types/types';
 import AddOpinion from '../Add/AddOpinion';
 import {EType} from '../../EditSolution/EType';
 import DialogWithTitle from '../DialogWithTitle';
@@ -13,10 +12,6 @@ interface IProps {
   setShow: Dispatch<SetStateAction<boolean>>;
   id: number | null;
   handleSubmit(event: FormEvent<HTMLFormElement>): void;
-  opinionParagraphs: IParagraphs[];
-  setOpinionParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
-  opinionListItems: IParagraphs[];
-  setOpinionListItems: Dispatch<SetStateAction<IParagraphs[]>>;
   value: IDefaultValue;
   dispatch: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
   child?: JSX.Element[];
@@ -49,12 +44,9 @@ const PopUpForSolutiond = (props: IProps) => {
           />
           <AddOpinion
             handleChange={handleChange}
-            opinionParagraphs={props.opinionParagraphs}
-            setOpinionParagraphs={props.setOpinionParagraphs}
-            opinionListItems={props.opinionListItems}
-            setOpinionListItems={props.setOpinionListItems}
             handleImageChange={handleImageChange}
             value={value}
+            dispatch={dispatch}
           />
           {props.child?.map((el, i) => (
             <Fragment key={i}>

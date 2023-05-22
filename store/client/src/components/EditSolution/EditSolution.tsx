@@ -1,8 +1,8 @@
-import React, {Dispatch, SetStateAction, useEffect, useState, FormEvent, useReducer} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, FormEvent, useReducer} from 'react';
 import uuid from 'react-uuid';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
 import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
-import {IParagraphs, IImage} from '../../types/types';
+import {IImage} from '../../types/types';
 import {initState, reducer} from './reducer';
 import {EType} from './EType';
 import filterParagraphs from '../PopUps/filterParagraphs';
@@ -27,9 +27,6 @@ interface IProps {
 const EditSolution = (props: IProps) => {
   const {catalog} = useAppContext();
   const {id, show, setShow, setChange, setId} = props;
-
-  const [opinionParagraphs, setOpinionParagraphs] = useState<IParagraphs[]>([]);
-  const [opinionListItems, setOpinionListItems] = useState<IParagraphs[]>([]);
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
   const [infoValue, dispatchInfo] = useReducer(imageWithTextFieldsReducer, defaultInfoValue, initStateInfo);
@@ -65,8 +62,8 @@ const EditSolution = (props: IProps) => {
   useEffect(() => {
     if (!show) {
       setId(null);
-      setOpinionParagraphs([]);
-      setOpinionListItems([]);
+      // setOpinionParagraphs([]);
+      // setOpinionListItems([]);
       dispatch({type: EType.reset, payload: defaultValue});
       dispatchInfo({type: EInfo.reset, payload: defaultInfoValue});
     }
@@ -89,16 +86,16 @@ const EditSolution = (props: IProps) => {
       data.append(EType.opinionFax, value[EType.opinionFax].trim());
       data.append(EType.opinionEmail, value[EType.opinionEmail].trim());
 
-      if (opinionParagraphs.length) {
-        const items = filterParagraphs(opinionParagraphs);
+      if (value[EType.opinionParagraphs].length) {
+        const items = filterParagraphs(value[EType.opinionParagraphs]);
 
         if (items.length) {
           data.append(EType.opinionParagraphs, JSON.stringify(items));
         }
       }
 
-      if (opinionListItems.length) {
-        const items = filterParagraphs(opinionListItems);
+      if (value[EType.opinionListItems].length) {
+        const items = filterParagraphs(value[EType.opinionListItems]);
 
         if (items.length) {
           data.append(EType.opinionListItems, JSON.stringify(items));
@@ -165,10 +162,6 @@ const EditSolution = (props: IProps) => {
       setShow={setShow}
       id={id}
       handleSubmit={handleSubmit}
-      opinionParagraphs={opinionParagraphs}
-      setOpinionParagraphs={setOpinionParagraphs}
-      opinionListItems={opinionListItems}
-      setOpinionListItems={setOpinionListItems}
       value={value}
       dispatch={dispatch}
       child={[<AddImageWithTextFields value={infoValue} dispatch={dispatchInfo} />]}

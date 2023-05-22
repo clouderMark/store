@@ -158,6 +158,41 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       };
     }
 
+    case EType.paragraphs: {
+      return {
+        ...state,
+        [EType.paragraphs]: action.payload,
+      };
+    }
+
+    case EType.infoListItems: {
+      return {
+        ...state,
+        [EType.infoListItems]: action.payload,
+      };
+    }
+
+    case EType.infoParagraphs: {
+      return {
+        ...state,
+        [EType.infoParagraphs]: action.payload,
+      };
+    }
+
+    case EType.opinionParagraphs: {
+      return {
+        ...state,
+        [EType.opinionParagraphs]: action.payload,
+      };
+    }
+
+    case EType.opinionListItems: {
+      return {
+        ...state,
+        [EType.opinionListItems]: action.payload,
+      };
+    }
+
     case EType.reset: {
       return initState(action.payload);
     }

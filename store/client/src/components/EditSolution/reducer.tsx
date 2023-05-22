@@ -67,6 +67,20 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       };
     }
 
+    case EType.opinionParagraphs: {
+      return {
+        ...state,
+        [EType.opinionParagraphs]: action.payload,
+      };
+    }
+
+    case EType.opinionListItems: {
+      return {
+        ...state,
+        [EType.opinionListItems]: action.payload,
+      };
+    }
+
     case EType.valid: {
       return {
         ...state,

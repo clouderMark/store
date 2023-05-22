@@ -22,4 +22,9 @@ export enum EType {
   opinionImageUrl = 'opinionImageUrl',
   sliderImage = 'sliderImage',
   sliderImageUrl = 'sliderImageUrl',
+  paragraphs = 'paragraphs',
+  infoListItems = 'infoListItems',
+  infoParagraphs = 'infoParagraphs',
+  opinionParagraphs = 'opinionParagraphs',
+  opinionListItems = 'opinionListItems',
 }

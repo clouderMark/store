@@ -1,3 +1,4 @@
+import {IParagraphs} from '../../types/types';
 import {EType} from './EType';
 
 interface IDefaultValue {
@@ -23,6 +24,11 @@ interface IDefaultValue {
   [EType.sliderImage]: File | null;
   [EType.sliderImageUrl]: string;
   [EType.valid]: null | boolean;
+  [EType.paragraphs]: IParagraphs[];
+  [EType.infoListItems]: IParagraphs[];
+  [EType.infoParagraphs]: IParagraphs[];
+  [EType.opinionParagraphs]: IParagraphs[];
+  [EType.opinionListItems]: IParagraphs[];
 }
 
 export default IDefaultValue;

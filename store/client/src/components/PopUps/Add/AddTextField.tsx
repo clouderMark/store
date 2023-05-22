@@ -1,29 +1,31 @@
-import {Dispatch, SetStateAction} from 'react';
+import {Dispatch} from 'react';
 import uuid from 'react-uuid';
 import {Box, IconButton, Typography} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import {IParagraphs} from '../../../types/types';
 import TextFieldWithIcon from './TextFieldWithIcon';
+import {IParagraphs} from '../../../types/types';
 
 interface IProps {
-  paragraphs: IParagraphs[];
-  setParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
   title: string;
   placeholder: string;
+  name: string;
+  value: {[key: string]: any} // eslint-disable-line
+  dispatch: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
 }
 
 const AddTextField = (props: IProps) => {
-  const {paragraphs, setParagraphs, title, placeholder} = props;
+  const {title, placeholder, dispatch, name, value} = props;
+  const items: IParagraphs[] = value[name];
   const append = () => {
-    setParagraphs([...paragraphs, {id: null, value: '', unique: uuid()}]);
+    dispatch({type: name, payload: [...items, {id: null, value: '', unique: uuid()}]});
   };
 
   const remove = (unique: string) => {
-    setParagraphs(paragraphs.filter((elem) => elem.unique !== unique));
+    dispatch({type: name, payload: items.filter((elem) => elem.unique !== unique)});
   };
 
   const change = (value: string, unique: string) => {
-    setParagraphs(paragraphs.map((item) => (item.unique === unique ? {...item, value} : item)));
+    dispatch({type: name, payload: items.map((item) => (item.unique === unique ? {...item, value} : item))});
   };
 
   return (
@@ -34,7 +36,7 @@ const AddTextField = (props: IProps) => {
           <AddIcon />
         </IconButton>
       </Box>
-      {paragraphs.map((item) => (
+      {items.map((item: IParagraphs) => (
         <TextFieldWithIcon item={{...item, placeholder, onChange: change, remove}} key={item.unique} />
       ))}
     </>

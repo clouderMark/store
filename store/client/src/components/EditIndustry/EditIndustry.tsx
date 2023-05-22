@@ -1,8 +1,8 @@
-import React, {useEffect, useState, Dispatch, SetStateAction, FormEvent, useReducer} from 'react';
+import React, {useEffect, Dispatch, SetStateAction, FormEvent, useReducer} from 'react';
 import uuid from 'react-uuid';
 import PopUpForIndystry from '../PopUps/PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from '../AppContext';
-import {IParagraphs, IAreaResponse} from '../../types/types';
+import {IAreaResponse} from '../../types/types';
 import filterParagraphs from '../PopUps/filterParagraphs';
 import {reducer, initState} from './reducer';
 import {EType} from './EType';
@@ -25,12 +25,6 @@ const EditIndustry = (props: IProps) => {
   const {catalog} = useAppContext();
   const {id, show, setShow, setChange, setId} = props;
 
-  const [paragraphs, setParagraphs] = useState<IParagraphs[]>([]);
-  const [infoListItems, setInfoListItems] = useState<IParagraphs[]>([]);
-  const [infoParagraphs, setInfoParagraphs] = useState<IParagraphs[]>([]);
-  const [opinionParagraphs, setOpinionParagraphs] = useState<IParagraphs[]>([]);
-  const [opinionListItems, setOpinionListItems] = useState<IParagraphs[]>([]);
-
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
 
   useEffect(() => {
@@ -52,7 +46,7 @@ const EditIndustry = (props: IProps) => {
             type: EType.title,
             payload: data.title,
           });
-          setParagraphs(data.paragraphs.map((item) => ({...item, unique: uuid()})));
+          dispatch({type: EType.paragraphs, payload: data.paragraphs.map((item) => ({...item, unique: uuid()}))});
           if (props.child) {
             props.child.setValue(`${data.industryId}`);
           }
@@ -74,10 +68,22 @@ const EditIndustry = (props: IProps) => {
             type: EType.opinionImageUrl,
             payload: data.opinion.image ? process.env.REACT_APP_IMG_URL + data.opinion.image : '',
           });
-          setInfoListItems(data.info.listItems.map((item) => ({...item, unique: uuid()})));
-          setInfoParagraphs(data.info.paragraphs.map((item) => ({...item, unique: uuid()})));
-          setOpinionParagraphs(data.opinion.paragraphs.map((item) => ({...item, unique: uuid()})));
-          setOpinionListItems(data.opinion.listItems.map((item) => ({...item, unique: uuid()})));
+          dispatch({
+            type: EType.infoListItems,
+            payload: data.info.listItems.map((item) => ({...item, unique: uuid()})),
+          });
+          dispatch({
+            type: EType.infoParagraphs,
+            payload: data.info.paragraphs.map((item) => ({...item, unique: uuid()})),
+          });
+          dispatch({
+            type: EType.opinionParagraphs,
+            payload: data.opinion.paragraphs.map((item) => ({...item, unique: uuid()})),
+          });
+          dispatch({
+            type: EType.opinionListItems,
+            payload: data.opinion.listItems.map((item) => ({...item, unique: uuid()})),
+          });
           if (!props.child) {
             dispatch({
               type: EType.sliderImageUrl,
@@ -93,11 +99,6 @@ const EditIndustry = (props: IProps) => {
     if (!show) {
       setId(null);
       dispatch({type: EType.reset, payload: defaultValue});
-      setParagraphs([]);
-      setInfoListItems([]);
-      setInfoParagraphs([]);
-      setOpinionParagraphs([]);
-      setOpinionListItems([]);
       props.child?.setValue('');
     }
   }, [show]);
@@ -125,11 +126,11 @@ const EditIndustry = (props: IProps) => {
         data.append(EType.headerImage, value[EType.headerImage], value[EType.headerImage].name);
       }
 
-      if (paragraphs.length) {
-        const items = filterParagraphs(paragraphs);
+      if (value[EType.paragraphs].length) {
+        const items = filterParagraphs(value[EType.paragraphs]);
 
         if (items.length) {
-          data.append('paragraphs', JSON.stringify(items));
+          data.append(EType.paragraphs, JSON.stringify(items));
         }
       }
 
@@ -141,39 +142,39 @@ const EditIndustry = (props: IProps) => {
       data.append(EType.infoHeader, value[EType.infoHeader].trim());
       data.append('listTitle', value.infoListTitle.trim());
 
-      if (infoListItems.length) {
-        const items = filterParagraphs(infoListItems);
+      if (value[EType.infoListItems].length) {
+        const items = filterParagraphs(value[EType.infoListItems]);
 
         if (items.length) {
           data.append('listItems', JSON.stringify(items));
         }
       }
 
-      if (infoParagraphs.length) {
-        const items = filterParagraphs(infoParagraphs);
+      if (value[EType.infoParagraphs].length) {
+        const items = filterParagraphs(value[EType.infoParagraphs]);
 
         if (items.length) {
-          data.append('infoParagraphs', JSON.stringify(items));
+          data.append(EType.infoParagraphs, JSON.stringify(items));
         }
       }
 
       data.append(EType.opinionTitle, value[EType.opinionTitle].trim());
 
-      if (opinionParagraphs.length) {
-        const items = filterParagraphs(opinionParagraphs);
+      if (value[EType.opinionParagraphs].length) {
+        const items = filterParagraphs(value[EType.opinionParagraphs]);
 
         if (items.length) {
-          data.append('opinionParagraphs', JSON.stringify(items));
+          data.append(EType.opinionParagraphs, JSON.stringify(items));
         }
       }
 
       data.append(EType.opinionListTitle, value[EType.opinionListTitle].trim());
 
-      if (opinionListItems.length) {
-        const items = filterParagraphs(opinionListItems);
+      if (value[EType.opinionListItems].length) {
+        const items = filterParagraphs(value[EType.opinionListItems]);
 
         if (items.length) {
-          data.append('opinionListItems', JSON.stringify(items));
+          data.append(EType.opinionListItems, JSON.stringify(items));
         }
       }
 
@@ -232,16 +233,6 @@ const EditIndustry = (props: IProps) => {
       setShow={setShow}
       id={id}
       handleSubmit={handleSubmit}
-      paragraphs={paragraphs}
-      setParagraphs={setParagraphs}
-      infoListItems={infoListItems}
-      setInfoListItems={setInfoListItems}
-      infoParagraphs={infoParagraphs}
-      setInfoParagraphs={setInfoParagraphs}
-      opinionParagraphs={opinionParagraphs}
-      setOpinionParagraphs={setOpinionParagraphs}
-      opinionListItems={opinionListItems}
-      setOpinionListItems={setOpinionListItems}
       child={props.child}
       value={value}
       dispatch={dispatch}

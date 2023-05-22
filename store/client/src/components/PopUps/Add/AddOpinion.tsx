@@ -1,4 +1,4 @@
-import {ChangeEvent, Dispatch, SetStateAction, Fragment} from 'react';
+import {ChangeEvent, Dispatch, Fragment} from 'react';
 import {TextField} from '@mui/material';
 import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import CardInputImage from '../CardInputImage/CardInputImage';
@@ -14,6 +14,8 @@ enum EName {
   opinionFax = 'opinionFax',
   opinionEmail = 'opinionEmail',
   opinionImageUrl = 'opinionImageUrl',
+  opinionParagraphs = 'opinionParagraphs',
+  opinionListItems = 'opinionListItems',
 }
 
 interface IValue {
@@ -23,21 +25,20 @@ interface IValue {
   [EName.opinionPhone]: string;
   [EName.opinionFax]: string;
   [EName.opinionEmail]: string;
-  [EName.opinionImageUrl]: string
+  [EName.opinionImageUrl]: string;
+  [EName.opinionParagraphs]: IParagraphs[];
+  [EName.opinionListItems]: IParagraphs[];
 }
 
 interface IProps {
   handleChange(event: ChangeEvent<HTMLInputElement>): void;
-  opinionParagraphs: IParagraphs[];
-  setOpinionParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
-  opinionListItems: IParagraphs[];
-  setOpinionListItems: Dispatch<SetStateAction<IParagraphs[]>>;
   handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
   value: IValue;
+  dispatch: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
 }
 
 const AddOpinion = (props: IProps) => {
-  const {value} = props;
+  const {value, dispatch} = props;
   const column2 = [
     {
       name: EName.opinionName,
@@ -73,8 +74,9 @@ const AddOpinion = (props: IProps) => {
             sx={{width: '100%', mt: '30px'}}
           />
           <AddTextField
-            paragraphs={props.opinionParagraphs}
-            setParagraphs={props.setOpinionParagraphs}
+            name={EName.opinionParagraphs}
+            value={value}
+            dispatch={dispatch}
             title={'Добавить абзац'}
             placeholder={'Параграф совета'}
           />
@@ -86,8 +88,9 @@ const AddOpinion = (props: IProps) => {
             sx={{width: '100%', mt: '30px'}}
           />
           <AddTextField
-            paragraphs={props.opinionListItems}
-            setParagraphs={props.setOpinionListItems}
+            name={EName.opinionListItems}
+            value={value}
+            dispatch={dispatch}
             title={'Добавить пункт'}
             placeholder={'пункт списка'}
           />
