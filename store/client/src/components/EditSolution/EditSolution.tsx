@@ -2,10 +2,8 @@ import React, {Dispatch, SetStateAction, useEffect, FormEvent, useReducer} from 
 import uuid from 'react-uuid';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
 import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
-import {IImage} from '../../types/types';
 import {initState, reducer} from './reducer';
 import {EType} from './EType';
-import filterParagraphs from '../PopUps/filterParagraphs';
 import {useAppContext} from '../AppContext';
 import AddImageWithTextFields from '../PopUps/Add/AddImageWithTextFields/AddImageWithTextFields';
 import {
@@ -18,6 +16,8 @@ import EInfo from '../PopUps/Add/AddImageWithTextFields/EInfo';
 import {reducer as opinionReducer, initState as opinionInitState} from '../PopUps/Add/AddOpinion/reducer';
 import defaultOpinionValue from '../PopUps/Add/AddOpinion/defaultValue';
 import EOpinion from '../PopUps/Add/AddOpinion/EOpinion';
+import appendOpinionToData from '../PopUps/Add/AddOpinion/appendOpinionToData';
+import appendInfoToData from '../PopUps/Add/AddImageWithTextFields/appendInfoToData';
 
 interface IProps {
   id: number | null;
@@ -82,61 +82,8 @@ const EditSolution = (props: IProps) => {
       const data = new FormData();
 
       data.append(EType.name, value[EType.name].trim());
-      data.append(EOpinion.opinionTitle, opinionValue[EOpinion.opinionTitle].trim());
-      data.append(EOpinion.opinionListTitle, opinionValue[EOpinion.opinionListTitle].trim());
-      data.append(EOpinion.opinionName, opinionValue[EOpinion.opinionName].trim());
-      data.append(EOpinion.opinionPhone, opinionValue[EOpinion.opinionPhone].trim());
-      data.append(EOpinion.opinionFax, opinionValue[EOpinion.opinionFax].trim());
-      data.append(EOpinion.opinionEmail, opinionValue[EOpinion.opinionEmail].trim());
-
-      if (opinionValue[EOpinion.opinionParagraphs].length) {
-        const items = filterParagraphs(opinionValue[EOpinion.opinionParagraphs]);
-
-        if (items.length) {
-          data.append(EOpinion.opinionParagraphs, JSON.stringify(items));
-        }
-      }
-
-      if (opinionValue[EOpinion.opinionListItems].length) {
-        const items = filterParagraphs(opinionValue[EOpinion.opinionListItems]);
-
-        if (items.length) {
-          data.append(EOpinion.opinionListItems, JSON.stringify(items));
-        }
-      }
-
-      if (opinionValue[EOpinion.opinionImage]) {
-        data.append(
-          EOpinion.opinionImage,
-          opinionValue[EOpinion.opinionImage],
-          opinionValue[EOpinion.opinionImage].name,
-        );
-      }
-
-      if (infoValue[EInfo.infoImages].length) {
-        infoValue.infoImages.forEach((el: IImage) => {
-          if (el.image) {
-            data.append(EInfo.infoImages, el.image, el.image.name);
-            data.append(`${EInfo.infoImages}RelatedTo`, el.relatedTo);
-          } else {
-            const imageName = el.imageUrl.replace(process.env.REACT_APP_IMG_URL ?? '', '');
-
-            data.append('infoImageUrls', imageName);
-          }
-        });
-      }
-
-      if (infoValue[EInfo.infoParagraphs].length) {
-        const items = filterParagraphs(infoValue[EInfo.infoParagraphs]);
-
-        if (items.length) {
-          data.append(EInfo.infoParagraphs, JSON.stringify(items));
-        }
-      }
-
-      if (infoValue[EInfo.infoTitle].length) {
-        data.append(EInfo.infoTitle, JSON.stringify(infoValue[EInfo.infoTitle]));
-      }
+      appendOpinionToData(data, opinionValue);
+      appendInfoToData(data, infoValue);
 
       const success = () => {
         // закрываю окно создания редактирования решения

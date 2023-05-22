@@ -10,6 +10,7 @@ import defaultValue from './defaultValue';
 import {reducer as opinionReducer, initState as opinionInitState} from '../PopUps/Add/AddOpinion/reducer';
 import defaultOpinionValue from '../PopUps/Add/AddOpinion/defaultValue';
 import EOpinion from '../PopUps/Add/AddOpinion/EOpinion';
+import appendOpinionToData from '../PopUps/Add/AddOpinion/appendOpinionToData';
 
 interface IProps {
   popUpTitle: string;
@@ -163,38 +164,7 @@ const EditIndustry = (props: IProps) => {
         }
       }
 
-      data.append(EOpinion.opinionTitle, opinionValue[EOpinion.opinionTitle].trim());
-
-      if (opinionValue[EOpinion.opinionParagraphs].length) {
-        const items = filterParagraphs(opinionValue[EOpinion.opinionParagraphs]);
-
-        if (items.length) {
-          data.append(EOpinion.opinionParagraphs, JSON.stringify(items));
-        }
-      }
-
-      data.append(EOpinion.opinionListTitle, opinionValue[EOpinion.opinionListTitle].trim());
-
-      if (opinionValue[EOpinion.opinionListItems].length) {
-        const items = filterParagraphs(opinionValue[EOpinion.opinionListItems]);
-
-        if (items.length) {
-          data.append(EOpinion.opinionListItems, JSON.stringify(items));
-        }
-      }
-
-      data.append(EOpinion.opinionName, opinionValue[EOpinion.opinionName].trim());
-      data.append(EOpinion.opinionPhone, opinionValue[EOpinion.opinionPhone].trim());
-      data.append(EOpinion.opinionFax, opinionValue[EOpinion.opinionFax].trim());
-      data.append(EOpinion.opinionEmail, opinionValue[EOpinion.opinionEmail].trim());
-
-      if (opinionValue[EOpinion.opinionImage]) {
-        data.append(
-          EOpinion.opinionImage,
-          opinionValue[EOpinion.opinionImage],
-          opinionValue[EOpinion.opinionImage].name,
-        );
-      }
+      appendOpinionToData(data, opinionValue);
 
       if (!props.child && value.sliderImage) {
         data.append(EType.sliderImage, value[EType.sliderImage], value[EType.sliderImage].name);

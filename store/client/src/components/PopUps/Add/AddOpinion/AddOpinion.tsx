@@ -27,7 +27,7 @@ const AddOpinion = (props: IProps) => {
     },
     {
       name: EOpinion.opinionPhone,
-      value: EOpinion[EOpinion.opinionPhone],
+      value: value[EOpinion.opinionPhone],
       placeholder: 'Телефон',
     },
     {
