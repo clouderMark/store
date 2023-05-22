@@ -5,6 +5,8 @@ import AddOpinion from '../Add/AddOpinion';
 import {EType} from '../../EditSolution/EType';
 import DialogWithTitle from '../DialogWithTitle';
 import IDefaultValue from '../../EditSolution/IDefaultValue';
+import inputChange from '../handleChange';
+import imageChange from '../handleImageChange';
 
 interface IProps {
   show: boolean;
@@ -23,27 +25,8 @@ interface IProps {
 const PopUpForSolutiond = (props: IProps) => {
   const {value, dispatch} = props;
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.files) {
-      const file = event.target.files[0];
-      const {name} = event.target;
-      const newImageUrl = URL.createObjectURL(file);
-
-      dispatch({type: name, payload: file});
-      dispatch({type: `${name}Url`, payload: newImageUrl});
-    }
-  };
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {name} = event.target;
-    const {value} = event.target;
-
-    if (name === EType.name) {
-      dispatch({type: EType.valid, payload: value.trim() !== ''});
-    }
-
-    dispatch({type: name, payload: value});
-  };
+  const handleChange = inputChange(dispatch);
+  const handleImageChange = imageChange(dispatch);
 
   return (
     <DialogWithTitle
@@ -70,10 +53,7 @@ const PopUpForSolutiond = (props: IProps) => {
             setOpinionParagraphs={props.setOpinionParagraphs}
             opinionListItems={props.opinionListItems}
             setOpinionListItems={props.setOpinionListItems}
-            image={{
-              image: props.value[EType.opinionImageUrl],
-              handleImageChange: handleImageChange,
-            }}
+            handleImageChange={handleImageChange}
             value={value}
           />
           {props.child?.map((el, i) => (

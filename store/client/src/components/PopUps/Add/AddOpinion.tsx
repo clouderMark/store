@@ -13,6 +13,7 @@ enum EName {
   opinionPhone = 'opinionPhone',
   opinionFax = 'opinionFax',
   opinionEmail = 'opinionEmail',
+  opinionImageUrl = 'opinionImageUrl',
 }
 
 interface IValue {
@@ -22,6 +23,7 @@ interface IValue {
   [EName.opinionPhone]: string;
   [EName.opinionFax]: string;
   [EName.opinionEmail]: string;
+  [EName.opinionImageUrl]: string
 }
 
 interface IProps {
@@ -30,10 +32,7 @@ interface IProps {
   setOpinionParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
   opinionListItems: IParagraphs[];
   setOpinionListItems: Dispatch<SetStateAction<IParagraphs[]>>;
-  image: {
-    image: string;
-    handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
-  };
+  handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
   value: IValue;
 }
 
@@ -97,9 +96,9 @@ const AddOpinion = (props: IProps) => {
       secondColumn={
         <>
           <CardInputImage
-            value={props.image.image}
+            value={value[EName.opinionImageUrl]}
             name={EName.opinionImage}
-            handleImageChange={props.image.handleImageChange}
+            handleImageChange={props.handleImageChange}
           />
           {column2.map((el, i) => (
             <Fragment key={i}>

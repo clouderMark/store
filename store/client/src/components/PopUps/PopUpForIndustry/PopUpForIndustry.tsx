@@ -1,4 +1,4 @@
-import React, {ChangeEvent} from 'react';
+import {ChangeEvent} from 'react';
 import {Box, DialogActions, Button, TextField} from '@mui/material';
 import {IPopUpForIndystry} from './types/IPopUpForIndystry';
 import AddTextField from '../Add/AddTextField';
@@ -7,31 +7,14 @@ import CardInputImage from '../CardInputImage/CardInputImage';
 import {EType} from '../../EditIndustry/EType';
 import AddOpinion from '../Add/AddOpinion';
 import DialogWithTitle from '../DialogWithTitle';
+import inputChange from '../handleChange';
+import imageChange from '../handleImageChange';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => {
   const {value, dispatch} = props;
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {name} = event.target;
-    const {value} = event.target;
-
-    if (name === EType.name) {
-      dispatch({type: EType.valid, payload: value.trim() !== ''});
-    }
-
-    dispatch({type: name, payload: value});
-  };
-
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.files) {
-      const file = event.target.files[0];
-      const {name} = event.target;
-      const newImageUrl = URL.createObjectURL(file);
-
-      dispatch({type: name, payload: file});
-      dispatch({type: `${name}Url`, payload: newImageUrl});
-    }
-  };
+  const handleChange = inputChange(dispatch);
+  const handleImageChange = imageChange(dispatch);
 
   return (
     <DialogWithTitle
@@ -144,10 +127,7 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
             setOpinionParagraphs={props.setOpinionParagraphs}
             opinionListItems={props.opinionListItems}
             setOpinionListItems={props.setOpinionListItems}
-            image={{
-              image: value[EType.opinionImageUrl],
-              handleImageChange: handleImageChange,
-            }}
+            handleImageChange={handleImageChange}
             value={value}
           />
           <DialogActions>
