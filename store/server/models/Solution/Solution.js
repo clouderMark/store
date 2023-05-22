@@ -1,8 +1,10 @@
 import {
   Solution as SolutionMapping,
-  SolutionInfoImage as SolutionInfoImageMapping,
   SolutionInfoParagraph as SolutionInfoParagraphMapping,
   SolutionInfoTitle as SolutionInfoTitleMapping,
+  SolutionOpinion as OpinionMapping,
+  SolutionOpinionItem as OpinionItemMapping,
+  SolutionOpinionParagraph as OpinionParagraphMapping,
 } from '../mapping.js';
 import AppError from '../../errors/AppError.js';
 import FileService from '../../services/File.js';
@@ -11,6 +13,8 @@ import saveInfoImages from './saveImages.js';
 import createParagraphs from './createParagraphs.js';
 import createTitle from './createTitle.js';
 import updateInfoImages from './updateInfoImages.js';
+import createOpinionListItems from './createOpinionListItems.js';
+import createOpinionParagraphs from './createOpinionParagraphs.js';
 
 class Solution {
   async getAll() {
@@ -26,8 +30,20 @@ class Solution {
     return solution;
   }
 
-  async create(data, infoImges) {
-    const { name, infoImagesRelatedTo, infoParagraphs, infoTitle } = data;
+  async create(data, infoImges, opinionImg) {
+    const opinionImage = FileService.save(opinionImg) ?? '';
+    const {
+      name,
+      infoImagesRelatedTo,
+      infoParagraphs,
+      infoTitle,
+      opinionTitle = '',
+      opinionListTitle = '',
+      opinionName = '',
+      opinionPhone = '',
+      opinionFax = '',
+      opinionEmail = '',
+    } = data;
     const solution = await SolutionMapping.create({ name });
 
     saveInfoImages(infoImges, infoImagesRelatedTo, solution.id);
@@ -40,13 +56,40 @@ class Solution {
       createTitle(infoTitle, solution.id);
     }
 
-    return solution;
+    OpinionMapping.create({
+      title: opinionTitle,
+      listTitle: opinionListTitle,
+      name: opinionName,
+      image: opinionImage,
+      phone: opinionPhone,
+      fax: opinionFax,
+      email: opinionEmail,
+      opinionId: solution.id,
+    });
+
+    if (data.opinionListItems) {
+      createOpinionListItems(data.opinionListItems, solution.id);
+    }
+
+    if (data.opinionParagraphs) {
+      createOpinionParagraphs(data.opinionParagraphs, solution.id);
+    }
+
+    await solution.reload();
+    const created = await SolutionMapping.findByPk(solution.id);
+
+    return created;
   }
 
-  async update(id, data, newInfoImages) {
+  async update(id, data, newInfoImages, opinionImg) {
     const solution = await SolutionMapping.findByPk(id, include);
     if (!solution) {
       throw new Error('Решение не найдена в БД');
+    }
+    const file1 = FileService.save(opinionImg);
+
+    if (file1 && solution.opinion.image) {
+      FileService.delete(solution.opinion.image);
     }
     const {
       name = solution.name,
@@ -54,6 +97,13 @@ class Solution {
       infoImagesRelatedTo,
       infoParagraphs,
       infoTitle,
+      opinionImage = file1 ? file1 : solution.opinion.image,
+      opinionTitle = solution.opinion.title,
+      opinionListTitle = solution.opinion.listTitle,
+      opinionName = solution.opinion.name,
+      opinionPhone = solution.opinion.phone,
+      opinionFax = solution.opinion.fax,
+      opinionEmail = solution.opinion.email,
     } = data;
     await solution.update({ name });
 
@@ -81,7 +131,35 @@ class Solution {
       createTitle(infoTitle, solution.id);
     }
 
-    return solution;
+    await OpinionMapping.update(
+      {
+        title: opinionTitle,
+        listTitle: opinionListTitle,
+        name: opinionName,
+        image: opinionImage,
+        phone: opinionPhone,
+        fax: opinionFax,
+        email: opinionEmail,
+      },
+      { where: { opinionId: id } }
+    );
+
+    if (data.opinionListItems) {
+      await OpinionItemMapping.destroy({ where: { solutionOpinionId: id } });
+      createOpinionListItems(data.opinionListItems, id);
+    }
+
+    if (data.opinionParagraphs) {
+      await OpinionParagraphMapping.destroy({
+        where: { solutionOpinionId: id },
+      });
+      createOpinionParagraphs(data.opinionParagraphs, id);
+    }
+
+    await solution.reload();
+    const created = await SolutionMapping.findByPk(solution.id);
+
+    return created;
   }
 
   async delete(id) {
@@ -92,6 +170,9 @@ class Solution {
     }
 
     solution.infoImages.map((el) => FileService.delete(el.image));
+    if (solution.opinion.image) {
+      FileService.delete(solution.opinion.image);
+    }
     await solution.destroy();
 
     return solution;

@@ -2,6 +2,9 @@ import {
   SolutionInfoImage as SolutionInfoImageMapping,
   SolutionInfoParagraph as SolutionInfoParagraphMapping,
   SolutionInfoTitle as SolutionInfoTitleMapping,
+  SolutionOpinion as OpinionMapping,
+  SolutionOpinionItem as OpinionItemMapping,
+  SolutionOpinionParagraph as OpinionParagraphMapping,
 } from '../mapping.js';
 
 export const include = {
@@ -20,6 +23,23 @@ export const include = {
       model: SolutionInfoTitleMapping,
       as: 'infoTitle',
       attributes: ['id', 'unique', 'value'],
+    },
+    {
+      model: OpinionMapping,
+      as: 'opinion',
+      attributes: ['id', 'title', 'name', 'image', 'listTitle', 'phone', 'fax', 'email'],
+      include: [
+        {
+          model: OpinionParagraphMapping,
+          as: 'paragraphs',
+          attributes: ['id', 'value'],
+        },
+        {
+          model: OpinionItemMapping,
+          as: 'listItems',
+          attributes: ['id', 'value'],
+        },
+      ],
     },
   ]
 }
