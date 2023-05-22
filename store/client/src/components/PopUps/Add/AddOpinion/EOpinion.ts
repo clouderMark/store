@@ -10,6 +10,7 @@ enum EOpinion {
   opinionImageUrl = 'opinionImageUrl',
   opinionParagraphs = 'opinionParagraphs',
   opinionListItems = 'opinionListItems',
+  fetch = 'fetch',
 }
 
 export default EOpinion;

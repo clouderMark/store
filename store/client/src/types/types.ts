@@ -15,8 +15,6 @@ export interface IBasket extends IId {
 
 export interface ICatalogItem extends IId {
   name: string;
-  // updatedAt: string;
-  // createdAt: string;
 }
 
 export interface IProduct extends ICatalogItem {
@@ -250,4 +248,5 @@ export interface IFetchSolution extends IId {
   }[];
   infoParagraphs: IParagraphsRelatedTo[];
   infoTitle: IParagraphs[];
+  opinion: IOpinion;
 }

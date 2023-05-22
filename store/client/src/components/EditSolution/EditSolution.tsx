@@ -58,6 +58,10 @@ const EditSolution = (props: IProps) => {
             type: EInfo.infoTitle,
             payload: data.infoTitle,
           });
+          dispatchOpinion({
+            type: EOpinion.fetch,
+            payload: data.opinion,
+          });
         })
         .catch((error) => console.error(error));
     }

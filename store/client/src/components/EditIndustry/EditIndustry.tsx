@@ -63,16 +63,6 @@ const EditIndustry = (props: IProps) => {
           dispatch({type: EType.infoTitle, payload: data.info.title});
           dispatch({type: EType.infoHeader, payload: data.info.header});
           dispatch({type: EType.infoListTitle, payload: data.info.listTitle});
-          dispatchOpinion({type: EOpinion.opinionTitle, payload: data.opinion.title});
-          dispatchOpinion({type: EOpinion.opinionListTitle, payload: data.opinion.listTitle});
-          dispatchOpinion({type: EOpinion.opinionName, payload: data.opinion.name});
-          dispatchOpinion({type: EOpinion.opinionPhone, payload: data.opinion.phone});
-          dispatchOpinion({type: EOpinion.opinionFax, payload: data.opinion.fax});
-          dispatchOpinion({type: EOpinion.opinionEmail, payload: data.opinion.email});
-          dispatchOpinion({
-            type: EOpinion.opinionImageUrl,
-            payload: data.opinion.image ? process.env.REACT_APP_IMG_URL + data.opinion.image : '',
-          });
           dispatch({
             type: EType.infoListItems,
             payload: data.info.listItems.map((item) => ({...item, unique: uuid()})),
@@ -81,14 +71,7 @@ const EditIndustry = (props: IProps) => {
             type: EType.infoParagraphs,
             payload: data.info.paragraphs.map((item) => ({...item, unique: uuid()})),
           });
-          dispatchOpinion({
-            type: EOpinion.opinionParagraphs,
-            payload: data.opinion.paragraphs.map((item) => ({...item, unique: uuid()})),
-          });
-          dispatchOpinion({
-            type: EOpinion.opinionListItems,
-            payload: data.opinion.listItems.map((item) => ({...item, unique: uuid()})),
-          });
+          dispatchOpinion({type: EOpinion.fetch, payload: data.opinion});
           if (!props.child) {
             dispatch({
               type: EType.sliderImageUrl,

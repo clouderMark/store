@@ -1,3 +1,5 @@
+import uuid from 'react-uuid';
+import {IOpinion} from '../../../../types/types';
 import EOpinion from './EOpinion';
 import IDefaultValue from './IDefaultValue';
 
@@ -71,6 +73,23 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       return {
         ...state,
         [EOpinion.opinionListItems]: action.payload,
+      };
+    }
+
+    case EOpinion.fetch: {
+      const data: IOpinion = action.payload;
+
+      return {
+        ...state,
+        [EOpinion.opinionTitle]: data.title,
+        [EOpinion.opinionListTitle]: data.listTitle,
+        [EOpinion.opinionName]: data.name,
+        [EOpinion.opinionPhone]: data.phone,
+        [EOpinion.opinionFax]: data.fax,
+        [EOpinion.opinionEmail]: data.email,
+        [EOpinion.opinionImageUrl]: data.image ? process.env.REACT_APP_IMG_URL + data.image : '',
+        [EOpinion.opinionParagraphs]: data.paragraphs.map((item) => ({...item, unique: uuid()})),
+        [EOpinion.opinionListItems]: data.listItems.map((item) => ({...item, unique: uuid()})),
       };
     }
 
