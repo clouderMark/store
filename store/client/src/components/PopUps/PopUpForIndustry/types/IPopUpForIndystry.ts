@@ -1,6 +1,7 @@
 import {Dispatch, SetStateAction, FormEvent} from 'react';
 import IDefaultValue from '../../../EditIndustry/IDefaultValue';
 import IOpinionDefaultValue from '../../Add/AddOpinion/IDefaultValue';
+import IDefaultInfoValue from '../../Add/AddOneImageWithTextFields/IDefaultValue';
 
 export interface IPopUpForIndystry {
   cardTitle: string;
@@ -13,4 +14,6 @@ export interface IPopUpForIndystry {
   dispatch: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
   opinionValue: IOpinionDefaultValue;
   dispatchOpinion: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
+  infoValue: IDefaultInfoValue;
+  dispatchInfo: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
 }

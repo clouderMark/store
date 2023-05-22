@@ -2,13 +2,13 @@ import {ChangeEvent} from 'react';
 import {Box, DialogActions, Button, TextField} from '@mui/material';
 import {IPopUpForIndystry} from './types/IPopUpForIndystry';
 import AddTextField from '../Add/AddTextField';
-import ContainerWithTwoColumns from '../../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import CardInputImage from '../CardInputImage/CardInputImage';
 import {EType} from '../../EditIndustry/EType';
 import AddOpinion from '../Add/AddOpinion/AddOpinion';
 import DialogWithTitle from '../DialogWithTitle';
 import inputChange from '../handleChange';
 import imageChange from '../handleImageChange';
+import AddOneImageWithTextFields from '../Add/AddOneImageWithTextFields/AddOneImageWithTextFields';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => {
   const {value, dispatch, opinionValue, dispatchOpinion} = props;
@@ -74,55 +74,9 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
             title={'Добавить абзац'}
             placeholder={'Параграф индустрии'}
           />
-          <ContainerWithTwoColumns
-            firstColumn={
-              <CardInputImage
-                value={value[EType.infoImageUrl]}
-                name={EType.infoImage}
-                handleImageChange={handleImageChange}
-              />
-            }
-            secondColumn={
-              <>
-                <TextField
-                  name={EType.infoTitle}
-                  value={value[EType.infoTitle]}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-                  placeholder="Заголовок"
-                  sx={{width: '100%', mt: '30px'}}
-                />
-                <TextField
-                  name={EType.infoHeader}
-                  value={value[EType.infoHeader]}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-                  placeholder="Подзаголовок"
-                  sx={{width: '100%', mt: '30px'}}
-                />
-                <TextField
-                  name={EType.infoListTitle}
-                  multiline
-                  rows={4}
-                  value={value[EType.infoListTitle]}
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-                  placeholder="Заголовок списка"
-                  sx={{width: '100%', mt: '30px'}}
-                />
-                <AddTextField
-                  name={EType.infoListItems}
-                  value={value}
-                  dispatch={dispatch}
-                  title={'Добавить пункт'}
-                  placeholder={'Пункт списка'}
-                />
-                <AddTextField
-                  name={EType.infoParagraphs}
-                  value={value}
-                  dispatch={dispatch}
-                  title={'Добавить параграф'}
-                  placeholder={'Параграф'}
-                />
-              </>
-            }
+          <AddOneImageWithTextFields
+            value={props.infoValue}
+            dispatch={props.dispatchInfo}
           />
           <AddOpinion
             value={opinionValue}

@@ -11,6 +11,13 @@ import {reducer as opinionReducer, initState as opinionInitState} from '../PopUp
 import defaultOpinionValue from '../PopUps/Add/AddOpinion/defaultValue';
 import EOpinion from '../PopUps/Add/AddOpinion/EOpinion';
 import appendOpinionToData from '../PopUps/Add/AddOpinion/appendOpinionToData';
+import {
+  reducer as imageWithTextFieldReducer,
+  initState as initStateInfo,
+} from '../PopUps/Add/AddOneImageWithTextFields/reducer';
+import defaultInfoValue from '../PopUps/Add/AddOneImageWithTextFields/defaultValue';
+import EField from '../PopUps/Add/AddOneImageWithTextFields/EField';
+import appendInfo from '../PopUps/Add/AddOneImageWithTextFields/appendInfo';
 
 interface IProps {
   popUpTitle: string;
@@ -31,6 +38,7 @@ const EditIndustry = (props: IProps) => {
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
   const [opinionValue, dispatchOpinion] = useReducer(opinionReducer, defaultOpinionValue, opinionInitState);
+  const [infoValue, dispatchInfo] = useReducer(imageWithTextFieldReducer, defaultInfoValue, initStateInfo);
 
   useEffect(() => {
     if (id) {
@@ -56,21 +64,7 @@ const EditIndustry = (props: IProps) => {
             props.child.setValue(`${data.industryId}`);
           }
 
-          dispatch({
-            type: EType.infoImageUrl,
-            payload: data.info.image ? process.env.REACT_APP_IMG_URL + data.info.image : '',
-          });
-          dispatch({type: EType.infoTitle, payload: data.info.title});
-          dispatch({type: EType.infoHeader, payload: data.info.header});
-          dispatch({type: EType.infoListTitle, payload: data.info.listTitle});
-          dispatch({
-            type: EType.infoListItems,
-            payload: data.info.listItems.map((item) => ({...item, unique: uuid()})),
-          });
-          dispatch({
-            type: EType.infoParagraphs,
-            payload: data.info.paragraphs.map((item) => ({...item, unique: uuid()})),
-          });
+          dispatchInfo({type: EField.fetch, payload: data.info});
           dispatchOpinion({type: EOpinion.fetch, payload: data.opinion});
           if (!props.child) {
             dispatch({
@@ -88,6 +82,7 @@ const EditIndustry = (props: IProps) => {
       setId(null);
       dispatch({type: EType.reset, payload: defaultValue});
       dispatchOpinion({type: EOpinion.reset, payload: defaultOpinionValue});
+      dispatchInfo({type: EField.reset, payload: defaultInfoValue});
       props.child?.setValue('');
     }
   }, [show]);
@@ -123,31 +118,8 @@ const EditIndustry = (props: IProps) => {
         }
       }
 
-      if (value[EType.infoImage]) {
-        data.append(EType.infoImage, value[EType.infoImage], value[EType.infoImage].name);
-      }
-
-      data.append(EType.infoTitle, value[EType.infoTitle].trim());
-      data.append(EType.infoHeader, value[EType.infoHeader].trim());
-      data.append('listTitle', value.infoListTitle.trim());
-
-      if (value[EType.infoListItems].length) {
-        const items = filterParagraphs(value[EType.infoListItems]);
-
-        if (items.length) {
-          data.append('listItems', JSON.stringify(items));
-        }
-      }
-
-      if (value[EType.infoParagraphs].length) {
-        const items = filterParagraphs(value[EType.infoParagraphs]);
-
-        if (items.length) {
-          data.append(EType.infoParagraphs, JSON.stringify(items));
-        }
-      }
-
       appendOpinionToData(data, opinionValue);
+      appendInfo(data, infoValue);
 
       if (!props.child && value.sliderImage) {
         data.append(EType.sliderImage, value[EType.sliderImage], value[EType.sliderImage].name);
@@ -200,6 +172,8 @@ const EditIndustry = (props: IProps) => {
       dispatch={dispatch}
       opinionValue={opinionValue}
       dispatchOpinion={dispatchOpinion}
+      infoValue={infoValue}
+      dispatchInfo={dispatchInfo}
     />
   );
 };
