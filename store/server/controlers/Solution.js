@@ -39,6 +39,7 @@ class Solution {
         req.files?.infoImages,
         req.files?.opinionImage,
         req.files?.cardImage,
+        req.files?.headerImage,
       );
       res.json(solution);
     } catch (e) {
@@ -57,6 +58,7 @@ class Solution {
         req.files?.infoImages,
         req.files?.opinionImage,
         req.files?.cardImage,
+        req.files?.headerImage,
       );
       res.json(solution);
     } catch (e) {

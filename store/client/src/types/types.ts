@@ -244,8 +244,9 @@ export interface IImage {
 }
 
 export interface IFetchSolution extends IId {
-  cardImage: string;
   name: string;
+  cardImage: string;
+  headerImage: string;
   infoImages: {
     image: string;
     relatedTo: string;

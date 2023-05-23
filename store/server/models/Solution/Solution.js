@@ -35,9 +35,10 @@ class Solution {
     return solution;
   }
 
-  async create(data, infoImges, opinionImg, cardImg) {
+  async create(data, infoImges, opinionImg, cardImg, headerImg) {
     const opinionImage = FileService.save(opinionImg) ?? '';
     const cardImage = FileService.save(cardImg) ?? '';
+    const headerImage = FileService.save(headerImg) ?? '';
     const {
       name,
       infoImagesRelatedTo,
@@ -50,7 +51,7 @@ class Solution {
       opinionFax = '',
       opinionEmail = '',
     } = data;
-    const solution = await SolutionMapping.create({ name, cardImage });
+    const solution = await SolutionMapping.create({ name, cardImage, headerImage });
 
     saveInfoImages(infoImges, infoImagesRelatedTo, solution.id);
 
@@ -87,13 +88,14 @@ class Solution {
     return created;
   }
 
-  async update(id, data, newInfoImages, opinionImg, cardImg) {
+  async update(id, data, newInfoImages, opinionImg, cardImg, headerImg) {
     const solution = await SolutionMapping.findByPk(id, include);
     if (!solution) {
       throw new Error('Решение не найдена в БД');
     }
     const file1 = FileService.save(opinionImg);
     const file2 = FileService.save(cardImg);
+    const file3 = FileService.save(headerImg);
 
     if (file1 && solution.opinion.image) {
       FileService.delete(solution.opinion.image);
@@ -103,9 +105,14 @@ class Solution {
       FileService.delete(solution.cardImage);
     }
 
+    if (file3 && solution.headerImage) {
+        FileService.delete(solution.headerImage);
+      }
+
     const {
       name = solution.name,
       cardImage = file2 ? file2 : solution.cardImage,
+      headerImage = file3 ? file3 : solution.headerImage,
       infoImageUrls,
       infoImagesRelatedTo,
       infoParagraphs,
@@ -118,7 +125,7 @@ class Solution {
       opinionFax = solution.opinion.fax,
       opinionEmail = solution.opinion.email,
     } = data;
-    await solution.update({ name, cardImage });
+    await solution.update({ name, cardImage, headerImage });
 
     updateInfoImages(
       newInfoImages,
@@ -189,6 +196,10 @@ class Solution {
 
     if (solution.cardImage) {
       FileService.delete(solution.cardImage);
+    }
+
+    if (solution.headerImage) {
+      FileService.delete(solution.headerImage);
     }
 
     await solution.destroy();

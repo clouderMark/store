@@ -4,5 +4,7 @@ export enum EType {
   name = 'name',
   cardImage = 'cardImage',
   cardImageUrl = 'cardImageUrl',
+  headerImageUrl = 'headerImageUrl',
+  headerImage = 'headerImage',
   fetch = 'fetch',
 }

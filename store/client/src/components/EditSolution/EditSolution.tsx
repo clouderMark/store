@@ -93,6 +93,10 @@ const EditSolution = (props: IProps) => {
         );
       }
 
+      if (value[EType.headerImage]) {
+        data.append(EType.headerImage, value[EType.headerImage], value[EType.headerImage].name);
+      }
+
       appendOpinionToData(data, opinionValue);
       appendInfoToData(data, infoValue);
 

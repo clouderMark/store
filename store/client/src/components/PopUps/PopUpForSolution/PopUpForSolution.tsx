@@ -34,23 +34,31 @@ const PopUpForSolutiond = (props: IProps) => {
       title={props.id ? 'Редактирование продуктового решения' : 'Создание продуктового решения'}
       child={
         <Box component="form" noValidate onSubmit={props.handleSubmit}>
-          <Box sx={{width: '335px'}}>
+          <Box sx={{display: 'flex'}}>
+            <Box sx={{width: '335px'}}>
+              <CardInputImage
+                value={value[EType.cardImageUrl]}
+                name={EType.cardImage}
+                handleImageChange={handleImageChange}
+              />
+              <TextField
+                autoFocus={true}
+                name={EType.name}
+                value={value[EType.name]}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
+                required
+                error={value[EType.valid] === false}
+                color={value[EType.valid] ? 'success' : 'primary'}
+                placeholder={'Название продуктового решения ...'}
+                className="mb-3"
+                sx={{width: '100%'}}
+              />
+            </Box>
             <CardInputImage
-              value={value[EType.cardImageUrl]}
-              name={EType.cardImage}
+              value={value[EType.headerImageUrl]}
+              name={EType.headerImage}
               handleImageChange={handleImageChange}
-            />
-            <TextField
-              autoFocus={true}
-              name={EType.name}
-              value={value[EType.name]}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-              required
-              error={value[EType.valid] === false}
-              color={value[EType.valid] ? 'success' : 'primary'}
-              placeholder={'Название продуктового решения ...'}
-              className="mb-3"
-              sx={{width: '100%'}}
+              sx={{flexGrow: 1, ml: '30px'}}
             />
           </Box>
           <AddOpinion value={opinionValue} dispatch={dispatchOpinion} />

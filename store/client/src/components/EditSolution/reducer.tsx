@@ -25,6 +25,20 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       };
     }
 
+    case EType.headerImage: {
+      return {
+        ...state,
+        [EType.headerImage]: action.payload,
+      };
+    }
+
+    case EType.headerImageUrl: {
+      return {
+        ...state,
+        [EType.headerImageUrl]: action.payload,
+      };
+    }
+
     case EType.valid: {
       return {
         ...state,
@@ -40,6 +54,7 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
         [EType.name]: data.name,
         [EType.valid]: data.name !== '',
         [EType.cardImageUrl]: data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '',
+        [EType.headerImageUrl]: data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : '',
       };
     }
 

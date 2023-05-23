@@ -5,6 +5,8 @@ interface IDefaultValue {
   [EType.valid]: null | boolean;
   [EType.cardImage]: File | null;
   [EType.cardImageUrl]: string;
+  [EType.headerImage]: File | null;
+  [EType.headerImageUrl]: string;
 }
 
 export default IDefaultValue;

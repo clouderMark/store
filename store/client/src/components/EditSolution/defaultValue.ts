@@ -6,6 +6,8 @@ const defaultValue: IDefaultValue = {
   [EType.valid]: null,
   [EType.cardImage]: null,
   [EType.cardImageUrl]: '',
+  [EType.headerImage]: null,
+  [EType.headerImageUrl]: '',
 };
 
 export default defaultValue;
