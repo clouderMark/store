@@ -11,25 +11,27 @@ import {check as checkAuth} from './http/userAPI';
 import {fetchBasket} from './http/basketAPI';
 import Loader from './components/Loader';
 import {theme} from './styles/theme';
-import {fetchIndustries, fetchSubIndustries} from './http/catalogAPI';
+import {fetchIndustries, fetchSubIndustries, fetchSolutions} from './http/catalogAPI';
 
 const App = observer(() => {
   const {user, basket, catalog} = useAppContext();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    Promise.all([checkAuth(), fetchBasket(), fetchIndustries(), fetchSubIndustries()])
+    Promise.all([checkAuth(), fetchBasket(), fetchIndustries(), fetchSubIndustries(), fetchSolutions()])
       .then((res) => {
-        const [userData, basketData, industriesData, subIndustriesData] = res;
+        const [userData, basketData, industriesData, subIndustriesData, solutionsData] = res;
 
         if (userData) user.login(userData);
         basket.products = basketData.products;
         catalog.industries = industriesData;
         catalog.subIndustries = subIndustriesData;
+        catalog.solutions = solutionsData;
       })
       .finally(() => {
         setLoading(false);
         catalog.industriesFetching = false;
+        catalog.solutionsFetching = false;
       });
   }, []);
 

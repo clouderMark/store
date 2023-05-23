@@ -40,8 +40,7 @@ const EditSolution = (props: IProps) => {
       fetchSolution(id)
         .then((data) => {
           console.log(data);
-          dispatch({type: EType.name, payload: data.name});
-          dispatch({type: EType.valid, payload: data.name !== ''});
+          dispatch({type: EType.fetch, payload: data});
           dispatchInfo({
             type: EInfo.infoImages,
             payload: data.infoImages.map((el) => ({
@@ -86,6 +85,14 @@ const EditSolution = (props: IProps) => {
       const data = new FormData();
 
       data.append(EType.name, value[EType.name].trim());
+      if (value[EType.cardImage]) {
+        data.append(
+          EType.cardImage,
+          value[EType.cardImage],
+          value[EType.cardImage].name,
+        );
+      }
+
       appendOpinionToData(data, opinionValue);
       appendInfoToData(data, infoValue);
 

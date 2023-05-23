@@ -136,6 +136,7 @@ const SubOpinionItem = sequelize.define('sub_op_list_item', {
 const Solution = sequelize.define('solution', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    cardImage: {type: DataTypes.STRING, allowNull: false},
 }, { timestamps: false })
 
 const SolutionInfoImage = sequelize.define('solution_info_image', {

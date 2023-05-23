@@ -18,6 +18,11 @@ import createOpinionParagraphs from './createOpinionParagraphs.js';
 
 class Solution {
   async getAll() {
+    const solutions = await SolutionMapping.findAll({attributes: ['name', 'id']});
+    return solutions;
+  }
+
+  async getAllWithImages() {
     const solutions = await SolutionMapping.findAll();
     return solutions;
   }
@@ -30,8 +35,9 @@ class Solution {
     return solution;
   }
 
-  async create(data, infoImges, opinionImg) {
+  async create(data, infoImges, opinionImg, cardImg) {
     const opinionImage = FileService.save(opinionImg) ?? '';
+    const cardImage = FileService.save(cardImg) ?? '';
     const {
       name,
       infoImagesRelatedTo,
@@ -44,7 +50,7 @@ class Solution {
       opinionFax = '',
       opinionEmail = '',
     } = data;
-    const solution = await SolutionMapping.create({ name });
+    const solution = await SolutionMapping.create({ name, cardImage });
 
     saveInfoImages(infoImges, infoImagesRelatedTo, solution.id);
 
@@ -81,18 +87,25 @@ class Solution {
     return created;
   }
 
-  async update(id, data, newInfoImages, opinionImg) {
+  async update(id, data, newInfoImages, opinionImg, cardImg) {
     const solution = await SolutionMapping.findByPk(id, include);
     if (!solution) {
       throw new Error('Решение не найдена в БД');
     }
     const file1 = FileService.save(opinionImg);
+    const file2 = FileService.save(cardImg);
 
     if (file1 && solution.opinion.image) {
       FileService.delete(solution.opinion.image);
     }
+
+    if (file2 && solution.cardImage) {
+      FileService.delete(solution.cardImage);
+    }
+
     const {
       name = solution.name,
+      cardImage = file2 ? file2 : solution.cardImage,
       infoImageUrls,
       infoImagesRelatedTo,
       infoParagraphs,
@@ -105,7 +118,7 @@ class Solution {
       opinionFax = solution.opinion.fax,
       opinionEmail = solution.opinion.email,
     } = data;
-    await solution.update({ name });
+    await solution.update({ name, cardImage });
 
     updateInfoImages(
       newInfoImages,
@@ -173,6 +186,11 @@ class Solution {
     if (solution.opinion.image) {
       FileService.delete(solution.opinion.image);
     }
+
+    if (solution.cardImage) {
+      FileService.delete(solution.cardImage);
+    }
+
     await solution.destroy();
 
     return solution;

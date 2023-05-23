@@ -1,20 +1,22 @@
-import {useEffect, useState} from 'react';
-import {deleteSolution, fetchSolutions} from '../../http/catalogAPI';
+import {useState} from 'react';
+import {deleteSolution} from '../../http/catalogAPI';
 import EditSolution from '../../components/EditSolution/EditSolution';
-import Propgress from '../../components/LinearDeterminate';
+import Progress from '../../components/LinearDeterminate';
 import {AdminTable} from '../../components/AdminTable/AdminTable';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {areaCells} from '../../components/TableCells/cells';
 import {useAppContext} from '../../components/AppContext';
+import AlertLine from '../../components/AlertLine/AlertLine';
 
 const AdminSolutions = () => {
   const {catalog} = useAppContext();
-  const [fetching, setFetching] = useState(true); // загрузка списка решений с сервера
+  // const [fetching, setFetching] = useState(true); // загрузка списка решений с сервера
   const [show, setShow] = useState(false); // модальное окно создания решения
   // для обновления списка после добавления-редактирования, удаления, нужно изменить состояние
   const [change, setChange] = useState(false);
   // id решения который буду редактировать для передачи в EditSolution
   const [solutionId, setSolutionId] = useState<null | number>(null);
+  const [alertOnDelete, setAlertOnDelete] = useState<false | string>(false);
 
   const handleCreateClick = () => {
     setShow(true);
@@ -30,25 +32,16 @@ const AdminSolutions = () => {
       .then((data) => {
         setChange(!change);
         catalog.solutions = catalog.solutions.filter((el) => el.id !== data.id);
-        alert(`Решение "${data.name}" удалено`);
+        setAlertOnDelete(`Решение "${data.name}" удалено`);
+        setTimeout(() => {
+          setAlertOnDelete(false);
+        }, 5000);
       })
       .catch((error) => console.error(error));
   };
 
-  useEffect(() => {
-    if (!catalog.solutions.length) {
-      fetchSolutions()
-        .then((data) => {
-          catalog.solutions = data;
-        })
-        .finally(() => setFetching(false));
-    } else {
-      setFetching(false);
-    }
-  }, []);
-
-  if (fetching) {
-    return <Propgress />;
+  if (catalog.solutionsFetching) {
+    return <Progress />;
   }
 
   return (
@@ -72,6 +65,7 @@ const AdminSolutions = () => {
         handleDeleteClick={handleDeleteClick}
         items={catalog.solutions!}
       />
+      {alertOnDelete ? <AlertLine content={alertOnDelete} success={Boolean(alertOnDelete)}/> : null}
     </>
   );
 };

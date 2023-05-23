@@ -17,6 +17,10 @@ export interface ICatalogItem extends IId {
   name: string;
 }
 
+export interface ICatalogItemWithImage extends ICatalogItem {
+  cardImage: string;
+}
+
 export interface IProduct extends ICatalogItem {
   solutionId: number;
   industryId: number;
@@ -240,6 +244,7 @@ export interface IImage {
 }
 
 export interface IFetchSolution extends IId {
+  cardImage: string;
   name: string;
   infoImages: {
     image: string;

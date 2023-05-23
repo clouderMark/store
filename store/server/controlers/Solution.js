@@ -11,6 +11,15 @@ class Solution {
     }
   }
 
+  async getAllWithImages(req, res, next) {
+    try {
+      const solutions = await SolutionModel.getAllWithImages();
+      res.json(solutions);
+    } catch (e) {
+      next(AppError.badRequest(e.message));
+    }
+  }
+
   async getOne(req, res, next) {
     try {
       if (!req.params.id) {
@@ -28,7 +37,8 @@ class Solution {
       const solution = await SolutionModel.create(
         req.body,
         req.files?.infoImages,
-        req.files?.opinionImage
+        req.files?.opinionImage,
+        req.files?.cardImage,
       );
       res.json(solution);
     } catch (e) {
@@ -45,7 +55,8 @@ class Solution {
         req.params.id,
         req.body,
         req.files?.infoImages,
-        req.files?.opinionImage
+        req.files?.opinionImage,
+        req.files?.cardImage,
       );
       res.json(solution);
     } catch (e) {

@@ -11,10 +11,35 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       };
     }
 
+    case EType.cardImage: {
+      return {
+        ...state,
+        [EType.cardImage]: action.payload,
+      };
+    }
+
+    case EType.cardImageUrl: {
+      return {
+        ...state,
+        [EType.cardImageUrl]: action.payload,
+      };
+    }
+
     case EType.valid: {
       return {
         ...state,
         [EType.valid]: action.payload,
+      };
+    }
+
+    case EType.fetch: {
+      const data = action.payload;
+
+      return {
+        ...state,
+        [EType.name]: data.name,
+        [EType.valid]: data.name !== '',
+        [EType.cardImageUrl]: data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '',
       };
     }
 
