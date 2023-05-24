@@ -5,6 +5,7 @@ const defaultValue: IDefaultValue = {
   [EInfo.infoImages]: [],
   [EInfo.infoParagraphs]: [],
   [EInfo.infoTitle]: [],
+  [EInfo.imagesValid]: [],
 };
 
 export default defaultValue;

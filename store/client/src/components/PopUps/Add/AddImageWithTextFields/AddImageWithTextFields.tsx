@@ -27,6 +27,11 @@ const AddImageWithTextFields = (props: IProps) => {
         payload: value[EInfo.infoImages].map((el) => (
           name === el.relatedTo ? {...el, image: file, imageUrl: newImageUrl} : el)),
       });
+      dispatch({
+        type: EInfo.imagesValid,
+        payload: value[EInfo.imagesValid].map((el) => (
+          name === el.relatedTo ? {...el, valid: Boolean(newImageUrl)} : el)),
+      });
     }
   };
 
@@ -40,6 +45,10 @@ const AddImageWithTextFields = (props: IProps) => {
     dispatch({
       type: EInfo.infoTitle,
       payload: [...value[EInfo.infoTitle], {value: '', unique, id: null}],
+    });
+    dispatch({
+      type: EInfo.imagesValid,
+      payload: [...value[EInfo.imagesValid], {valid: null, relatedTo: unique}],
     });
   };
 
@@ -55,6 +64,10 @@ const AddImageWithTextFields = (props: IProps) => {
     dispatch({
       type: EInfo.infoTitle,
       payload: value[EInfo.infoTitle].filter((el) => el.unique !== unique),
+    });
+    dispatch({
+      type: EInfo.imagesValid,
+      payload: value[EInfo.imagesValid].filter((el) => el.relatedTo !== unique),
     });
   };
 
@@ -91,14 +104,17 @@ const AddImageWithTextFields = (props: IProps) => {
       <Button onClick={appendRow} color="first" variant="contained">
         Добавить блок с информацией
       </Button>
-      {value[EInfo.infoTitle].map((el) => (
+      {value[EInfo.infoTitle].map((el, i) => (
         <Fragment key={el.unique}>
           <ContainerWithTwoColumns
             firstColumn={
               <CardInputImage
-                value={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.imageUrl ?? ''}
-                name={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.relatedTo!}
+                // value={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.imageUrl ?? ''}
+                value={value[EInfo.infoImages][i].imageUrl}
+                // name={value[EInfo.infoImages].find((item) => item.relatedTo === el.unique)?.relatedTo!}
+                name={el.unique}
                 handleImageChange={handleImageChange}
+                error={value[EInfo.imagesValid][i].valid}
               />
             }
             secondColumn={

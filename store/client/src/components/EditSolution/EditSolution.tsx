@@ -1,5 +1,4 @@
 import React, {Dispatch, SetStateAction, useEffect, FormEvent, useReducer} from 'react';
-import uuid from 'react-uuid';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
 import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
 import {initState, reducer} from './reducer';
@@ -39,24 +38,8 @@ const EditSolution = (props: IProps) => {
     if (id) {
       fetchSolution(id)
         .then((data) => {
-          console.log(data);
           dispatch({type: EType.fetch, payload: data});
-          dispatchInfo({
-            type: EInfo.infoImages,
-            payload: data.infoImages.map((el) => ({
-              ...el,
-              image: null,
-              imageUrl: el.image ? process.env.REACT_APP_IMG_URL! + el.image : '',
-            })),
-          });
-          dispatchInfo({
-            type: EInfo.infoParagraphs,
-            payload: data.infoParagraphs.map((el) => ({...el, unique: uuid()})),
-          });
-          dispatchInfo({
-            type: EInfo.infoTitle,
-            payload: data.infoTitle,
-          });
+          dispatchInfo({type: EInfo.fetch, payload: data});
           dispatchOpinion({
             type: EOpinion.fetch,
             payload: data.opinion,
@@ -81,16 +64,17 @@ const EditSolution = (props: IProps) => {
     const correct = value[EType.name].trim() !== '';
 
     dispatch({type: EType.valid, payload: correct});
-    if (correct) {
+    dispatchInfo({
+      type: EInfo.imagesValid,
+      payload: infoValue[EInfo.imagesValid].map((el: any) => (!el.valid ? {...el, valid: false} : el)), // eslint-disable-line
+    });
+    // eslint-disable-next-line
+    if (correct && infoValue[EInfo.imagesValid].every((el: any) => el.valid)) {
       const data = new FormData();
 
       data.append(EType.name, value[EType.name].trim());
       if (value[EType.cardImage]) {
-        data.append(
-          EType.cardImage,
-          value[EType.cardImage],
-          value[EType.cardImage].name,
-        );
+        data.append(EType.cardImage, value[EType.cardImage], value[EType.cardImage].name);
       }
 
       if (value[EType.headerImage]) {

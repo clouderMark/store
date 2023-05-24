@@ -1,3 +1,4 @@
+import uuid from 'react-uuid';
 import EInfo from './EInfo';
 import IDefaultValue from './IDefaultValue';
 
@@ -22,6 +23,29 @@ export const reducer = (state: IDefaultValue, action: {type: EInfo; payload?: an
       return {
         ...state,
         [EInfo.infoTitle]: action.payload,
+      };
+    }
+
+    case EInfo.imagesValid: {
+      return {
+        ...state,
+        [EInfo.imagesValid]: action.payload,
+      };
+    }
+
+    case EInfo.fetch: {
+      const data: IDefaultValue = action.payload;
+
+      return {
+        ...state,
+        [EInfo.infoImages]: data[EInfo.infoImages].map((el) => ({
+          ...el,
+          image: null,
+          imageUrl: el.image ? process.env.REACT_APP_IMG_URL! + el.image : '',
+        })),
+        [EInfo.infoParagraphs]: data[EInfo.infoParagraphs].map((el) => ({...el, unique: uuid()})),
+        [EInfo.infoTitle]: data[EInfo.infoTitle],
+        [EInfo.imagesValid]: data[EInfo.infoImages].map((el) => ({valid: true, relateTo: el.relatedTo})),
       };
     }
 
