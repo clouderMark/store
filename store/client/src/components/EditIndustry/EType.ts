@@ -4,10 +4,6 @@ export enum EType {
   name = 'name',
   cardImage = 'cardImage',
   cardImageUrl = 'cardImageUrl',
-  headerImage = 'headerImage',
-  headerImageUrl = 'headerImageUrl',
-  title = 'title',
   sliderImage = 'sliderImage',
   sliderImageUrl = 'sliderImageUrl',
-  paragraphs = 'paragraphs',
 }

@@ -25,27 +25,6 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       };
     }
 
-    case EType.headerImage: {
-      return {
-        ...state,
-        [EType.headerImage]: action.payload,
-      };
-    }
-
-    case EType.headerImageUrl: {
-      return {
-        ...state,
-        [EType.headerImageUrl]: action.payload,
-      };
-    }
-
-    case EType.title: {
-      return {
-        ...state,
-        [EType.title]: action.payload,
-      };
-    }
-
     case EType.sliderImage: {
       return {
         ...state,
@@ -64,13 +43,6 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       return {
         ...state,
         [EType.valid]: action.payload,
-      };
-    }
-
-    case EType.paragraphs: {
-      return {
-        ...state,
-        [EType.paragraphs]: action.payload,
       };
     }
 

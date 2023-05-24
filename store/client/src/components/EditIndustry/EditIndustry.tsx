@@ -1,9 +1,7 @@
 import React, {useEffect, Dispatch, SetStateAction, FormEvent, useReducer} from 'react';
-import uuid from 'react-uuid';
 import PopUpForIndystry from '../PopUps/PopUpForIndustry/PopUpForIndustry';
 import {useAppContext} from '../AppContext';
 import {IAreaResponse} from '../../types/types';
-import filterParagraphs from '../PopUps/filterParagraphs';
 import {reducer, initState} from './reducer';
 import {EType} from './EType';
 import defaultValue from './defaultValue';
@@ -18,6 +16,10 @@ import {
 import defaultInfoValue from '../PopUps/Add/AddOneImageWithTextFields/defaultValue';
 import EField from '../PopUps/Add/AddOneImageWithTextFields/EField';
 import appendInfo from '../PopUps/Add/AddOneImageWithTextFields/appendInfo';
+import {reducer as headerReducer, initState as headerInitState} from '../PopUps/Add/AddHeader/reducer';
+import defaultHeaderValue from '../PopUps/Add/AddHeader/defaultValue';
+import EHeader from '../PopUps/Add/AddHeader/EType';
+import appendHeaderToData from '../PopUps/Add/AddHeader/appendHeaderToData';
 
 interface IProps {
   popUpTitle: string;
@@ -37,6 +39,7 @@ const EditIndustry = (props: IProps) => {
   const {id, show, setShow, setChange, setId} = props;
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
+  const [headerValue, dispatchHeader] = useReducer(headerReducer, defaultHeaderValue, headerInitState);
   const [opinionValue, dispatchOpinion] = useReducer(opinionReducer, defaultOpinionValue, opinionInitState);
   const [infoValue, dispatchInfo] = useReducer(imageWithTextFieldReducer, defaultInfoValue, initStateInfo);
 
@@ -51,19 +54,7 @@ const EditIndustry = (props: IProps) => {
             type: EType.cardImageUrl,
             payload: data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '',
           });
-          dispatch({
-            type: EType.headerImageUrl,
-            payload: data.headerImage ? process.env.REACT_APP_IMG_URL + data.headerImage : '',
-          });
-          dispatch({
-            type: EType.title,
-            payload: data.title,
-          });
-          dispatch({type: EType.paragraphs, payload: data.paragraphs.map((item) => ({...item, unique: uuid()}))});
-          if (props.child) {
-            props.child.setValue(`${data.industryId}`);
-          }
-
+          dispatchHeader({type: EHeader.fetch, payload: data});
           dispatchInfo({type: EField.fetch, payload: data.info});
           dispatchOpinion({type: EOpinion.fetch, payload: data.opinion});
           if (!props.child) {
@@ -83,6 +74,7 @@ const EditIndustry = (props: IProps) => {
       dispatch({type: EType.reset, payload: defaultValue});
       dispatchOpinion({type: EOpinion.reset, payload: defaultOpinionValue});
       dispatchInfo({type: EField.reset, payload: defaultInfoValue});
+      dispatchHeader({type: EHeader.reset, payload: defaultHeaderValue});
       props.child?.setValue('');
     }
   }, [show]);
@@ -101,23 +93,11 @@ const EditIndustry = (props: IProps) => {
       }
 
       data.append(EType.name, value[EType.name].trim());
-      data.append(EType.title, value[EType.title].trim());
       if (value[EType.cardImage]) {
         data.append(EType.cardImage, value[EType.cardImage], value[EType.cardImage].name);
       }
 
-      if (value[EType.headerImage]) {
-        data.append(EType.headerImage, value[EType.headerImage], value[EType.headerImage].name);
-      }
-
-      if (value[EType.paragraphs].length) {
-        const items = filterParagraphs(value[EType.paragraphs]);
-
-        if (items.length) {
-          data.append(EType.paragraphs, JSON.stringify(items));
-        }
-      }
-
+      appendHeaderToData(data, headerValue);
       appendOpinionToData(data, opinionValue);
       appendInfo(data, infoValue);
 
@@ -169,6 +149,8 @@ const EditIndustry = (props: IProps) => {
       handleSubmit={handleSubmit}
       child={props.child}
       value={value}
+      headerValue={headerValue}
+      dispatchHeader={dispatchHeader}
       dispatch={dispatch}
       opinionValue={opinionValue}
       dispatchOpinion={dispatchOpinion}

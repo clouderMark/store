@@ -1,7 +1,6 @@
 import {ChangeEvent} from 'react';
 import {Box, DialogActions, Button, TextField} from '@mui/material';
 import {IPopUpForIndystry} from './types/IPopUpForIndystry';
-import AddTextField from '../Add/AddTextField';
 import CardInputImage from '../CardInputImage/CardInputImage';
 import {EType} from '../../EditIndustry/EType';
 import AddOpinion from '../Add/AddOpinion/AddOpinion';
@@ -9,6 +8,7 @@ import DialogWithTitle from '../DialogWithTitle';
 import inputChange from '../handleChange';
 import imageChange from '../handleImageChange';
 import AddOneImageWithTextFields from '../Add/AddOneImageWithTextFields/AddOneImageWithTextFields';
+import AddHeader from '../Add/AddHeader/AddHeader';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => {
   const {value, dispatch, opinionValue, dispatchOpinion} = props;
@@ -53,35 +53,12 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
               />
             ) : null}
           </Box>
-          <Box>
-            <CardInputImage
-              value={value[EType.headerImageUrl]}
-              name={EType.headerImage}
-              handleImageChange={handleImageChange}
-            />
-            <TextField
-              name={EType.title}
-              value={value[EType.title]}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e)}
-              placeholder="Заголовок индустрии"
-              sx={{width: '100%', mt: '30px'}}
-            />
-          </Box>
-          <AddTextField
-            name={EType.paragraphs}
-            value={value}
-            dispatch={dispatch}
-            title={'Добавить абзац'}
-            placeholder={'Параграф индустрии'}
+          <AddHeader
+            value={props.headerValue}
+            dispatch={props.dispatchHeader}
           />
-          <AddOneImageWithTextFields
-            value={props.infoValue}
-            dispatch={props.dispatchInfo}
-          />
-          <AddOpinion
-            value={opinionValue}
-            dispatch={dispatchOpinion}
-          />
+          <AddOneImageWithTextFields value={props.infoValue} dispatch={props.dispatchInfo} />
+          <AddOpinion value={opinionValue} dispatch={dispatchOpinion} />
           <DialogActions>
             <Button type="submit" variant="outlined">
               Сохранить
