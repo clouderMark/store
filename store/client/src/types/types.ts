@@ -243,15 +243,17 @@ export interface IImage {
   id: null | number;
 }
 
+export interface IImageRelatedTo {
+  image: string;
+  relatedTo: string;
+  id: null | number;
+}
+
 export interface IFetchSolution extends IId {
   name: string;
   cardImage: string;
   headerImage: string;
-  infoImages: {
-    image: string;
-    relatedTo: string;
-    id: null | number;
-  }[];
+  infoImages: IImageRelatedTo[];
   infoParagraphs: IParagraphsRelatedTo[];
   infoTitle: IParagraphs[];
   opinion: IOpinion;
