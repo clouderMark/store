@@ -44,7 +44,7 @@ const AdminSubscription = () => {
   return (
     <>
       <Breadcrumbs />
-      <Container sx={{mt: 2}} maxWidth={false}>
+      <Container sx={{mt: 2, mb: 10}} maxWidth={false}>
         <Typography variant="h4">Все подписки</Typography>
         <Board
           tableHeadCells={<TableCells cells={adminSubscriptionCells} />}

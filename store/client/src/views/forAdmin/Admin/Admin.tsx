@@ -19,7 +19,7 @@ const Admin = () => {
   return (
     <>
       <Breadcrumbs />
-      <Container sx={{mt: 2}}>
+      <Container sx={{mt: 2, mb: 10}}>
         <Typography variant="h4">Панель управления</Typography>
         <Typography variant="body1">Это панель управления магазином для администратора</Typography>
         <List>
