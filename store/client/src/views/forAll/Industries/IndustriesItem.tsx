@@ -1,11 +1,9 @@
 import {useParams} from 'react-router-dom';
 import {useState, useEffect} from 'react';
-import {Typography, Box, Container} from '@mui/material';
+import {Container} from '@mui/material';
 import {useAppContext} from '../../../components/AppContext';
 import CentererImage from '../../../components/CentererImage/CentererImage';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
-import ContainerWithTwoColumns from '../../../components/ContainerWithTwoColumns/ContainerWithTwoColumns';
-import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
 import CardList from '../../../components/CardList/CardList';
 import Contact from '../../../components/Contact/Contact';
 import Newsletter from '../../../components/Newsletter/Newsletter';
@@ -15,6 +13,7 @@ import NavLinkButtons from '../../../components/NavLinkButtons/NavLinkButtons';
 import {EPath} from '../../../enums/EPath';
 import {IAreaResponse} from '../../../types/types';
 import Opinion from '../../../components/Opinion/Opinion';
+import Header from '../../../components/Header';
 
 const IndustriesItem = () => {
   const id: number = Number(useParams().id);
@@ -44,22 +43,7 @@ const IndustriesItem = () => {
       <CentererImage img={item?.headerImage ? process.env.REACT_APP_IMG_URL + item.headerImage : ''} />
       <Breadcrumbs />
       {item ? (
-        <ContainerWithTwoColumns
-          firstColumn={
-            <Box sx={{'& div': {pt: 0}}}>
-              <StrongWithTitle content={{p: item.name ?? '', title: item.title ?? ''}} />
-            </Box>
-          }
-          secondColumn={
-            <>
-              {item.paragraphs.map((el) => (
-                <Typography key={el.id} sx={{mb: '10px'}}>
-                  {el.value}
-                </Typography>
-              ))}
-            </>
-          }
-        />
+        <Header item={item}/>
       ) : null}
       {subIndustries.length ? (
         <Container maxWidth={false}>
