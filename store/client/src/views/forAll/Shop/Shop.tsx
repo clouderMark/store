@@ -14,6 +14,7 @@ import IndividualProduct from '../../../components/IndividualProduct/IndividualP
 import Shipping from '../../../components/Shipping/Shipping';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import {EPath} from '../../../enums/EPath';
+import {EQuery} from '../../../enums/EQuery';
 
 const getSearchParams = (
   searchParams: URLSearchParams,
@@ -23,7 +24,7 @@ const getSearchParams = (
   area: number[];
   industry: number[];
 } => {
-  let industry: string | null | number | number[] = searchParams.get('industry');
+  let industry: string | null | number | number[] = searchParams.get(EQuery.industry);
 
   if (industry && /[1-9][0-9]*/.test(industry)) {
     industry = industry.split(',').map((el) => +el);
@@ -31,7 +32,7 @@ const getSearchParams = (
     industry = [];
   }
 
-  let solution: string | null | number | number[] = searchParams.get('solution');
+  let solution: string | null | number | number[] = searchParams.get(EQuery.solution);
 
   if (solution && /[1-9][0-9]*/.test(solution)) {
     solution = solution.split(',').map((el) => +el);
@@ -39,7 +40,7 @@ const getSearchParams = (
     solution = [];
   }
 
-  let area: string | null | number | number[] = searchParams.get('area');
+  let area: string | null | number | number[] = searchParams.get(EQuery.area);
 
   if (area && /[1-9][0-9]*/.test(area)) {
     area = area.split(',').map((el) => +el);
@@ -47,7 +48,7 @@ const getSearchParams = (
     area = [];
   }
 
-  let page: string | null | number = searchParams.get('page');
+  let page: string | null | number = searchParams.get(EQuery.page);
 
   if (page && /[1-9][0-9]*/.test(page)) {
     page = parseInt(page);
