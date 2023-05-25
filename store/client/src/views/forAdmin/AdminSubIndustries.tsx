@@ -6,6 +6,7 @@ import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {AdminTable} from '../../components/AdminTable/AdminTable';
 import {areaRelatedCells} from '../../components/TableCells/cells';
 import EditIndustry from '../../components/EditIndustry/EditIndustry';
+import AlertLine from '../../components/AlertLine/AlertLine';
 
 const AdminSubIndustries = () => {
   const {catalog} = useAppContext();
@@ -13,9 +14,9 @@ const AdminSubIndustries = () => {
   const [change, setChange] = useState(false);
   const [industryId, setIndustryId] = useState<null | number>(null);
   const [parentName, setParentName] = useState('');
+  const [alertOnDelete, setAlertOnDelete] = useState<false | string>(false);
 
   const handleCreateClick = () => {
-    // setIndustryId(null);
     setShow(true);
   };
 
@@ -28,7 +29,10 @@ const AdminSubIndustries = () => {
     deleteSubIndustry(id)
       .then((data) => {
         setChange(!change);
-        alert(`Подиндустрия "${data.name}"удалена`);
+        setAlertOnDelete(`Подиндустрия "${data.name}"удалена`);
+        setTimeout(() => {
+          setAlertOnDelete(false);
+        }, 5000);
         catalog.subIndustries = catalog.subIndustries.filter((el) => el.id !== data.id);
       })
       .catch((error) => console.error(error));
@@ -85,6 +89,7 @@ const AdminSubIndustries = () => {
         handleDeleteClick={handleDeleteClick}
         items={catalog.subIndustries}
       />
+      {alertOnDelete ? <AlertLine content={alertOnDelete} success={Boolean(alertOnDelete)} /> : null}
     </>
   );
 };

@@ -5,6 +5,7 @@ import Propgress from '../../components/LinearDeterminate';
 import {adminGetOneMessage, adminDelete} from '../../http/contactAPI';
 import {IMessage} from '../../types/types';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import AlertLine from '../../components/AlertLine/AlertLine';
 
 const AdminMessage = () => {
   const {id} = useParams();
@@ -12,6 +13,7 @@ const AdminMessage = () => {
   const [fetching, setFetching] = useState(true);
   const [error, setError] = useState(null);
   const history = useNavigate();
+  const [alertOnDelete, setAlertOnDelete] = useState<false | string>(false);
 
   useEffect(() => {
     adminGetOneMessage(+id!)
@@ -22,7 +24,10 @@ const AdminMessage = () => {
 
   const handleDeleteClick = (id: number) => {
     adminDelete(id).then((data) => {
-      alert(`Сообщение №${data.id} удалено`);
+      setAlertOnDelete(`Сообщение №${data.id} удалено`);
+      setTimeout(() => {
+        setAlertOnDelete(false);
+      }, 5000);
 
       history({
         pathname: '/admin/messages',
@@ -56,6 +61,7 @@ const AdminMessage = () => {
           Удалить
         </Button>
       </Container>
+      {alertOnDelete ? <AlertLine content={alertOnDelete} success={Boolean(alertOnDelete)} /> : null}
     </>
   );
 };

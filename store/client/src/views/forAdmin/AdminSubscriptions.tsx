@@ -7,15 +7,20 @@ import {ISubscribe} from '../../types/types';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import TableCells from '../../components/TableCells/TableCells';
 import {adminSubscriptionCells} from '../../components/TableCells/cells';
+import AlertLine from '../../components/AlertLine/AlertLine';
 
 const AdminSubscription = () => {
   const [subscriptions, setSubscriptions] = useState<null | ISubscribe[]>(null);
   const [fetching, setFetching] = useState(true);
+  const [alertOnDelete, setAlertOnDelete] = useState<false | string>(false);
 
   const handleDeleteClick = (id: number) => {
     adminDeleteSubscription(id)
       .then((data) => {
-        alert(`Подписчик с email: ${data.email} удален`);
+        setAlertOnDelete(`Подписчик с email: ${data.email} удален`);
+        setTimeout(() => {
+          setAlertOnDelete(false);
+        }, 5000);
         if (subscriptions) {
           setSubscriptions(subscriptions?.filter((el) => el.id !== data.id));
         }
@@ -32,23 +37,6 @@ const AdminSubscription = () => {
       .finally(() => setFetching(false));
   }, []);
 
-  const BodyCells = () => (
-    <>
-      {subscriptions?.map((item) => (
-        <TableRow key={item.id} hover>
-          <TableCell scope="row">{item.id}</TableCell>
-          <TableCell>{item.email}</TableCell>
-          <TableCell>{item.createdAt.split('T')[0]}</TableCell>
-          <TableCell>
-            <Button variant="outlined" onClick={() => handleDeleteClick(item.id)} color="warning">
-              Удалить
-            </Button>
-          </TableCell>
-        </TableRow>
-      ))}
-    </>
-  );
-
   if (fetching) {
     return <Progress />;
   }
@@ -58,8 +46,27 @@ const AdminSubscription = () => {
       <Breadcrumbs />
       <Container sx={{mt: 2}} maxWidth={false}>
         <Typography variant="h4">Все подписки</Typography>
-        <Board tableHeadCells={<TableCells cells={adminSubscriptionCells} />} tableBodyCells={BodyCells} />
+        <Board
+          tableHeadCells={<TableCells cells={adminSubscriptionCells} />}
+          tableBodyCells={
+            <>
+              {subscriptions?.map((item) => (
+                <TableRow key={item.id} hover>
+                  <TableCell scope="row">{item.id}</TableCell>
+                  <TableCell>{item.email}</TableCell>
+                  <TableCell>{item.createdAt.split('T')[0]}</TableCell>
+                  <TableCell>
+                    <Button variant="outlined" onClick={() => handleDeleteClick(item.id)} color="warning">
+                      Удалить
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </>
+          }
+        />
       </Container>
+      {alertOnDelete ? <AlertLine content={alertOnDelete} success={Boolean(alertOnDelete)} /> : null}
     </>
   );
 };

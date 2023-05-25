@@ -8,14 +8,19 @@ import {Board} from '../../components/Board';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import TableCells from '../../components/TableCells/TableCells';
 import {adminMessagesCells} from '../../components/TableCells/cells';
+import AlertLine from '../../components/AlertLine/AlertLine';
 
 const AdminMessages = () => {
   const [messages, setMessages] = useState<null | IMessage[]>(null);
   const [fetching, setFetching] = useState(true);
+  const [alertOnDelete, setAlertOnDelete] = useState<false | string>(false);
 
   const handleDeleteClick = (id: number) => {
     adminDelete(id).then((data) => {
-      alert(`Сообщение №${data.id} удалено`);
+      setAlertOnDelete(`Сообщение №${data.id} удалено`);
+      setTimeout(() => {
+        setAlertOnDelete(false);
+      }, 5000);
       if (messages) {
         setMessages(messages?.filter((el) => el.id !== data.id));
       }
@@ -28,32 +33,6 @@ const AdminMessages = () => {
       .finally(() => setFetching(false));
   }, []);
 
-  const BodyCells = () => (
-    <>
-      {messages?.map((item) => (
-        <TableRow key={item.id} hover>
-          <TableCell scope="row">{item.id}</TableCell>
-          <TableCell>{item.company}</TableCell>
-          <TableCell>{item.name}</TableCell>
-          <TableCell>{item.email}</TableCell>
-          <TableCell>{item.phone}</TableCell>
-          <TableCell>{item.question}</TableCell>
-          <TableCell>{item.type}</TableCell>
-          <TableCell>
-            <Button component={Link} to={`/admin/messages/${item.id}`} variant="outlined">
-              Подробнее
-            </Button>
-          </TableCell>
-          <TableCell>
-            <Button variant="outlined" onClick={() => handleDeleteClick(item.id)} color="warning">
-              Удалить
-            </Button>
-          </TableCell>
-        </TableRow>
-      ))}
-    </>
-  );
-
   if (fetching) {
     return <Progress />;
   }
@@ -63,8 +42,36 @@ const AdminMessages = () => {
       <Breadcrumbs />
       <Container sx={{mt: 2}} maxWidth={false}>
         <Typography variant="h4">Все сообщения</Typography>
-        <Board tableHeadCells={<TableCells cells={adminMessagesCells} />} tableBodyCells={BodyCells} />
+        <Board
+          tableHeadCells={<TableCells cells={adminMessagesCells} />}
+          tableBodyCells={
+            <>
+              {messages?.map((item) => (
+                <TableRow key={item.id} hover>
+                  <TableCell scope="row">{item.id}</TableCell>
+                  <TableCell>{item.company}</TableCell>
+                  <TableCell>{item.name}</TableCell>
+                  <TableCell>{item.email}</TableCell>
+                  <TableCell>{item.phone}</TableCell>
+                  <TableCell>{item.question}</TableCell>
+                  <TableCell>{item.type}</TableCell>
+                  <TableCell>
+                    <Button component={Link} to={`/admin/messages/${item.id}`} variant="outlined">
+                      Подробнее
+                    </Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button variant="outlined" onClick={() => handleDeleteClick(item.id)} color="warning">
+                      Удалить
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </>
+          }
+        />
       </Container>
+      {alertOnDelete ? <AlertLine content={alertOnDelete} success={Boolean(alertOnDelete)} /> : null}
     </>
   );
 };

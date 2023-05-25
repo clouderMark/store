@@ -12,12 +12,10 @@ const Orders = (props: IProps) => {
     return <Typography variant="body1">Список заказов пустой</Typography>;
   }
 
-  const BodyCells = () => TableBodyCells(props);
-
   return (
     <Board
       tableHeadCells={TableHeadCells(props.admin)}
-      tableBodyCells={BodyCells}
+      tableBodyCells={TableBodyCells(props)}
     />
   );
 };
