@@ -136,7 +136,7 @@ class Solution {
     await solution.update({ name, cardImage, headerImage, title });
 
     if (data.paragraphs) {
-        await ParagraphMapping.destroy({where: solution.id});
+        await ParagraphMapping.destroy({where: { solutionId: id}});
         createParagraphs(data.paragraphs, solution.id);;
     }
 
