@@ -1,5 +1,5 @@
 import {ChangeEvent, Dispatch} from 'react';
-import {TextField} from '@mui/material';
+import {TextField, Typography} from '@mui/material';
 import AddTextField from '../AddTextField';
 import EType from './EType';
 import IDefaultValue from './IDefaultValue';
@@ -20,6 +20,7 @@ const AddHeader = (props: IProps) => {
 
   return (
     <>
+      <Typography sx={{fontSize: '20px', mb: 2}}>Заголовк страницы</Typography>
       <CardInputImage
         value={value[EType.headerImageUrl]}
         name={EType.headerImage}

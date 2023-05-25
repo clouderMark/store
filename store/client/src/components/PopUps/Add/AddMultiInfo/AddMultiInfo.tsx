@@ -13,7 +13,7 @@ interface IProps {
   dispatch: Dispatch<{type: EInfo; payload?: any}>; // eslint-disable-line
 }
 
-const AddImageWithTextFields = (props: IProps) => {
+const AddMultiInfo = (props: IProps) => {
   const {dispatch, value} = props;
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
@@ -153,4 +153,4 @@ const AddImageWithTextFields = (props: IProps) => {
   );
 };
 
-export default AddImageWithTextFields;
+export default AddMultiInfo;

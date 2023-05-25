@@ -12,10 +12,10 @@ import appendOpinionToData from '../PopUps/Add/AddOpinion/appendOpinionToData';
 import {
   reducer as imageWithTextFieldReducer,
   initState as initStateInfo,
-} from '../PopUps/Add/AddOneImageWithTextFields/reducer';
-import defaultInfoValue from '../PopUps/Add/AddOneImageWithTextFields/defaultValue';
-import EField from '../PopUps/Add/AddOneImageWithTextFields/EField';
-import appendInfo from '../PopUps/Add/AddOneImageWithTextFields/appendInfo';
+} from '../PopUps/Add/AddInfo/reducer';
+import defaultInfoValue from '../PopUps/Add/AddInfo/defaultValue';
+import EField from '../PopUps/Add/AddInfo/EField';
+import appendInfo from '../PopUps/Add/AddInfo/appendInfo';
 import {reducer as headerReducer, initState as headerInitState} from '../PopUps/Add/AddHeader/reducer';
 import defaultHeaderValue from '../PopUps/Add/AddHeader/defaultValue';
 import EHeader from '../PopUps/Add/AddHeader/EType';

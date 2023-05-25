@@ -7,7 +7,7 @@ import AddOpinion from '../Add/AddOpinion/AddOpinion';
 import DialogWithTitle from '../DialogWithTitle';
 import inputChange from '../handleChange';
 import imageChange from '../handleImageChange';
-import AddOneImageWithTextFields from '../Add/AddOneImageWithTextFields/AddOneImageWithTextFields';
+import AddInfo from '../Add/AddInfo/AddInfo';
 import AddHeader from '../Add/AddHeader/AddHeader';
 
 export const PopUpForIndystry = (props: IPopUpForIndystry) => {
@@ -57,7 +57,7 @@ export const PopUpForIndystry = (props: IPopUpForIndystry) => {
             value={props.headerValue}
             dispatch={props.dispatchHeader}
           />
-          <AddOneImageWithTextFields value={props.infoValue} dispatch={props.dispatchInfo} />
+          <AddInfo value={props.infoValue} dispatch={props.dispatchInfo} />
           <AddOpinion value={opinionValue} dispatch={dispatchOpinion} />
           <DialogActions>
             <Button type="submit" variant="outlined">

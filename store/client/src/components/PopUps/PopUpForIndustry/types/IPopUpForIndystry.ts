@@ -1,7 +1,7 @@
 import {Dispatch, SetStateAction, FormEvent} from 'react';
 import IDefaultValue from '../../../EditIndustry/IDefaultValue';
 import IOpinionDefaultValue from '../../Add/AddOpinion/IDefaultValue';
-import IDefaultInfoValue from '../../Add/AddOneImageWithTextFields/IDefaultValue';
+import IDefaultInfoValue from '../../Add/AddInfo/IDefaultValue';
 import IHeaderDefaultValue from '../../Add/AddHeader/IDefaultValue';
 
 export interface IPopUpForIndystry {

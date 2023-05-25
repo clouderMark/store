@@ -4,19 +4,19 @@ import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
 import {initState, reducer} from './reducer';
 import {EType} from './EType';
 import {useAppContext} from '../AppContext';
-import AddImageWithTextFields from '../PopUps/Add/AddImageWithTextFields/AddImageWithTextFields';
+import AddMultiInfo from '../PopUps/Add/AddMultiInfo/AddMultiInfo';
 import {
   reducer as imageWithTextFieldsReducer,
   initState as initStateInfo,
-} from '../PopUps/Add/AddImageWithTextFields/reducer';
-import defaultInfoValue from '../PopUps/Add/AddImageWithTextFields/defaultValue';
+} from '../PopUps/Add/AddMultiInfo/reducer';
+import defaultInfoValue from '../PopUps/Add/AddMultiInfo/defaultValue';
 import defaultValue from './defaultValue';
-import EInfo from '../PopUps/Add/AddImageWithTextFields/EInfo';
+import EInfo from '../PopUps/Add/AddMultiInfo/EInfo';
 import {reducer as opinionReducer, initState as opinionInitState} from '../PopUps/Add/AddOpinion/reducer';
 import defaultOpinionValue from '../PopUps/Add/AddOpinion/defaultValue';
 import EOpinion from '../PopUps/Add/AddOpinion/EOpinion';
 import appendOpinionToData from '../PopUps/Add/AddOpinion/appendOpinionToData';
-import appendInfoToData from '../PopUps/Add/AddImageWithTextFields/appendInfoToData';
+import appendInfoToData from '../PopUps/Add/AddMultiInfo/appendInfoToData';
 import {reducer as headerReducer, initState as headerInitState} from '../PopUps/Add/AddHeader/reducer';
 import defaultHeaderValue from '../PopUps/Add/AddHeader/defaultValue';
 import EHeader from '../PopUps/Add/AddHeader/EType';
@@ -125,7 +125,7 @@ const EditSolution = (props: IProps) => {
       dispatchHeader={dispatchHeader}
       opinionValue={opinionValue}
       dispatchOpinion={dispatchOpinion}
-      child={[<AddImageWithTextFields value={infoValue} dispatch={dispatchInfo} />]}
+      child={[<AddMultiInfo value={infoValue} dispatch={dispatchInfo} />]}
     />
   );
 };
