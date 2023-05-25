@@ -1,26 +1,22 @@
-import {ChangeEvent, Dispatch, SetStateAction, FormEvent} from 'react';
-import {IParagraphs} from '../../../../types/types';
-import {IDefaultValue} from '../../../EditIndustry/reducer';
+import {Dispatch, SetStateAction, FormEvent} from 'react';
+import IDefaultValue from '../../../EditIndustry/IDefaultValue';
+import IOpinionDefaultValue from '../../Add/AddOpinion/IDefaultValue';
+import IDefaultInfoValue from '../../Add/AddInfo/IDefaultValue';
+import IHeaderDefaultValue from '../../Add/AddHeader/IDefaultValue';
 
 export interface IPopUpForIndystry {
   cardTitle: string;
   show: boolean;
   setShow: Dispatch<SetStateAction<boolean>>;
   id: number | null;
-  handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
-  valid: boolean | null;
   handleSubmit(event: FormEvent<HTMLFormElement>): void;
-  handleChange(event: ChangeEvent<HTMLInputElement>): void;
-  paragraphs: IParagraphs[];
-  setParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
-  infoListItems: IParagraphs[];
-  setInfoListItems: Dispatch<SetStateAction<IParagraphs[]>>;
-  infoParagraphs: IParagraphs[];
-  setInfoParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
-  opinionParagraphs: IParagraphs[];
-  setOpinionParagraphs: Dispatch<SetStateAction<IParagraphs[]>>;
-  opinionListItems: IParagraphs[];
-  setOpinionListItems: Dispatch<SetStateAction<IParagraphs[]>>;
   child?: {component: JSX.Element; value: string};
   value: IDefaultValue;
+  dispatch: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
+  headerValue: IHeaderDefaultValue;
+  dispatchHeader: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
+  opinionValue: IOpinionDefaultValue;
+  dispatchOpinion: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
+  infoValue: IDefaultInfoValue;
+  dispatchInfo: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
 }

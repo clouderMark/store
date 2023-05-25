@@ -1,16 +1,5 @@
 import {EType} from './EType';
-
-export interface IDefaultValue {
-  [EType.name]: string;
-  [EType.opinionTitle]: string;
-  [EType.opinionListTitle]: string;
-  [EType.opinionName]: string;
-  [EType.opinionPhone]: string;
-  [EType.opinionFax]: string;
-  [EType.opinionEmail]: string;
-  [EType.opinionImage]: File | null;
-  [EType.opinionImageUrl]: string;
-}
+import IDefaultValue from './IDefaultValue';
 
 // eslint-disable-next-line
 export const reducer = (state: IDefaultValue, action: {type: string; payload?: any}) => {
@@ -22,59 +11,35 @@ export const reducer = (state: IDefaultValue, action: {type: string; payload?: a
       };
     }
 
-    case EType.opinionTitle: {
+    case EType.cardImage: {
       return {
         ...state,
-        [EType.opinionTitle]: action.payload,
+        [EType.cardImage]: action.payload,
       };
     }
 
-    case EType.opinionListTitle: {
+    case EType.cardImageUrl: {
       return {
         ...state,
-        [EType.opinionListTitle]: action.payload,
+        [EType.cardImageUrl]: action.payload,
       };
     }
 
-    case EType.opinionImage: {
+    case EType.valid: {
       return {
         ...state,
-        [EType.opinionImage]: action.payload,
+        [EType.valid]: action.payload,
       };
     }
 
-    case EType.opinionImageUrl: {
-      return {
-        ...state,
-        [EType.opinionImageUrl]: action.payload,
-      };
-    }
+    case EType.fetch: {
+      const data = action.payload;
 
-    case EType.opinionName: {
       return {
         ...state,
-        [EType.opinionName]: action.payload,
-      };
-    }
-
-    case EType.opinionPhone: {
-      return {
-        ...state,
-        [EType.opinionPhone]: action.payload,
-      };
-    }
-
-    case EType.opinionFax: {
-      return {
-        ...state,
-        [EType.opinionFax]: action.payload,
-      };
-    }
-
-    case EType.opinionEmail: {
-      return {
-        ...state,
-        [EType.opinionEmail]: action.payload,
+        [EType.name]: data.name,
+        [EType.valid]: data.name !== '',
+        [EType.cardImageUrl]: data.cardImage ? process.env.REACT_APP_IMG_URL + data.cardImage : '',
       };
     }
 

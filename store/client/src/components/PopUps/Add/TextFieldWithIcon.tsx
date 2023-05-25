@@ -11,7 +11,7 @@ interface IProps {
   };
 }
 
-const TextFiledWithIcon = (props: IProps) => {
+const TextFieldWithIcon = (props: IProps) => {
   const {item} = props;
 
   return (
@@ -31,4 +31,4 @@ const TextFiledWithIcon = (props: IProps) => {
   );
 };
 
-export default TextFiledWithIcon;
+export default TextFieldWithIcon;

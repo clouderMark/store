@@ -18,6 +18,8 @@ class CatalogStore {
 
   private _solution: number[] = [];
 
+  private _solutionFetching = true;
+
   private _area: number[] = [];
 
   private _page = 1;
@@ -60,6 +62,14 @@ class CatalogStore {
 
   set solutions(solutions: ICatalogItem[]) {
     this._solutions = solutions;
+  }
+
+  get solutionsFetching() {
+    return this._solutionFetching;
+  }
+
+  set solutionsFetching(is: boolean) {
+    this._solutionFetching = is;
   }
 
   get areas() {

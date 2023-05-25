@@ -1,25 +1,29 @@
 import {ChangeEvent} from 'react';
 import {Box} from '@mui/material';
-import {popUpForIndystry as styles} from './PopUpForIndustry/styles/popUpForIndystry';
-import InputFileButton from './InputFileButton';
+import {cardInputImage as styles} from './styles/cardInputImage';
+import InputFileButton from '../InputFileButton';
 
 interface IProps {
-  id: number | null;
   value: string | null;
   name: string;
   handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
   sx?: any; // eslint-disable-line
+  error?: boolean | null;
 }
 
 const CardInputImage = (props: IProps) => {
-  const {id, value, handleImageChange, name} = props;
+  const {value, handleImageChange, name} = props;
+  let error;
+
+  if (typeof props.error === 'boolean') {
+    error = props.error;
+  } else error = true;
 
   return (
-    <Box sx={[styles.card, props.sx]}>
+    <Box sx={[styles.card, props.sx, !error ? {border: '1.5px solid red'} : {border: 0}]}>
       <Box sx={styles.img} component="img" src={value || ''} />
       <InputFileButton
-        sx={styles.card.button}
-        id={id}
+        isValue={Boolean(value)}
         name={name}
         handleImageChange={handleImageChange}
       />

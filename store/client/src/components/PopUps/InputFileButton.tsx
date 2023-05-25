@@ -3,17 +3,25 @@ import {Button} from '@mui/material';
 
 interface IProps {
   handleImageChange(event: ChangeEvent<HTMLInputElement>): void;
-  // eslint-disable-next-line
-  sx: any;
   name: string;
-  id: number | null;
+  isValue: boolean;
 }
 
 const InputFileButton = (props: IProps) => {
-  const {id, sx, name, handleImageChange} = props;
+  const {isValue, name, handleImageChange} = props;
 
   return (
-    <Button sx={sx} aria-label="upload picture" component="label" color="first" variant="contained">
+    <Button
+      sx={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+      }}
+      aria-label="upload picture"
+      component="label"
+      color="first"
+      variant="contained"
+    >
       <input
         name={name}
         type="file"
@@ -23,7 +31,7 @@ const InputFileButton = (props: IProps) => {
         accept="image/*"
         aria-label="upload picture"
       />
-      {`${id ? 'Изменить' : 'Добавить'} фото`}
+      {`${isValue ? 'Изменить' : 'Добавить'} фото`}
     </Button>
   );
 };

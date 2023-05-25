@@ -1,12 +1,26 @@
-import React, {Dispatch, SetStateAction, useEffect, useState, ChangeEvent, FormEvent, useReducer} from 'react';
+import React, {Dispatch, SetStateAction, useEffect, FormEvent, useReducer} from 'react';
 import {fetchSolution, createSolution, updateSolution} from '../../http/catalogAPI';
 import PopUpForSolution from '../PopUps/PopUpForSolution/PopUpForSolution';
-import {IParagraphs, IImage, IParagraphsRelatedTo} from '../../types/types';
-import {IDefaultValue, initState, reducer} from './reducer';
+import {initState, reducer} from './reducer';
 import {EType} from './EType';
-import filterParagraphs from '../PopUps/filterParagraphs';
 import {useAppContext} from '../AppContext';
-import AddImageWithTextFiled from '../PopUps/Add/AddImageWithTextFiled';
+import AddMultiInfo from '../PopUps/Add/AddMultiInfo/AddMultiInfo';
+import {
+  reducer as imageWithTextFieldsReducer,
+  initState as initStateInfo,
+} from '../PopUps/Add/AddMultiInfo/reducer';
+import defaultInfoValue from '../PopUps/Add/AddMultiInfo/defaultValue';
+import defaultValue from './defaultValue';
+import EInfo from '../PopUps/Add/AddMultiInfo/EInfo';
+import {reducer as opinionReducer, initState as opinionInitState} from '../PopUps/Add/AddOpinion/reducer';
+import defaultOpinionValue from '../PopUps/Add/AddOpinion/defaultValue';
+import EOpinion from '../PopUps/Add/AddOpinion/EOpinion';
+import appendOpinionToData from '../PopUps/Add/AddOpinion/appendOpinionToData';
+import appendInfoToData from '../PopUps/Add/AddMultiInfo/appendInfoToData';
+import {reducer as headerReducer, initState as headerInitState} from '../PopUps/Add/AddHeader/reducer';
+import defaultHeaderValue from '../PopUps/Add/AddHeader/defaultValue';
+import EHeader from '../PopUps/Add/AddHeader/EType';
+import appendHeaderToData from '../PopUps/Add/AddHeader/appendHeaderToData';
 
 interface IProps {
   id: number | null;
@@ -16,36 +30,26 @@ interface IProps {
   setChange: Dispatch<SetStateAction<boolean>>;
 }
 
-const defaultValue: IDefaultValue = {
-  [EType.name]: '',
-  [EType.opinionTitle]: '',
-  [EType.opinionListTitle]: '',
-  [EType.opinionName]: '',
-  [EType.opinionPhone]: '',
-  [EType.opinionFax]: '',
-  [EType.opinionEmail]: '',
-  [EType.opinionImage]: null,
-  [EType.opinionImageUrl]: '',
-};
-
 const EditSolution = (props: IProps) => {
   const {catalog} = useAppContext();
   const {id, show, setShow, setChange, setId} = props;
-  const [valid, setValid] = useState<null | boolean>(null);
-
-  const [opinionParagraphs, setOpinionParagraphs] = useState<IParagraphs[]>([]);
-  const [opinionListItems, setOpinionListItems] = useState<IParagraphs[]>([]);
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
-  const [images, setImages] = useState<IImage[]>([]);
-  const [paragraphs, setParagraphs] = useState<IParagraphsRelatedTo[]>([]);
+  const [headerValue, dispatchHeader] = useReducer(headerReducer, defaultHeaderValue, headerInitState);
+  const [infoValue, dispatchInfo] = useReducer(imageWithTextFieldsReducer, defaultInfoValue, initStateInfo);
+  const [opinionValue, dispatchOpinion] = useReducer(opinionReducer, defaultOpinionValue, opinionInitState);
 
   useEffect(() => {
     if (id) {
       fetchSolution(id)
         .then((data) => {
-          dispatch({type: EType.name, payload: data.name});
-          setValid(data.name !== '');
+          dispatch({type: EType.fetch, payload: data});
+          dispatchHeader({type: EHeader.fetch, payload: data});
+          dispatchInfo({type: EInfo.fetch, payload: data});
+          dispatchOpinion({
+            type: EOpinion.fetch,
+            payload: data.opinion,
+          });
         })
         .catch((error) => console.error(error));
     }
@@ -54,78 +58,35 @@ const EditSolution = (props: IProps) => {
   useEffect(() => {
     if (!show) {
       setId(null);
-      setOpinionParagraphs([]);
-      setOpinionListItems([]);
       dispatch({type: EType.reset, payload: defaultValue});
+      dispatchHeader({type: EHeader.reset, payload: defaultHeaderValue});
+      dispatchInfo({type: EInfo.reset, payload: defaultInfoValue});
+      dispatchOpinion({type: EOpinion.reset, payload: defaultOpinionValue});
     }
   }, [show]);
-
-  // useEffect(() => {
-  //   if (value[EType.opinionImage]) {
-  //     const newImageUrl = URL.createObjectURL(value[EType.opinionImage]);
-
-  //     dispatch({type: EType.opinionImageUrl, payload: newImageUrl});
-  //   }
-  // }, [value[EType.opinionImage]]);
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const {name} = event.target;
-    const {value} = event.target;
-
-    if (name === EType.name) {
-      setValid(value.trim() !== '');
-    }
-
-    dispatch({type: name, payload: value});
-  };
-
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (event.target.files) {
-      const file = event.target.files[0];
-      const {name} = event.target;
-      const newImageUrl = URL.createObjectURL(file);
-
-      dispatch({type: name, payload: file});
-      dispatch({type: `${name}Url`, payload: newImageUrl});
-    }
-  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const correct = value[EType.name].trim() !== '';
 
-    setValid(correct);
-    if (correct) {
+    dispatch({type: EType.valid, payload: correct});
+    dispatchInfo({
+      type: EInfo.imagesValid,
+      payload: infoValue[EInfo.imagesValid].map((el: any) => (!el.valid ? {...el, valid: false} : el)), // eslint-disable-line
+    });
+    // eslint-disable-next-line
+    if (correct && infoValue[EInfo.imagesValid].every((el: any) => el.valid)) {
       const data = new FormData();
 
       data.append(EType.name, value[EType.name].trim());
-      data.append(EType.opinionTitle, value[EType.opinionTitle].trim());
-      data.append(EType.opinionListTitle, value[EType.opinionListTitle].trim());
-      data.append(EType.opinionName, value[EType.opinionName].trim());
-      data.append(EType.opinionPhone, value[EType.opinionPhone].trim());
-      data.append(EType.opinionFax, value[EType.opinionFax].trim());
-      data.append(EType.opinionEmail, value[EType.opinionEmail].trim());
-
-      if (opinionParagraphs.length) {
-        const items = filterParagraphs(opinionParagraphs);
-
-        if (items.length) {
-          data.append('opinionParagraphs', JSON.stringify(items));
-        }
+      if (value[EType.cardImage]) {
+        data.append(EType.cardImage, value[EType.cardImage], value[EType.cardImage].name);
       }
 
-      if (opinionListItems.length) {
-        const items = filterParagraphs(opinionListItems);
-
-        if (items.length) {
-          data.append('opinionListItems', JSON.stringify(items));
-        }
-      }
-
-      if (value[EType.opinionImage]) {
-        data.append(EType.opinionImage, value[EType.opinionImage], value[EType.opinionImage].name);
-      }
+      appendHeaderToData(data, headerValue);
+      appendOpinionToData(data, opinionValue);
+      appendInfoToData(data, infoValue);
 
       const success = () => {
         // закрываю окно создания редактирования решения
@@ -157,23 +118,14 @@ const EditSolution = (props: IProps) => {
       show={show}
       setShow={setShow}
       id={id}
-      handleImageChange={handleImageChange}
-      valid={valid}
       handleSubmit={handleSubmit}
-      handleChange={handleChange}
-      opinionParagraphs={opinionParagraphs}
-      setOpinionParagraphs={setOpinionParagraphs}
-      opinionListItems={opinionListItems}
-      setOpinionListItems={setOpinionListItems}
       value={value}
-      child={
-        <AddImageWithTextFiled
-          images={images}
-          setImages={setImages}
-          paragraphs={paragraphs}
-          setParagraphs={setParagraphs}
-        />
-      }
+      dispatch={dispatch}
+      headerValue={headerValue}
+      dispatchHeader={dispatchHeader}
+      opinionValue={opinionValue}
+      dispatchOpinion={dispatchOpinion}
+      child={[<AddMultiInfo value={infoValue} dispatch={dispatchInfo} />]}
     />
   );
 };

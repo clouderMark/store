@@ -1,12 +1,8 @@
 export enum EType {
   reset = 'reset',
+  valid = 'valid',
   name = 'name',
-  opinionTitle = 'opinionTitle',
-  opinionListTitle = 'opinionListTitle',
-  opinionName = 'opinionName',
-  opinionPhone = 'opinionPhone',
-  opinionFax = 'opinionFax',
-  opinionEmail = 'opinionEmail',
-  opinionImage = 'opinionImage',
-  opinionImageUrl = 'opinionImageUrl',
+  cardImage = 'cardImage',
+  cardImageUrl = 'cardImageUrl',
+  fetch = 'fetch',
 }

@@ -136,7 +136,54 @@ const SubOpinionItem = sequelize.define('sub_op_list_item', {
 const Solution = sequelize.define('solution', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
-})
+    cardImage: {type: DataTypes.STRING, allowNull: false},
+    headerImage: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.STRING, allowNull: false},
+}, { timestamps: false })
+
+const SolutionParagraph = sequelize.define('solution_paragraph', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+}, { timestamps: false })
+
+const SolutionInfoImage = sequelize.define('solution_info_image', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    image: {type: DataTypes.STRING, allowNull: false},
+    relatedTo: {type: DataTypes.STRING, allowNull: false},
+},  { timestamps: false })
+
+const SolutionInfoParagraph = sequelize.define('solution_info_paragraph', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    relatedTo: {type: DataTypes.TEXT, allowNull: false},
+    value: {type: DataTypes.TEXT, allowNull: false},
+}, { timestamps: false })
+
+const SolutionInfoTitle = sequelize.define('solution_info_title', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    unique: {type: DataTypes.TEXT, allowNull: false},
+    value: {type: DataTypes.TEXT, allowNull: false},
+}, { timestamps: false })
+
+const SolutionOpinion = sequelize.define('solution_opinion', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    title: {type: DataTypes.STRING, allowNull: false},
+    listTitle: {type: DataTypes.TEXT, allowNull: false},
+    name: {type: DataTypes.STRING, allowNull: false},
+    image: {type: DataTypes.STRING, allowNull: false},
+    phone: {type: DataTypes.STRING, allowNull: false},
+    fax: {type: DataTypes.STRING, allowNull: false},
+    email: {type: DataTypes.STRING, allowNull: false},
+}, { timestamps: false })
+
+const SolutionOpinionParagraph = sequelize.define('solution_op_paragraphs', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
+}, { timestamps: false })
+
+const SolutionOpinionItem = sequelize.define('solution_op_list_item', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.STRING, allowNull: false},
+}, { timestamps: false })
 
 const Area = sequelize.define('area', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
@@ -235,6 +282,25 @@ SubIndustryParagraph.belongsTo(SubIndustry);
 Solution.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Solution)
 
+Solution.hasMany(SolutionParagraph, {as: 'paragraphs', onDelete: 'CASCADE'})
+SolutionParagraph.belongsTo(Solution);
+
+Solution.hasMany(SolutionInfoImage, {as: 'infoImages', onDelete: 'CASCADE'})
+SolutionInfoImage.belongsTo(Solution)
+
+Solution.hasMany(SolutionInfoParagraph, {as: 'infoParagraphs', onDelete: 'CASCADE'})
+SolutionInfoParagraph.belongsTo(Solution)
+
+Solution.hasMany(SolutionInfoTitle, {as: 'infoTitle', onDelete: 'CASCADE'})
+SolutionInfoTitle.belongsTo(Solution)
+
+Solution.hasOne(SolutionOpinion, {as: 'opinion', onDelete: 'CASCADE'},);
+SolutionOpinion.belongsTo(Solution);
+SolutionOpinion.hasMany(SolutionOpinionParagraph, {as: 'paragraphs', onDelete: 'CASCADE'},);
+SolutionOpinionParagraph.belongsTo(SolutionOpinion);
+SolutionOpinion.hasMany(SolutionOpinionItem, {as: 'listItems', onDelete: 'CASCADE'},);
+SolutionOpinionItem.belongsTo(SolutionOpinion);
+
 Area.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Area)
 
@@ -292,6 +358,13 @@ export {
     SubIndustry,
     SubIndustryParagraph,
     Solution,
+    SolutionParagraph,
+    SolutionInfoImage,
+    SolutionInfoParagraph,
+    SolutionInfoTitle,
+    SolutionOpinion,
+    SolutionOpinionParagraph,
+    SolutionOpinionItem,
     Area,
     Rating,
     BasketProduct,

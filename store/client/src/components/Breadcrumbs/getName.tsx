@@ -28,6 +28,8 @@ const getName = (name: string): string | undefined => {
     if (path.length === 4) {
       crumb = catalog.subIndustries.find((el) => el.id === +path[3])?.name;
     }
+  } else if (path.includes(EPath.SolutionsItem.split('/')[1]) && +path.slice(-1) >= 0) {
+    crumb = catalog.solutions.find((el) => el.id === +path[2])?.name;
   } else {
     crumb = allNames[name];
   }

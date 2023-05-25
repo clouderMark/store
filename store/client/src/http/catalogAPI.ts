@@ -10,6 +10,8 @@ import {
   IProductProp,
   ISlider,
   IAreaResponse,
+  IFetchSolution,
+  ICatalogItemWithImage,
 } from '../types/types';
 import {ERoute} from '../enums/ERoute';
 
@@ -101,7 +103,13 @@ export const fetchSolutions = async (): Promise<ICatalogItem[]> => {
   return data;
 };
 
-export const fetchSolution = async (id: number): Promise<ICatalogItem> => {
+export const fetchSolutionsWithImage = async (): Promise<ICatalogItemWithImage[]> => {
+  const {data} = await guestInstance.get(`${ERoute.Solutions}/${ERoute.GetAll}andimg`);
+
+  return data;
+};
+
+export const fetchSolution = async (id: number): Promise<IFetchSolution> => {
   const {data} = await guestInstance.get(`${ERoute.Solutions}/${ERoute.GetOne}/${id}`);
 
   return data;

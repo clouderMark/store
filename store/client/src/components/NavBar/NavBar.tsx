@@ -51,6 +51,8 @@ const NavBar = observer(() => {
 
     if (item?.link === EPath.Industries) {
       setItem({...item, list: catalog.industries.map((el) => ({link: `${el.id}`, content: el.name}))});
+    } else if (item?.link === EPath.Solutions) {
+      setItem({...item, list: catalog.solutions.map((el) => ({link: `${el.id}`, content: el.name}))});
     } else {
       setItem(item);
     }

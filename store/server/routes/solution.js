@@ -6,6 +6,7 @@ import adminMiddleware from '../middleware/adminMiddleware.js'
 const router = new express.Router()
 
 router.get('/getall', SolutionController.getAll)
+router.get('/getallandimg', SolutionController.getAllWithImages)
 router.get('/getone/:id([0-9]+)', SolutionController.getOne)
 router.post(
     '/create',

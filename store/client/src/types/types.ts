@@ -15,8 +15,10 @@ export interface IBasket extends IId {
 
 export interface ICatalogItem extends IId {
   name: string;
-  // updatedAt: string;
-  // createdAt: string;
+}
+
+export interface ICatalogItemWithImage extends ICatalogItem {
+  cardImage: string;
 }
 
 export interface IProduct extends ICatalogItem {
@@ -204,7 +206,7 @@ export interface IInfo {
   paragraphs: IListItem[];
 }
 
-interface IListItem extends IId {
+export interface IListItem extends IId {
   value: string;
 }
 
@@ -237,5 +239,24 @@ export interface IFilteredParagraphs {
 export interface IImage {
   image: File | null;
   imageUrl: string;
-  unique: string;
+  relatedTo: string;
+  id: null | number;
+}
+
+export interface IImageRelatedTo {
+  image: string;
+  relatedTo: string;
+  id: null | number;
+}
+
+export interface IFetchSolution extends IId {
+  name: string;
+  title: string;
+  paragraphs: IListItem[];
+  cardImage: string;
+  headerImage: string;
+  infoImages: IImageRelatedTo[];
+  infoParagraphs: IParagraphsRelatedTo[];
+  infoTitle: IParagraphs[];
+  opinion: IOpinion;
 }
