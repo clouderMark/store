@@ -5,16 +5,18 @@ import {
   SolutionOpinion as OpinionMapping,
   SolutionOpinionItem as OpinionItemMapping,
   SolutionOpinionParagraph as OpinionParagraphMapping,
+  SolutionParagraph as ParagraphMapping,
 } from '../mapping.js';
 import AppError from '../../errors/AppError.js';
 import FileService from '../../services/File.js';
 import { include } from './include.js';
 import saveInfoImages from './saveImages.js';
-import createParagraphs from './createParagraphs.js';
+import createInfoParagraphs from './createInfoParagraphs.js';
 import createTitle from './createTitle.js';
 import updateInfoImages from './updateInfoImages.js';
 import createOpinionListItems from './createOpinionListItems.js';
 import createOpinionParagraphs from './createOpinionParagraphs.js';
+import createParagraphs from './createParagraphs.js';
 
 class Solution {
   async getAll() {
@@ -41,6 +43,7 @@ class Solution {
     const headerImage = FileService.save(headerImg) ?? '';
     const {
       name,
+      title = '',
       infoImagesRelatedTo,
       infoParagraphs,
       infoTitle,
@@ -51,12 +54,16 @@ class Solution {
       opinionFax = '',
       opinionEmail = '',
     } = data;
-    const solution = await SolutionMapping.create({ name, cardImage, headerImage });
+    const solution = await SolutionMapping.create({ name, cardImage, headerImage, title });
+
+    if (data.paragraphs) {
+      createParagraphs(data.paragraphs, solution.id);
+    }
 
     saveInfoImages(infoImges, infoImagesRelatedTo, solution.id);
 
     if (infoParagraphs) {
-      createParagraphs(infoParagraphs, solution.id);
+      createInfoParagraphs(infoParagraphs, solution.id);
     }
 
     if (infoTitle) {
@@ -111,6 +118,7 @@ class Solution {
 
     const {
       name = solution.name,
+      title = solution.title,
       cardImage = file2 ? file2 : solution.cardImage,
       headerImage = file3 ? file3 : solution.headerImage,
       infoImageUrls,
@@ -125,7 +133,12 @@ class Solution {
       opinionFax = solution.opinion.fax,
       opinionEmail = solution.opinion.email,
     } = data;
-    await solution.update({ name, cardImage, headerImage });
+    await solution.update({ name, cardImage, headerImage, title });
+
+    if (data.paragraphs) {
+        await ParagraphMapping.destroy({where: solution.id});
+        createParagraphs(data.paragraphs, solution.id);;
+    }
 
     updateInfoImages(
       newInfoImages,
@@ -140,7 +153,7 @@ class Solution {
     });
 
     if (infoParagraphs) {
-      createParagraphs(infoParagraphs, solution.id);
+      createInfoParagraphs(infoParagraphs, solution.id);
     }
 
     await SolutionInfoTitleMapping.destroy({

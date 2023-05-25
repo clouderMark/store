@@ -206,7 +206,7 @@ export interface IInfo {
   paragraphs: IListItem[];
 }
 
-interface IListItem extends IId {
+export interface IListItem extends IId {
   value: string;
 }
 
@@ -251,6 +251,8 @@ export interface IImageRelatedTo {
 
 export interface IFetchSolution extends IId {
   name: string;
+  title: string;
+  paragraphs: IListItem[];
   cardImage: string;
   headerImage: string;
   infoImages: IImageRelatedTo[];

@@ -138,6 +138,12 @@ const Solution = sequelize.define('solution', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     cardImage: {type: DataTypes.STRING, allowNull: false},
     headerImage: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.STRING, allowNull: false},
+}, { timestamps: false })
+
+const SolutionParagraph = sequelize.define('solution_paragraph', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    value: {type: DataTypes.TEXT, allowNull: false}
 }, { timestamps: false })
 
 const SolutionInfoImage = sequelize.define('solution_info_image', {
@@ -276,6 +282,9 @@ SubIndustryParagraph.belongsTo(SubIndustry);
 Solution.hasMany(Product, {onDelete: 'RESTRICT'})
 Product.belongsTo(Solution)
 
+Solution.hasMany(SolutionParagraph, {as: 'paragraphs', onDelete: 'CASCADE'})
+SolutionParagraph.belongsTo(Solution);
+
 Solution.hasMany(SolutionInfoImage, {as: 'infoImages', onDelete: 'CASCADE'})
 SolutionInfoImage.belongsTo(Solution)
 
@@ -349,6 +358,7 @@ export {
     SubIndustry,
     SubIndustryParagraph,
     Solution,
+    SolutionParagraph,
     SolutionInfoImage,
     SolutionInfoParagraph,
     SolutionInfoTitle,

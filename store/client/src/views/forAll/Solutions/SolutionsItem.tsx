@@ -10,6 +10,7 @@ import Contact from '../../../components/Contact/Contact';
 import Newsletter from '../../../components/Newsletter/Newsletter';
 import Footer from '../../../components/Footer/Footer';
 import InfoChangingColumnSide from '../../../components/InfoChangingColumnSide';
+import Header from '../../../components/Header';
 
 const SolutionsItem = () => {
   const id: number = Number(useParams().id);
@@ -32,6 +33,7 @@ const SolutionsItem = () => {
         <>
           <CentererImage img={process.env.REACT_APP_IMG_URL + item.headerImage} />
           <Breadcrumbs />
+          <Header item={item}/>
           <Opinion item={item.opinion} />
           <InfoChangingColumnSide item={item}/>
           <Contact />

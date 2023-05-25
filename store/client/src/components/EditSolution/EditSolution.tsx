@@ -17,6 +17,10 @@ import defaultOpinionValue from '../PopUps/Add/AddOpinion/defaultValue';
 import EOpinion from '../PopUps/Add/AddOpinion/EOpinion';
 import appendOpinionToData from '../PopUps/Add/AddOpinion/appendOpinionToData';
 import appendInfoToData from '../PopUps/Add/AddImageWithTextFields/appendInfoToData';
+import {reducer as headerReducer, initState as headerInitState} from '../PopUps/Add/AddHeader/reducer';
+import defaultHeaderValue from '../PopUps/Add/AddHeader/defaultValue';
+import EHeader from '../PopUps/Add/AddHeader/EType';
+import appendHeaderToData from '../PopUps/Add/AddHeader/appendHeaderToData';
 
 interface IProps {
   id: number | null;
@@ -31,6 +35,7 @@ const EditSolution = (props: IProps) => {
   const {id, show, setShow, setChange, setId} = props;
 
   const [value, dispatch] = useReducer(reducer, defaultValue, initState);
+  const [headerValue, dispatchHeader] = useReducer(headerReducer, defaultHeaderValue, headerInitState);
   const [infoValue, dispatchInfo] = useReducer(imageWithTextFieldsReducer, defaultInfoValue, initStateInfo);
   const [opinionValue, dispatchOpinion] = useReducer(opinionReducer, defaultOpinionValue, opinionInitState);
 
@@ -39,6 +44,7 @@ const EditSolution = (props: IProps) => {
       fetchSolution(id)
         .then((data) => {
           dispatch({type: EType.fetch, payload: data});
+          dispatchHeader({type: EHeader.fetch, payload: data});
           dispatchInfo({type: EInfo.fetch, payload: data});
           dispatchOpinion({
             type: EOpinion.fetch,
@@ -53,6 +59,7 @@ const EditSolution = (props: IProps) => {
     if (!show) {
       setId(null);
       dispatch({type: EType.reset, payload: defaultValue});
+      dispatchHeader({type: EHeader.reset, payload: defaultHeaderValue});
       dispatchInfo({type: EInfo.reset, payload: defaultInfoValue});
       dispatchOpinion({type: EOpinion.reset, payload: defaultOpinionValue});
     }
@@ -77,10 +84,7 @@ const EditSolution = (props: IProps) => {
         data.append(EType.cardImage, value[EType.cardImage], value[EType.cardImage].name);
       }
 
-      if (value[EType.headerImage]) {
-        data.append(EType.headerImage, value[EType.headerImage], value[EType.headerImage].name);
-      }
-
+      appendHeaderToData(data, headerValue);
       appendOpinionToData(data, opinionValue);
       appendInfoToData(data, infoValue);
 
@@ -117,6 +121,8 @@ const EditSolution = (props: IProps) => {
       handleSubmit={handleSubmit}
       value={value}
       dispatch={dispatch}
+      headerValue={headerValue}
+      dispatchHeader={dispatchHeader}
       opinionValue={opinionValue}
       dispatchOpinion={dispatchOpinion}
       child={[<AddImageWithTextFields value={infoValue} dispatch={dispatchInfo} />]}

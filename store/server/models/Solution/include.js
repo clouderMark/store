@@ -5,10 +5,16 @@ import {
   SolutionOpinion as OpinionMapping,
   SolutionOpinionItem as OpinionItemMapping,
   SolutionOpinionParagraph as OpinionParagraphMapping,
+  SolutionParagraph as ParagraphMapping,
 } from '../mapping.js';
 
 export const include = {
   include: [
+    {
+      model: ParagraphMapping,
+      as: 'paragraphs',
+      attributes: ['id', 'value'],
+    },
     {
       model: SolutionInfoImageMapping,
       as: 'infoImages',

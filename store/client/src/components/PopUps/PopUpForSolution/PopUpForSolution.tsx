@@ -8,6 +8,8 @@ import inputChange from '../handleChange';
 import imageChange from '../handleImageChange';
 import IOpinionDefaultValue from '../Add/AddOpinion/IDefaultValue';
 import CardInputImage from '../CardInputImage/CardInputImage';
+import IHeaderDefaultValue from '../Add/AddHeader/IDefaultValue';
+import AddHeader from '../Add/AddHeader/AddHeader';
 
 interface IProps {
   show: boolean;
@@ -16,6 +18,8 @@ interface IProps {
   handleSubmit(event: FormEvent<HTMLFormElement>): void;
   value: IDefaultValue;
   dispatch: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
+  headerValue: IHeaderDefaultValue;
+  dispatchHeader: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
   opinionValue: IOpinionDefaultValue;
   dispatchOpinion: Dispatch<{type: string; payload?: any}>; // eslint-disable-line
   child?: JSX.Element[];
@@ -54,13 +58,8 @@ const PopUpForSolutiond = (props: IProps) => {
                 sx={{width: '100%'}}
               />
             </Box>
-            <CardInputImage
-              value={value[EType.headerImageUrl]}
-              name={EType.headerImage}
-              handleImageChange={handleImageChange}
-              sx={{flexGrow: 1, ml: '30px'}}
-            />
           </Box>
+          <AddHeader value={props.headerValue} dispatch={props.dispatchHeader} />
           <AddOpinion value={opinionValue} dispatch={dispatchOpinion} />
           {props.child?.map((el, i) => (
             <Fragment key={i}>{el}</Fragment>
