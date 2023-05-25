@@ -16,15 +16,19 @@ const Opinion = (props: IProps) => {
       <ContainerWithTwoColumns
         firstColumn={
           <>
-            <Typography component="h2" sx={styles.title}>
-              {item.title}
-            </Typography>
+            {item.title ? (
+              <Typography component="h2" sx={styles.title}>
+                {item.title}
+              </Typography>
+            ) : null}
             {item.paragraphs.map((el) => (
               <Typography component="p" key={el.id} sx={{mb: '20px'}}>
                 {el.value}
               </Typography>
             ))}
-            <ListWithSubheader subheader={item.listTitle} items={item.listItems.map((el) => el.value)} />
+            {item.listTitle || item.listItems.length ? (
+              <ListWithSubheader subheader={item.listTitle} items={item.listItems.map((el) => el.value)} />
+            ) : null}
           </>
         }
         secondColumn={
@@ -38,32 +42,34 @@ const Opinion = (props: IProps) => {
                 <Typography sx={styles.p}>{item.name}</Typography>
               </>
             ) : null}
-            <List sx={styles.list}>
-              {item.phone ? (
-                <ListItem disablePadding>
-                  <Typography>Телефон: </Typography>
-                  <Typography component="a" href={`tel: ${item.phone}`}>
-                    {item.phone}
-                  </Typography>
-                </ListItem>
-              ) : null}
-              {item.fax ? (
-                <ListItem disablePadding>
-                  <Typography>Факс: </Typography>
-                  <Typography component="a" href={`tel: ${item.fax}`}>
-                    {item.fax}
-                  </Typography>
-                </ListItem>
-              ) : null}
-              {item.email ? (
-                <ListItem disablePadding>
-                  <Typography>E-Mail: </Typography>
-                  <Typography component="a" href={`mailto: ${item.email}`}>
-                    {item.fax}
-                  </Typography>
-                </ListItem>
-              ) : null}
-            </List>
+            {item.phone || item.fax || item.email ? (
+              <List sx={styles.list}>
+                {item.phone ? (
+                  <ListItem disablePadding>
+                    <Typography>Телефон: </Typography>
+                    <Typography component="a" href={`tel: ${item.phone}`}>
+                      {item.phone}
+                    </Typography>
+                  </ListItem>
+                ) : null}
+                {item.fax ? (
+                  <ListItem disablePadding>
+                    <Typography>Факс: </Typography>
+                    <Typography component="a" href={`tel: ${item.fax}`}>
+                      {item.fax}
+                    </Typography>
+                  </ListItem>
+                ) : null}
+                {item.email ? (
+                  <ListItem disablePadding>
+                    <Typography>E-Mail: </Typography>
+                    <Typography component="a" href={`mailto: ${item.email}`}>
+                      {item.fax}
+                    </Typography>
+                  </ListItem>
+                ) : null}
+              </List>
+            ) : null}
           </>
         }
         firstColumnWidth={70}
