@@ -4,7 +4,7 @@ import {Box, Button, Card, Container, TextField, Typography} from '@mui/material
 import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../../components/AppContext';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
-import {login} from '../../http/userAPI';
+import {login, signup} from '../../http/userAPI';
 import {EPath} from '../../enums/EPath';
 
 const Login = observer(() => {
@@ -22,7 +22,13 @@ const Login = observer(() => {
     const target = event.currentTarget;
     const email = target.email.value.trim();
     const password = target.password.value.trim();
-    const data = await login(email, password);
+    let data;
+
+    if (isLogin) {
+      data = await login(email, password);
+    } else {
+      data = await signup(email, password);
+    }
 
     if (data) {
       user.login(data);
