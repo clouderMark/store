@@ -32,27 +32,37 @@ const Opinion = (props: IProps) => {
             {item.image ? (
               <Box component="img" src={process.env.REACT_APP_IMG_URL + item.image} sx={{width: '100%', mb: '25px'}} />
             ) : null}
-            <Typography sx={styles.p}>Контактное лицо</Typography>
-            <Typography sx={styles.p}>{item.name}</Typography>
+            {item.name ? (
+              <>
+                <Typography sx={styles.p}>Контактное лицо</Typography>
+                <Typography sx={styles.p}>{item.name}</Typography>
+              </>
+            ) : null}
             <List sx={styles.list}>
-              <ListItem disablePadding>
-                <Typography>Телефон: </Typography>
-                <Typography component="a" href={`tel: ${item.phone}`}>
-                  {item.phone}
-                </Typography>
-              </ListItem>
-              <ListItem disablePadding>
-                <Typography>Факс: </Typography>
-                <Typography component="a" href={`tel: ${item.fax}`}>
-                  {item.fax}
-                </Typography>
-              </ListItem>
-              <ListItem disablePadding>
-                <Typography>E-Mail: </Typography>
-                <Typography component="a" href={`mailto: ${item.email}`}>
-                  {item.fax}
-                </Typography>
-              </ListItem>
+              {item.phone ? (
+                <ListItem disablePadding>
+                  <Typography>Телефон: </Typography>
+                  <Typography component="a" href={`tel: ${item.phone}`}>
+                    {item.phone}
+                  </Typography>
+                </ListItem>
+              ) : null}
+              {item.fax ? (
+                <ListItem disablePadding>
+                  <Typography>Факс: </Typography>
+                  <Typography component="a" href={`tel: ${item.fax}`}>
+                    {item.fax}
+                  </Typography>
+                </ListItem>
+              ) : null}
+              {item.email ? (
+                <ListItem disablePadding>
+                  <Typography>E-Mail: </Typography>
+                  <Typography component="a" href={`mailto: ${item.email}`}>
+                    {item.fax}
+                  </Typography>
+                </ListItem>
+              ) : null}
             </List>
           </>
         }
