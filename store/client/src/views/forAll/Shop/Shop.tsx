@@ -12,9 +12,6 @@ import {SearchBar} from '../../../components/Bar/SearchBar/SearchBar';
 import {FiltersBar} from '../../../components/Bar/FiltersBar/FiltersBar';
 import IndividualProduct from '../../../components/IndividualProduct/IndividualProduct';
 import Shipping from '../../../components/Shipping/Shipping';
-import Contact from '../../../components/Contact/Contact';
-import Newsletter from '../../../components/Newsletter/Newsletter';
-import Footer from '../../../components/Footer/Footer';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import {EPath} from '../../../enums/EPath';
 
@@ -191,9 +188,6 @@ const Shop = observer(() => {
         </Box>
       </Container>
       <Shipping />
-      <Contact />
-      <Newsletter />
-      <Footer />
     </>
   );
 });

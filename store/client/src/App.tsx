@@ -12,6 +12,9 @@ import {fetchBasket} from './http/basketAPI';
 import Loader from './components/Loader';
 import {theme} from './styles/theme';
 import {fetchIndustries, fetchSubIndustries, fetchSolutions} from './http/catalogAPI';
+import Newsletter from './components/Newsletter/Newsletter';
+import Contact from './components/Contact/Contact';
+import Footer from './components/Footer/Footer';
 
 const App = observer(() => {
   const {user, basket, catalog} = useAppContext();
@@ -44,6 +47,9 @@ const App = observer(() => {
       <BrowserRouter>
         <NavBar />
         <AppRouter />
+        <Contact />
+        <Newsletter />
+        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   );

@@ -8,9 +8,6 @@ import {EPath} from '../../../enums/EPath';
 import CenteredContainer from '../../../components/CentererContainer/CentererContainer';
 import {quality} from '../../../components/commonContent/quality';
 import {partnership} from '../../../components/commonContent/partnerships';
-import Contact from '../../../components/Contact/Contact';
-import Newsletter from '../../../components/Newsletter/Newsletter';
-import Footer from '../../../components/Footer/Footer';
 import Info from '../../../components/Info';
 import NavLinkButtons from '../../../components/NavLinkButtons/NavLinkButtons';
 import {content as contactUs, buttons as buttonsContact} from '../../../components/commonContent/contactUs/content';
@@ -48,9 +45,6 @@ const Main = () => (
     />
     <SliderIndustries />
     <CenteredContainer content={partnership} />
-    <Contact />
-    <Newsletter />
-    <Footer />
   </>
 );
 

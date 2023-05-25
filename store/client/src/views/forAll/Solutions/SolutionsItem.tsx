@@ -6,9 +6,6 @@ import Progress from '../../../components/LinearDeterminate';
 import CentererImage from '../../../components/CentererImage/CentererImage';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import Opinion from '../../../components/Opinion/Opinion';
-import Contact from '../../../components/Contact/Contact';
-import Newsletter from '../../../components/Newsletter/Newsletter';
-import Footer from '../../../components/Footer/Footer';
 import InfoChangingColumnSide from '../../../components/InfoChangingColumnSide';
 import Header from '../../../components/Header';
 
@@ -36,9 +33,6 @@ const SolutionsItem = () => {
           <Header item={item}/>
           <Opinion item={item.opinion} />
           <InfoChangingColumnSide item={item}/>
-          <Contact />
-          <Newsletter />
-          <Footer />
         </>
       ) : null}
     </>

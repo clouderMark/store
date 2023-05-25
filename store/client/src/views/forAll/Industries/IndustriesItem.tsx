@@ -5,9 +5,6 @@ import {useAppContext} from '../../../components/AppContext';
 import CentererImage from '../../../components/CentererImage/CentererImage';
 import Breadcrumbs from '../../../components/Breadcrumbs/Breadcrumbs';
 import CardList from '../../../components/CardList/CardList';
-import Contact from '../../../components/Contact/Contact';
-import Newsletter from '../../../components/Newsletter/Newsletter';
-import Footer from '../../../components/Footer/Footer';
 import Info from '../../../components/Info';
 import NavLinkButtons from '../../../components/NavLinkButtons/NavLinkButtons';
 import {EPath} from '../../../enums/EPath';
@@ -62,9 +59,6 @@ const IndustriesItem = () => {
         />
       ) : null}
       {item?.opinion.name && item.opinion.phone ? <Opinion item={item.opinion} /> : null}
-      <Contact />
-      <Newsletter />
-      <Footer />
     </>
   );
 };
