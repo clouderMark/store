@@ -1,18 +1,20 @@
 import {observer} from 'mobx-react-lite';
-import React, {useEffect, FormEvent} from 'react';
-import {Button, Card, Container, Form, Row} from 'react-bootstrap';
-import {Link, useNavigate} from 'react-router-dom';
+import {useEffect, FormEvent} from 'react';
+import {Box, Button, Card, Container, TextField, Typography} from '@mui/material';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../../components/AppContext';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {login} from '../../http/userAPI';
+import {EPath} from '../../enums/EPath';
 
 const Login = observer(() => {
   const {user} = useAppContext();
   const navigate = useNavigate();
+  const isLogin = useLocation().pathname === EPath.Login;
 
   useEffect(() => {
-    if (user.isAdmin) navigate('/admin', {replace: true});
-    if (user.isAuth) navigate('/user', {replace: true});
+    if (user.isAdmin) navigate(EPath.Admin, {replace: true});
+    if (user.isAuth) navigate(EPath.User, {replace: true});
   }, []);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -24,28 +26,34 @@ const Login = observer(() => {
 
     if (data) {
       user.login(data);
-      if (user.isAdmin) navigate('/admin');
-      if (user.isAuth) navigate('/user');
+      if (user.isAdmin) navigate(EPath.Admin);
+      if (user.isAuth) navigate(EPath.User);
     }
   };
 
   return (
     <>
       <Breadcrumbs />
-      <Container className="d-flex justify-content-center">
-        <Card style={{width: '50%'}} className="p-2 mt-5 bg-light">
-          <h3 className="m-auto">Авторизация</h3>
-          <Form className="d-flex flex-column" onSubmit={handleSubmit}>
-            <Form.Control name="email" className="mt-3" placeholder="Введите ваш email..." />
-            <Form.Control name="password" className="mt-3" placeholder="Введите ваш пароль..." />
-            <Row className="d-flex justify-content-between mt-2 mb-2 p-3">
-              <Button type="submit">Войти</Button>
-              <p>
-                Нет аккаунта?
-                <Link to="/signup">Зарегистрируйтесь!</Link>
-              </p>
-            </Row>
-          </Form>
+      <Container sx={{display: 'flex', justifyContent: 'center'}}>
+        <Card style={{width: '50%'}} sx={{p: 5, mb: 15}}>
+          <Typography component="h3" sx={{color: '#6f6f6f', mt: 'auto'}}>
+            {isLogin ? 'Авторизация' : 'Регистрация'}
+          </Typography>
+          <Box component="form" sx={{display: 'flex', flexDirection: 'column'}} onSubmit={handleSubmit}>
+            <TextField name="email" sx={{mt: 3}} placeholder="Введите ваш email..." />
+            <TextField name="password" sx={{mt: 3}} placeholder="Введите ваш пароль..." />
+            <Box sx={{display: 'flex', justifyContent: 'space-between', mt: 2, mb: 2, p: 3}}>
+              <Button type="submit" color="first" variant="outlined">
+                {isLogin ? 'Войти' : 'Регистрация'}
+              </Button>
+              <Typography sx={{color: '#6f6f6f', mt: 'auto'}}>
+                {isLogin ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
+                <Link to={isLogin ? EPath.Signup : EPath.Login}>
+                  {isLogin ? ' Зарегистрируйтесь!' : ' Войдите!'}
+                </Link>
+              </Typography>
+            </Box>
+          </Box>
         </Card>
       </Container>
     </>

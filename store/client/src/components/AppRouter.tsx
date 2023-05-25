@@ -8,7 +8,6 @@ import Delivery from '../views/forAll/Delivery';
 import Login from '../views/forAll/Login';
 import NotFound from '../views/forAll/NotFound';
 import Shop from '../views/forAll/Shop/Shop';
-import Signup from '../views/forAll/Signup';
 import User from '../views/forAll/User';
 import {useAppContext} from './AppContext';
 import Checkout from '../views/forAll/Checkout';
@@ -45,7 +44,7 @@ interface IRoute {
 const publicRoutes: IRoute[] = [
   {[ERoute.Path]: EPath.Shop, [ERoute.Component]: Shop},
   {[ERoute.Path]: EPath.Login, [ERoute.Component]: Login},
-  {[ERoute.Path]: EPath.Signup, [ERoute.Component]: Signup},
+  {[ERoute.Path]: EPath.Signup, [ERoute.Component]: Login},
   {[ERoute.Path]: EPath.Product, [ERoute.Component]: Product},
   {[ERoute.Path]: EPath.Basket, [ERoute.Component]: Basket},
   {[ERoute.Path]: EPath.Checkout, [ERoute.Component]: Checkout},
