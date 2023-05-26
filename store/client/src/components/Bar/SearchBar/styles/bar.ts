@@ -10,7 +10,6 @@ export const bar = {
     width: '296px',
     height: '55px',
     input: {
-      color: '#707070',
       fontWeight: 400,
     },
     [`@media (max-width: ${searchQuery}px)`]: {
@@ -22,7 +21,6 @@ export const bar = {
     alignItems: 'center',
   },
   label: {
-    color: '#6f6f6f',
     fontSize: '18px',
   },
 };

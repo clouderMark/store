@@ -7,6 +7,5 @@ export const strongWithTitle = {
   title: {
     fontSize: '30px',
     fontWeight: 300,
-    color: '#6f6f6f',
   },
 };

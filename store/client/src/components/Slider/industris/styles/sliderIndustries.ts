@@ -1,3 +1,4 @@
+import {theme} from '../../../../styles/theme';
 import {queryTablet, querySmallTablet, queryMobile} from '../../query';
 import {slider} from '../../styles/slider';
 
@@ -60,7 +61,7 @@ export const sliderIndustries = {
     list: {
       marginBottom: '30px',
       padding: '0',
-      borderLeft: '1px solid rgba(255,255,255,.27)',
+      borderLeft: `1px solid ${theme.palette.third.dark})`,
 
       button: {
         color: slider.color1,
@@ -69,7 +70,7 @@ export const sliderIndustries = {
 
         '&:hover': {
           color: slider.color1,
-          backgroundColor: 'rgba(255,255,255, .3)',
+          backgroundColor: theme.palette.third.dark,
         },
 
         [`@media (max-width: ${queryTablet}px)`]: {

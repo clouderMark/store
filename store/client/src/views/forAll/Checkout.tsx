@@ -89,10 +89,10 @@ const Checkout = () => {
   if (order) {
     return (
       <Container maxWidth={false} sx={{mb: 10}}>
-        <Typography component="h1" sx={{mb: 4, mt: 4, fontSize: '30px', color: '#6f6f6f'}}>
+        <Typography component="h1" sx={{mb: 4, mt: 4, fontSize: '30px'}}>
           Заказ оформлен
         </Typography>
-        <Typography sx={{color: '#6f6f6f'}}>Наш менеджер скоро позвонит для уточнения деталей</Typography>
+        <Typography>Наш менеджер скоро позвонит для уточнения деталей</Typography>
       </Container>
     );
   }
@@ -125,7 +125,7 @@ const Checkout = () => {
       <Breadcrumbs />
       <Container maxWidth={false}>
         {basket.count === 0 && <Navigate to={EPath.Basket} replace={true} />}
-        <Typography component="h1" sx={{mb: 4, mt: 4, fontSize: '30px', color: '#6f6f6f'}}>
+        <Typography component="h1" sx={{mb: 4, mt: 4, fontSize: '30px'}}>
           Оформление заказа
         </Typography>
         <Box

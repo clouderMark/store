@@ -1,3 +1,5 @@
+import {theme} from '../../../styles/theme';
+
 export const opinion = {
   box: {
     backgroundImage: 'linear-gradient(to bottom,#f4f4f4 10%,#fff 100%)',
@@ -13,7 +15,6 @@ export const opinion = {
   title: {
     fontSize: '30px',
     fontWeight: 300,
-    color: '#6f6f6f',
   },
 
   list: {
@@ -36,7 +37,7 @@ export const opinion = {
 
       '& a': {
         textDecoration: 'none',
-        color: '#008f38',
+        color: theme.palette.first.main,
       },
     },
   },

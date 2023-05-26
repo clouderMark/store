@@ -2,10 +2,11 @@ import {useNavigate} from 'react-router-dom';
 import {Card, CardMedia, CardContent, Typography} from '@mui/material';
 import {cardItem as styles} from './styles/cardItem';
 import Arrow from '../Arrow/Arrow';
+import {theme} from '../../styles/theme';
 
 interface IProps {
   image?: string | null;
-  to: string
+  to: string;
   name: string;
 }
 
@@ -23,7 +24,7 @@ const CardItem = (props: IProps) => {
         <Typography sx={styles.title} component="p">
           {props.name}
         </Typography>
-        <Arrow color={'#008f38'} direction={'right'} size={31} />
+        <Arrow color={theme.palette.first.main} direction={'right'} size={31} />
       </CardContent>
     </Card>
   );

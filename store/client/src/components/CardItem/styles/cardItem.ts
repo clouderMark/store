@@ -1,3 +1,5 @@
+import {theme} from '../../../styles/theme';
+
 const queryTablet = 1425;
 const queryMobile = 767;
 const querySmallTablet = 1023;
@@ -15,14 +17,14 @@ export const cardItem = {
       cursor: 'pointer',
       '& i': {
         '&::before': {
-          backgroundColor: '#008f38',
+          backgroundColor: theme.palette.first.main,
         },
         '&::after': {
-          borderColor: 'white',
+          borderColor: theme.palette.third.main,
         },
       },
       '& .MuiTypography-root': {
-        color: '#008f38',
+        color: theme.palette.first.main,
         textDecoration: 'underline',
       },
     },
@@ -69,7 +71,6 @@ export const cardItem = {
     fontWeight: 300,
     fontSize: '25px',
     textTransform: 'capitalize',
-    color: '#6f6f6f',
 
     [`@media (max-width: ${querySmallTablet}px)`]: {
       fontSize: 'calc(1.28125rem + .375vw)',

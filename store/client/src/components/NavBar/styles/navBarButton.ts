@@ -1,3 +1,4 @@
+import {theme} from '../../../styles/theme';
 import {queryTablet} from '../../commonContent/queryTablet';
 import {queryMobile} from '../query';
 
@@ -12,14 +13,14 @@ export const button = {
   fontWeight: 'normal',
   fontSize: '14px',
   svg: {
-    color: '#008f38',
+    color: theme.palette.first.main,
   },
   '&:hover': {
     '.box': {
-      backgroundColor: '#008f38',
+      backgroundColor: theme.palette.first.main,
     },
     svg: {
-      color: 'white',
+      color: theme.palette.third.main,
     },
   },
   [`@media (max-width: ${queryTablet}px)`]: {
@@ -36,10 +37,10 @@ export const button = {
 
   '&.active': {
     '.box': {
-      backgroundColor: '#008f38',
+      backgroundColor: theme.palette.first.main,
     },
     svg: {
-      color: 'white',
+      color: theme.palette.third.main,
     },
   },
 };

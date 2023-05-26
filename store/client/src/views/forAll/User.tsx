@@ -1,8 +1,9 @@
-import {Button, Container} from 'react-bootstrap';
+import {Button, Container, List, ListItem, ListItemButton, ListItemText, Typography} from '@mui/material';
 import {Link, useNavigate} from 'react-router-dom';
 import {useAppContext} from '../../components/AppContext';
 import {logout} from '../../http/userAPI';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+import {EPath} from '../../enums/EPath';
 
 const User = () => {
   const {user} = useAppContext();
@@ -11,21 +12,27 @@ const User = () => {
   const handleLogout = () => {
     logout();
     user.logout();
-    navigate('/login', {replace: true});
+    navigate(EPath.Login, {replace: true});
   };
 
   return (
     <>
       <Breadcrumbs />
-      <Container>
-        <h1>Личный кабинет</h1>
-        <p>Это личный кабинет постоянного покупателя магазина</p>
-        <ul>
-          <li>
-            <Link to="/user/orders">История заказов</Link>
-          </li>
-        </ul>
-        <Button onClick={handleLogout}>Выйти</Button>
+      <Container maxWidth={false} sx={{mt: 2, mb: 10}}>
+        <Typography component="h1" sx={{mb: 4, fontSize: '30px'}}>
+          Личный кабинет
+        </Typography>
+        <Typography sx={{mb: 1}}>Это личный кабинет постоянного покупателя магазина</Typography>
+        <List>
+          <ListItem>
+            <ListItemButton component={Link} to={EPath.UserOrders}>
+              <ListItemText primary="Личный кабинет" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+        <Button color="first" variant="contained" onClick={handleLogout} sx={{mt: 5}}>
+          Выйти
+        </Button>
       </Container>
     </>
   );

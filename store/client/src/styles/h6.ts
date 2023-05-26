@@ -1,6 +1,8 @@
+import {theme} from './theme';
+
 export const h6 = {
   marginBottom: '23px',
-  color: '#008f38',
+  color: theme.palette.first.main,
   textTransform: 'uppercase',
   fontWeight: 500,
 };

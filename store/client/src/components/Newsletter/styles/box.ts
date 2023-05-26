@@ -1,17 +1,18 @@
 import bg1 from '../../../image/bg1.png';
 import bg2 from '../../../image/bg2.png';
+import {theme} from '../../../styles/theme';
 
 const height = 54;
 const color = 'white';
 const colorButton = '#1a9a4c';
-const colorButtonHover = '#007146';
+const colorButtonHover = theme.palette.first.dark;
 const tabletSize = 1429;
 const lowTableSize = 1023;
 const mobile = 574;
 
 export const box = {
   padding: '99px 0 101px',
-  backgroundColor: '#a3d8dd',
+  backgroundColor: theme.palette.second.main,
   backgroundImage: `url(${bg1}), url(${bg2})`,
   backgroundRepeat: 'no-repeat',
   backgroundPosition: '0 -130px, right -15px',
@@ -56,7 +57,7 @@ export const box = {
 
   titleTop: {
     marginBottom: '11px',
-    color: '#008f38',
+    color: theme.palette.first.main,
     fontWeight: 500,
     textTransform: 'uppercase',
   },
@@ -84,13 +85,12 @@ export const box = {
     width: '243px',
     '& .MuiInputBase-root': {
       height: `${height}px`,
-      color: '#6f6f6f',
       backgroundColor: color,
       fontSize: '18px',
       fontWeight: '20px',
       borderRadius: 0,
       '& fieldset': {
-        borderColor: 'rgba(255, 255, 255, 0.6)',
+        borderColor: theme.palette.third.light,
         fontSize: '18px',
       },
       '&:hover fieldset': {

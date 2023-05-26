@@ -1,3 +1,5 @@
+import {theme} from '../../../../styles/theme';
+
 export const cardInputImage = {
   card: {
     position: 'relative',
@@ -6,7 +8,7 @@ export const cardInputImage = {
   img: {
     height: '335px',
     width: '100%',
-    backgroundColor: '#707070',
+    backgroundColor: theme.palette.fourth.light,
     objectFit: 'cover',
   },
 };

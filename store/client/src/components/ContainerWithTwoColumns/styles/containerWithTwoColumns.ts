@@ -1,11 +1,12 @@
+import {theme} from '../../../styles/theme';
+
 export const queryMobile = 732;
-const color = '#6f6f6f';
 
 export const containerWithTwoColumns = {
   container: {
     display: 'flex',
     justifyContent: 'space-between',
-    color: color,
+    color: theme.palette.fourth.main,
     paddingBottom: '80px',
     marginTop: '80px',
 

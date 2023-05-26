@@ -1,5 +1,7 @@
-const color1 = 'white';
-const color2 = '#008f38';
+import {theme} from '../../../styles/theme';
+
+const color1 = theme.palette.third.main;
+const color2 = theme.palette.first.main;
 
 export const slider = {
   button: {

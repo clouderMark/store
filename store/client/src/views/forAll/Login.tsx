@@ -42,7 +42,7 @@ const Login = observer(() => {
       <Breadcrumbs />
       <Container sx={{display: 'flex', justifyContent: 'center'}}>
         <Card style={{width: '50%'}} sx={{p: 5, mb: 15}}>
-          <Typography component="h3" sx={{color: '#6f6f6f', mt: 'auto'}}>
+          <Typography component="h3" sx={{mt: 'auto'}}>
             {isLogin ? 'Авторизация' : 'Регистрация'}
           </Typography>
           <Box component="form" sx={{display: 'flex', flexDirection: 'column'}} onSubmit={handleSubmit}>
@@ -52,7 +52,7 @@ const Login = observer(() => {
               <Button type="submit" color="first" variant="outlined">
                 {isLogin ? 'Войти' : 'Регистрация'}
               </Button>
-              <Typography sx={{color: '#6f6f6f', mt: 'auto'}}>
+              <Typography sx={{mt: 'auto'}}>
                 {isLogin ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
                 <Link to={isLogin ? EPath.Signup : EPath.Login}>
                   {isLogin ? ' Зарегистрируйтесь!' : ' Войдите!'}
