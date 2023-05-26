@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {CssBaseline} from '@mui/material';
 import {BrowserRouter} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
@@ -44,6 +44,7 @@ const App = observer(() => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+        <CssBaseline />
         <NavBar />
         <AppRouter />
         <Contact />

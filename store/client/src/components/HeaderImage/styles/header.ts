@@ -19,7 +19,8 @@ export const header = {
 
   image: {
     width: '100%',
-    height: '100%',
+    // height: '100%',
+    mb: '-6.5px',
 
     [`@media (max-width: ${queryTablet}px)`]: {
       maxHeight: '423px',
@@ -28,7 +29,6 @@ export const header = {
     [`@media (max-width: ${queryMobile}px)`]: {
       maxHeight: '747px',
       height: '747px',
-      objectFit: 'cover',
     },
   },
 
