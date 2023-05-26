@@ -1,4 +1,5 @@
-import {Route, Routes} from 'react-router-dom';
+import {useEffect} from 'react';
+import {Route, Routes, useLocation} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
 import Admin from '../views/forAdmin/Admin/Admin';
 import Basket from '../views/forAll/Basket';
@@ -37,8 +38,8 @@ enum ERoute {
 }
 
 interface IRoute {
-  [ERoute.Path]: EPath,
-  [ERoute.Component](): JSX.Element,
+  [ERoute.Path]: EPath;
+  [ERoute.Component](): JSX.Element;
 }
 
 const publicRoutes: IRoute[] = [
@@ -81,6 +82,12 @@ const adminRoutes: IRoute[] = [
 
 const AppRouter = observer(() => {
   const {user} = useAppContext();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <Routes>
