@@ -1,11 +1,14 @@
 import {useEffect, useState} from 'react';
-import {Button, Col, Container, Image, Row, Spinner, Table} from 'react-bootstrap';
+import {Box, Button, Container, TableCell, TableRow, Typography} from '@mui/material';
 import {useParams} from 'react-router-dom';
 import {useAppContext} from '../../components/AppContext';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {append} from '../../http/basketAPI';
 import {fetchOneProduct, fetchProdRating} from '../../http/catalogAPI';
 import {IProductWithProps, IRating} from '../../types/types';
+import Loader from '../../components/LinearDeterminate';
+import ContainerWithTwoColumns from '../../components/ContainerWithTwoColumns/ContainerWithTwoColumns';
+import {Board} from '../../components/Board';
 
 const Product = () => {
   const id: number = Number(useParams().id);
@@ -28,56 +31,64 @@ const Product = () => {
   };
 
   if (!product) {
-    return <Spinner animation="border" />;
+    return <Loader />;
   }
 
   return (
     <>
       <Breadcrumbs />
-      <Container>
-        <Row className="mt-3 mb-3">
-          <Col>
+      <ContainerWithTwoColumns
+        firstColumn={
+          <>
             {product.image ? (
-              <Image width={300} height={300} src={process.env.REACT_APP_IMG_URL + product.image} />
+              <Box component="img" width={300} height={300} src={process.env.REACT_APP_IMG_URL + product.image} />
             ) : (
-              <Image width={300} height={300} src="http://via.placeholder.com/300" />
+              <Box component="img" width={300} height={300} src="http://via.placeholder.com/300" />
             )}
-          </Col>
-          <Col>
-            <h1>{product.name}</h1>
-            <h3>{product.price}.00 руб</h3>
-            <p>Решение: {product.solution.name}</p>
-            <p>Индустрия: {product.industry.name}</p>
-            <div>
+          </>
+        }
+        secondColumn={
+          <>
+            <Typography component="h1" sx={{mb: 4, mt: 4, fontSize: '30px'}}>
+              {product.name}
+            </Typography>
+            <Typography component="h3" sx={{mb: 4, mt: 4, fontSize: '25px'}}>
+              {product.price}.00 руб
+            </Typography>
+            <Typography>Решение: {product.solution.name}</Typography>
+            <Typography>Индустрия: {product.industry.name}</Typography>
+            <Box>
               {rating ? (
-                <p>
+                <Typography>
                   Рейтинг: {rating.rating}, голосов {rating.votes}
-                </p>
+                </Typography>
               ) : (
-                <Spinner animation="border" />
+                <>Загрузка рейтинга</>
               )}
-            </div>
-            <Button onClick={() => handleClick(+product.id)}>Добавить в корзину</Button>
-          </Col>
-        </Row>
-        {!!product.props.length && (
-          <Row>
-            <Col>
-              <h3>Характеристики</h3>
-              <Table bordered hover size="sm">
-                <tbody>
-                  {product.props.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.name}</td>
-                      <td>{item.value}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Col>
-          </Row>
-        )}
-      </Container>
+            </Box>
+            <Button color="first" variant="contained" sx={{mt: 3}} onClick={() => handleClick(+product.id)}>
+              Добавить в корзину
+            </Button>
+          </>
+        }
+      />
+      {product.props.length ? (
+        <Container maxWidth={false} sx={{mb: 10}}>
+          <Board
+            tableHeadCells={<TableCell colSpan={2}>Характеристики</TableCell>}
+            tableBodyCells={
+              <>
+                {product.props.map((el) => (
+                  <TableRow key={el.id}>
+                    <TableCell>{el.name}</TableCell>
+                    <TableCell>{el.value}</TableCell>
+                  </TableRow>
+                ))}
+              </>
+            }
+          />
+        </Container>
+      ) : null}
     </>
   );
 };
