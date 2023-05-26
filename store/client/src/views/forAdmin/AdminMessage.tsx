@@ -6,6 +6,7 @@ import {adminGetOneMessage, adminDelete} from '../../http/contactAPI';
 import {IMessage} from '../../types/types';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import AlertLine from '../../components/AlertLine/AlertLine';
+import {EPath} from '../../enums/EPath';
 
 const AdminMessage = () => {
   const {id} = useParams();
@@ -30,7 +31,7 @@ const AdminMessage = () => {
       }, 5000);
 
       history({
-        pathname: '/admin/messages',
+        pathname: EPath.AdminMessages,
       });
     });
   };
@@ -46,7 +47,7 @@ const AdminMessage = () => {
   return (
     <>
       <Breadcrumbs />
-      <Container sx={{mt: 2}}>
+      <Container sx={{mt: 2, mb: 10}} maxWidth={false}>
         <Typography variant="h4"> Сообщение № {message?.id}</Typography>
         <Typography variant="body1">От: {message?.name}</Typography>
         <Typography variant="body1">Компания: {message?.company}</Typography>
@@ -57,7 +58,7 @@ const AdminMessage = () => {
         <Typography variant="body1">телефон: {message?.phone}</Typography>
         <Typography variant="body1">mail: {message?.email}</Typography>
         <Typography variant="body1">Тема вопроса: {message?.question}</Typography>
-        <Button variant="outlined" onClick={() => handleDeleteClick(message!.id)} color="warning">
+        <Button variant="outlined" onClick={() => handleDeleteClick(message!.id)} color="warning" sx={{mt: 4}}>
           Удалить
         </Button>
       </Container>
