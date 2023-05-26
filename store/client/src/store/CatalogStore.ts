@@ -26,7 +26,7 @@ class CatalogStore {
 
   private _count = 0; // сколько всего товаров
 
-  private _limit = 20; // товаров на страницу
+  private _limit = 5; // товаров на страницу
 
   constructor() {
     makeAutoObservable(this);

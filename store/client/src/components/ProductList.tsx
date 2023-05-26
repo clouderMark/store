@@ -1,12 +1,12 @@
 import {observer} from 'mobx-react-lite';
 import {createSearchParams, useNavigate} from 'react-router-dom';
-import {Box, Typography} from '@mui/material';
-import {Pagination} from 'react-bootstrap';
+import {Box, Pagination, Stack, Typography} from '@mui/material';
 import ProductItem from './ProductItem/ProductItem';
 import {useAppContext} from './AppContext';
 import {IObject, IProductWithProps} from '../types/types.js';
 import {dFlex, fWrap, justifySB} from '../styles/flex';
 import {EPath} from '../enums/EPath';
+import {theme} from '../styles/theme';
 
 const ProductList = observer(() => {
   const {catalog} = useAppContext();
@@ -27,16 +27,6 @@ const ProductList = observer(() => {
     });
   };
 
-  const pages = [];
-
-  for (let page = 1; page <= catalog.pages; page++) {
-    pages.push(
-      <Pagination.Item key={page} active={page === catalog.page} activeLabel="" onClick={() => handleClick(page)}>
-        {page}
-      </Pagination.Item>,
-    );
-  }
-
   return (
     <>
       <Box sx={[dFlex, fWrap, justifySB]}>
@@ -48,7 +38,21 @@ const ProductList = observer(() => {
           </Typography>
         )}
       </Box>
-      {catalog.page > 1 && <Pagination>{pages}</Pagination>}
+      {catalog.pages > 1 ? (
+        <Stack spacing={2} sx={{display: 'flex', alignItems: 'center', mt: 3, mb: 10}}>
+          <Pagination
+            count={catalog.pages}
+            page={catalog.page}
+            onChange={(_, value) => handleClick(value)}
+            color="secondary"
+            sx={{
+              '& .MuiPaginationItem-root': {
+                color: theme.palette.fourth.main,
+              },
+            }}
+          />
+        </Stack>
+      ) : null}
     </>
   );
 });
