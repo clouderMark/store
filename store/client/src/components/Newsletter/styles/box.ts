@@ -23,6 +23,11 @@ export const box = {
 
   box: {
     display: 'flex',
+
+    '@media (max-width: 360px)': {
+      flexDirection: 'column',
+      alignItems: 'center',
+    },
   },
 
   container: {
