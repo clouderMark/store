@@ -20,7 +20,7 @@ const AddHeader = (props: IProps) => {
 
   return (
     <>
-      <Typography sx={{fontSize: '20px', mb: 2}}>Заголовк страницы</Typography>
+      <Typography sx={{fontSize: '20px', mb: 2, mt: '20px'}}>Заголовк страницы</Typography>
       <CardInputImage
         value={value[EType.headerImageUrl]}
         name={EType.headerImage}

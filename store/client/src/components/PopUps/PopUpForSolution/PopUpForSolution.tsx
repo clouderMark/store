@@ -1,5 +1,5 @@
 import {ChangeEvent, Dispatch, SetStateAction, FormEvent, Fragment} from 'react';
-import {Box, TextField, DialogActions, Button} from '@mui/material';
+import {Box, TextField, DialogActions, Button, Typography} from '@mui/material';
 import AddOpinion from '../Add/AddOpinion/AddOpinion';
 import {EType} from '../../EditSolution/EType';
 import DialogWithTitle from '../DialogWithTitle';
@@ -39,6 +39,7 @@ const PopUpForSolutiond = (props: IProps) => {
       child={
         <Box component="form" noValidate onSubmit={props.handleSubmit}>
           <Box sx={{display: 'flex'}}>
+            <Typography sx={{mr: '10px', writingMode: 'vertical-rl'}}>Карточка с названием</Typography>
             <Box sx={{width: '335px'}}>
               <CardInputImage
                 value={value[EType.cardImageUrl]}
