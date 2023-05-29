@@ -1,8 +1,8 @@
-import {Container} from '@mui/material';
+import {Container, Typography} from '@mui/material';
 
 const NotFound = () => (
-  <Container maxWidth={false}>
-    <h1>Страница не найдена</h1>
+  <Container maxWidth={false} sx={{mb: 15}}>
+    <Typography component='h1' sx={{mb: 4, mt: 4, fontSize: '30px'}}>Страница не найдена</Typography>
   </Container>
 );
 
