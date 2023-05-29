@@ -1,6 +1,8 @@
-import {Box, Typography} from '@mui/material';
+import {Box, Button, Typography} from '@mui/material';
+import {NavLink} from 'react-router-dom';
 import {IParagraphs, IParagraphsRelatedTo, IImageRelatedTo} from '../types/types';
 import ContainerWithTwoColumns from './ContainerWithTwoColumns/ContainerWithTwoColumns';
+import {EPath} from '../enums/EPath';
 
 interface IProps {
   item: {
@@ -18,6 +20,12 @@ const styles = {
 
 const InfoChangingColumnSide = (props: IProps) => {
   const {item} = props;
+
+  const ButtonToProduct = () => (
+    <Button component={NavLink} to={EPath.Shop} color="first" variant="contained" sx={{mt: '20px'}}>
+      К продуктам
+    </Button>
+  );
 
   return (
     <>
@@ -40,6 +48,7 @@ const InfoChangingColumnSide = (props: IProps) => {
                         {elem.value}
                       </Typography>
                     ))}
+                  <ButtonToProduct />
                 </>
               )}
             </>
@@ -60,6 +69,7 @@ const InfoChangingColumnSide = (props: IProps) => {
                         {elem.value}
                       </Typography>
                     ))}
+                  <ButtonToProduct />
                 </>
               )}
             </>
