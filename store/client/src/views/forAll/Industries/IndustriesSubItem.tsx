@@ -13,19 +13,24 @@ import Header from '../../../components/Header';
 const IndustriesSubItem = () => {
   const id: number = Number(useParams().role);
   const {catalog} = useAppContext();
-  const [item, setItem] = useState<IAreaResponse | undefined>(catalog.subIndustries.find((el) => el.id === id));
+  const [item, setItem] = useState<IAreaResponse>();
 
-  if (item?.info.image) {
-    useEffect(() => {
-      setItem({
+  useEffect(() => {
+    setItem(() => {
+      let item = catalog.subIndustries.find((el) => el.id === id);
+
+      item = item?.info.image ? {
         ...item,
         info: {
           ...item.info,
           image: process.env.REACT_APP_IMG_URL + item.info.image,
         },
-      });
-    }, []);
-  }
+      }
+        : item;
+
+      return item;
+    });
+  }, []);
 
   return (
     <>
@@ -33,7 +38,7 @@ const IndustriesSubItem = () => {
       <Breadcrumbs />
       {item ? (
         <>
-          <Header item={item}/>
+          <Header item={item} />
           <Info
             item={item.info}
             buttons={

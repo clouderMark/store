@@ -1,8 +1,10 @@
-import {Box, List, ListItem, Typography} from '@mui/material';
+import {NavLink} from 'react-router-dom';
+import {Box, Button, List, ListItem, Typography} from '@mui/material';
 import {IOpinion} from '../../types/types';
 import ContainerWithTwoColumns from '../ContainerWithTwoColumns/ContainerWithTwoColumns';
 import {opinion as styles} from './styles/opinion';
 import ListWithSubheader from '../ListWithSubheader/ListWithSubheader';
+import {EPath} from '../../enums/EPath';
 
 interface IProps {
   item: IOpinion;
@@ -10,6 +12,7 @@ interface IProps {
 
 const Opinion = (props: IProps) => {
   const {item} = props;
+  // prettier-ignore
 
   return (
     <>
@@ -39,6 +42,8 @@ const Opinion = (props: IProps) => {
                   {item.listTitle || item.listItems.length ? (
                     <ListWithSubheader subheader={item.listTitle} items={item.listItems.map((el) => el.value)} />
                   ) : null}
+                  <Button component={NavLink} to={EPath.Contacts} color='first' variant='contained' sx={{mt: '30px'}}>
+                    Свяжитесь с нами</Button>
                 </>
               }
               secondColumn={
