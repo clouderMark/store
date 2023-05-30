@@ -15,25 +15,25 @@ import Header from '../../../components/Header';
 const IndustriesItem = () => {
   const id: number = Number(useParams().id);
   const {catalog} = useAppContext();
-  const [item, setItem] = useState<IAreaResponse | undefined>(catalog.industries.find((el) => el.id === id));
-  const [subIndustries, setSubIndustries] = useState(catalog.subIndustries.filter((el) => el.industryId === id));
+  const [item, setItem] = useState<IAreaResponse>();
+  const [subIndustries, setSubIndustries] = useState<IAreaResponse[]>();
 
   useEffect(() => {
-    setItem(catalog.industries.find((el) => el.id === id));
-    setSubIndustries(catalog.subIndustries.filter((el) => el.industryId === id));
-  }, [id]);
+    setItem(() => {
+      let item = catalog.industries.find((el) => el.id === id);
 
-  if (item?.info.image) {
-    useEffect(() => {
-      setItem({
+      item = item?.info.image ? {
         ...item,
         info: {
           ...item.info,
           image: process.env.REACT_APP_IMG_URL + item.info.image,
         },
-      });
-    }, []);
-  }
+      } : item;
+
+      return item;
+    });
+    setSubIndustries(catalog.subIndustries.filter((el) => el.industryId === id));
+  }, [id]);
 
   return (
     <>
@@ -42,7 +42,7 @@ const IndustriesItem = () => {
       {item ? (
         <Header item={item}/>
       ) : null}
-      {subIndustries.length ? (
+      {subIndustries?.length ? (
         <Container maxWidth={false}>
           <CardList data={subIndustries} />
         </Container>

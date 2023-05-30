@@ -62,6 +62,8 @@ const EditIndustry = (props: IProps) => {
               type: EType.sliderImageUrl,
               payload: data.sliderImage ? process.env.REACT_APP_IMG_URL + data.sliderImage : '',
             });
+          } else if (props.child && data.industryId) {
+            props.child.setValue(`${data.industryId}`);
           }
         })
         .catch((error) => console.log(error));
@@ -89,7 +91,7 @@ const EditIndustry = (props: IProps) => {
       const data = new FormData();
 
       if (props.child) {
-        data.append('industryId', props.child.value.trim());
+        data.append('industryId', props.child.value.trim()); // вот это потерял
       }
 
       data.append(EType.name, value[EType.name].trim());
