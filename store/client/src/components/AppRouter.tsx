@@ -1,4 +1,5 @@
-import {Route, Routes} from 'react-router-dom';
+import {useEffect} from 'react';
+import {Route, Routes, useLocation} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
 import Admin from '../views/forAdmin/Admin/Admin';
 import Basket from '../views/forAll/Basket';
@@ -8,7 +9,6 @@ import Delivery from '../views/forAll/Delivery';
 import Login from '../views/forAll/Login';
 import NotFound from '../views/forAll/NotFound';
 import Shop from '../views/forAll/Shop/Shop';
-import Signup from '../views/forAll/Signup';
 import User from '../views/forAll/User';
 import {useAppContext} from './AppContext';
 import Checkout from '../views/forAll/Checkout';
@@ -38,14 +38,14 @@ enum ERoute {
 }
 
 interface IRoute {
-  [ERoute.Path]: EPath,
-  [ERoute.Component](): JSX.Element,
+  [ERoute.Path]: EPath;
+  [ERoute.Component](): JSX.Element;
 }
 
 const publicRoutes: IRoute[] = [
   {[ERoute.Path]: EPath.Shop, [ERoute.Component]: Shop},
   {[ERoute.Path]: EPath.Login, [ERoute.Component]: Login},
-  {[ERoute.Path]: EPath.Signup, [ERoute.Component]: Signup},
+  {[ERoute.Path]: EPath.Signup, [ERoute.Component]: Login},
   {[ERoute.Path]: EPath.Product, [ERoute.Component]: Product},
   {[ERoute.Path]: EPath.Basket, [ERoute.Component]: Basket},
   {[ERoute.Path]: EPath.Checkout, [ERoute.Component]: Checkout},
@@ -82,6 +82,12 @@ const adminRoutes: IRoute[] = [
 
 const AppRouter = observer(() => {
   const {user} = useAppContext();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <Routes>

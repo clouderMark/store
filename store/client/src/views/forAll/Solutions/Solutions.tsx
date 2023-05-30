@@ -6,8 +6,6 @@ import img from './images/header-produktloesung-1.jpg';
 import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
 import CardList from '../../../components/CardList/CardList';
 import {EName} from '../../../enums/EName';
-import Newsletter from '../../../components/Newsletter/Newsletter';
-import Footer from '../../../components/Footer/Footer';
 import {fetchSolutionsWithImage} from '../../../http/catalogAPI';
 import {ICatalogItemWithImage} from '../../../types/types';
 import Progress from '../../../components/LinearDeterminate';
@@ -39,8 +37,6 @@ const Solutions = () => {
         <StrongWithTitle content={content} />
         {fetching ? null : <CardList data={items!} />}
       </Container>
-      <Newsletter />
-      <Footer />
     </>
   );
 };

@@ -1,4 +1,4 @@
 export enum EName {
-  Solutions = 'Продуктовые решения',
+  Solutions = 'Решения',
   Industries = 'Отрасли',
 }

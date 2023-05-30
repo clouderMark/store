@@ -1,7 +1,6 @@
 export const centeredContainer = {
   padding: '121px 0 50px',
   backgroundColor: '#daeaec',
-  color: '#6f6f6f',
 
   container: {
     maxWidth: '1278px',

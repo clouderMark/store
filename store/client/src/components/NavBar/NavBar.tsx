@@ -47,15 +47,27 @@ const NavBar = observer(() => {
 
   const handleClickDesctopMenu = (event: React.MouseEvent<HTMLElement>, element: EPath) => {
     setAnchorListItem(event.currentTarget);
-    const item = articles.find((el) => el.link === element);
 
-    if (item?.link === EPath.Industries) {
-      setItem({...item, list: catalog.industries.map((el) => ({link: `${el.id}`, content: el.name}))});
-    } else if (item?.link === EPath.Solutions) {
-      setItem({...item, list: catalog.solutions.map((el) => ({link: `${el.id}`, content: el.name}))});
-    } else {
-      setItem(item);
-    }
+    setItem(() => {
+      const item = articles.find((el) => el.link === element);
+      let result: IArticle;
+
+      if (item?.link === EPath.Industries) {
+        result = {
+          ...item,
+          list: catalog.industries.map((el) => ({link: `${el.id}`, content: el.name})),
+        };
+      } else if (item?.link === EPath.Solutions) {
+        result = {
+          ...item,
+          list: catalog.solutions.map((el) => ({link: `${el.id}`, content: el.name})),
+        };
+      } else {
+        result = item!;
+      }
+
+      return result;
+    });
   };
 
   const handleCloseDesctopMenu = () => {

@@ -6,6 +6,7 @@ import Propgress from '../../components/LinearDeterminate';
 import {AdminTable} from '../../components/AdminTable/AdminTable';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {areaCells} from '../../components/TableCells/cells';
+import AlertLine from '../../components/AlertLine/AlertLine';
 
 const AdminAreas = () => {
   const [areas, setAreas] = useState<ICatalogItem[] | null>(null);
@@ -13,6 +14,7 @@ const AdminAreas = () => {
   const [show, setShow] = useState(false);
   const [change, setChange] = useState(false);
   const [areaId, setAreaId] = useState(0);
+  const [alertOnDelete, setAlertOnDelete] = useState<false | string>(false);
 
   const handleCreateClick = () => {
     setAreaId(0);
@@ -28,7 +30,10 @@ const AdminAreas = () => {
     deleteArea(id)
       .then((data) => {
         setChange(!change);
-        alert(`Области применения "${data.name}" удалено`);
+        setAlertOnDelete(`Области применения "${data.name}" удалено`);
+        setTimeout(() => {
+          setAlertOnDelete(false);
+        }, 5000);
       })
       .catch((error) => console.error(error));
   };
@@ -55,6 +60,7 @@ const AdminAreas = () => {
         handleDeleteClick={handleDeleteClick}
         items={areas!}
       />
+      {alertOnDelete ? <AlertLine content={alertOnDelete} success={Boolean(alertOnDelete)} /> : null}
     </>
   );
 };

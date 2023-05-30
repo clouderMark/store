@@ -1,3 +1,4 @@
+import {theme} from '../../../../styles/theme';
 import {queryTablet, querySmallTablet} from '../../query';
 import {slider} from '../../styles/slider';
 
@@ -29,7 +30,7 @@ export const fotoCard = {
     marginBottom: '50px',
     fontSize: '30px',
     color: slider.color1,
-    borderBottom: '1px solid rgba(255,255,255,.3)',
+    borderBottom: `1px solid ${theme.palette.third.dark})`,
     padding: 0,
     '&:hover': {
       background: 'transparent',
@@ -47,7 +48,7 @@ export const fotoCard = {
 
   button: {
     color: slider.color1,
-    borderBottom: '1px solid rgba(255,255,255,.3)',
+    borderBottom: `1px solid ${theme.palette.third.dark})`,
     padding: 0,
     '&:hover': {
       background: 'transparent',

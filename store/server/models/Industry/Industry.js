@@ -11,6 +11,11 @@ import {
 import { rows, rowsWithParagraphs } from './getRows.js';
 import AppError from '../../errors/AppError.js';
 import FileService from '../../services/File.js';
+import createParagraphs from './createParagraphs.js';
+import createListItems from './createListItems.js';
+import createInfoParagraphs from './createInfoParagraphs.js';
+import createOpinionListItems from './createOpinionListItems.js';
+import createOpinionParagraphs from './createOpinionParagraphs.js';
 
 class Industry {
   async getAll() {
@@ -44,6 +49,11 @@ class Industry {
       opinionPhone = '',
       opinionFax = '',
       opinionEmail = '',
+      paragraphs,
+      listItems,
+      infoParagraphs,
+      opinionListItems,
+      opinionParagraphs,
     } = data;
     const industry = await IndustryMapping.create({
       name,
@@ -52,15 +62,11 @@ class Industry {
       title,
       sliderImage,
     });
-    if (data.paragraphs) {
-      const paragraphs = JSON.parse(data.paragraphs);
-      for (let paragraph of paragraphs) {
-        await IndustryParagraphMapping.create({
-          value: paragraph.value,
-          industryId: industry.id,
-        });
-      }
+
+    if (paragraphs) {
+      createParagraphs(paragraphs, industry.id);
     }
+
     InfoMapping.create({
       image: infoImage,
       title: infoTitle,
@@ -69,24 +75,12 @@ class Industry {
       infoId: industry.id,
     });
 
-    if (data.listItems) {
-      const listItems = JSON.parse(data.listItems);
-      for (let item of listItems) {
-        await ListItemMapping.create({
-          value: item.value,
-          indInfoId: industry.id,
-        });
-      }
+    if (listItems) {
+      createListItems(listItems, industry.id);
     }
 
-    if (data.infoParagraphs) {
-      const paragraphs = JSON.parse(data.infoParagraphs);
-      for (let paragraph of paragraphs) {
-        await InfoParagraphMapping.create({
-          value: paragraph.value,
-          indInfoId: industry.id,
-        });
-      }
+    if (infoParagraphs) {
+      createInfoParagraphs(infoParagraphs, industry.id);
     }
 
     OpinionMapping.create({
@@ -100,24 +94,12 @@ class Industry {
       opinionId: industry.id,
     });
 
-    if (data.opinionListItems) {
-      const listItems = JSON.parse(data.opinionListItems);
-      for (let item of listItems) {
-        await OpinionItemMapping.create({
-          value: item.value,
-          indOpinionId: industry.id,
-        });
-      }
+    if (opinionListItems) {
+      createOpinionListItems(opinionListItems, industry.id);
     }
 
-    if (data.opinionParagraphs) {
-      const paragraphs = JSON.parse(data.opinionParagraphs);
-      for (let paragraph of paragraphs) {
-        await OpinionParagraphMapping.create({
-          value: paragraph.value,
-          indOpinionId: industry.id,
-        });
-      }
+    if (opinionParagraphs) {
+      createOpinionParagraphs(opinionParagraphs, industry.id);
     }
 
     await industry.reload();
@@ -153,8 +135,8 @@ class Industry {
       FileService.delete(industry.opinion.image);
     }
     if (file5 && industry.sliderImage) {
-        FileService.delete(industry.sliderImage);
-      }
+      FileService.delete(industry.sliderImage);
+    }
 
     const {
       name = industry.name,
@@ -173,6 +155,11 @@ class Industry {
       opinionFax = industry.opinion.fax,
       opinionEmail = industry.opinion.email,
       sliderImage = file5 ? file5 : industry.sliderImage,
+      paragraphs,
+      listItems,
+      infoParagraphs,
+      opinionListItems,
+      opinionParagraphs,
     } = data;
 
     await industry.update({
@@ -193,41 +180,23 @@ class Industry {
       { where: { infoId: id } }
     );
 
-    if (data.paragraphs) {
+    if (paragraphs) {
       await IndustryParagraphMapping.destroy({ where: { industryId: id } });
-      const paragraphs = JSON.parse(data.paragraphs);
-      for (let paragraph of paragraphs) {
-        await IndustryParagraphMapping.create({
-          value: paragraph.value,
-          industryId: industry.id,
-        });
-      }
+      createParagraphs(paragraphs, industry.id);
     }
 
-    if (data.listItems) {
+    if (listItems) {
       await ListItemMapping.destroy({
         where: { indInfoId: id },
       });
-      const listItems = JSON.parse(data.listItems);
-      for (let item of listItems) {
-        await ListItemMapping.create({
-          value: item.value,
-          indInfoId: industry.id,
-        });
-      }
+      createListItems(listItems, industry.id);
     }
 
-    if (data.infoParagraphs) {
+    if (infoParagraphs) {
       await InfoParagraphMapping.destroy({
         where: { indInfoId: id },
       });
-      const paragraphs = JSON.parse(data.infoParagraphs);
-      for (let paragraph of paragraphs) {
-        await InfoParagraphMapping.create({
-          value: paragraph.value,
-          indInfoId: industry.id,
-        });
-      }
+      createInfoParagraphs(infoParagraphs, industry.id);
     }
 
     await OpinionMapping.update(
@@ -243,26 +212,14 @@ class Industry {
       { where: { opinionId: id } }
     );
 
-    if (data.opinionListItems) {
+    if (opinionListItems) {
       await OpinionItemMapping.destroy({ where: { indOpinionId: id } });
-      const listItems = JSON.parse(data.opinionListItems);
-      for (let item of listItems) {
-        await OpinionItemMapping.create({
-          value: item.value,
-          indOpinionId: industry.id,
-        });
-      }
+      createOpinionListItems(opinionListItems, industry.id);
     }
 
-    if (data.opinionParagraphs) {
+    if (opinionParagraphs) {
       await OpinionParagraphMapping.destroy({ where: { indOpinionId: id } });
-      const paragraphs = JSON.parse(data.opinionParagraphs);
-      for (let paragraph of paragraphs) {
-        await OpinionParagraphMapping.create({
-          value: paragraph.value,
-          indOpinionId: industry.id,
-        });
-      }
+      createOpinionParagraphs(opinionParagraphs, industry.id);
     }
 
     await industry.reload();
@@ -305,7 +262,7 @@ class Industry {
       FileService.delete(industry.opinion.image);
     }
     if (industry.sliderImage) {
-        FileService.delete(industry.sliderImage);
+      FileService.delete(industry.sliderImage);
     }
 
     await industry.destroy();

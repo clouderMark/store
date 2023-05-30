@@ -1,6 +1,8 @@
+import {theme} from '../../../styles/theme';
+
 const commonStyles = {
   textAlign: 'center',
-  color: 'white',
+  color: theme.palette.third.main,
   fontWeight: 300,
 };
 

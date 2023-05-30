@@ -1,9 +1,10 @@
+import {theme} from '../../../styles/theme';
 import {queryTablet} from '../../commonContent/queryTablet';
 
 export const tabletMenu = {
   paper: {
     marginTop: '28px',
-    boxShadow: '0 0 1px 0 #6f6f6f',
+    boxShadow: `0 0 1px 0 ${theme.palette.fourth.main}`,
     width: '100%',
     maxWidth: '100%',
   },
@@ -39,14 +40,13 @@ export const tabletMenu = {
 
     item: {
       height: '100%',
-      color: '#6f6f6f',
     },
   },
 };
 
 const hover = {
   '&:hover': {
-    color: '#008f38',
+    color: theme.palette.first.main,
   },
 };
 

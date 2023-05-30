@@ -1,11 +1,12 @@
 import {observer} from 'mobx-react-lite';
 import {createSearchParams, useNavigate} from 'react-router-dom';
-import {Box, Typography} from '@mui/material';
-import {Pagination} from 'react-bootstrap';
+import {Box, Pagination, Stack, Typography} from '@mui/material';
 import ProductItem from './ProductItem/ProductItem';
 import {useAppContext} from './AppContext';
 import {IObject, IProductWithProps} from '../types/types.js';
 import {dFlex, fWrap, justifySB} from '../styles/flex';
+import {EPath} from '../enums/EPath';
+import {theme} from '../styles/theme';
 
 const ProductList = observer(() => {
   const {catalog} = useAppContext();
@@ -21,20 +22,10 @@ const ProductList = observer(() => {
     if (catalog.area) params.area = `${catalog.area}`;
     if (catalog.page > 1) params.page = `${catalog.page}`;
     navigate({
-      pathname: '/',
+      pathname: EPath.Shop,
       search: `?${createSearchParams(params)}`,
     });
   };
-
-  const pages = [];
-
-  for (let page = 1; page <= catalog.pages; page++) {
-    pages.push(
-      <Pagination.Item key={page} active={page === catalog.page} activeLabel="" onClick={() => handleClick(page)}>
-        {page}
-      </Pagination.Item>,
-    );
-  }
 
   return (
     <>
@@ -42,10 +33,26 @@ const ProductList = observer(() => {
         {catalog.products.length ? (
           catalog.products.map((item: IProductWithProps) => <ProductItem key={item.id} data={item} />)
         ) : (
-          <Typography component="p" sx={{mb: 10}}>По вашему запросу ничего не найдено</Typography>
+          <Typography component="p" sx={{mb: 10}}>
+            По вашему запросу ничего не найдено
+          </Typography>
         )}
       </Box>
-      {catalog.page > 1 && <Pagination>{pages}</Pagination>}
+      {catalog.pages > 1 ? (
+        <Stack spacing={2} sx={{display: 'flex', alignItems: 'center', mt: 3, mb: 10}}>
+          <Pagination
+            count={catalog.pages}
+            page={catalog.page}
+            onChange={(_, value) => handleClick(value)}
+            color="secondary"
+            sx={{
+              '& .MuiPaginationItem-root': {
+                color: theme.palette.fourth.main,
+              },
+            }}
+          />
+        </Stack>
+      ) : null}
     </>
   );
 });

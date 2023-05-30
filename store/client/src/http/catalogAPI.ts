@@ -80,37 +80,37 @@ export const fetchSubIndustry = async (id: number): Promise<IAreaResponse> => {
 // Создание, обновление, удаление решений, получение списка всех решений
 
 export const createSolution = async (solution: FormData): Promise<ICatalogItem> => {
-  const {data} = await authInstance.post(`${ERoute.Solutions}/${ERoute.Create}`, solution);
+  const {data} = await authInstance.post(`${ERoute.Solution}/${ERoute.Create}`, solution);
 
   return data;
 };
 
 export const updateSolution = async (id: number, solution: FormData): Promise<ICatalogItem> => {
-  const {data} = await authInstance.put(`${ERoute.Solutions}/${ERoute.Update}/${id}`, solution);
+  const {data} = await authInstance.put(`${ERoute.Solution}/${ERoute.Update}/${id}`, solution);
 
   return data;
 };
 
 export const deleteSolution = async (id: number): Promise<ICatalogItem> => {
-  const {data} = await authInstance.delete(`${ERoute.Solutions}/${ERoute.Delete}/${id}`);
+  const {data} = await authInstance.delete(`${ERoute.Solution}/${ERoute.Delete}/${id}`);
 
   return data;
 };
 
 export const fetchSolutions = async (): Promise<ICatalogItem[]> => {
-  const {data} = await guestInstance.get(`${ERoute.Solutions}/${ERoute.GetAll}`);
+  const {data} = await guestInstance.get(`${ERoute.Solution}/${ERoute.GetAll}`);
 
   return data;
 };
 
 export const fetchSolutionsWithImage = async (): Promise<ICatalogItemWithImage[]> => {
-  const {data} = await guestInstance.get(`${ERoute.Solutions}/${ERoute.GetAll}andimg`);
+  const {data} = await guestInstance.get(`${ERoute.Solution}/${ERoute.GetAll}andimg`);
 
   return data;
 };
 
 export const fetchSolution = async (id: number): Promise<IFetchSolution> => {
-  const {data} = await guestInstance.get(`${ERoute.Solutions}/${ERoute.GetOne}/${id}`);
+  const {data} = await guestInstance.get(`${ERoute.Solution}/${ERoute.GetOne}/${id}`);
 
   return data;
 };
@@ -177,7 +177,7 @@ export const fetchAllProducts = async (
 
   // фильтр товаров по индустриям и/или решению
   if (industryId) url = `${url}/${ERoute.Industry}Id/${industryId}`;
-  if (solutionId) url = `${url}/${ERoute.Solutions}Id/${solutionId}`;
+  if (solutionId) url = `${url}/${ERoute.Solution}Id/${solutionId}`;
   if (areaId) url = `${url}/${ERoute.Area}Id/${areaId}`;
   const {data} = await guestInstance.get(url, {
     params: {

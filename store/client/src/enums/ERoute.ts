@@ -1,5 +1,5 @@
 export enum ERoute {
-  Solutions = 'product-solutions',
+  Solution = 'solution',
   Industry = 'industry',
   SubIndustry = 'subindustry',
   Area = 'area',

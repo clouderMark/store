@@ -3,7 +3,6 @@ import uuid from 'react-uuid';
 import {Box, IconButton, Typography, TextField} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
-// import {Form} from 'react-bootstrap';
 import {IProductProp} from '../types/types';
 
 interface IProps {

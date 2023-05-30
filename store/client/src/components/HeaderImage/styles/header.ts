@@ -1,5 +1,6 @@
 import pentagon from '../image/pentagon.svg';
 import {queryTablet} from '../../commonContent/queryTablet';
+import {theme} from '../../../styles/theme';
 
 const queryMobile = 844;
 
@@ -18,7 +19,8 @@ export const header = {
 
   image: {
     width: '100%',
-    height: '100%',
+    // height: '100%',
+    mb: '-6.5px',
 
     [`@media (max-width: ${queryTablet}px)`]: {
       maxHeight: '423px',
@@ -27,7 +29,6 @@ export const header = {
     [`@media (max-width: ${queryMobile}px)`]: {
       maxHeight: '747px',
       height: '747px',
-      objectFit: 'cover',
     },
   },
 
@@ -61,7 +62,7 @@ export const header = {
       width: '94%',
       height: '316px',
       marginLeft: '-47.8%',
-      backgroundColor: '#008f38',
+      backgroundColor: theme.palette.first.main,
       padding: '49px 44px 27px',
 
       '&::before': {
@@ -69,7 +70,7 @@ export const header = {
         position: 'absolute',
         width: '100%',
         height: '100%',
-        border: '3px solid #a3d8dd',
+        border: `3px solid ${theme.palette.second.main}`,
         top: '20px',
         left: '16px',
       },
@@ -84,7 +85,7 @@ export const header = {
 
   p: {
     marginBottom: '25px',
-    color: '#a3d8dd',
+    color: theme.palette.second.main,
     fontSize: '20px',
     fontWeight: 500,
 
@@ -96,7 +97,7 @@ export const header = {
   strong: {
     fontWeight: 400,
     fontSize: '40px',
-    color: 'white',
+    color: theme.palette.third.main,
 
     [`@media (max-width: ${queryTablet}px)`]: {
       fontSize: 'calc(1.35rem + 1.2vw)',

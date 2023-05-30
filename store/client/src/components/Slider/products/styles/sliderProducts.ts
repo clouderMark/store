@@ -61,6 +61,7 @@ export const sliderProducts = {
         marginBottom: '6%',
         fontWeight: 500,
         fontSize: '18px',
+        color: slider.color1,
       },
     },
 

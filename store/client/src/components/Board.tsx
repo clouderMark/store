@@ -9,7 +9,7 @@ import {
 
 interface IProps {
   tableHeadCells?: JSX.Element;
-  tableBodyCells(): JSX.Element;
+  tableBodyCells: JSX.Element;
 }
 
 export const Board = (props: IProps) => (
@@ -24,7 +24,7 @@ export const Board = (props: IProps) => (
       ) : null}
       {props.tableBodyCells ? (
         <TableBody>
-          {props.tableBodyCells()}
+          {props.tableBodyCells}
         </TableBody>
       ) : null}
     </Table>

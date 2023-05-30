@@ -1,15 +1,14 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+import {CssBaseline} from '@mui/material';
 import {BrowserRouter} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import {observer} from 'mobx-react-lite';
 import {ThemeProvider} from '@mui/material/styles';
 import AppRouter from './components/AppRouter';
 import NavBar from './components/NavBar/NavBar';
-
 import {useAppContext} from './components/AppContext';
 import {check as checkAuth} from './http/userAPI';
 import {fetchBasket} from './http/basketAPI';
-import Loader from './components/Loader';
+import Loader from './components/LinearDeterminate';
 import {theme} from './styles/theme';
 import {fetchIndustries, fetchSubIndustries, fetchSolutions} from './http/catalogAPI';
 import Newsletter from './components/Newsletter/Newsletter';
@@ -45,6 +44,7 @@ const App = observer(() => {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
+        <CssBaseline />
         <NavBar />
         <AppRouter />
         <Contact />

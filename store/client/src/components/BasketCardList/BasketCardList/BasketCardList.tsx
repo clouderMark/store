@@ -8,6 +8,7 @@ import {IItem} from '../../../types/types';
 import {BasketCard} from '../BasketCard/BasketCard';
 import {BasketTable} from '../BasketTable';
 import styles from './BasketCardList.module.css';
+import {EPath} from '../../../enums/EPath';
 
 interface IProps {
   setFetching: Dispatch<SetStateAction<boolean>>;
@@ -67,7 +68,7 @@ export const BasketCardList = observer((props: IProps) => {
                 variant="outlined"
                 color="success"
                 className={styles.makeAnOrderButton}
-                onClick={() => navigate('/checkout')}
+                onClick={() => navigate(EPath.Checkout)}
               >
                 Оформить заказ
               </Button>

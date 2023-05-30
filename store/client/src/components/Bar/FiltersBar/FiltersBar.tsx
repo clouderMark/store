@@ -31,7 +31,7 @@ export const FiltersBar = (props: IProps) => {
       {props.solutionsFetching ? <CircularProgress color="success" /> : <SolutionBar />}
       {props.isResetButton ? (
         <Button variant="outlined" sx={button.reset} onClick={props.resetFilters}>
-          Сбросить фильтры
+          Сбросить
         </Button>
       ) : (
         <Box sx={mockHeight} />

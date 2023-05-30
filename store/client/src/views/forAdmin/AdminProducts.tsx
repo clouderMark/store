@@ -8,6 +8,7 @@ import Progress from '../../components/LinearDeterminate';
 import {AdminTable} from '../../components/AdminTable/AdminTable';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {productsCells} from '../../components/TableCells/cells';
+import AlertLine from '../../components/AlertLine/AlertLine';
 
 // количество товаров на страницу
 const ADMIN_PER_PAGE = 6;
@@ -26,6 +27,7 @@ const AdminProducts = () => {
   const [currentPage, setCurrentPage] = useState(1);
   // сколько всего страниц списка товаров
   const [totalPages, setTotalPages] = useState(1);
+  const [alertOnDelete, setAlertOnDelete] = useState<false | string>(false);
 
   // обработчик клика по номеру страницы
   const handlePageClick = (page: number) => {
@@ -51,7 +53,10 @@ const AdminProducts = () => {
           setChange(!change);
         }
 
-        alert(`Товар "${data.name}" удален`);
+        setAlertOnDelete(`Товар "${data.name}" удален`);
+        setTimeout(() => {
+          setAlertOnDelete(false);
+        }, 5000);
       })
       .catch((error) => alert(error.response.data.message));
   };
@@ -100,6 +105,7 @@ const AdminProducts = () => {
         handleDeleteClick={handleDeleteClick}
         pagination={{totalPages, pagination: Paginator}}
       />
+      {alertOnDelete ? <AlertLine content={alertOnDelete} success={Boolean(alertOnDelete)} /> : null}
     </>
   );
 };

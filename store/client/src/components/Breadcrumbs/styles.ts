@@ -1,11 +1,13 @@
+import {theme} from '../../styles/theme';
+
 export const styles = {
   notLast: {
-    color: '#008f38',
+    color: theme.palette.first.main,
     '&:hover': {
-      color: '#008f38',
+      color: theme.palette.first.main,
     },
   },
   last: {
-    color: '#999',
+    color: theme.palette.fourth.light,
   },
 };

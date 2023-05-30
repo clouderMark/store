@@ -1,3 +1,5 @@
+import {theme} from '../../styles/theme';
+
 const tabletSize = 767;
 const mobileSize = 575;
 
@@ -7,9 +9,8 @@ export const card = {
     marginBottom: '40px',
     borderRadius: 0,
     cursor: 'pointer',
-    color: '#6f6f6f',
     '&:hover': {
-      color: '#008f38',
+      color: theme.palette.first.main,
     },
     [`@media (max-width: ${tabletSize}px)`]: {
       width: '48.5%',
@@ -36,7 +37,7 @@ export const card = {
   article: {
     margin: '0 0 8px',
     fontSize: '16px',
-    color: '#008f38',
+    color: theme.palette.first.main,
     textTransform: 'uppercase',
     fontWeight: 500,
   },
@@ -53,7 +54,7 @@ export const card = {
   price: {
     margin: '0 0 3px',
     fontSize: '26px',
-    color: '#008f38',
+    color: theme.palette.first.main,
     fontWeight: 500,
   },
   weight: {

@@ -14,8 +14,8 @@ const Basket = () => {
       ) : (
         <>
           <Breadcrumbs />
-          <Container sx={{mt: 2}}>
-            <Typography variant="h4" sx={{mb: 1}}>
+          <Container sx={{mb: 15}} maxWidth={false}>
+            <Typography variant="h4" sx={{mb: 4, mt: 4, fontSize: '30px'}}>
               Корзина
             </Typography>
             <BasketCardList setFetching={setFetching} />

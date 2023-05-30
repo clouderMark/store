@@ -11,16 +11,12 @@ interface IProps {
   admin: boolean;
 }
 
-const Order = (props: IProps) => {
-  const BodyCells = () => TableBodyCells(props.data);
-
-  return (
-    <>
-      <StatusList data={props.data} />
-      <ListInfo data={props.data} />
-      <Board tableHeadCells={<TableCells cells={orderCells} />} tableBodyCells={BodyCells} />
-    </>
-  );
-};
+const Order = (props: IProps) => (
+  <>
+    <StatusList data={props.data} />
+    <ListInfo data={props.data} />
+    <Board tableHeadCells={<TableCells cells={orderCells} />} tableBodyCells={TableBodyCells(props.data)} />
+  </>
+);
 
 export default Order;

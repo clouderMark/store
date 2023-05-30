@@ -6,6 +6,7 @@ import {AdminTable} from '../../components/AdminTable/AdminTable';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import {areaCells} from '../../components/TableCells/cells';
 import {useAppContext} from '../../components/AppContext';
+import AlertLine from '../../components/AlertLine/AlertLine';
 
 const AdminIndustries = () => {
   const {catalog} = useAppContext();
@@ -14,6 +15,7 @@ const AdminIndustries = () => {
   const [change, setChange] = useState(false);
   // id индустрий которую буду редактирова и передовать в EditCategory
   const [industryId, setIndustryId] = useState<null | number>(null);
+  const [alertOnDelete, setAlertOnDelete] = useState<false | string>(false);
 
   const handleCreateClick = () => {
     // setIndustryId(null);
@@ -29,7 +31,10 @@ const AdminIndustries = () => {
     deleteIndustry(id)
       .then((data) => {
         setChange(!change);
-        alert(`Индустрия "${data.name}"удалена`);
+        setAlertOnDelete(`Индустрия "${data.name}"удалена`);
+        setTimeout(() => {
+          setAlertOnDelete(false);
+        }, 5000);
         catalog.industries = catalog.industries.filter((el) => el.id !== data.id);
       })
       .catch((error) => console.error(error));
@@ -64,6 +69,7 @@ const AdminIndustries = () => {
         handleDeleteClick={handleDeleteClick}
         items={catalog.industries}
       />
+      {alertOnDelete ? <AlertLine content={alertOnDelete} success={Boolean(alertOnDelete)} /> : null}
     </>
   );
 };

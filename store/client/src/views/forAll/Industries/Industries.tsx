@@ -4,8 +4,6 @@ import img from './images/branche-header.webp';
 import CentererImage from '../../../components/CentererImage/CentererImage';
 import StrongWithTitle from '../../../components/StrongWithTitle/StrongWithTitle';
 import CardList from '../../../components/CardList/CardList';
-import Newsletter from '../../../components/Newsletter/Newsletter';
-import Footer from '../../../components/Footer/Footer';
 import {useAppContext} from '../../../components/AppContext';
 import {EName} from '../../../enums/EName';
 
@@ -25,8 +23,6 @@ const Industries = () => {
         <StrongWithTitle content={content} />
         {catalog.industriesFetching ? null : <CardList data={catalog.industries} />}
       </Container>
-      <Newsletter />
-      <Footer />
     </>
   );
 };
