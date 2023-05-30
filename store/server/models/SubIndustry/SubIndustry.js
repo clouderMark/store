@@ -11,6 +11,11 @@ import {
 import AppError from '../../errors/AppError.js';
 import FileService from '../../services/File.js';
 import { rows, rowsWithParagraphs } from './getRows.js';
+import createParagraphs from './createParagraphs.js';
+import createListItems from './createListItems.js';
+import createInfoParagraphs from './createInfoParagraphs.js';
+import createOpinionListItems from './createOpinionListItems.js';
+import createOpinionParagraphs from './createOpinionParagraphs.js';
 
 class SubIndustry {
   async getAll() {
@@ -47,6 +52,11 @@ class SubIndustry {
       opinionPhone = '',
       opinionFax = '',
       opinionEmail = '',
+      paragraphs,
+      listItems,
+      infoParagraphs,
+      opinionListItems,
+      opinionParagraphs,
     } = data;
 
     const subIndustry = await SubIndustryMapping.create({
@@ -56,15 +66,11 @@ class SubIndustry {
       headerImage,
       title,
     });
-    if (data.paragraphs) {
-      const paragraphs = JSON.parse(data.paragraphs);
-      for (let paragraph of paragraphs) {
-        await SubIndustryParagraphMapping.create({
-          value: paragraph.value,
-          subindustryId: subIndustry.id,
-        });
-      }
+
+    if (paragraphs) {
+      createParagraphs(paragraphs, subIndustry.id);
     }
+
     InfoMapping.create({
       image: infoImage,
       title: infoTitle,
@@ -73,24 +79,12 @@ class SubIndustry {
       infoId: subIndustry.id,
     });
 
-    if (data.listItems) {
-      const listItems = JSON.parse(data.listItems);
-      for (let item of listItems) {
-        await ListItemMapping.create({
-          value: item.value,
-          subInfoId: subIndustry.id,
-        });
-      }
+    if (listItems) {
+      createListItems(listItems, subIndustry.id);
     }
 
-    if (data.infoParagraphs) {
-      const paragraphs = JSON.parse(data.infoParagraphs);
-      for (let paragraph of paragraphs) {
-        await InfoParagraphMapping.create({
-          value: paragraph.value,
-          subInfoId: subIndustry.id,
-        });
-      }
+    if (infoParagraphs) {
+      createInfoParagraphs(infoParagraphs, subIndustry.id);
     }
 
     OpinionMapping.create({
@@ -104,24 +98,12 @@ class SubIndustry {
       opinionId: subIndustry.id,
     });
 
-    if (data.opinionListItems) {
-      const listItems = JSON.parse(data.opinionListItems);
-      for (let item of listItems) {
-        await OpinionItemMapping.create({
-          value: item.value,
-          subOpinionId: subIndustry.id,
-        });
-      }
+    if (opinionListItems) {
+      createOpinionListItems(opinionListItems, subIndustry.id);
     }
 
-    if (data.opinionParagraphs) {
-      const paragraphs = JSON.parse(data.opinionParagraphs);
-      for (let paragraph of paragraphs) {
-        await OpinionParagraphMapping.create({
-          value: paragraph.value,
-          subOpinionId: subIndustry.id,
-        });
-      }
+    if (opinionParagraphs) {
+      createOpinionParagraphs(opinionParagraphs, subIndustry.id);
     }
 
     await subIndustry.reload();
@@ -174,6 +156,11 @@ class SubIndustry {
       opinionPhone = subIndustry.opinion.phone,
       opinionFax = subIndustry.opinion.fax,
       opinionEmail = subIndustry.opinion.email,
+      paragraphs,
+      listItems,
+      infoParagraphs,
+      opinionListItems,
+      opinionParagraphs,
     } = data;
 
     await subIndustry.update({
@@ -194,43 +181,25 @@ class SubIndustry {
       { where: { infoId: id } }
     );
 
-    if (data.paragraphs) {
+    if (paragraphs) {
       await SubIndustryParagraphMapping.destroy({
         where: { subindustryId: id },
       });
-      const paragraphs = JSON.parse(data.paragraphs);
-      for (let paragraph of paragraphs) {
-        await SubIndustryParagraphMapping.create({
-          value: paragraph.value,
-          subindustryId: subIndustry.id,
-        });
-      }
+      createParagraphs(paragraphs, subIndustry.id);
     }
 
-    if (data.listItems) {
+    if (listItems) {
       await ListItemMapping.destroy({
         where: { subInfoId: id },
       });
-      const listItems = JSON.parse(data.listItems);
-      for (let item of listItems) {
-        await ListItemMapping.create({
-          value: item.value,
-          subInfoId: subIndustry.id,
-        });
-      }
+      createListItems(listItems, subIndustry.id);
     }
 
-    if (data.infoParagraphs) {
+    if (infoParagraphs) {
       await InfoParagraphMapping.destroy({
         where: { subInfoId: id },
       });
-      const paragraphs = JSON.parse(data.infoParagraphs);
-      for (let paragraph of paragraphs) {
-        await InfoParagraphMapping.create({
-          value: paragraph.value,
-          subInfoId: subIndustry.id,
-        });
-      }
+      createInfoParagraphs(infoParagraphs, subIndustry.id);
     }
 
     await OpinionMapping.update(
@@ -246,26 +215,14 @@ class SubIndustry {
       { where: { opinionId: id } }
     );
 
-    if (data.opinionListItems) {
+    if (opinionListItems) {
       await OpinionItemMapping.destroy({ where: { subOpinionId: id } });
-      const listItems = JSON.parse(data.opinionListItems);
-      for (let item of listItems) {
-        await OpinionItemMapping.create({
-          value: item.value,
-          subOpinionId: subIndustry.id,
-        });
-      }
+      createOpinionListItems(opinionListItems, subIndustry.id);
     }
 
-    if (data.opinionParagraphs) {
+    if (opinionParagraphs) {
       await OpinionParagraphMapping.destroy({ where: { subOpinionId: id } });
-      const paragraphs = JSON.parse(data.opinionParagraphs);
-      for (let paragraph of paragraphs) {
-        await OpinionParagraphMapping.create({
-          value: paragraph.value,
-          subOpinionId: subIndustry.id,
-        });
-      }
+      createOpinionParagraphs(opinionParagraphs, subIndustry.id);
     }
 
     await subIndustry.reload();

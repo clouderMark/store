@@ -53,11 +53,14 @@ class Solution {
       opinionPhone = '',
       opinionFax = '',
       opinionEmail = '',
+      paragraphs,
+      opinionListItems,
+      opinionParagraphs,
     } = data;
     const solution = await SolutionMapping.create({ name, cardImage, headerImage, title });
 
-    if (data.paragraphs) {
-      createParagraphs(data.paragraphs, solution.id);
+    if (paragraphs) {
+      createParagraphs(paragraphs, solution.id);
     }
 
     saveInfoImages(infoImges, infoImagesRelatedTo, solution.id);
@@ -81,12 +84,12 @@ class Solution {
       opinionId: solution.id,
     });
 
-    if (data.opinionListItems) {
-      createOpinionListItems(data.opinionListItems, solution.id);
+    if (opinionListItems) {
+      createOpinionListItems(opinionListItems, solution.id);
     }
 
-    if (data.opinionParagraphs) {
-      createOpinionParagraphs(data.opinionParagraphs, solution.id);
+    if (opinionParagraphs) {
+      createOpinionParagraphs(opinionParagraphs, solution.id);
     }
 
     await solution.reload();
@@ -132,12 +135,15 @@ class Solution {
       opinionPhone = solution.opinion.phone,
       opinionFax = solution.opinion.fax,
       opinionEmail = solution.opinion.email,
+      paragraphs,
+      opinionListItems,
+      opinionParagraphs,
     } = data;
     await solution.update({ name, cardImage, headerImage, title });
 
-    if (data.paragraphs) {
+    if (paragraphs) {
         await ParagraphMapping.destroy({where: { solutionId: id}});
-        createParagraphs(data.paragraphs, solution.id);;
+        createParagraphs(paragraphs, solution.id);;
     }
 
     updateInfoImages(
@@ -177,16 +183,16 @@ class Solution {
       { where: { opinionId: id } }
     );
 
-    if (data.opinionListItems) {
+    if (opinionListItems) {
       await OpinionItemMapping.destroy({ where: { solutionOpinionId: id } });
-      createOpinionListItems(data.opinionListItems, id);
+      createOpinionListItems(opinionListItems, id);
     }
 
-    if (data.opinionParagraphs) {
+    if (opinionParagraphs) {
       await OpinionParagraphMapping.destroy({
         where: { solutionOpinionId: id },
       });
-      createOpinionParagraphs(data.opinionParagraphs, id);
+      createOpinionParagraphs(opinionParagraphs, id);
     }
 
     await solution.reload();
