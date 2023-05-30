@@ -88,7 +88,7 @@ const PopUpForProduct = (props: IProps) => {
               </Select>
             </FormControl>
             <FormControl sx={{width: '100%', mr: 1}}>
-              <InputLabel id="area-select-label">Продуктовое решение</InputLabel>
+              <InputLabel id="area-select-label">Область</InputLabel>
               <Select
                 labelId="area-select-label"
                 name="area"
