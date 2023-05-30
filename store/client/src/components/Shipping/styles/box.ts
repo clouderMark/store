@@ -1,3 +1,5 @@
+import {theme} from '../../../styles/theme';
+
 export const box = {
   minHeight: '569px',
   backgroundColor: '#fbfbfb',
@@ -6,12 +8,11 @@ export const box = {
     top: {
       fontWeight: 500,
       textTransform: 'uppercase',
-      color: '#008f38',
+      color: theme.palette.first.main,
     },
     title: {
       textAlign: 'center',
       marginBottom: '72px',
-      color: '#6f6f6f',
       fontWeight: 300,
       fontSize: '40px',
     },

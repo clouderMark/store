@@ -7,27 +7,19 @@ interface IProps {
   sum: number;
 }
 
-export const BasketTable = (props: IProps) => {
-  const TableBody = () => (
-    <>
-      <TableRow hover>
-        <TableCell>
-          В корзине
-        </TableCell>
-        <ProductCell amount={props.prodAmount} />
-      </TableRow>
-      <TableRow hover>
-        <TableCell>
-          На общую стоимость
-        </TableCell>
-        <TableCell>
-          {props.sum} BYN
-        </TableCell>
-      </TableRow>
-    </>
-  );
-
-  return (
-    <Board tableBodyCells={TableBody} />
-  );
-};
+export const BasketTable = (props: IProps) => (
+  <Board
+    tableBodyCells={
+      <>
+        <TableRow hover>
+          <TableCell>В корзине</TableCell>
+          <ProductCell amount={props.prodAmount} />
+        </TableRow>
+        <TableRow hover>
+          <TableCell>На общую стоимость</TableCell>
+          <TableCell>{props.sum} BYN</TableCell>
+        </TableRow>
+      </>
+    }
+  />
+);

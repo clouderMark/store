@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import {Box, IconButton, Menu, MenuItem, Button, Collapse, List, ListItemButton} from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
@@ -8,10 +8,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import {articles} from './articles';
 import {tabletMenu} from './styles/tabletMenu';
 import {IconTextField} from '../IconTextField';
+import {useAppContext} from '../AppContext';
+import {IArticle} from './types';
+import {EPath} from '../../enums/EPath';
 
 const TabletMenu = () => {
+  const {catalog} = useAppContext();
+  const [item, setItem] = useState<IArticle>();
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-  const [open, setOpen] = useState<{[key: number]: boolean}>({});
+  const [open, setOpen] = useState<{[key: string]: boolean}>({});
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -22,10 +27,49 @@ const TabletMenu = () => {
     setOpen({});
   };
 
-  const handleOpenSubList = (id: number) => {
-    setOpen((prevState) => ({...prevState, [id]: !prevState[id]}));
+  const handleOpenSubList = (element: EPath) => {
+    setOpen(open[element] ? {[element]: false} : {[element]: true});
+    setItem(undefined);
   };
 
+  useEffect(() => {
+    setItem(() => {
+      const item = articles.find((el) => el.link === Object.keys(open)[0]);
+      let result: IArticle;
+
+      if (item?.link === EPath.Industries) {
+        result = {
+          ...item,
+          list: [
+            {link: item.link, content: item.title},
+            ...catalog.industries.map((el) => ({link: `${item.link}/${el.id}`, content: el.name})),
+          ],
+        };
+      } else if (item?.link === EPath.Solutions) {
+        result = {
+          ...item,
+          list: [
+            {link: item.link, content: item.title},
+            ...catalog.solutions.map((el) => ({link: `${item.link}/${el.id}`, content: el.name})),
+          ],
+        };
+      } else if (item) {
+        result = {
+          ...item,
+          list: [
+            {link: item.link, content: item.title},
+            ...item.list,
+          ],
+        };
+      } else {
+        result = item!;
+      }
+
+      return result;
+    });
+  }, [open]);
+
+  // prettier-ignore
   return (
     <Box sx={[tabletMenu.box]}>
       <IconButton
@@ -58,26 +102,30 @@ const TabletMenu = () => {
           style: tabletMenu.paper,
         }}
       >
-        {articles.map((article, i) => (
+        {articles.map((article) => (
           <MenuItem key={article.link} sx={[tabletMenu.fullWidth, tabletMenu.item]}>
-            <Button onClick={() => handleOpenSubList(i)} sx={tabletMenu.button}>
+            <Button onClick={() => handleOpenSubList(article.link)} sx={tabletMenu.button}>
               {article.title}
-              {open[i] ? <ExpandLess /> : <ExpandMore />}
+              {open[article.link] ? <ExpandLess /> : <ExpandMore />}
             </Button>
-            <Collapse in={open[i]} sx={tabletMenu.submenu}>
-              <List sx={tabletMenu.submenu}>
-                {article.list.map((el, i) => (
-                  <ListItemButton
-                    component={NavLink}
-                    to={el.link}
-                    onClick={handleCloseNavMenu}
-                    key={i}
-                    sx={tabletMenu.submenu.item}
-                  >
-                    {el.content}
-                  </ListItemButton>
-                ))}
-              </List>
+            <Collapse in={open[article.link]} timeout='auto'
+              unmountOnExit sx={tabletMenu.submenu}>
+              {item?.list.length ? (
+                <List sx={tabletMenu.submenu}>
+                  {item.list.map((el, i) => (
+                    <ListItemButton
+                      component={NavLink}
+                      to={el.link}
+                      onClick={handleCloseNavMenu}
+                      key={i}
+                      sx={tabletMenu.submenu.item}
+                    >
+                      {el.content}
+                    </ListItemButton>
+                  ))
+                  }
+                </List>
+              ) : null}
             </Collapse>
           </MenuItem>
         ))}

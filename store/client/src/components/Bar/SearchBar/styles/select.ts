@@ -1,3 +1,5 @@
+import {theme} from '../../../../styles/theme';
+
 export const select = {
   conrol: {
     width: '189px',
@@ -6,10 +8,10 @@ export const select = {
   select: {
     heigth: '56px',
     width: '189px',
-    color: '#707070',
+    color: theme.palette.fourth.main,
     fontWeight: 300,
     '&:hover': {
-      color: '#008f38',
+      color: theme.palette.first.main,
     },
   },
 };

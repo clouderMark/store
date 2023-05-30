@@ -1,4 +1,6 @@
-const color = 'white';
+import {theme} from '../../../styles/theme';
+
+const color = theme.palette.third.main;
 const weight = 300;
 const fontSize = 25;
 const tabletSize = 767;
@@ -6,7 +8,7 @@ const mobileSize = 600;
 
 export const box = {
   minHeight: '610px',
-  backgroundColor: '#008f38',
+  backgroundColor: theme.palette.first.main,
   container: {
     display: 'flex',
     justifyContent: 'space-between',
@@ -45,7 +47,7 @@ export const box = {
   paragraph: {
     marginBottom: '40px',
     fontSize: '16px',
-    color: 'white',
+    color: theme.palette.third.main,
     fontWeight: weight,
   },
   contacts: {
@@ -67,6 +69,7 @@ export const box = {
         fontSize: '30px',
       },
       number: {
+        color: theme.palette.third.main,
         marginLeft: '10px',
         fontSize: `${fontSize}px`,
       },

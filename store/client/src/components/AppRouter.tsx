@@ -1,65 +1,93 @@
-import {Route, Routes} from 'react-router-dom';
+import {useEffect} from 'react';
+import {Route, Routes, useLocation} from 'react-router-dom';
 import {observer} from 'mobx-react-lite';
-import Admin from '../pages/Admin';
-import Basket from '../pages/Basket';
-import Product from '../pages/Product';
-import Contacts from '../pages/Contacts';
-import Delivery from '../pages/Delivery';
-import Login from '../pages/Login';
-import NotFound from '../pages/NotFound';
-import Shop from '../pages/Shop/Shop';
-import Signup from '../pages/Signup';
-import User from '../pages/User';
+import Admin from '../views/forAdmin/Admin/Admin';
+import Basket from '../views/forAll/Basket';
+import Product from '../views/forAll/Product';
+import Contacts from '../views/forAll/Contacts';
+import Delivery from '../views/forAll/Delivery';
+import Login from '../views/forAll/Login';
+import NotFound from '../views/forAll/NotFound';
+import Shop from '../views/forAll/Shop/Shop';
+import User from '../views/forAll/User';
 import {useAppContext} from './AppContext';
-import Checkout from '../pages/Checkout';
-import UserOrders from '../pages/UserOrders';
-import UserOrder from '../pages/UserOrder';
-import AdminOrders from '../pages/AdminOrders';
-import AdminOrder from '../pages/AdminOrder';
-import AdminIndustries from '../pages/AdminIndustries';
-import AdminSolutions from '../pages/AdminSolutions';
-import AdminAreas from '../pages/AdminAreas';
-import AdminProducts from '../pages/AdminProducts';
-import AdminMessages from '../pages/AdminMessages';
-import AdminMessage from '../pages/AdminMessage';
-import AdminSubscriptions from '../pages/AdminSubscriptions';
-import Main from '../pages/Main/Main';
+import Checkout from '../views/forAll/Checkout';
+import UserOrders from '../views/forAll/UserOrders';
+import UserOrder from '../views/forAll/UserOrder';
+import AdminOrders from '../views/forAdmin/AdminOrders';
+import AdminOrder from '../views/forAdmin/AdminOrder';
+import AdminIndustries from '../views/forAdmin/AdminIndustries';
+import AdminSolutions from '../views/forAdmin/AdminSolutions';
+import AdminAreas from '../views/forAdmin/AdminAreas';
+import AdminProducts from '../views/forAdmin/AdminProducts';
+import AdminMessages from '../views/forAdmin/AdminMessages';
+import AdminMessage from '../views/forAdmin/AdminMessage';
+import AdminSubscriptions from '../views/forAdmin/AdminSubscriptions';
+import Main from '../views/forAll/Main/Main';
+import Industries from '../views/forAll/Industries/Industries';
+import IndustriesItem from '../views/forAll/Industries/IndustriesItem';
+import IndustriesSubItem from '../views/forAll/Industries/IndustriesSubItem';
+import AdminSubIndustries from '../views/forAdmin/AdminSubIndustries';
+import Solutions from '../views/forAll/Solutions/Solutions';
+import SolutionsItem from '../views/forAll/Solutions/SolutionsItem';
 import {EPath} from '../enums/EPath';
 
-const publicRoutes = [
-  {path: EPath.Shop, Component: Shop},
-  {path: EPath.Login, Component: Login},
-  {path: EPath.Signup, Component: Signup},
-  {path: EPath.Product, Component: Product},
-  {path: EPath.Basket, Component: Basket},
-  {path: EPath.Checkout, Component: Checkout},
-  {path: EPath.Delivery, Component: Delivery},
-  {path: EPath.Contacts, Component: Contacts},
-  {path: EPath.NotFound, Component: NotFound},
-  {path: EPath.Main, Component: Main},
+enum ERoute {
+  Path = 'path',
+  Component = 'Component',
+}
+
+interface IRoute {
+  [ERoute.Path]: EPath;
+  [ERoute.Component](): JSX.Element;
+}
+
+const publicRoutes: IRoute[] = [
+  {[ERoute.Path]: EPath.Shop, [ERoute.Component]: Shop},
+  {[ERoute.Path]: EPath.Login, [ERoute.Component]: Login},
+  {[ERoute.Path]: EPath.Signup, [ERoute.Component]: Login},
+  {[ERoute.Path]: EPath.Product, [ERoute.Component]: Product},
+  {[ERoute.Path]: EPath.Basket, [ERoute.Component]: Basket},
+  {[ERoute.Path]: EPath.Checkout, [ERoute.Component]: Checkout},
+  {[ERoute.Path]: EPath.Delivery, [ERoute.Component]: Delivery},
+  {[ERoute.Path]: EPath.Contacts, [ERoute.Component]: Contacts},
+  {[ERoute.Path]: EPath.NotFound, [ERoute.Component]: NotFound},
+  {[ERoute.Path]: EPath.Main, [ERoute.Component]: Main},
+  {[ERoute.Path]: EPath.Industries, [ERoute.Component]: Industries},
+  {[ERoute.Path]: EPath.IndustriesItem, [ERoute.Component]: IndustriesItem},
+  {[ERoute.Path]: EPath.IndustriesSubItem, [ERoute.Component]: IndustriesSubItem},
+  {[ERoute.Path]: EPath.Solutions, [ERoute.Component]: Solutions},
+  {[ERoute.Path]: EPath.SolutionsItem, [ERoute.Component]: SolutionsItem},
 ];
 
-const authRoutes = [
-  {path: EPath.User, Component: User},
-  {path: EPath.UserOrders, Component: UserOrders},
-  {path: EPath.UserOrder, Component: UserOrder},
+const authRoutes: IRoute[] = [
+  {[ERoute.Path]: EPath.User, [ERoute.Component]: User},
+  {[ERoute.Path]: EPath.UserOrders, [ERoute.Component]: UserOrders},
+  {[ERoute.Path]: EPath.UserOrder, [ERoute.Component]: UserOrder},
 ];
 
-const adminRoutes = [
-  {path: EPath.Admin, Component: Admin},
-  {path: EPath.AdminOrders, Component: AdminOrders},
-  {path: EPath.AdminOrder, Component: AdminOrder},
-  {path: EPath.AdminIndustries, Component: AdminIndustries},
-  {path: EPath.AdminSolutions, Component: AdminSolutions},
-  {path: EPath.AdminAreas, Component: AdminAreas},
-  {path: EPath.AdminProducts, Component: AdminProducts},
-  {path: EPath.AdminMessages, Component: AdminMessages},
-  {path: EPath.AdminMessage, Component: AdminMessage},
-  {path: EPath.AdminSubscriptions, Component: AdminSubscriptions},
+const adminRoutes: IRoute[] = [
+  {[ERoute.Path]: EPath.Admin, [ERoute.Component]: Admin},
+  {[ERoute.Path]: EPath.AdminOrders, [ERoute.Component]: AdminOrders},
+  {[ERoute.Path]: EPath.AdminOrder, [ERoute.Component]: AdminOrder},
+  {[ERoute.Path]: EPath.AdminIndustries, [ERoute.Component]: AdminIndustries},
+  {[ERoute.Path]: EPath.AdminSolutions, [ERoute.Component]: AdminSolutions},
+  {[ERoute.Path]: EPath.AdminAreas, [ERoute.Component]: AdminAreas},
+  {[ERoute.Path]: EPath.AdminProducts, [ERoute.Component]: AdminProducts},
+  {[ERoute.Path]: EPath.AdminMessages, [ERoute.Component]: AdminMessages},
+  {[ERoute.Path]: EPath.AdminMessage, [ERoute.Component]: AdminMessage},
+  {[ERoute.Path]: EPath.AdminSubscriptions, [ERoute.Component]: AdminSubscriptions},
+  {[ERoute.Path]: EPath.AdminSubIndustries, [ERoute.Component]: AdminSubIndustries},
 ];
 
 const AppRouter = observer(() => {
   const {user} = useAppContext();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   return (
     <Routes>

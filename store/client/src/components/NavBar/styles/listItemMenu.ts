@@ -1,3 +1,5 @@
+import {theme} from '../../../styles/theme';
+
 export const listItemMenu = {
   paper: {
     padding: '40px 25px',
@@ -21,11 +23,11 @@ export const listItemMenu = {
     justifyContent: 'space-between',
     width: '100%',
     height: '100%',
-    color: '#008f38',
+    color: theme.palette.first.main,
     padding: '0 15px',
 
     '&:hover': {
-      color: '#008f38',
+      color: theme.palette.first.main,
     },
 
     wrapper(length: number) {
@@ -43,7 +45,6 @@ export const listItemMenu = {
     width: '100%',
     height: '100%',
     padding: '0 15px',
-    color: '#6f6f6f',
     textTransform: 'capitalize',
 
     '& svg': {
@@ -51,7 +52,7 @@ export const listItemMenu = {
     },
 
     '&:hover': {
-      color: '#008f38',
+      color: theme.palette.first.main,
 
       '& svg': {
         display: 'block',

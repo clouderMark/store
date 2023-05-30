@@ -1,26 +1,26 @@
-import {ICatalogItem, IProductWithProps} from '../../types/types';
+import {ICatalogItem, IProductWithProps, IAreaResponse} from '../../types/types';
 
 export interface ITitle {
-  title: 'solution' | 'industry' | 'goods' | 'area';
+  title: 'solution' | 'industry' | 'goods' | 'area' | 'subindustry';
 }
 
 export interface ITableBodyCells extends ITitle {
-  items: Array<ICatalogItem | IProductWithProps>;
+  items: Array<ICatalogItem | IProductWithProps | IAreaResponse>;
   handleUpdateClick(id: number): void;
   handleDeleteClick(id: number): void;
 }
 
 export interface IProps extends ITableBodyCells {
-  children: Array<() => JSX.Element>;
+  children: JSX.Element[];
   handleCreateClick(): void;
-  items: Array<ICatalogItem | IProductWithProps>;
   pagination?: {
     totalPages: number;
     pagination(): JSX.Element;
   };
+  headCells: ICells[];
 }
 
 export interface ICells {
   field: string;
-  headerName: string;
+  value: string;
 }

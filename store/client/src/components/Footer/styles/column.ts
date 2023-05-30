@@ -1,7 +1,8 @@
+import {theme} from '../../../styles/theme';
 import {tabletSize} from '../query';
 
-const color = '#6f6f6f';
-const colorHover = '#008f38';
+const color = theme.palette.fourth.main;
+const colorHover = theme.palette.first.main;
 
 export const column = {
   color: color,

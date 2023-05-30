@@ -1,6 +1,8 @@
+import {theme} from '../../../styles/theme';
+
 const tabletSize = 767;
 const fontWeight = 300;
-const color = 'white';
+const color = theme.palette.third.main;
 
 export const form = {
   width: '50%',
@@ -61,7 +63,7 @@ const textField = {
     fontWeight: fontWeight,
     borderRadius: 0,
     '& fieldset': {
-      borderColor: 'rgba(255, 255, 255, 0.6)',
+      borderColor: theme.palette.third.light,
     },
     '&:hover fieldset': {
       borderColor: color,

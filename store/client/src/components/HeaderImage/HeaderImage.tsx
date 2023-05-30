@@ -1,4 +1,4 @@
-import React from 'react';
+import {Fragment} from 'react';
 import {NavLink} from 'react-router-dom';
 import {Box, Typography, Button} from '@mui/material';
 import useMediaQuery from '@mui/material/useMediaQuery';
@@ -22,12 +22,12 @@ const HeaderImage = () => {
           </Typography>
           <Typography component="h3">
             {content.strong.map((el, i) => (
-              <React.Fragment key={i}>
+              <Fragment key={i}>
                 <Typography sx={header.strong} component="strong">
                   {el}
                 </Typography>
                 <br />
-              </React.Fragment>
+              </Fragment>
             ))}
           </Typography>
           <Button

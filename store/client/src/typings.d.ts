@@ -24,3 +24,9 @@ declare module '*.jpg' {
   const value: any;
   export = value;
 }
+
+declare module '*.webp' {
+  // eslint-disable-next-line
+  const value: any;
+  export = value;
+}

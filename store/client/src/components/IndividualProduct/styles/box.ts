@@ -1,5 +1,6 @@
 import bg1 from '../../../image/bg1.png';
 import bg2 from '../../../image/bg2.png';
+import {theme} from '../../../styles/theme';
 
 export const box = {
   display: 'flex',
@@ -7,7 +8,7 @@ export const box = {
   justifyContent: 'center',
   alignItems: 'center',
   height: '281px',
-  backgroundColor: '#008f38',
+  backgroundColor: theme.palette.first.main,
   backgroundImage: `url(${bg1}), url(${bg2})`,
   backgroundRepeat: 'no-repeat',
   backgroundPosition: '0 -150px, right 0',

@@ -1,20 +1,21 @@
+import {theme} from '../../../styles/theme';
+
 export const bar = {
   title: {
     marginBottom: '15px',
-    color: '#008f38',
+    color: theme.palette.first.main,
     fontWeight: 500,
     textTransform: 'uppercase',
     '&.Mui-focused': {
-      color: '#008f38',
+      color: theme.palette.first.main,
     },
   },
   text: {
     marginRight: '15px',
     fontWeight: 400,
     textTransform: 'capitalize',
-    color: '#6f6f6f',
     '&:hover': {
-      color: '#008f38',
+      color: theme.palette.first.main,
     },
   },
   divider: {

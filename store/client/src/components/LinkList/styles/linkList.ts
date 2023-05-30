@@ -53,7 +53,6 @@ export const linkList = {
     marginBottom: '23px',
     fontWeight: 300,
     fontSize: '30px',
-    color: '#6f6f6f',
   },
 
   box: {

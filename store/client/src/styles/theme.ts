@@ -5,12 +5,14 @@ declare module '@mui/material/styles' {
     first?: PaletteColorOptions;
     second?: PaletteColorOptions;
     third?: PaletteColorOptions;
+    fourth?: PaletteColorOptions;
   }
 
   interface Palette {
     first: PaletteColor;
     second: PaletteColor;
     third: PaletteColor;
+    fourth: PaletteColor;
   }
 
   interface ButtonPropsColorOverrides {
@@ -25,6 +27,7 @@ declare module '@mui/material/Button' {
     first: true;
     second: true;
     third: true;
+    fourth: true;
   }
 }
 
@@ -32,13 +35,19 @@ const globalTheme = createTheme({
   palette: {
     first: {
       main: '#008f38',
+      dark: '#007146',
     },
     second: {
       main: '#a3d8dd',
     },
     third: {
       main: '#fff',
-      light: lighten('#fff', 0.6),
+      light: 'rgba(255, 255, 255, .6)',
+      dark: 'rgba(255, 255, 255, .3)',
+    },
+    fourth: {
+      main: '#6f6f6f',
+      light: lighten('#6f6f6f', 0.3),
     },
   },
 });
@@ -47,6 +56,7 @@ export const theme = createTheme({
   palette: {
     first: {
       main: globalTheme.palette.first.main,
+      dark: globalTheme.palette.first.dark,
     },
     second: {
       main: globalTheme.palette.second.main,
@@ -54,6 +64,15 @@ export const theme = createTheme({
     third: {
       main: globalTheme.palette.third.main,
       light: globalTheme.palette.third.light,
+    },
+    fourth: {
+      main: globalTheme.palette.fourth.main,
+      light: globalTheme.palette.fourth.light,
+    },
+  },
+  typography: {
+    allVariants: {
+      color: globalTheme.palette.fourth.main,
     },
   },
   components: {
@@ -63,7 +82,7 @@ export const theme = createTheme({
           height: '54px',
           padding: '25px',
           borderRadius: 0,
-          color: '#6f6f6f',
+          color: globalTheme.palette.fourth.main,
           fontWeight: 400,
           fontSize: '1.125rem',
           textTransform: 'none',
@@ -81,7 +100,7 @@ export const theme = createTheme({
             color: globalTheme.palette.third.main,
 
             '&:hover': {
-              backgroundColor: '#007146',
+              backgroundColor: globalTheme.palette.first.dark,
               color: globalTheme.palette.third.main,
             },
           },

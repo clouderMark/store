@@ -1,4 +1,4 @@
-const color = '#6f6f6f';
+import {theme} from '../../../styles/theme';
 
 export const listWithSubheader = {
   item: {
@@ -7,7 +7,8 @@ export const listWithSubheader = {
     fontWeight: 300,
     fontSize: '18px',
     padding: 0,
-    color: color,
+    color: theme.palette.fourth.main,
     lineHeight: 1.2,
+    backgroundColor: 'inherit',
   },
 };

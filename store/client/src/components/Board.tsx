@@ -8,8 +8,8 @@ import {
 } from '@mui/material';
 
 interface IProps {
-  tableHeadCells?(): JSX.Element;
-  tableBodyCells(): JSX.Element;
+  tableHeadCells?: JSX.Element;
+  tableBodyCells: JSX.Element;
 }
 
 export const Board = (props: IProps) => (
@@ -18,13 +18,13 @@ export const Board = (props: IProps) => (
       {props.tableHeadCells ? (
         <TableHead>
           <TableRow>
-            {props.tableHeadCells()}
+            {props.tableHeadCells}
           </TableRow>
         </TableHead>
       ) : null}
       {props.tableBodyCells ? (
         <TableBody>
-          {props.tableBodyCells()}
+          {props.tableBodyCells}
         </TableBody>
       ) : null}
     </Table>

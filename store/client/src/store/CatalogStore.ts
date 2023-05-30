@@ -1,8 +1,12 @@
 import {makeAutoObservable} from 'mobx';
-import {ICatalogItem, IProductWithProps} from '../types/types';
+import {ICatalogItem, IProductWithProps, IAreaResponse} from '../types/types';
 
 class CatalogStore {
-  private _industries: ICatalogItem[] = [];
+  private _industries: IAreaResponse[] = [];
+
+  private _industriesFetching = true;
+
+  private _subIndustries: IAreaResponse[] = [];
 
   private _solutions: ICatalogItem[] = [];
 
@@ -14,13 +18,15 @@ class CatalogStore {
 
   private _solution: number[] = [];
 
+  private _solutionFetching = true;
+
   private _area: number[] = [];
 
   private _page = 1;
 
   private _count = 0; // сколько всего товаров
 
-  private _limit = 20; // товаров на страницу
+  private _limit = 5; // товаров на страницу
 
   constructor() {
     makeAutoObservable(this);
@@ -30,8 +36,24 @@ class CatalogStore {
     return this._industries;
   }
 
-  set industries(industries: ICatalogItem[]) {
+  set industries(industries: IAreaResponse[]) {
     this._industries = industries;
+  }
+
+  get industriesFetching() {
+    return this._industriesFetching;
+  }
+
+  set industriesFetching(is: boolean) {
+    this._industriesFetching = is;
+  }
+
+  get subIndustries() {
+    return this._subIndustries;
+  }
+
+  set subIndustries(industries: IAreaResponse[]) {
+    this._subIndustries = industries;
   }
 
   get solutions() {
@@ -40,6 +62,14 @@ class CatalogStore {
 
   set solutions(solutions: ICatalogItem[]) {
     this._solutions = solutions;
+  }
+
+  get solutionsFetching() {
+    return this._solutionFetching;
+  }
+
+  set solutionsFetching(is: boolean) {
+    this._solutionFetching = is;
   }
 
   get areas() {

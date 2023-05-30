@@ -4,6 +4,8 @@ import {FormControl, FormLabel, FormGroup, FormControlLabel, Checkbox, Divider} 
 import {useAppContext} from '../AppContext';
 import {IObject} from '../../types/types';
 import {bar} from './styles/bar';
+import {EPath} from '../../enums/EPath';
+import {EQuery} from '../../enums/EQuery';
 
 const AreaBar = observer(() => {
   const {catalog} = useAppContext();
@@ -21,12 +23,12 @@ const AreaBar = observer(() => {
     // при каждом клике добавляем в историю браузера новый элемент
     const params: IObject = {};
 
-    if (catalog.industry.length) params.industry = catalog.industry.join(',');
-    if (catalog.solution.length) params.solution = catalog.solution.join(',');
-    if (catalog.area.length) params.area = catalog.area.join(',');
-    if (catalog.page > 1) params.page = `${catalog.page}`;
+    if (catalog.industry.length) params[EQuery.industry] = catalog.industry.join(',');
+    if (catalog.solution.length) params[EQuery.solution] = catalog.solution.join(',');
+    if (catalog.area.length) params[EQuery.area] = catalog.area.join(',');
+    if (catalog.page > 1) params[EQuery.page] = `${catalog.page}`;
     navigate({
-      pathname: '/shop',
+      pathname: EPath.Shop,
       search: `?${createSearchParams(params)}`,
     });
   };

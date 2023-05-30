@@ -9,17 +9,13 @@ import {TableBodyCells} from './TableBodyCells';
 
 const Orders = (props: IProps) => {
   if (props.items.length === 0) {
-    return <Typography variant="body1">Список заказов пустой</Typography>;
+    return <Typography variant="body1" sx={{mt: 4, mb: 10}}>Список заказов пустой</Typography>;
   }
-
-  const HeadCells = () => TableHeadCells(props.admin);
-
-  const BodyCells = () => TableBodyCells(props);
 
   return (
     <Board
-      tableHeadCells={HeadCells}
-      tableBodyCells={BodyCells}
+      tableHeadCells={TableHeadCells(props.admin)}
+      tableBodyCells={TableBodyCells(props)}
     />
   );
 };

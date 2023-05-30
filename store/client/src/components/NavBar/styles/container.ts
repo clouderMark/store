@@ -8,7 +8,7 @@ export const container = {
 
   [`@media (max-width: ${queryTablet}px)`]: {
     height: 105,
-    pt: 0.9,
+    pt: 2.5,
     mb: 0,
   },
 
