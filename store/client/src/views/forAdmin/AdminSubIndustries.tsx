@@ -12,8 +12,9 @@ const AdminSubIndustries = () => {
   const {catalog} = useAppContext();
   const [show, setShow] = useState(false);
   const [change, setChange] = useState(false);
-  const [industryId, setIndustryId] = useState<null | number>(null);
+  const [subIndustryId, setSubIndustryId] = useState<null | number>(null);
   const [parentName, setParentName] = useState('');
+  const [error, setError] = useState(false);
   const [alertOnDelete, setAlertOnDelete] = useState<false | string>(false);
 
   const handleCreateClick = () => {
@@ -21,7 +22,7 @@ const AdminSubIndustries = () => {
   };
 
   const handleUpdateClick = (id: number) => {
-    setIndustryId(id);
+    setSubIndustryId(id);
     setShow(true);
   };
 
@@ -40,6 +41,7 @@ const AdminSubIndustries = () => {
 
   const handleInputChange = (event: SelectChangeEvent<string>) => {
     setParentName(event.target.value);
+    setError(false);
   };
 
   const SelectComponent = (
@@ -51,6 +53,7 @@ const AdminSubIndustries = () => {
           name="industry"
           value={parentName}
           onChange={(e) => handleInputChange(e)}
+          error={error}
         >
           {!catalog.industriesFetching &&
             catalog.industries.map((item) => (
@@ -72,15 +75,21 @@ const AdminSubIndustries = () => {
         children={[
           <EditIndustry
             popUpTitle="подиндустрии"
-            id={industryId}
-            setId={setIndustryId}
+            id={subIndustryId}
+            setId={setSubIndustryId}
             show={show}
             setShow={setShow}
             setChange={setChange}
             fetch={fetchSubIndustry}
             create={createSubIndustry}
             updata={updateSubIndustry}
-            child={{component: SelectComponent, value: parentName, setValue: setParentName}}
+            child={{
+              component: SelectComponent,
+              value: parentName,
+              setValue: setParentName,
+              error: error,
+              setError: setError,
+            }}
             key="1"
           />,
         ]}
