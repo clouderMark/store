@@ -113,7 +113,7 @@ class Industry {
   }
 
   async update(id, data, cardImg, headerImg, infoImg, opinionImg, sliderImg) {
-    const industry = await IndustryMapping.findByPk(id, rows);
+    const industry = await IndustryMapping.findByPk(id, rowsWithParagraphs);
     if (!industry) {
       throw new Error('Индустрия не найдена в БД');
     }
@@ -180,22 +180,28 @@ class Industry {
       { where: { infoId: id } }
     );
 
-    if (paragraphs) {
+    if (industry.paragraphs) {
       await IndustryParagraphMapping.destroy({ where: { industryId: id } });
+    }
+    if (paragraphs) {
       createParagraphs(paragraphs, industry.id);
     }
 
-    if (listItems) {
+    if (industry.info.listItems) {
       await ListItemMapping.destroy({
         where: { indInfoId: id },
       });
+    }
+    if (listItems) {
       createListItems(listItems, industry.id);
     }
 
-    if (infoParagraphs) {
+    if (industry.info.paragraphs) {
       await InfoParagraphMapping.destroy({
         where: { indInfoId: id },
       });
+    }
+    if (infoParagraphs) {
       createInfoParagraphs(infoParagraphs, industry.id);
     }
 
@@ -212,13 +218,17 @@ class Industry {
       { where: { opinionId: id } }
     );
 
-    if (opinionListItems) {
+    if (industry.opinion.listItems) {
       await OpinionItemMapping.destroy({ where: { indOpinionId: id } });
+    }
+    if (opinionListItems) {
       createOpinionListItems(opinionListItems, industry.id);
     }
 
-    if (opinionParagraphs) {
+    if (industry.opinion.paragraphs) {
       await OpinionParagraphMapping.destroy({ where: { indOpinionId: id } });
+    }
+    if (opinionParagraphs) {
       createOpinionParagraphs(opinionParagraphs, industry.id);
     }
 
