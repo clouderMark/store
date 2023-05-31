@@ -30,10 +30,10 @@ const Product = sequelize.define('product', {
 
 const Industry = sequelize.define('industry', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    name: {type: DataTypes.TEXT, unique: true, allowNull: false},
     cardImage: {type: DataTypes.STRING, allowNull: false},
     headerImage: {type: DataTypes.STRING, allowNull: false},
-    title: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.TEXT, allowNull: false},
     sliderImage: {type: DataTypes.STRING, allowNull: false},
 })
 
@@ -44,15 +44,15 @@ const IndustryParagraph = sequelize.define('industry_paragraph', {
 
 const IndustryInfo = sequelize.define('ind_info', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title: {type: DataTypes.STRING, allowNull: false},
-    header: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.TEXT, allowNull: false},
+    header: {type: DataTypes.TEXT, allowNull: false},
     listTitle: {type: DataTypes.TEXT, allowNull: false},
     image: {type: DataTypes.STRING, allowNull: false},
 })
 
 const IndustryListItem = sequelize.define('ind_list_item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    value: {type: DataTypes.STRING, allowNull: false},
+    value: {type: DataTypes.TEXT, allowNull: false},
 })
 
 const IndustryInfoParagraph = sequelize.define('ind_paragraphs', {
@@ -62,9 +62,9 @@ const IndustryInfoParagraph = sequelize.define('ind_paragraphs', {
 
 const IndustryOpinion = sequelize.define('ind_opinion', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.TEXT, allowNull: false},
     listTitle: {type: DataTypes.TEXT, allowNull: false},
-    name: {type: DataTypes.STRING, allowNull: false},
+    name: {type: DataTypes.TEXT, allowNull: false},
     image: {type: DataTypes.STRING, allowNull: false},
     phone: {type: DataTypes.STRING, allowNull: false},
     fax: {type: DataTypes.STRING, allowNull: false},
@@ -78,15 +78,15 @@ const IndustryOpinionParagraph = sequelize.define('ind_op_paragraphs', {
 
 const IndustryOpinionItem = sequelize.define('ind_op_list_item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    value: {type: DataTypes.STRING, allowNull: false},
+    value: {type: DataTypes.TEXT, allowNull: false},
 })
 
 const SubIndustry = sequelize.define('subindustry', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    name: {type: DataTypes.TEXT, unique: true, allowNull: false},
     cardImage: {type: DataTypes.STRING, allowNull: false},
     headerImage: {type: DataTypes.STRING, allowNull: false},
-    title: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.TEXT, allowNull: false},
 })
 
 const SubIndustryParagraph = sequelize.define('subindustry_paragraph', {
@@ -96,15 +96,15 @@ const SubIndustryParagraph = sequelize.define('subindustry_paragraph', {
 
 const SubInfo = sequelize.define('sub_info', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title: {type: DataTypes.STRING, allowNull: false},
-    header: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.TEXT, allowNull: false},
+    header: {type: DataTypes.TEXT, allowNull: false},
     listTitle: {type: DataTypes.TEXT, allowNull: false},
     image: {type: DataTypes.STRING, allowNull: false},
 })
 
 const SubListItem = sequelize.define('sub_list_item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    value: {type: DataTypes.STRING, allowNull: false},
+    value: {type: DataTypes.TEXT, allowNull: false},
 })
 
 const SubInfoParagraph = sequelize.define('sub_paragraphs', {
@@ -114,9 +114,9 @@ const SubInfoParagraph = sequelize.define('sub_paragraphs', {
 
 const SubOpinion = sequelize.define('sub_opinion', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.TEXT, allowNull: false},
     listTitle: {type: DataTypes.TEXT, allowNull: false},
-    name: {type: DataTypes.STRING, allowNull: false},
+    name: {type: DataTypes.TEXT, allowNull: false},
     image: {type: DataTypes.STRING, allowNull: false},
     phone: {type: DataTypes.STRING, allowNull: false},
     fax: {type: DataTypes.STRING, allowNull: false},
@@ -130,15 +130,15 @@ const SubOpinionParagraph = sequelize.define('sub_op_paragraphs', {
 
 const SubOpinionItem = sequelize.define('sub_op_list_item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    value: {type: DataTypes.STRING, allowNull: false},
+    value: {type: DataTypes.TEXT, allowNull: false},
 })
 
 const Solution = sequelize.define('solution', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    name: {type: DataTypes.TEXT, unique: true, allowNull: false},
     cardImage: {type: DataTypes.STRING, allowNull: false},
     headerImage: {type: DataTypes.STRING, allowNull: false},
-    title: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.TEXT, allowNull: false},
 }, { timestamps: false })
 
 const SolutionParagraph = sequelize.define('solution_paragraph', {
@@ -166,9 +166,9 @@ const SolutionInfoTitle = sequelize.define('solution_info_title', {
 
 const SolutionOpinion = sequelize.define('solution_opinion', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    title: {type: DataTypes.STRING, allowNull: false},
+    title: {type: DataTypes.TEXT, allowNull: false},
     listTitle: {type: DataTypes.TEXT, allowNull: false},
-    name: {type: DataTypes.STRING, allowNull: false},
+    name: {type: DataTypes.TEXT, allowNull: false},
     image: {type: DataTypes.STRING, allowNull: false},
     phone: {type: DataTypes.STRING, allowNull: false},
     fax: {type: DataTypes.STRING, allowNull: false},
@@ -182,12 +182,12 @@ const SolutionOpinionParagraph = sequelize.define('solution_op_paragraphs', {
 
 const SolutionOpinionItem = sequelize.define('solution_op_list_item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    value: {type: DataTypes.STRING, allowNull: false},
+    value: {type: DataTypes.TEXT, allowNull: false},
 }, { timestamps: false })
 
 const Area = sequelize.define('area', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, unique: true, allowNull: false},
+    name: {type: DataTypes.TEXT, unique: true, allowNull: false},
 })
 
 const Rating = sequelize.define('rating', {
@@ -196,19 +196,19 @@ const Rating = sequelize.define('rating', {
 
 const ProductProp = sequelize.define('product_prop', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: { type: DataTypes.STRING, allowNull: false},
-    value: {type: DataTypes.STRING, allowNull: false}
+    name: { type: DataTypes.TEXT, allowNull: false},
+    value: {type: DataTypes.TEXT, allowNull: false}
 })
 
 const Order = sequelize.define('order', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, allowNull: false},
+    name: {type: DataTypes.TEXT, allowNull: false},
     email: {type: DataTypes.STRING, allowNull: false},
     phone: {type: DataTypes.STRING, allowNull: false},
-    address: {type: DataTypes.STRING, allowNull: false},
+    address: {type: DataTypes.TEXT, allowNull: false},
     amount: {type: DataTypes.INTEGER, allowNull: false},
     status: {type: DataTypes.INTEGER, allowNull: false, defaultValue: 0},
-    comment: {type: DataTypes.STRING},
+    comment: {type: DataTypes.TEXT},
     prettyCreatedAt: {
         type: DataTypes.VIRTUAL,
         get() {
@@ -226,7 +226,7 @@ const Order = sequelize.define('order', {
         get() {
             const value = this.getDataValue('updatedAt')
             const day = value.getDate()
-            const month = value.getMonth() + 1 // почему плюс 1 ?
+            const month = value.getMonth() + 1
             const year = value.getFullYear()
             const hours = value.getHours()
             const minutes = value.getMinutes()
@@ -237,7 +237,7 @@ const Order = sequelize.define('order', {
 
 const OrderItem = sequelize.define('order_item', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    name: {type: DataTypes.STRING, allowNull: false},
+    name: {type: DataTypes.TEXT, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
     quantity: {type: DataTypes.INTEGER, allowNull: false},
     image: {type: DataTypes.STRING, allowNull: false},
@@ -245,11 +245,11 @@ const OrderItem = sequelize.define('order_item', {
 
 const Message = sequelize.define('message', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
-    company: {type: DataTypes.STRING, allowNull: false},
-    name: {type: DataTypes.STRING, allowNull: false},
+    company: {type: DataTypes.TEXT, allowNull: false},
+    name: {type: DataTypes.TEXT, allowNull: false},
     email: {type: DataTypes.STRING, allowNull: false},
     phone: {type: DataTypes.STRING, allowNull: false},
-    question: {type: DataTypes.STRING, allowNull: false},
+    question: {type: DataTypes.TEXT, allowNull: false},
     type: {type: DataTypes.STRING, allowNull: false},
 })
 
