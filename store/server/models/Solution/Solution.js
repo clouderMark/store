@@ -141,8 +141,10 @@ class Solution {
     } = data;
     await solution.update({ name, cardImage, headerImage, title });
 
+    if (solution.paragraphs) {
+      await ParagraphMapping.destroy({where: { solutionId: id}});
+    }
     if (paragraphs) {
-        await ParagraphMapping.destroy({where: { solutionId: id}});
         createParagraphs(paragraphs, solution.id);;
     }
 
@@ -183,15 +185,19 @@ class Solution {
       { where: { opinionId: id } }
     );
 
-    if (opinionListItems) {
+    if (solution.opinion.listItems) {
       await OpinionItemMapping.destroy({ where: { solutionOpinionId: id } });
+    }
+    if (opinionListItems) {
       createOpinionListItems(opinionListItems, id);
     }
 
-    if (opinionParagraphs) {
+    if (solution.opinion.paragraphs) {
       await OpinionParagraphMapping.destroy({
         where: { solutionOpinionId: id },
       });
+    }
+    if (opinionParagraphs) {
       createOpinionParagraphs(opinionParagraphs, id);
     }
 

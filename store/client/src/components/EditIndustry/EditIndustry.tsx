@@ -9,10 +9,7 @@ import {reducer as opinionReducer, initState as opinionInitState} from '../PopUp
 import defaultOpinionValue from '../PopUps/Add/AddOpinion/defaultValue';
 import EOpinion from '../PopUps/Add/AddOpinion/EOpinion';
 import appendOpinionToData from '../PopUps/Add/AddOpinion/appendOpinionToData';
-import {
-  reducer as imageWithTextFieldReducer,
-  initState as initStateInfo,
-} from '../PopUps/Add/AddInfo/reducer';
+import {reducer as imageWithTextFieldReducer, initState as initStateInfo} from '../PopUps/Add/AddInfo/reducer';
 import defaultInfoValue from '../PopUps/Add/AddInfo/defaultValue';
 import EField from '../PopUps/Add/AddInfo/EField';
 import appendInfo from '../PopUps/Add/AddInfo/appendInfo';
@@ -31,7 +28,13 @@ interface IProps {
   fetch(id: number): Promise<IAreaResponse>;
   create(data: FormData): Promise<IAreaResponse>;
   updata(id: number, industry: FormData): Promise<IAreaResponse>;
-  child?: {component: JSX.Element; value: string; setValue: Dispatch<SetStateAction<string>>};
+  child?: {
+    component: JSX.Element;
+    value: string;
+    setValue: Dispatch<SetStateAction<string>>;
+    error: boolean;
+    setError: Dispatch<SetStateAction<boolean>>;
+  };
 }
 
 const EditIndustry = (props: IProps) => {
@@ -86,12 +89,19 @@ const EditIndustry = (props: IProps) => {
 
     const correct = value[EType.name].trim() !== '';
 
+    if (props.child) {
+      if (props.child.value.trim() === '') {
+        props.child.setError(true);
+      }
+    }
+
     dispatch({type: EType.valid, payload: correct});
-    if (correct) {
+
+    if (correct && (props.child ? props.child.value.trim() : true)) {
       const data = new FormData();
 
       if (props.child) {
-        data.append('industryId', props.child.value.trim()); // вот это потерял
+        data.append('industryId', props.child.value.trim());
       }
 
       data.append(EType.name, value[EType.name].trim());
